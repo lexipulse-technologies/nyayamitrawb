@@ -1,0 +1,23 @@
+# NyayaMitra (https://nyayamitrawb.in) - Search Engine Directives
+# Single-Source-of-Truth Civil Legal Navigator for West Bengal
+
+User-agent: *
+Allow: /
+Allow: /assets/
+Allow: /sitemap.xml
+Disallow: /api/verify-payment
+Disallow: /api/create-order
+Disallow: /api/notify
+
+# Search Engine Specific Directives (Google, Bing, Slurp, DuckDuckGo)
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: IndexNow
+Allow: /
+
+# Canonical XML Sitemap Reference
+Sitemap: https://nyayamitrawb.in/sitemap.xml

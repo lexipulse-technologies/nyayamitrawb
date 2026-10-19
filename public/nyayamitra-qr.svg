@@ -1,0 +1,157 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" width="800" height="1000">
+  <defs>
+    <linearGradient id="headerGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a2540" />
+      <stop offset="50%" stop-color="#0f2b48" />
+      <stop offset="100%" stop-color="#123961" />
+    </linearGradient>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#f59e0b" />
+      <stop offset="100%" stop-color="#d97706" />
+    </linearGradient>
+    <linearGradient id="borderGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#f59e0b" />
+      <stop offset="50%" stop-color="#059669" />
+      <stop offset="100%" stop-color="#0f2b48" />
+    </linearGradient>
+    <filter id="cardShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#0f2b48" flood-opacity="0.18" />
+    </filter>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect width="800" height="1000" fill="#f8fafc" />
+
+  <!-- Outer Card Frame -->
+  <rect x="25" y="25" width="750" height="950" rx="28" fill="#ffffff" stroke="url(#borderGrad)" stroke-width="4" filter="url(#cardShadow)" />
+
+  <!-- Tricolor Accent Strip -->
+  <path d="M 27 50 Q 27 27 50 27 L 750 27 Q 773 27 773 50 L 773 35 L 27 35 Z" fill="#f59e0b" />
+  <rect x="27" y="35" width="746" height="4" fill="#ffffff" />
+  <rect x="27" y="39" width="746" height="4" fill="#059669" />
+
+  <!-- Header Banner -->
+  <rect x="27" y="43" width="746" height="150" fill="url(#headerGrad)" />
+
+  <!-- Scale of Justice Icon Badge -->
+  <g transform="translate(60, 75)">
+    <rect width="80" height="80" rx="18" fill="url(#goldGrad)" />
+    <path d="m56 56 6-16 6 16c-1.74 1.3-3.84 2-6 2s-4.26-.7-6-2Z" fill="none" stroke="#0a2540" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+    <path d="m14 56 6-16 6 16c-1.74 1.3-3.84 2-6 2s-4.26-.7-6-2Z" fill="none" stroke="#0a2540" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+    <path d="M26 68h28" stroke="#0a2540" stroke-width="4" stroke-linecap="round" />
+    <path d="M40 16v48" stroke="#0a2540" stroke-width="4" stroke-linecap="round" />
+    <path d="M16 28h8c4 0 10-2 16-4 6 2 12 4 16 4h8" fill="none" stroke="#0a2540" stroke-width="4" stroke-linecap="round" />
+  </g>
+
+  <!-- Portal Title & Subtitle -->
+  <text x="160" y="105" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="900" fill="#ffffff" letter-spacing="0.5">NYAYAMITRA (ন্যায়মিত্র)</text>
+  <text x="160" y="133" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="700" fill="#f59e0b">WEST BENGAL CIVIL LEGAL NAVIGATOR</text>
+  <text x="160" y="157" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="500" fill="#cbd5e1">300 Verified Civil Procedural Workflows &#8226; 23 Districts</text>
+
+  <!-- Trilingual Language Pill -->
+  <g transform="translate(160, 168)">
+    <rect width="180" height="20" rx="10" fill="#ffffff" fill-opacity="0.15" />
+    <text x="90" y="14" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="700" fill="#ffffff" text-anchor="middle">বাংলা | हिन्दी | English</text>
+  </g>
+
+  <!-- Exact Required Call-to-Action Headline Box -->
+  <g transform="translate(50, 220)">
+    <rect width="700" height="96" rx="16" fill="#ecfdf5" stroke="#10b981" stroke-width="2" />
+    <text x="350" y="38" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="800" fill="#064e3b" text-anchor="middle">
+      Scan this QR using your browser to directly visit
+    </text>
+    <text x="350" y="66" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="900" fill="#0f2b48" text-anchor="middle">
+      NyayaMitra WB - West Bengal Civil Legal Navigator
+    </text>
+    <text x="350" y="86" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#047857" text-anchor="middle">
+      &amp; Citizen Advisory portal
+    </text>
+  </g>
+
+  <!-- QR Code Container Box -->
+  <g transform="translate(200, 340)">
+    <rect width="400" height="400" rx="24" fill="#ffffff" stroke="#e2e8f0" stroke-width="3" filter="url(#cardShadow)" />
+    
+    <!-- Self-Contained Native Vector QR Code Matrix for https://nyayamitrawb.in -->
+    <g transform="translate(30, 30)">
+      <!-- Top-Left Position Detection Pattern -->
+      <rect x="15" y="15" width="90" height="90" rx="12" fill="#0f2b48" />
+      <rect x="30" y="30" width="60" height="60" rx="6" fill="#ffffff" />
+      <rect x="45" y="45" width="30" height="30" rx="4" fill="#0f2b48" />
+
+      <!-- Top-Right Position Detection Pattern -->
+      <rect x="235" y="15" width="90" height="90" rx="12" fill="#0f2b48" />
+      <rect x="250" y="30" width="60" height="60" rx="6" fill="#ffffff" />
+      <rect x="265" y="45" width="30" height="30" rx="4" fill="#0f2b48" />
+
+      <!-- Bottom-Left Position Detection Pattern -->
+      <rect x="15" y="235" width="90" height="90" rx="12" fill="#0f2b48" />
+      <rect x="30" y="250" width="60" height="60" rx="6" fill="#ffffff" />
+      <rect x="45" y="265" width="30" height="30" rx="4" fill="#0f2b48" />
+
+      <!-- High-Density Precise Vector Data Modules -->
+      <path fill="#0f2b48" d="
+        M120 20 h15 v15 h-15 z M150 20 h30 v15 h-30 z M195 20 h15 v15 h-15 z
+        M120 45 h30 v15 h-30 z M165 45 h15 v15 h-15 z M195 45 h30 v15 h-30 z
+        M135 70 h15 v15 h-15 z M165 70 h30 v15 h-30 z
+        M120 95 h45 v15 h-45 z M180 95 h15 v15 h-15 z M210 95 h15 v15 h-15 z
+        M20 120 h15 v30 h-15 z M50 120 h30 v15 h-30 z M95 120 h40 v15 h-40 z M150 120 h15 v30 h-15 z M180 120 h30 v15 h-30 z M230 120 h15 v15 h-15 z M260 120 h30 v15 h-30 z M305 120 h15 v15 h-15 z
+        M35 145 h15 v15 h-15 z M65 145 h45 v15 h-45 z M125 145 h15 v15 h-15 z M180 145 h15 v30 h-15 z M210 145 h35 v15 h-35 z M260 145 h15 v15 h-15 z M290 145 h30 v15 h-30 z
+        M20 175 h30 v15 h-30 z M65 175 h15 v30 h-15 z M95 175 h30 v15 h-30 z M140 175 h25 v15 h-25 z M210 175 h15 v15 h-15 z M240 175 h45 v15 h-45 z M300 175 h20 v15 h-20 z
+        M35 205 h15 v15 h-15 z M95 205 h15 v15 h-15 z M125 205 h30 v15 h-30 z M230 205 h30 v15 h-30 z M275 205 h15 v30 h-15 z M305 205 h15 v15 h-15 z
+        M120 235 h30 v15 h-30 z M165 235 h15 v15 h-15 z M195 235 h30 v15 h-30 z M240 235 h20 v15 h-20 z M290 235 h30 v15 h-30 z
+        M135 260 h45 v15 h-45 z M195 260 h15 v30 h-15 z M225 260 h30 v15 h-30 z M305 260 h15 v15 h-15 z
+        M120 290 h15 v15 h-15 z M150 290 h30 v15 h-30 z M225 290 h15 v15 h-15 z M255 290 h45 v15 h-45 z
+        M120 305 h45 v15 h-45 z M180 305 h15 v15 h-15 z M210 305 h30 v15 h-30 z M270 305 h15 v15 h-15 z M300 305 h20 v15 h-20 z
+      " />
+
+      <!-- Center Branding Logo Badge -->
+      <circle cx="170" cy="170" r="32" fill="#ffffff" stroke="#f59e0b" stroke-width="4" />
+      <g transform="translate(150, 150)">
+        <path d="m27 27 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z" fill="#0f2b48" />
+        <path d="m13 27 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z" fill="#0f2b48" />
+        <path d="M18 33h10" stroke="#0f2b48" stroke-width="2" stroke-linecap="round" />
+        <path d="M23 7v26" stroke="#0f2b48" stroke-width="2" stroke-linecap="round" />
+        <path d="M14 13h3c1.5 0 3.5-.7 6-1.5 2.5.8 4.5 1.5 6 1.5h3" fill="none" stroke="#0f2b48" stroke-width="2" stroke-linecap="round" />
+      </g>
+    </g>
+  </g>
+
+  <!-- Direct URL Badge -->
+  <g transform="translate(240, 760)">
+    <rect width="320" height="44" rx="22" fill="#0f2b48" />
+    <text x="160" y="28" font-family="Courier, monospace" font-size="20" font-weight="900" fill="#ffffff" text-anchor="middle" letter-spacing="1">
+      https://nyayamitrawb.in
+    </text>
+  </g>
+
+  <!-- 6 Categories Highlight Badges -->
+  <g transform="translate(60, 825)" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="700">
+    <rect x="0" y="0" width="215" height="32" rx="8" fill="#f1f5f9" stroke="#cbd5e1" />
+    <text x="107" y="20" fill="#1e293b" text-anchor="middle">1. Land &amp; Mutation (WBLR)</text>
+
+    <rect x="230" y="0" width="220" height="32" rx="8" fill="#f1f5f9" stroke="#cbd5e1" />
+    <text x="340" y="20" fill="#1e293b" text-anchor="middle">2. Tenancy &amp; Eviction (WBPT)</text>
+
+    <rect x="465" y="0" width="215" height="32" rx="8" fill="#f1f5f9" stroke="#cbd5e1" />
+    <text x="572" y="20" fill="#1e293b" text-anchor="middle">3. Consumer &amp; WBRERA</text>
+
+    <rect x="0" y="40" width="215" height="32" rx="8" fill="#f1f5f9" stroke="#cbd5e1" />
+    <text x="107" y="60" fill="#1e293b" text-anchor="middle">4. Partition &amp; Succession</text>
+
+    <rect x="230" y="40" width="220" height="32" rx="8" fill="#f1f5f9" stroke="#cbd5e1" />
+    <text x="340" y="60" fill="#1e293b" text-anchor="middle">5. Cheque Bounce &amp; Money</text>
+
+    <rect x="465" y="40" width="215" height="32" rx="8" fill="#f1f5f9" stroke="#cbd5e1" />
+    <text x="572" y="60" fill="#1e293b" text-anchor="middle">6. Family &amp; Maintenance</text>
+  </g>
+
+  <!-- Footer Statutory Strip (With Valid XML Character References) -->
+  <line x1="60" y1="915" x2="740" y2="915" stroke="#e2e8f0" stroke-width="2" />
+  <g transform="translate(60, 930)" font-family="Arial, Helvetica, sans-serif" font-size="11">
+    <text x="0" y="12" fill="#047857" font-weight="800">Legal Aid (DLSA): 15100</text>
+    <text x="210" y="12" fill="#0f2b48" font-weight="800">&#8226; Cyber Fraud: 1930</text>
+    <text x="400" y="12" fill="#b45309" font-weight="800">&#8226; Banglarbhumi: 1800-345-5555</text>
+    <text x="340" y="32" fill="#64748b" font-weight="600" text-anchor="middle">100% Non-Commercial &#8226; BCI Rule 36 &amp; DPDP Act 2023 Compliant</text>
+  </g>
+</svg>

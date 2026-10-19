@@ -1,0 +1,22 @@
+{
+  "name": "NyayaMitra: West Bengal Civil Legal Navigator",
+  "short_name": "NyayaMitra",
+  "description": "300 verified civil procedural roadmaps and 12 government portals across 23 districts of West Bengal.",
+  "start_url": "/?source=pwa",
+  "display": "standalone",
+  "background_color": "#071422",
+  "theme_color": "#0f2b48",
+  "orientation": "any",
+  "lang": "bn",
+  "dir": "ltr",
+  "scope": "/",
+  "categories": ["legal", "government", "utilities", "productivity"],
+  "icons": [
+    {
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='100' fill='%230f2b48'/%3E%3Cpath d='m340 340 60-160 60 160c-17.4 13-38.4 20-60 20s-42.6-7-60-20Z' fill='none' stroke='%23f59e0b' stroke-width='28' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='m52 340 60-160 60 160c-17.4 13-38.4 20-60 20s-42.6-7-60-20Z' fill='none' stroke='%23f59e0b' stroke-width='28' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M152 440h208' fill='none' stroke='%23ffffff' stroke-width='28' stroke-linecap='round'/%3E%3Cpath d='M256 80v360' fill='none' stroke='%23ffffff' stroke-width='28' stroke-linecap='round'/%3E%3Cpath d='M72 160h40c40 0 100-20 144-40 44 20 104 40 144 40h40' fill='none' stroke='%2310b981' stroke-width='28' stroke-linecap='round'/%3E%3C/svg%3E",
+      "sizes": "192x192 512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

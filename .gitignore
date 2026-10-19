@@ -1,0 +1,9 @@
+# Secrets must never be committed or deployed as static assets.
+.env
+.env.*
+!.env.example
+
+# Local backups and build output.
+*.backup-*
+dist/
+node_modules/

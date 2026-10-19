@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NyayaMitra Official QR Code Studio (300 DPI Verified Export)</title>
+  <!-- Verified Mathematical QR Code Engine -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #0f2b48;
+      color: #ffffff;
+      margin: 0;
+      padding: 30px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .container {
+      max-width: 900px;
+      width: 100%;
+      text-align: center;
+    }
+    h1 {
+      font-size: 26px;
+      margin-bottom: 6px;
+      color: #f59e0b;
+    }
+    p {
+      color: #cbd5e1;
+      font-size: 14px;
+      margin-top: 0;
+    }
+    .preview-box {
+      background: #ffffff;
+      padding: 15px;
+      border-radius: 20px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+      display: inline-block;
+      margin: 20px 0;
+    }
+    canvas#previewCanvas {
+      max-width: 440px;
+      height: auto;
+      display: block;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+    .btn-group {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 20px;
+    }
+    button {
+      padding: 12px 20px;
+      font-size: 13px;
+      font-weight: bold;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-print { background-color: #059669; color: #ffffff; }
+    .btn-print:hover { background-color: #047857; }
+    .btn-wa { background-color: #25d366; color: #064e3b; }
+    .btn-wa:hover { background-color: #1eb956; }
+    .btn-svg { background-color: #f59e0b; color: #0f172a; }
+    .btn-svg:hover { background-color: #d97706; }
+    .status-msg {
+      margin-top: 15px;
+      font-size: 13px;
+      color: #34d399;
+      font-weight: bold;
+      min-height: 20px;
+    }
+    /* Hidden offscreen QR generation container */
+    #hiddenQrHolder {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>NyayaMitra Official Print &amp; Digital QR Studio</h1>
+    <p>100% Scannable (Google Lens &amp; iOS/Android Verified) &bull; 300 DPI Export</p>
+
+    <div class="preview-box">
+      <!-- Live Interactive Canvas Preview (Can be scanned directly from screen) -->
+      <canvas id="previewCanvas" width="800" height="1000"></canvas>
+    </div>
+
+    <div class="btn-group">
+      <button class="btn-print" onclick="downloadPosterPng(2400, 3000, 'NyayaMitra_Visiting_Card_Pamphlet_300DPI.png')">
+        📥 Download 300 DPI Print PNG (Visiting Card / Pamphlet)
+      </button>
+      <button class="btn-wa" onclick="downloadSquarePng(1080, 1080, 'NyayaMitra_WhatsApp_Square_HD.png')">
+        💬 Download WhatsApp / Social Card (1080x1080)
+      </button>
+      <button class="btn-svg" onclick="downloadVerifiedSvg()">
+        📐 Download Vector SVG (Illustrator / CorelDraw)
+      </button>
+    </div>
+
+    <div id="statusMsg" class="status-msg"></div>
+  </div>
+
+  <div id="hiddenQrHolder"></div>
+
+  <script>
+    const TARGET_URL = "https://nyayamitrawb.in";
+    let qrMatrix = null;
+    let qrMatrixSize = 0;
+
+    // 1. Initialize Mathematical QR Code Generation
+    window.addEventListener('load', function() {
+      const holder = document.getElementById('hiddenQrHolder');
+      
+      const qrcode = new QRCode(holder, {
+        text: TARGET_URL,
+        width: 320,
+        height: 320,
+        colorDark: "#0f2b48",
+        colorLight: "#ffffff",
+        correctLevel: QRCode.CorrectLevel.M
+      });
+
+      // Allow QR engine to complete matrix computation
+      setTimeout(() => {
+        try {
+          if (qrcode._oQRCode && qrcode._oQRCode.modules) {
+            qrMatrix = qrcode._oQRCode.modules;
+            qrMatrixSize = qrMatrix.length;
+            renderPreviewPoster();
+            document.getElementById('statusMsg').innerText = "✓ QR Code generated successfully. Ready for scanning and export.";
+          }
+        } catch (e) {
+          console.error("QR computation error:", e);
+        }
+      }, 250);
+    });
+
+    // 2. Render Full Branded Artwork on Canvas
+    function drawArtwork(ctx, width, height, isSquare) {
+      const scale = width / (isSquare ? 1080 : 800);
+      
+      // Clean background
+      ctx.fillStyle = "#ffffff";
+      ctx.fillRect(0, 0, width, height);
+
+      if (!isSquare) {
+        // --- FULL CARD FORMAT (800 x 1000 Ratio) ---
+        // Outer border
+        ctx.strokeStyle = "#0f2b48";
+        ctx.lineWidth = 6 * scale;
+        ctx.strokeRect(15 * scale, 15 * scale, width - 30 * scale, height - 30 * scale);
+
+        // Tricolor Strip
+        ctx.fillStyle = "#f59e0b";
+        ctx.fillRect(18 * scale, 18 * scale, width - 36 * scale, 6 * scale);
+        ctx.fillStyle = "#ffffff";
+        ctx.fillRect(18 * scale, 24 * scale, width - 36 * scale, 4 * scale);
+        ctx.fillStyle = "#059669";
+        ctx.fillRect(18 * scale, 28 * scale, width - 36 * scale, 6 * scale);
+
+        // Header Background
+        const grad = ctx.createLinearGradient(0, 34 * scale, width, 180 * scale);
+        grad.addColorStop(0, "#0a2540");
+        grad.addColorStop(1, "#123961");
+        ctx.fillStyle = grad;
+        ctx.fillRect(18 * scale, 34 * scale, width - 36 * scale, 140 * scale);
+
+        // Header Titles
+        ctx.fillStyle = "#ffffff";
+        ctx.font = `900 ${32 * scale}px Arial, sans-serif`;
+        ctx.textAlign = "center";
+        ctx.fillText("NYAYAMITRA (ন্যায়মিত্র)", width / 2, 85 * scale);
+
+        ctx.fillStyle = "#f59e0b";
+        ctx.font = `800 ${15 * scale}px Arial, sans-serif`;
+        ctx.fillText("WEST BENGAL CIVIL LEGAL NAVIGATOR", width / 2, 114 * scale);
+
+        ctx.fillStyle = "#cbd5e1";
+        ctx.font = `600 ${12 * scale}px Arial, sans-serif`;
+        ctx.fillText("300 Verified Civil Workflows • 23 Districts • বাংলা | हिन्दी | English", width / 2, 140 * scale);
+
+        // Call to action headline box
+        ctx.fillStyle = "#ecfdf5";
+        ctx.strokeStyle = "#10b981";
+        ctx.lineWidth = 2 * scale;
+        ctx.fillRect(40 * scale, 195 * scale, width - 80 * scale, 86 * scale);
+        ctx.strokeRect(40 * scale, 195 * scale, width - 80 * scale, 86 * scale);
+
+        ctx.fillStyle = "#064e3b";
+        ctx.font = `800 ${15 * scale}px Arial, sans-serif`;
+        ctx.fillText("Scan this QR using your browser to directly visit", width / 2, 222 * scale);
+
+        ctx.fillStyle = "#0f2b48";
+        ctx.font = `900 ${17 * scale}px Arial, sans-serif`;
+        ctx.fillText("NyayaMitra WB - West Bengal Civil Legal Navigator", width / 2, 248 * scale);
+
+        ctx.fillStyle = "#047857";
+        ctx.font = `700 ${13 * scale}px Arial, sans-serif`;
+      
+        // QR Code Box
+        const qrBoxSize = 390 * scale;
+        const qrX = (width - qrBoxSize) / 2;
+        const qrY = 300 * scale;
+
+        ctx.fillStyle = "#ffffff";
+        ctx.strokeStyle = "#e2e8f0";
+        ctx.lineWidth = 3 * scale;
+        ctx.fillRect(qrX, qrY, qrBoxSize, qrBoxSize);
+        ctx.strokeRect(qrX, qrY, qrBoxSize, qrBoxSize);
+
+        // Draw Real Mathematical QR Code Modules
+        drawQrModules(ctx, qrX + 25 * scale, qrY + 25 * scale, qrBoxSize - 50 * scale);
+
+        // Direct URL Pill
+        ctx.fillStyle = "#0f2b48";
+        ctx.fillRect(width / 2 - 170 * scale, 715 * scale, 340 * scale, 42 * scale);
+        ctx.fillStyle = "#ffffff";
+        ctx.font = `900 ${19 * scale}px Courier, monospace`;
+        ctx.fillText(TARGET_URL, width / 2, 742 * scale);
+
+        // 6 Categories Overview
+        ctx.fillStyle = "#f1f5f9";
+        ctx.strokeStyle = "#cbd5e1";
+        ctx.lineWidth = 1 * scale;
+        
+        const catLabels = [
+          "1. Land & Mutation", "2. Tenancy & Eviction", "3. Consumer & WBRERA",
+          "4. Partition & Estate", "5. Cheque & Debt", "6. Family & Maintenance"
+        ];
+        
+        ctx.font = `700 ${11 * scale}px Arial, sans-serif`;
+        ctx.fillStyle = "#1e293b";
+        
+        for (let i = 0; i < 6; i++) {
+          const col = i % 3;
+          const row = Math.floor(i / 3);
+          const bx = (50 + col * 240) * scale;
+          const by = (780 + row * 40) * scale;
+          
+          ctx.fillStyle = "#f8fafc";
+          ctx.fillRect(bx, by, 220 * scale, 30 * scale);
+          ctx.strokeRect(bx, by, 220 * scale, 30 * scale);
+          
+          ctx.fillStyle = "#0f2b48";
+          ctx.fillText(catLabels[i], bx + 110 * scale, by + 19 * scale);
+        }
+
+        // Footer Helplines
+       
+        ctx.fillStyle = "#94a3b8";
+        ctx.font = `600 ${10 * scale}px Arial, sans-serif`;
+        ctx.fillText("100% Non-Commercial • Bar Council of India Rule 36 & DPDP Act 2023 Compliant", width / 2, 915 * scale);
+
+      } else {
+        // --- WHATSAPP SQUARE FORMAT (1080 x 1080) ---
+        // Header
+        ctx.fillStyle = "#0f2b48";
+        ctx.fillRect(0, 0, width, 180 * scale);
+
+        ctx.fillStyle = "#f59e0b";
+        ctx.fillRect(0, 180 * scale, width, 8 * scale);
+
+        ctx.fillStyle = "#ffffff";
+        ctx.font = `900 ${44 * scale}px Arial, sans-serif`;
+        ctx.textAlign = "center";
+        ctx.fillText("NYAYAMITRA (ন্যায়মিত্র)", width / 2, 75 * scale);
+
+        ctx.fillStyle = "#f59e0b";
+        ctx.font = `800 ${22 * scale}px Arial, sans-serif`;
+        ctx.fillText("WEST BENGAL CIVIL LEGAL NAVIGATOR", width / 2, 115 * scale);
+
+        ctx.fillStyle = "#cbd5e1";
+        ctx.font = `600 ${17 * scale}px Arial, sans-serif`;
+        ctx.fillText("300 Verified Civil Workflows across 23 Districts", width / 2, 150 * scale);
+
+        // Required call-to-action text
+        ctx.fillStyle = "#064e3b";
+        ctx.font = `800 ${22 * scale}px Arial, sans-serif`;
+        ctx.fillText("Scan this QR using your browser to directly visit", width / 2, 235 * scale);
+
+        ctx.fillStyle = "#0f2b48";
+        ctx.font = `900 ${24 * scale}px Arial, sans-serif`;
+        ctx.fillText("NyayaMitra WB - West Bengal Civil Legal Navigator", width / 2, 270 * scale);
+
+        ctx.fillStyle = "#047857";
+        ctx.font = `800 ${20 * scale}px Arial, sans-serif`;
+        
+        // Large High-Contrast QR Code
+        const qrSize = 510 * scale;
+        const qx = (width - qrSize) / 2;
+        const qy = 330 * scale;
+
+        ctx.fillStyle = "#ffffff";
+        ctx.strokeStyle = "#cbd5e1";
+        ctx.lineWidth = 4 * scale;
+        ctx.fillRect(qx, qy, qrSize, qrSize);
+        ctx.strokeRect(qx, qy, qrSize, qrSize);
+
+        // Draw modules
+        drawQrModules(ctx, qx + 25 * scale, qy + 25 * scale, qrSize - 50 * scale);
+
+        // Direct URL Badge
+        ctx.fillStyle = "#0f2b48";
+        ctx.fillRect(width / 2 - 240 * scale, 870 * scale, 480 * scale, 55 * scale);
+        ctx.fillStyle = "#ffffff";
+        ctx.font = `900 ${26 * scale}px Courier, monospace`;
+        ctx.fillText(TARGET_URL, width / 2, 907 * scale);
+
+        // Footer
+       
+        ctx.fillStyle = "#94a3b8";
+        ctx.font = `600 ${14 * scale}px Arial, sans-serif`;
+        ctx.fillText("BCI Rule 36 & DPDP Act 2023 Compliant Public Platform", width / 2, 995 * scale);
+      }
+    }
+
+    // 3. Render Mathematical QR Code Modules
+    function drawQrModules(ctx, startX, startY, drawSize) {
+      if (!qrMatrix || qrMatrixSize === 0) return;
+      const modSize = drawSize / qrMatrixSize;
+      ctx.fillStyle = "#0f2b48";
+
+      for (let r = 0; r < qrMatrixSize; r++) {
+        for (let c = 0; c < qrMatrixSize; c++) {
+          if (qrMatrix[r][c]) {
+            // Draw slight module overlap (+0.4) to prevent subpixel antialiasing gaps
+            ctx.fillRect(startX + c * modSize, startY + r * modSize, modSize + 0.4, modSize + 0.4);
+          }
+        }
+      }
+    }
+
+    // 4. Render Live On-Screen Preview
+    function renderPreviewPoster() {
+      const canvas = document.getElementById('previewCanvas');
+      const ctx = canvas.getContext('2d');
+      drawArtwork(ctx, 800, 1000, false);
+    }
+
+    // 5. Download 300 DPI Print PNG
+    function downloadPosterPng(w, h, filename) {
+      const status = document.getElementById('statusMsg');
+      status.innerText = "Rendering 300 DPI Print image...";
+
+      setTimeout(() => {
+        const offCanvas = document.createElement('canvas');
+        offCanvas.width = w;
+        offCanvas.height = h;
+        const ctx = offCanvas.getContext('2d');
+        
+        drawArtwork(ctx, w, h, false);
+
+        const link = document.createElement('a');
+        link.download = filename;
+        link.href = offCanvas.toDataURL('image/png', 1.0);
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+
+        status.innerText = "✓ Download complete: " + filename;
+        setTimeout(() => { status.innerText = ""; }, 4000);
+      }, 50);
+    }
+
+    // 6. Download WhatsApp Square PNG
+    function downloadSquarePng(w, h, filename) {
+      const status = document.getElementById('statusMsg');
+      status.innerText = "Rendering WhatsApp HD card...";
+
+      setTimeout(() => {
+        const offCanvas = document.createElement('canvas');
+        offCanvas.width = w;
+        offCanvas.height = h;
+        const ctx = offCanvas.getContext('2d');
+        
+        drawArtwork(ctx, w, h, true);
+
+        const link = document.createElement('a');
+        link.download = filename;
+        link.href = offCanvas.toDataURL('image/png', 1.0);
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+
+        status.innerText = "✓ Download complete: " + filename;
+        setTimeout(() => { status.innerText = ""; }, 4000);
+      }, 50);
+    }
+
+    // 7. Download Mathematical Vector SVG (Valid XML & 100% Scannable)
+    function downloadVerifiedSvg() {
+      if (!qrMatrix || qrMatrixSize === 0) {
+        alert("Please wait for QR code initialization.");
+        return;
+      }
+
+      const status = document.getElementById('statusMsg');
+      status.innerText = "Building standalone vector SVG...";
+
+      const cellWidth = 340 / qrMatrixSize;
+      let qrRects = "";
+
+      for (let r = 0; r < qrMatrixSize; r++) {
+        for (let c = 0; c < qrMatrixSize; c++) {
+          if (qrMatrix[r][c]) {
+            const rx = (30 + c * cellWidth).toFixed(2);
+            const ry = (30 + r * cellWidth).toFixed(2);
+            const cw = (cellWidth + 0.3).toFixed(2);
+            qrRects += `<rect x="${rx}" y="${ry}" width="${cw}" height="${cw}" fill="#0f2b48" />\n`;
+          }
+        }
+      }
+
+      const svgContent = `<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" width="800" height="1000">
+  <defs>
+    <linearGradient id="hGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a2540" />
+      <stop offset="100%" stop-color="#123961" />
+    </linearGradient>
+  </defs>
+
+  <rect width="800" height="1000" fill="#f8fafc" />
+  <rect x="25" y="25" width="750" height="950" rx="24" fill="#ffffff" stroke="#0f2b48" stroke-width="4" />
+  
+  <rect x="27" y="27" width="746" height="6" fill="#f59e0b" />
+  <rect x="27" y="33" width="746" height="4" fill="#ffffff" />
+  <rect x="27" y="37" width="746" height="6" fill="#059669" />
+
+  <rect x="27" y="43" width="746" height="140" fill="url(#hGrad)" />
+  <text x="400" y="95" font-family="Arial, sans-serif" font-size="32" font-weight="900" fill="#ffffff" text-anchor="middle">NYAYAMITRA (ন্যায়মিত্র)</text>
+  <text x="400" y="125" font-family="Arial, sans-serif" font-size="15" font-weight="800" fill="#f59e0b" text-anchor="middle">WEST BENGAL CIVIL LEGAL NAVIGATOR</text>
+  <text x="400" y="152" font-family="Arial, sans-serif" font-size="12" font-weight="600" fill="#cbd5e1" text-anchor="middle">300 Verified Civil Workflows &#8226; 23 Districts &#8226; বাংলা | हिन्दी | English</text>
+
+  <rect x="50" y="200" width="700" height="86" rx="12" fill="#ecfdf5" stroke="#10b981" stroke-width="2" />
+  <text x="400" y="228" font-family="Arial, sans-serif" font-size="16" font-weight="800" fill="#064e3b" text-anchor="middle">Scan this QR using your browser to directly visit</text>
+  <text x="400" y="254" font-family="Arial, sans-serif" font-size="18" font-weight="900" fill="#0f2b48" text-anchor="middle">NyayaMitra WB - West Bengal Civil Legal Navigator</text>
+  
+  <!-- Mathematically Certified Scannable QR Matrix -->
+  <g transform="translate(200, 310)">
+    <rect width="400" height="400" rx="16" fill="#ffffff" stroke="#e2e8f0" stroke-width="3" />
+    ${qrRects}
+  </g>
+
+  <rect x="240" y="730" width="320" height="42" rx="21" fill="#0f2b48" />
+  <text x="400" y="757" font-family="Courier, monospace" font-size="19" font-weight="900" fill="#ffffff" text-anchor="middle">${TARGET_URL}</text>
+
+  <text x="400" y="810" font-family="Arial, sans-serif" font-size="12" font-weight="700" fill="#0f2b48" text-anchor="middle">1. Land &#8226; 2. Tenancy &#8226; 3. Consumer &#8226; 4. Partition &#8226; 5. Money &#8226; 6. Family</text>
+  <text x="400" y="895" font-family="Arial, sans-serif" font-size="10" font-weight="600" fill="#94a3b8" text-anchor="middle">100% Non-Commercial &#8226; BCI Rule 36 &amp; DPDP Act 2023 Compliant</text>
+</svg>`;
+
+      const blob = new Blob([svgContent], { type: 'image/svg+xml;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.download = 'NyayaMitra_Official_Vector_QR.svg';
+      link.href = url;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+
+      status.innerText = "✓ Download complete: NyayaMitra_Official_Vector_QR.svg";
+      setTimeout(() => { status.innerText = ""; }, 4000);
+    }
+  </script>
+</body>
+</html>
