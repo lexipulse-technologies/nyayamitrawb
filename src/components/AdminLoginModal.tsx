@@ -11,7 +11,7 @@ import {
   Loader2
 } from 'lucide-react';
 import type { Language } from '../types/legal';
-import { verifyAdminCredentials, setAdminSession, recordAdminLogin } from '../utils/authUtils';
+import { setAdminSession, recordAdminLogin } from '../utils/authUtils';
 
 const LOGIN_TEXT = {
   modalTitle: {
@@ -97,22 +97,35 @@ export const AdminLoginModal: React.FC<Props> = ({
     setErrorMessage(false);
     setIsSubmitting(true);
 
-    const isValid = verifyAdminCredentials(username, password);
+    try {
+      const res = await fetch('/api/admin/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({ username, password })
+      });
 
-    if (isValid) {
-      try {
-        // MANDATORY AUDIT PROTOCOL: Record IP & Timestamp before access is granted
-        await recordAdminLogin(username);
-      } catch (auditErr) {
-        console.warn('[Security Audit Protocol Warning]:', auditErr);
+      const data = await res.json();
+
+      if (res.ok && data.success) {
+        try {
+          await recordAdminLogin(username);
+        } catch (auditErr) {
+          console.warn('[Security Audit Protocol Warning]:', auditErr);
+        }
+
+        await setAdminSession();
+        setIsSubmitting(false);
+        setUsername('');
+        setPassword('');
+        onSuccess();
+      } else {
+        setIsSubmitting(false);
+        setErrorMessage(true);
+        setPassword('');
       }
-
-      setAdminSession();
-      setIsSubmitting(false);
-      setUsername('');
-      setPassword('');
-      onSuccess();
-    } else {
+    } catch (err) {
+      console.error('[Admin Login Error]:', err);
       setIsSubmitting(false);
       setErrorMessage(true);
       setPassword('');

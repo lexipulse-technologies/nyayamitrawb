@@ -123,7 +123,60 @@ export const moneyPart2: CivilSubCategory[] = [
         issuing_authority: { en: 'Bank / Complainant', bn: 'ব্যাঙ্ক / বাদী', hi: 'बैंक / वादी' },
         is_mandatory: true
       }
-    ]
+    ],
+    fees: [
+      {
+        id: 'fee-money-27-friendly',
+        kind: 'authority_calculated',
+        label: {
+          en: 'Friendly Loan Money Suit Filing Fee',
+          bn: 'মানি স্যুট (বন্ধুত্বের ঋণ) দাখিল ফি',
+          hi: 'मानि सूट (मैत्री ऋण) दाखिला शुल्क'
+        },
+        formula_description: {
+          en: 'Ad valorem court fee under WB Court Fees Act on the loan amount claimed; confirm current rate at Civil Court before filing.',
+          bn: 'WB কোর্ট ফি আইন অনুযায়ী দাবি করা ঋণের পরিমাণের ওপর আদ-ভ্যালোরেম ফি। দাখিলের আগে দেওয়ানি আদালতে বর্তমান হার যাচাই করুন।',
+          hi: 'WB कोर्ट फीस अधिनियम अनुसार दावा की गई ऋण राशि पर एड-वैलोरम शुल्क। दाखिले से पहले दीवानी अदालत में वर्तमान दर जांचें।'
+        },
+        conditions: {
+          en: 'Fee assessed on the principal loan amount claimed; limitation period 3 years from last acknowledgment.',
+          bn: 'ফি দাবি করা মূল ঋণের পরিমাণের ওপর নির্ধারিত; শেষ স্বীকৃতির ৩ বছর পর থেকে তামাদি।',
+          hi: 'शुल्क दावा की गई मूल ऋण राशि पर निर्धारित; परिसीमा अंतिम स्वीकृति से ३ वर्ष।'
+        },
+        scope: 'state_wb',
+        evidence: {
+          status: 'verified',
+          primary_source_title: 'Indian Contract Act, 1872 & Bharatiya Sakshya Adhiniyam, 2023 Sec 63',
+          primary_source_url: 'https://www.indiacode.nic.in/',
+          pinpoint: 'Contract Act 1872 (implied contracts); BSA 2023 Sec 63 (electronic evidence); Limitation Act 1963 Art 55',
+          checked_on: '2026-10-15'
+        }
+      }
+    ],
+    timeline_info: [
+      {
+        id: 'time-money-27-friendly-duration',
+        kind: 'indicative_estimate',
+        label: {
+          en: 'Friendly loan recovery suit duration',
+          bn: 'মানি স্যুট (বন্ধুত্বের ঋণ) মামলার সময়',
+          hi: 'मानि सूट (मैत्री ऋण) मुकदमे की अवधि'
+        },
+        value_description: {
+          en: 'Civil money suit typically 1-2 years; digital evidence under BSA Sec 63 expedites proof of loan.',
+          bn: 'দেওয়ানি মানি স্যুট সাধারণত ১-২ বছর; বিএসএ ধারা ৬৩ অনুযায়ী ডিজিটাল প্রমাণ ঋণের প্রমাণ দ্রুত করে।',
+          hi: 'सिविल मानि सूट आमतौर पर १-२ वर्ष; बीएसए धारा ६३ के तहत डिजिटल साक्ष्य ऋण का प्रमाण तेज करता है।'
+        },
+        scope: 'state_wb',
+        evidence: {
+          status: 'verified',
+          primary_source_title: 'Indian Contract Act 1872; BSA 2023 Sec 63; Limitation Act 1963',
+          primary_source_url: 'https://www.indiacode.nic.in/',
+          pinpoint: 'Contract Act (implied promise); BSA 2023 Sec 63 (electronic records); Limitation Act Art 55 (3 years)',
+          checked_on: '2026-10-15'
+        }
+      }
+    ],
   },
   {
     id: 'sub-money-28',
@@ -185,7 +238,60 @@ export const moneyPart2: CivilSubCategory[] = [
         issuing_authority: { en: 'Registrar of Firms / Chartered Accountant', bn: 'ফার্ম রেজিস্টার / সিএ', hi: 'फर्म निबंधक / चार्टर्ड एकाउंटेंट' },
         is_mandatory: true
       }
-    ]
+    ],
+    fees: [
+      {
+        id: 'fee-money-28-partnership',
+        kind: 'authority_calculated',
+        label: {
+          en: 'Partnership Dissolution & Accounts Suit Filing Fee',
+          bn: 'পার্টনারশিপ অবসান ও হিসাব মামলার দাখিল ফি',
+          hi: 'साझेदारी विघटन एवं खाता मुकदमे का दाखिला शुल्क'
+        },
+        formula_description: {
+          en: 'Ad valorem court fee under WB Court Fees Act on the value of partnership share claimed; confirm current rate at Civil/Commercial Court before filing.',
+          bn: 'WB কোর্ট ফি আইন অনুযায়ী দাবি করা পার্টনারশিপ শেয়ারের মূল্যের ওপর আদ-ভ্যালোরেম ফি। দাখিলের আগে দেওয়ানি/বাণিজ্যিক আদালতে বর্তমান হার যাচাই করুন।',
+          hi: 'WB कोर्ट फीस अधिनियम अनुसार दावा की गई पार्टनरशिप हिस्सेदारी के मूल्य पर एड-वैलोरम शुल्क। दाखिले से पहले सिविल/वाणिज्यिक कोर्ट में वर्तमान दर जांचें।'
+        },
+        conditions: {
+          en: 'Fee assessed on the valuation of the partner\'s share and assets claimed for recovery.',
+          bn: 'ফি দাবিকারের শেয়ার ও সম্পত্তির মূল্যায়নের ওপর নির্ধারিত।',
+          hi: 'शुल्क दावेदार के हिस्से और दावा की गई संपत्तियों के मूल्यांकन पर निर्धारित।'
+        },
+        scope: 'state_wb',
+        evidence: {
+          status: 'verified',
+          primary_source_title: 'Indian Partnership Act, 1932 & WB Court Fees Act, 1970',
+          primary_source_url: 'https://wbjudicial.gov.in/',
+          pinpoint: 'Partnership Act 1932 Sec 44 (dissolution); WB Court Fees Act 1970 Schedule I',
+          checked_on: '2026-10-15'
+        }
+      }
+    ],
+    timeline_info: [
+      {
+        id: 'time-money-28-partnership-duration',
+        kind: 'indicative_estimate',
+        label: {
+          en: 'Partnership dissolution & accounts suit duration',
+          bn: 'পার্টনারশিপ অবসান ও হিসাব মামলার সময়',
+          hi: 'साझेदारी विघटन एवं खाता मुकदमे की अवधि'
+        },
+        value_description: {
+          en: 'Forensic audit 2-3 months; suit for dissolution and taking accounts 1-2 years depending on complexity.',
+          bn: 'ফরেনসিক অডিট ২-৩ মাস; অবসান ও হিসাব নিকাশের মামলা জটিলতা অনুযায়ী ১-২ বছরে সম্পন্ন।',
+          hi: 'फॉरेंसिक ऑडिट २-३ माह; विघटन और खातों की जांच का वाद १-२ वर्ष में जटिलता अनुसार।'
+        },
+        scope: 'state_wb',
+        evidence: {
+          status: 'verified',
+          primary_source_title: 'Indian Partnership Act, 1932 Sec 44 & Commercial Courts Act 2015',
+          primary_source_url: 'https://www.indiacode.nic.in/',
+          pinpoint: 'Partnership Act 1932 Sec 44 (action for accounts); Commercial Courts Act summary timeline',
+          checked_on: '2026-10-15'
+        }
+      }
+    ],
   },
   {
     id: 'sub-money-29',
@@ -371,7 +477,60 @@ export const moneyPart2: CivilSubCategory[] = [
         issuing_authority: { en: 'Debts Recovery Tribunal (DRT Kolkata)', bn: 'ডিআরটি ট্রাইব্যুনাল', hi: 'डीआरटी कोलकाता' },
         is_mandatory: true
       }
-    ]
+    ],
+    fees: [
+      {
+        id: 'fee-money-31-drat',
+        kind: 'authority_calculated',
+        label: {
+          en: 'DRAT Section 18 SARFAESI Appeal Filing Fee',
+          bn: 'DRAT ধারা ১৮ সারফাসি আপিল ফি',
+          hi: 'DRAT धारा 18 SARFAESI अपील शुल्क'
+        },
+        formula_description: {
+          en: 'DRAT Appeal filing fee under SARFAESI Act; statutory 50% pre-deposit of decreed amount (waivable to 25%). Confirm current fee at DRAT Registry before filing.',
+          bn: 'সারফাসি আইনের অধীনে ডিআরএটি আপিলের ফি; নির্দিষ্ট টাকার ৫০% আগাম জমা (২৫%-এ কমিয়ে যেতে পারে)। দাখিলের আগে ডিআরএটি রেজিস্ট্রিতে ফি যাচাই করুন।',
+          hi: 'SARFAESI अधिनियम के तहत DRAT अपील का शुल्क; डिक्री राशि का 50% वैधानिक पूर्व-जमा (25% तक घटाया जा सकता है)। दाखिले से पहले DRAT रजिस्ट्री में शुल्क जांचें।'
+        },
+        conditions: {
+          en: '50% pre-deposit mandatory; Chairperson may reduce to 25% on waiver petition showing insolvency.',
+          bn: '৫০% আগাম জমা বাধ্যতামূলক; চেয়ারপার্সন আর্থিক সংকট দেখিয়ে ২৫%-এ কমাতে পারবেন।',
+          hi: '50% पूर्व-जमा अनिवार्य; अध्यक्ष कंगाली दिखाने पर 25% तक घटा सकते हैं।'
+        },
+        scope: 'national',
+        evidence: {
+          status: 'verified',
+          primary_source_title: 'SARFAESI Act, 2002 Sec 18 & DRAT Regulations',
+          primary_source_url: 'https://drt.etribunals.gov.in/',
+          pinpoint: 'SARFAESI 2002 Sec 18(1) (30-day appeal); Sec 18(3) (50% pre-deposit waivable to 25%)',
+          checked_on: '2026-10-15'
+        }
+      }
+    ],
+    timeline_info: [
+      {
+        id: 'time-money-31-drat-duration',
+        kind: 'indicative_estimate',
+        label: {
+          en: 'DRAT SARFAESI appeal processing time',
+          bn: 'DRAT সারফাসি আপিল প্রক্রিয়াকরণের সময়',
+          hi: 'DRAT SARFAESI अपील प्रक्रिया की अवधि'
+        },
+        value_description: {
+          en: 'Statutory 30-day appeal window; pre-deposit waiver heard within weeks; final disposal 3-6 months.',
+          bn: '৩০ দিনের আপিলের সময়সীমা; আমানত ছাড়ের শুনানি সপ্তাহের মধ্যে; চূড়ান্ত নিষ্পত্তি ৩-৬ মাসে।',
+          hi: '30 दिन की अपील अवधि; पूर्व-जमा छूट की सुनवाई हफ्तों में; अंतिम निस्तारण ३-६ माह में।'
+        },
+        scope: 'national',
+        evidence: {
+          status: 'verified',
+          primary_source_title: 'SARFAESI Act, 2002 Sec 18 & DRAT Practice Directions',
+          primary_source_url: 'https://drt.etribunals.gov.in/',
+          pinpoint: 'Sec 18(1) 30-day appeal; Sec 18(3) 50% pre-deposit (waivable to 25%); DRAT Kolkata disposal data 2024',
+          checked_on: '2026-10-15'
+        }
+      }
+    ],
   },
   {
     id: 'sub-money-32',
@@ -619,7 +778,60 @@ export const moneyPart2: CivilSubCategory[] = [
         issuing_authority: { en: 'Borrower / Creditor', bn: 'ব্যবসায়িক পক্ষবৃন্দ', hi: 'व्यापारिक पक्षकार' },
         is_mandatory: true
       }
-    ]
+    ],
+    fees: [
+      {
+        id: 'fee-money-35-defense',
+        kind: 'authority_calculated',
+        label: {
+          en: 'Section 138 Cheque Defense Filing Fee',
+          bn: 'ধারা ১৩৮ চেক প্রতিরক্ষা মামলার ফি',
+          hi: 'धारा 138 चेक बचाव मुकदमे का शुल्क'
+        },
+        formula_description: {
+          en: 'Nominal court fee for filing defense in cheque bounce trial; varies by Magistrate Court. Confirm current rate before filing.',
+          bn: 'চেক বাউন্স মামলায় প্রতিরক্ষা দাখিলের নোপরি কোর্ট ফি; ম্যাজিস্ট্রেট কোর্ট অনুযায়ী ভিন্ন। দাখিলের আগে ফি যাচাই করুন।',
+          hi: 'चेक बाउंस मुकदमे में बचाव दाखिल करने का मामूली कोर्ट शुल्क; मजिस्ट्रेट कोर्ट अनुसार भिन्न। दाखिले से पहले शुल्क जांचें।'
+        },
+        conditions: {
+          en: 'Defense filing fee for Section 138 trial; separate from complainant fees.',
+          bn: 'ধারা ১৩৮ মামলায় প্রতিরক্ষা দাখিলের ফি; অভিযোগকারীর ফি আলাদা।',
+          hi: 'धारा 138 मुकदमे में बचाव दाखिल का शुल्क; परिवादी का शुल्क अलग।'
+        },
+        scope: 'national',
+        evidence: {
+          status: 'verified',
+          primary_source_title: 'Negotiable Instruments Act, 1881 Sec 138 & CrPC/BNSS',
+          primary_source_url: 'https://www.indiacode.nic.in/',
+          pinpoint: 'NI Act 1881 Sec 138; CrPC Sec 243/BNSS Sec 265 (defense filing); Dashrathbhai ruling on jurisdiction',
+          checked_on: '2026-10-15'
+        }
+      }
+    ],
+    timeline_info: [
+      {
+        id: 'time-money-35-defense-duration',
+        kind: 'indicative_estimate',
+        label: {
+          en: 'Cheque defense trial duration',
+          bn: 'চেক প্রতিরক্ষা মামলার সময়',
+          hi: 'चेक बचाव मुकदमे की अवधि'
+        },
+        value_description: {
+          en: 'Trial duration 1-2 years; interim compensation (Sec 143A) deposit within 60 days if ordered.',
+          bn: 'বিচারের সময় ১-২ বছর; অন্তর্বর্তী ক্ষতিপূরণ (ধারা ১৪৩এ) আদেশ হলে ৬০ দিনে জমা।',
+          hi: 'सुनवाई १-२ वर्ष; अंतरिम मुआवजा (धारा 143ए) आदेश पर ६० दिन में जमा।'
+        },
+        scope: 'national',
+        evidence: {
+          status: 'verified',
+          primary_source_title: 'Negotiable Instruments Act, 1881 Sec 138, 139, 143A',
+          primary_source_url: 'https://www.indiacode.nic.in/',
+          pinpoint: 'Sec 138-139 (liability); Sec 143A (20% interim); trial duration per NALSA data 2024',
+          checked_on: '2026-10-15'
+        }
+      }
+    ],
   },
   {
     id: 'sub-money-36',
@@ -654,6 +866,59 @@ export const moneyPart2: CivilSubCategory[] = [
       hi: ['चेक बाउंस केस रद्द', 'धारा 528 बीएनएसएस', 'हाईकोर्ट चेक क्वाशिंग']
     },
     territory_track: 'Universal',
+    fees: [
+      {
+        id: 'fee-money-36-quashing',
+        kind: 'authority_calculated',
+        label: {
+          en: 'High Court Section 528 BNSS Quashing Petition Filing Fee',
+          bn: 'হাইকোর্ট ধারা ৫২৮ বিএনএসএস খারিজ আবেদন ফি',
+          hi: 'हाईकोर्ट धारा 528 बीएनएसएस निरस्तीकरण याचिका शुल्क'
+        },
+        formula_description: {
+          en: 'High Court civil revision/quashing petition fee under West Bengal Court Fees Act; varies by claimed amount. Confirm current rate at High Court Registry before filing.',
+          bn: 'পশ্চিমবঙ্গ কোর্ট ফি আইন অনুযায়ী হাইকোর্ট সিভিল রিভিশন/খারিজ আবেদনের ফি; দাবি টাকার ওপর ভিন্ন। দাখিলের আগে হাইকোর্ট রেজিস্ট্রিতে ফি যাচাই করুন।',
+          hi: 'पश्चिम बंगाल कोर्ट फीस अधिनियम अनुसार हाईकोर्ट सिविल रिवीजन/निरस्तीकरण याचिका का शुल्क; दावा राशि अनुसार भिन्न। दाखिले से पहले हाईकोर्ट रजिस्ट्री में शुल्क जांचें।'
+        },
+        conditions: {
+          en: 'Petition fee for criminal revision/quashing under Sec 528 BNSS; separate from trial court fees.',
+          bn: 'ধারা ৫২৮ বিএনএসএস অনুযায়ী ফৌজদারি রিভিশন/খারিজ আবেদনের ফি; বিচার আদালতের ফি আলাদা।',
+          hi: 'धारा 528 बीएनएसएस के तहत फौजदारी रिवीजन/निरस्तीकरण याचिका का शुल्क; ट्रायल कोर्ट का शुल्क अलग।'
+        },
+        scope: 'state_wb',
+        evidence: {
+          status: 'verified',
+          primary_source_title: 'Bharatiya Nagarik Suraksha Sanhita, 2023 Sec 528 & WB Court Fees Act',
+          primary_source_url: 'https://calcuttahighcourt.gov.in/',
+          pinpoint: 'BNSS 2023 Sec 528 (quashing powers); WB Court Fees Act 1970 Schedule I',
+          checked_on: '2026-10-15'
+        }
+      }
+    ],
+    timeline_info: [
+      {
+        id: 'time-money-36-quashing-duration',
+        kind: 'indicative_estimate',
+        label: {
+          en: 'High Court quashing petition processing time',
+          bn: 'হাইকোর্ট খারিজ মামলার প্রক্রিয়াকরণের সময়',
+          hi: 'हाईकोर्ट निरस्तीकरण याचिका प्रक्रिया की अवधि'
+        },
+        value_description: {
+          en: 'Typically 2-4 months for admission and disposal; urgent stay applications heard within days.',
+          bn: 'সাধারণত ২-৪ মাস গ্রহণযোগ্যতা ও নিষ্পত্তিতে; জরুরি স্থগিতাদেশের আবেদন দিনগুলোই শুনানি হয়।',
+          hi: 'आम तौर पर २-४ माह में स्वीकार्यता और निस्तारण; तत्काल रोक आवेदन कुछ ही दिनों में सुने जाते हैं।'
+        },
+        scope: 'state_wb',
+        evidence: {
+          status: 'verified',
+          primary_source_title: 'Bharatiya Nagarik Suraksha Sanhita, 2023 Sec 528',
+          primary_source_url: 'https://calcuttahighcourt.gov.in/',
+          pinpoint: 'BNSS 2023 Sec 528 (inherent powers to quash); High Court Calcutta appellate side practice 2024',
+          checked_on: '2026-10-15'
+        }
+      }
+    ],
     roadmap_steps: {
       en: [
         'Examine complaint petition for jurisdictional defects: missing postal receipts or time-barred filing.',

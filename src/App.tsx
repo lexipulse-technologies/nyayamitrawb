@@ -292,8 +292,21 @@ export function App() {
   const [checkedDocs, setCheckedDocs] = useState<Record<string, boolean>>({});
 
   // Administrative State & Authentication
-  const [isAdminView, setIsAdminView] = useState<boolean>(() => isAdminSessionActive());
+  const [isAdminView, setIsAdminView] = useState<boolean>(false);
   const [showLoginModal, setShowLoginModal] = useState<boolean>(false);
+
+  // Verify admin session on mount
+  useEffect(() => {
+    const checkAdminSession = async () => {
+      try {
+        const active = await isAdminSessionActive();
+        setIsAdminView(active);
+      } catch {
+        setIsAdminView(false);
+      }
+    };
+    checkAdminSession();
+  }, []);
 
   // Search & Voice Search State
   const [searchQuery, setSearchQuery] = useState('');
@@ -333,6 +346,13 @@ export function App() {
 
     window.addEventListener('keydown', handleGlobalKeyDown);
     return () => window.removeEventListener('keydown', handleGlobalKeyDown);
+  }, []);
+
+  // Admin Login Modal Event Listener
+  useEffect(() => {
+    const handleOpenAdminLogin = () => setShowLoginModal(true);
+    window.addEventListener('open-admin-login', handleOpenAdminLogin);
+    return () => window.removeEventListener('open-admin-login', handleOpenAdminLogin);
   }, []);
 
   // Safe Deep-Linking & Razorpay Compliance Crawler URL Parameter Hook
@@ -444,8 +464,8 @@ export function App() {
     return () => window.removeEventListener('popstate', handlePopState);
   }, [isAdminView]);
 
-  const handlePublicViewClick = () => {
-    clearAdminSession();
+  const handlePublicViewClick = async () => {
+    await clearAdminSession();
     setIsAdminView(false);
     window.history.replaceState(null, '', window.location.href);
   };

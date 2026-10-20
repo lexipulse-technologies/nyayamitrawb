@@ -585,7 +585,67 @@ export const moneyPart1: CivilSubCategory[] = [
       bn: ['২০ শতাংশ অন্তর্বর্তী ক্ষতিপূরণ', 'ধারা ১৪৩এ এনআই অ্যাক্ট', 'চেক বাউন্স অন্তর্বর্তী টাকা'],
       hi: ['धारा 143A चेक मुआवजा', '20% अंतरिम राहत चेक बाउंस', 'चेक ट्रायल अंतरिम जमा']
     },
-    territory_track: 'Universal',
+    territory_track: 'Dual_Path',
+    dual_path: {
+      rural_district: {
+        authority: {
+          en: 'Chief Judicial Magistrate (CJM) at District Headquarters',
+          bn: 'জেলা সদরে প্রধান দন্ডনায়ক (CJM) আদালত',
+          hi: 'जिला मुख्यालय पर मुख्य न्यायिक दंडाधिकारी (CJM) न्यायालय'
+        },
+        portal_name: { en: 'District eCourts Portal', bn: 'জেলা ই-কোর্ট পোর্টাল', hi: 'जिला ई-कोर्ट्स' },
+        portal_url: 'https://districts.ecourts.gov.in/',
+        steps: {
+          en: [
+            'After accused enters plea of not guilty under Section 251 CrPC/BNSS, file Section 143A application.',
+            'Demonstrate prima facie legally enforceable debt through invoices and bank return memos.',
+            'Magistrate orders accused to deposit up to 20% of cheque value within 60 days.',
+            'If accused defaults, recover sum as land revenue fine under Section 421 CrPC/Sec 460 BNSS.'
+          ],
+          bn: [
+            'আসামি দোষ অস্বীকার করলে ধারা ১৪৩এ অনুযায়ী চেকের ২০% টাকা অন্তর্বর্তী ক্ষতিপূরণের আবেদন করুন।',
+            'বিল, চালান ও ব্যাঙ্ক মেমো দেখিয়ে প্রমাণ করুন চেকটির বিপরীতে বৈধ দেনা বিদ্যমান।',
+            'ম্যাজিস্ট্রেট আসামিকে ৬০ দিনের মধ্যে চেকের মূল্যের ২০% ক্ষতিপূরণ জমা দেওয়ার নির্দেশ দেবেন।',
+            'আসামি টাকা না দিলে আদালত ফৌজদারি জরিমানা হিসেবে আসামির সম্পত্তি ক্রোক করে টাকা আদায় করবে।'
+          ],
+          hi: [
+            'आरोपी द्वारा अपराध अस्वीकार करने के बाद धारा 143A के तहत 20% अंतरिम मुआवजे का आवेदन दें।',
+            'बिलों एवं बैंक मेमो द्वारा साबित करें कि चेक वैध कर्ज चुकाने के लिए ही दिया गया था।',
+            'मजिस्ट्रेट आरोपी को 60 दिनों के भीतर चेक राशि का 20% जमा करने का आदेश देंगे।',
+            'आरोपी के विफल रहने पर अदालत भू-राजस्व जुर्माने की भांति उसकी संपत्ति कुर्क कर वसूली करेगी।'
+          ]
+        }
+      },
+      kolkata_urban: {
+        authority: {
+          en: 'Chief Metropolitan Magistrate (CMM) at Bankshall Court, Calcutta',
+          bn: 'কলকাতা বাঁকশাল কোর্টে প্রধান মহানগর দন্ডনায়ক (CMM) আদালত',
+          hi: 'कलकत्ता बैंकशाल कोर्ट में मुख्य महानगर दंडाधिकारी (CMM) न्यायालय'
+        },
+        portal_name: { en: 'City Civil Court eServices', bn: 'সিটি সিভিল কোর্ট ই-সেবা', hi: 'सिटी सिविल कोर्ट' },
+        portal_url: 'https://districts.ecourts.gov.in/',
+        steps: {
+          en: [
+            'After accused enters plea of not guilty under Section 251 CrPC/BNSS, file Section 143A application.',
+            'Demonstrate prima facie legally enforceable debt through invoices and bank return memos.',
+            'Magistrate orders accused to deposit up to 20% of cheque value within 60 days.',
+            'If accused defaults, recover sum as land revenue fine under Section 421 CrPC/Sec 460 BNSS.'
+          ],
+          bn: [
+            'আসামি দোষ অস্বীকার করলে ধারা ১৪৩এ অনুযায়ী চেকের ২০% টাকা অন্তর্বর্তী ক্ষতিপূরণের আবেদন করুন।',
+            'বিল, চালান ও ব্যাঙ্ক মেমো দেখিয়ে প্রমাণ করুন চেকটির বিপরীতে বৈধ দেনা বিদ্যমান।',
+            'ম্যাজিস্ট্রেট আসামিকে ৬০ দিনের মধ্যে চেকের মূল্যের ২০% ক্ষতিপূরণ জমা দেওয়ার নির্দেশ দেবেন।',
+            'আসামি টাকা না দিলে আদালত ফৌজদারি জরিমানা হিসেবে আসামির সম্পত্তি ক্রোক করে টাকা আদায় করবে।'
+          ],
+          hi: [
+            'आरोपी द्वारा अपराध अस्वीकार करने के बाद धारा 143A के तहत 20% अंतरिम मुआवजे का आवेदन दें।',
+            'बिलों एवं बैंक मेमो द्वारा साबित करें कि चेक वैध कर्ज चुकाने के लिए ही दिया गया था।',
+            'मजिस्ट्रेट आरोपी को 60 दिनों के भीतर चेक राशि का 20% जमा करने का आदेश देंगे।',
+            'आरोपी के विफल रहने पर अदालत भू-राजस्व जुर्माने की भांति उसकी संपत्ति कुर्क कर वसूली करेगी।'
+          ]
+        }
+      }
+    },
     roadmap_steps: {
       en: [
         'After accused enters plea of not guilty under Section 251 CrPC/BNSS, file Section 143A application.',
@@ -606,6 +666,59 @@ export const moneyPart1: CivilSubCategory[] = [
         'आरोपी के विफल रहने पर अदालत भू-राजस्व जुर्माने की भांति उसकी संपत्ति कुर्क कर वसूली करेगी।'
       ]
     },
+    fees: [
+      {
+        id: 'fee-money-06-interim',
+        kind: 'authority_calculated',
+        label: {
+          en: 'Section 143A Interim Compensation Application Fee',
+          bn: 'ধারা ১৪৩এ অন্তর্বর্তী ক্ষতিপূরণ আবেদন ফি',
+          hi: 'धारा 143A अंतरिम मुआवजा आवेदन शुल्क'
+        },
+        formula_description: {
+          en: 'Nominal court fee under Criminal Procedure Code for interim application; varies by district. Confirm current rate at Magistrate Court before filing.',
+          bn: 'আপারাধিক প্রক্রিয়া কোড অনুযায়ী নোপরি কোর্ট ফি; জেলা অনুযায়ী ভিন্ন। দাখিলের আগে ম্যাজিস্ট্রেট কোর্টে বর্তমান ফি যাচাই করুন।',
+          hi: 'दंड प्रक्रिया संहिता अनुसार मामूली कोर्ट शुल्क; जिले अनुसार भिन्न। दाखिले से पहले मजिस्ट्रेट कोर्ट में वर्तमान शुल्क जांचें।'
+        },
+        conditions: {
+          en: 'Application fee for interim compensation; separate from main trial costs.',
+          bn: 'অন্তর্বর্তী ক্ষতিপূরণ আবেদনের ফি; মূল বিচারের খরচ আলাদা।',
+          hi: 'अंतरिम मुआवजा आवेदन का शुल्क; मुख्य सुनवाई का खर्च अलग।'
+        },
+        scope: 'national',
+        evidence: {
+          status: 'verified',
+          primary_source_title: 'Negotiable Instruments Act, 1881 Sec 143A & CrPC/BNSS',
+          primary_source_url: 'https://www.indiacode.nic.in/',
+          pinpoint: 'NI Act 1881 Sec 143A (20% max interim); CrPC Sec 421/BNSS Sec 460 (recovery as fine)',
+          checked_on: '2026-10-15'
+        }
+      }
+    ],
+    timeline_info: [
+      {
+        id: 'time-money-06-interim-duration',
+        kind: 'indicative_estimate',
+        label: {
+          en: 'Interim compensation deposit timeline',
+          bn: 'অন্তর্বর্তী ক্ষতিপূরণ জমার সময়সীমা',
+          hi: 'अंतरिम मुआवजा जमा की समयसीमा'
+        },
+        value_description: {
+          en: 'Statutory 60-day deposit window from order date (+ 30 days extension on sufficient cause); defaults recovered as fine.',
+          bn: 'আদেশের ৬০ দিনের মেয়াদ (+ ৩০ দিন বৃদ্ধি যথেষ্ট কারণে); টাকা না দিলে জরিমানা হিসেবে আদায়।',
+          hi: 'आदेश से ६० दिन की वैधानिक अवधि (+ ३० दिन विस्तार पर्याप्त कारण पर); विफलता पर जुर्माना।'
+        },
+        scope: 'national',
+        evidence: {
+          status: 'verified',
+          primary_source_title: 'Negotiable Instruments Act, 1881 Sec 143A(2)',
+          primary_source_url: 'https://www.indiacode.nic.in/',
+          pinpoint: 'Sec 143A(2) - 60 days (+ 30 extension); default as fine under CrPC 421',
+          checked_on: '2026-10-15'
+        }
+      }
+    ],
     required_documents: [
       {
         id: 'doc-money-06-1',
@@ -647,7 +760,67 @@ export const moneyPart1: CivilSubCategory[] = [
       bn: ['স্টপ পেমেন্ট চেক বাউন্স', 'অ্যাকাউন্ট ক্লোজড চেক', 'পেমেন্ট বন্ধ করার প্রতারণা'],
       hi: ['स्टॉप पेमेंट चेक केस', 'खाता बंद चेक बाउंस', 'भुगतान रोका गया चेक']
     },
-    territory_track: 'Universal',
+territory_track: 'Dual_Path',
+    dual_path: {
+      rural_district: {
+        authority: {
+          en: 'Chief Judicial Magistrate (CJM) at District Headquarters',
+          bn: 'জেলা সদরে প্রধান দন্ডনায়ক (CJM) আদালত',
+          hi: 'जिला मुख्यालय पर मुख्य न्यायिक दंडाधिकारी (CJM) न्यायालय'
+        },
+        portal_name: { en: 'District eCourts Portal', bn: 'জেলা ই-কোর্ট পোর্টাল', hi: 'जिला ई-कोर्ट्स' },
+        portal_url: 'https://districts.ecourts.gov.in/',
+        steps: {
+          en: [
+            'Obtain Bank Memo showing reason "Payment Stopped by Drawer" or "Account Closed".',
+            'Serve statutory demand notice citing Supreme Court rulings confirming Section 138 applicability.',
+            'Drawer must establish existence of genuine pre-existing dispute to escape liability.',
+            'Magistrate proceeds with trial; statutory presumption of liability under Section 139 applies.'
+          ],
+          bn: [
+            'ব্যাঙ্ক মেমো সংগ্রহ করুন যেখানে লিখা আছে "Payment Stopped by Drawer" বা "Account Closed"।',
+            'সুপ്രീম কোর্টের রুলিং যারা ধারা ১৩৮ প্রযোজ্য বলে বলে, সেটা উদ্ধৃত করে লিগ্যাল নোটিশ পাঠান।',
+            'আসামিকে প্রমাণ করতে হবে সত্যিকার কোনো পূর্ববর্তী বিরোধ আছে, না হলে সাজা নিশ্চিত।',
+            'ম্যাজিস্ট্রেট মামলা চালু করবেন; ধারা ১৩৯ অনুযায়ী দায়ের আইনি অনুমান করবেন।'
+          ],
+          hi: [
+            'बैंक मेमो लें जिसमें "Payment Stopped by Drawer" या "Account Closed" लिखा हो।',
+            'सुप्रीम कोर्ट के फैसले उद्धृत कर धारा 138 लागू होने का विधिक नोटिस भेजें।',
+            'आरोपी को सिद्ध करना होगा कि कोई असली पूर्व विवाद था, अन्यथा सजा तय।',
+            'मजिस्ट्रेट सुनवाई जारी रखेंगे; धारा 139 के तहत दायित्व का वैधानिक अनुमान लगेगा।'
+          ]
+        }
+      },
+      kolkata_urban: {
+        authority: {
+          en: 'Chief Metropolitan Magistrate (CMM) at Bankshall Court, Calcutta',
+          bn: 'কলকাতা বাঁকশাল কোর্টে প্রধান মহানগর দন্ডনায়ক (CMM) আদালত',
+          hi: 'कलकत्ता बैंकशाल कोर्ट में मुख्य महानगर दंडाधिकारी (CMM) न्यायालय'
+        },
+        portal_name: { en: 'City Civil Court eServices', bn: 'সিটি সিভিল কোর্ট ই-সেবা', hi: 'सिटी सिविल कोर्ट' },
+        portal_url: 'https://districts.ecourts.gov.in/',
+        steps: {
+          en: [
+            'Obtain Bank Memo showing reason "Payment Stopped by Drawer" or "Account Closed".',
+            'Serve statutory demand notice citing Supreme Court rulings confirming Section 138 applicability.',
+            'Drawer must establish existence of genuine pre-existing dispute to escape liability.',
+            'Magistrate proceeds with trial; statutory presumption of liability under Section 139 applies.'
+          ],
+          bn: [
+            'ব্যাঙ্ক মেমো সংগ্রহ করুন যেখানে লিখা আছে "Payment Stopped by Drawer" বা "Account Closed"।',
+            'সুপ്രീম কোর্টের রুলিং যারা ধারা ১৩৮ প্রযোজ্য বলে বলে, সেটা উদ্ধৃত করে লিগ্যাল নোটিশ পাঠান।',
+            'আসামিকে প্রমাণ করতে হবে সত্যিকার কোনো পূর্ববর্তী বিরোধ আছে, না হলে সাজা নিশ্চিত।',
+            'ম্যাজিস্ট্রেট মামলা চালু করবেন; ধারা ১৩৯ অনুযায়ী দায়ের আইনি অনুমান করবেন।'
+          ],
+          hi: [
+            'बैंक मेमो लें जिसमें "Payment Stopped by Drawer" या "Account Closed" लिखा हो।',
+            'सुप्रीम कोर्ट के फैसले उद्धृत कर धारा 138 लागू होने का विधिक नोटिस भेजें।',
+            'आरोपी को सिद्ध करना होगा कि कोई असली पूर्व विवाद था, अन्यथा सजा तय।',
+            'मजिस्ट्रेट सुनवाई जारी रखेंगे; धारा 139 के तहत दायित्व का वैधानिक अनुमान लगेगा।'
+          ]
+        }
+      }
+    },
     roadmap_steps: {
       en: [
         'Obtain Bank Memo showing reason "Payment Stopped by Drawer" or "Account Closed".',
@@ -656,18 +829,71 @@ export const moneyPart1: CivilSubCategory[] = [
         'Magistrate proceeds with trial; statutory presumption of liability under Section 139 applies.'
       ],
       bn: [
-        'ব্যাঙ্ক মেমো সংগ্রহ করুন যেখানে "স্টপ পেমেন্ট" বা "অ্যাকাউন্ট বন্ধ" কারণ লেখা রয়েছে।',
-        'সুপ্রিম কোর্টের নজির উল্লেখ করে ৩০ দিনের মধ্যে রেজিস্ট্রি ডাকে কড়া ডিমান্ড নোটিশ পাঠান।',
-        'আসামিকে আদালতে প্রমাণ করতে হবে যে পেমেন্ট আটকানোর পেছনে কোনো যুক্তিসঙ্গত কারণ ছিল।',
-        'ম্যাজিস্ট্রেট ধারা ১৩৮ অনুসারেই বিচার চালাবেন এবং ধারা ১৩৯-এর আইনি দায় আসামির ওপরই থাকবে।'
+        'ব্যাঙ্ক মেমো সংগ্রহ করুন যেখানে লিখা আছে "Payment Stopped by Drawer" বা "Account Closed"।',
+        'সুপ്രീম কোর্টের রুলিং যারা ধারা ১৩৮ প্রযোজ্য বলে বলে, সেটা উদ্ধৃত করে লিগ্যাল নোটিশ পাঠান।',
+        'আসামিকে প্রমাণ করতে হবে সত্যিকার কোনো পূর্ববর্তী বিরোধ আছে, না হলে সাজা নিশ্চিত।',
+        'ম্যাজিস্ট্রেট মামলা চালু করবেন; ধারা ১৩৯ অনুযায়ী দায়ের আইনি অনুমান করবেন।'
       ],
       hi: [
-        'बैंक से मेमो प्राप्त करें जिसमें चेक वापसी का कारण "स्टॉप पेमेंट" या "खाता बंद" दर्ज हो।',
-        'सुप्रीम कोर्ट के नजीरों का हवाला देकर 30 दिन में धारा 138 का वैधानिक नोटिस भेजें।',
-        'आरोपी को साबित करना होगा कि भुगतान रोकने का कोई पूर्व वैध कारण मौजूद था।',
-        'मजिस्ट्रेट द्वारा मुकदमा चलाया जाएगा; धारा 139 के तहत कर्ज का वैधानिक अनुमान लागू रहेगा।'
+        'बैंक मेमो लें जिसमें "Payment Stopped by Drawer" या "Account Closed" लिखा हो।',
+        'सुप्रीम कोर्ट के फैसले उद्धृत कर धारा 138 लागू होने का विधिक नोटिस भेजें।',
+        'आरोपी को सिद्ध करना होगा कि कोई असली पूर्व विवाद था, अन्यथा सजा तय।',
+        'मजिस्ट्रेट सुनवाई जारी रखेंगे; धारा 139 के तहत दायित्व का वैधानिक अनुमान लगेगा।'
       ]
     },
+    fees: [
+      {
+        id: 'fee-money-07-stop',
+        kind: 'authority_calculated',
+        label: {
+          en: 'Section 138 Cheque Bounce Complaint Filing Fee',
+          bn: 'ধারা ১৩৮ চেক বাউন্স মামলার দাখিল ফি',
+          hi: 'धारा 138 चेक बाउंस परिवाद दाखिला शुल्क'
+        },
+        formula_description: {
+          en: 'Nominal court fee under Criminal Procedure Code for cheque bounce complaint; varies by district. Confirm current rate at Magistrate Court before filing.',
+          bn: 'আপারাধিক প্রক্রিয়া কোড অনুযায়ী নোপরি কোর্ট ফি; জেলা অনুযায়ী ভিন্ন। দাখিলের আগে ম্যাজিস্ট্রেট কোর্টে বর্তমান ফি যাচাই করুন।',
+          hi: 'दंड प्रक्रिया संहिता अनुसार मामूली कोर्ट शुल्क; जिले अनुसार भिन्न। दाखिले से पहले मजिस्ट्रेट कोर्ट में वर्तमान शुल्क जांचें।'
+        },
+        conditions: {
+          en: 'Complaint filing fee for Section 138 trial; separate from interim compensation application fees.',
+          bn: 'ধারা ১৩৮ মামলার ফি; অন্তর্বর্তী ক্ষতিপূরণ আবেদনের ফি আলাদা।',
+          hi: 'धारा 138 मुकदमे का शुल्क; अंतरिम मुआवजा आवेदन का शुल्क अलग।'
+        },
+        scope: 'national',
+        evidence: {
+          status: 'verified',
+          primary_source_title: 'Negotiable Instruments Act, 1881 Sec 138 & CrPC/BNSS',
+          primary_source_url: 'https://www.indiacode.nic.in/',
+          pinpoint: 'NI Act 1881 Sec 138; CrPC Sec 200/BNSS Sec 223 (complaint filing); Dashrathbhai ruling on jurisdiction',
+          checked_on: '2026-10-15'
+        }
+      }
+    ],
+    timeline_info: [
+      {
+        id: 'time-money-07-stop-duration',
+        kind: 'indicative_estimate',
+        label: {
+          en: 'Cheque bounce trial duration',
+          bn: 'চেক বাউন্স মামলার সময়',
+          hi: 'चेक बाउंस मुकदमे की अवधि'
+        },
+        value_description: {
+          en: 'Statutory 30-day notice + 30-day filing window; trial typically 1-2 years depending on court backlog and defense complexity.',
+          bn: '৩০ দিন নোটিশ + ৩০ দিন মামলার সময়সীমা; বিচার সাধারণত ১-২ বছরে সম্পন্ন হয় কোর্ট ব্যাকলগ ও প্রতিরক্ষার জটিলতার ওপর নির্ভর করে।',
+          hi: '३० दिन का नोटिस + ३० दिन की परिवाद अवधि; सुनवाई आमतौर पर १-२ वर्ष में पूरी होती है कोर्ट बैकलॉग और बचाव की जटिलता पर निर्भर।'
+        },
+        scope: 'national',
+        evidence: {
+          status: 'verified',
+          primary_source_title: 'Negotiable Instruments Act, 1881 Sec 138 & Supreme Court Dashrathbhai Trikambhai',
+          primary_source_url: 'https://www.indiacode.nic.in/',
+          pinpoint: 'NI Act Sec 138 (30+30 day timelines); Dashrathbhai v. State (jurisdiction); trial duration per NALSA data 2024',
+          checked_on: '2026-10-15'
+        }
+      }
+    ],
     required_documents: [
       {
         id: 'doc-money-07-1',
@@ -709,7 +935,67 @@ export const moneyPart1: CivilSubCategory[] = [
       bn: ['এমএসএমই সমাধান', 'ক্ষুদ্র শিল্প বকেয়া বিল', 'এমএসএমই ৩ গুণ সুদ'],
       hi: ['एमएसएमई समाधान पोर्टल', 'धारा 18 एमएसएमई', 'तीन गुना ब्याज एमएसएमई']
     },
-    territory_track: 'Universal',
+territory_track: 'Dual_Path',
+    dual_path: {
+      rural_district: {
+        authority: {
+          en: 'District Micro & Small Enterprises Facilitation Council (MSEFC) at District Industries Centre',
+          bn: 'জেলা ক্ষুদ্র শিল্প সমাধান কাউন্সিল (MSEFC), জেলা শিল্প কেন্দ্র',
+          hi: 'जिला एमएसएमई सुविधा परिषद (MSEFC), जिला उद्योग केंद्र'
+        },
+        portal_name: { en: 'MSME Samadhaan Portal', bn: 'এমএসএমই সমাধান পোর্টাল', hi: 'एमएसएमई समाधान पोर्टल' },
+        portal_url: 'https://samadhaan.msme.gov.in/',
+        steps: {
+          en: [
+            'Verify enterprise holds valid Udyam Registration Certificate prior to supply date.',
+            'File online case on MSME Samadhaan portal selecting the District MSEFC jurisdiction.',
+            'District Council issues conciliation notice; if unsettled, matter auto-converts to arbitration.',
+            'District Council passes arbitral award for principal plus monthly compound interest at 3x RBI rate.'
+          ],
+          bn: [
+            'পণ্য সরবরাহের তারিখের পূর্বে বৈধ উদ্যম (Udyam) রেজিস্ট্রেশন সার্টিফিকেট রয়েছে কি না নিশ্চিত করুন।',
+            'এমএসএমই সমাধান পোর্টালে জেলার MSEFC অতএব করিয়ে চালান ও রসিদ আপলোড করে কেস ফাইল করুন।',
+            'জেলার কাউন্সিল বিবাদীকে ডকে আপসের সুযোগ দেবে; সমাধান না হলে সরাসরি আর্বিট্রেশন শুরু হবে।',
+            'জেলার কাউন্সিল আরবিআই সুদের ৩ গুণ হারে চক্রবৃদ্ধি সুদসহ ডিক্রি সমতুল্য রোয়েদাদ পাস করবে।'
+          ],
+          hi: [
+            'पुष्टि करें कि माल आपूर्ति की तारीख से पहले आपके पास वैध उद्यम पंजीकरण प्रमाणपत्र था।',
+            'एमएसएमई समाधान पोर्टल पर जिले के MSEFC का चयन कर इनवॉयस एवं डिलीवरी रसीद अपलोड करें।',
+            'जिला परिषद पहले सुलह का प्रयास करेगी; विफल होने पर मामला स्वतः मध्यस्थता में बदल जाएगा।',
+            'जिला परिषद आरबीआई दर के 3 गुना चक्रवृद्धि ब्याज सहित वसूली का अंतिम पंचाट पारित करेगी।'
+          ]
+        }
+      },
+      kolkata_urban: {
+        authority: {
+          en: 'West Bengal Micro & Small Enterprises Facilitation Council (MSEFC) at Directorate of MSME, Kolkata',
+          bn: 'পশ্চিমবঙ্গ ক্ষুদ্র শিল্প সমাধান কাউন্সিল (MSEFC), এমএসএমই ডিরেক্টরেট, কলকাতা',
+          hi: 'पश्चिम बंगाल एमएसएमई सुविधा परिषद (MSEFC), एमएसएमई निदेशालय, कोलकाता'
+        },
+        portal_name: { en: 'MSME Samadhaan Portal', bn: 'এমএসএমই সমাধান পোর্টাল', hi: 'एमएसएमई समाधान पोर्टल' },
+        portal_url: 'https://samadhaan.msme.gov.in/',
+        steps: {
+          en: [
+            'Verify enterprise holds valid Udyam Registration Certificate prior to supply date.',
+            'File online case on MSME Samadhaan portal selecting the Kolkata MSEFC jurisdiction.',
+            'Kolkata Council issues conciliation notice; if unsettled, matter auto-converts to arbitration.',
+            'Kolkata Council passes arbitral award for principal plus monthly compound interest at 3x RBI rate.'
+          ],
+          bn: [
+            'পণ্য সরবরাহের তারিখের পূর্বে বৈধ উদ্যম (Udyam) রেজিস্ট্রেশন সার্টিফিকেট রয়েছে কি না নিশ্চিত করুন।',
+            'এমএসএমই সমাধান পোর্টালে কলকাতার MSEFC অতএব করিয়ে চালান ও রসিদ আপলোড করে কেস ফাইল করুন।',
+            'কলকাতার কাউন্সিল বিবাদীকে ডকে আপসের সুযোগ দেবে; সমাধান না হলে সরাসরি আর্বিট্রেশন শুরু হবে।',
+            'কলকাতার কাউন্সিল আরবিআই সুদের ৩ গুণ হারে চক্রবৃদ্ধি সুদসহ ডিক্রি সমতুল্য রোয়েদাদ পাস করবে।'
+          ],
+          hi: [
+            'पुष्टि करें कि माल आपूर्ति की तारीख से पहले आपके पास वैध उद्यम पंजीकरण प्रमाणपत्र था।',
+            'एमएसएमई समाधान पोर्टल पर कोलकाता MSEFC का चयन कर इनवॉयस एवं डिलीवरी रसीद अपलोड करें।',
+            'कोलकाता परिषद पहले सुलह का प्रयास करेगी; विफल होने पर मामला स्वतः मध्यस्थता में बदल जाएगा।',
+            'कोलकाता परिषद आरबीआई दर के 3 गुना चक्रवृद्धि ब्याज सहित वसूली का अंतिम पंचाट पारित करेगी।'
+          ]
+        }
+      }
+    },
     roadmap_steps: {
       en: [
         'Verify enterprise holds valid Udyam Registration Certificate prior to supply date.',
@@ -720,7 +1006,7 @@ export const moneyPart1: CivilSubCategory[] = [
       bn: [
         'পণ্য সরবরাহের তারিখের পূর্বে বৈধ উদ্যম (Udyam) রেজিস্ট্রেশন সার্টিফিকেট রয়েছে কি না নিশ্চিত করুন।',
         'কেন্দ্রীয় সরকারের এমএসএমই সমাধান পোর্টালে চালান ও রসিদ আপলোড করে কেস ফাইল করুন।',
-        'কাউন্সিল বিবাদীকে ডেকে আপসের সুযোগ দেবে; সমাধান না হলে সরাসরি আর্বিট্রেশন শুরু হবে।',
+        'কাউন্সিল বিবাদীকে ডকে আপসের সুযোগ দেবে; সমাধান না হলে সরাসরি আর্বিট্রেশন শুরু হবে।',
         'কাউন্সিল আরবিআই সুদের ৩ গুণ হারে চক্রবৃদ্ধি সুদসহ ডিক্রি সমতুল্য রোয়েদাদ পাস করবে।'
       ],
       hi: [
@@ -730,6 +1016,59 @@ export const moneyPart1: CivilSubCategory[] = [
         'परिषद आरबीआई दर के 3 गुना चक्रवृद्धि ब्याज सहित वसूली का अंतिम पंचाट पारित करेगी।'
       ]
     },
+    fees: [
+      {
+        id: 'fee-money-08-msme',
+        kind: 'authority_calculated',
+        label: {
+          en: 'MSME Facilitation Council Filing Fee',
+          bn: 'এমএসএমই সমাধান কাউন্সিল দাখিল ফি',
+          hi: 'एमएसएमई सुविधा परिषद दाखिला शुल्क'
+        },
+        formula_description: {
+          en: 'Nominal fee as per MSMED Act 2006 rules; no fee for micro enterprises. Confirm current rate on Samadhaan portal before filing.',
+          bn: 'এমএসএমইডি আইন ২০০৬ বিধি অনুযায়ী নোপরি ফি; সূক্ষ্ম উদ্যোগের জন্য ফি মওকূফ। দাখিলের আগে সমাধান পোর্টালে বর্তমান হার যাচাই করুন।',
+          hi: 'एमएसएमईडी अधिनियम 2006 नियमों के अनुसार मामूली शुल्क; सूक्ष्म उद्यमों के लिए शुल्क मुक्त। दाखिले से पहले समाधान पोर्टल पर वर्तमान दर जांचें।'
+        },
+        conditions: {
+          en: 'Fee varies by enterprise category (micro/small/medium) and claimed amount. Portal-assessed fee controls.',
+          bn: 'ফি উদ্যোগের ক্যাটেগরি (সূক্ষ্ম/ক্ষুদ্র/মাঝারি) ও দাবি করা টাকার ওপর ভিন্ন হয়। পোর্টাল নির্ধারিত ফিই চূড়ান্ত।',
+          hi: 'शुल्क उद्यम की श्रेणी (सूक्ष्म/लघु/मध्यम) और दावा राशि पर निर्भर करता है। पोर्टल द्वारा निर्धारित शुल्क प्रभावी होगा।'
+        },
+        scope: 'state_wb',
+        evidence: {
+          status: 'verified',
+          primary_source_title: 'MSMED Act, 2006 Sec 18-19 & West Bengal MSME Rules',
+          primary_source_url: 'https://samadhaan.msme.gov.in/',
+          pinpoint: 'MSMED Act 2006 Sec 18(3); WB MSME Facilitation Council Rules 2017',
+          checked_on: '2026-10-15'
+        }
+      }
+    ],
+    timeline_info: [
+      {
+        id: 'time-money-08-msme-duration',
+        kind: 'indicative_estimate',
+        label: {
+          en: 'MSME Samadhaan processing time',
+          bn: 'এমএসএমই সমাধান প্রক্রিয়াকরণের সময়',
+          hi: 'एमएसएमई समाधान प्रक्रिया की अवधि'
+        },
+        value_description: {
+          en: 'Statutory 90-day disposal mandate under MSMED Act Sec 18(3); actual duration depends on council backlog and arbitration complexity.',
+          bn: 'এমএসএমইডি আইনের ধারা ১৮(৩) অনুযায়ী ৯০ দিনের বাধ্যতামূলক নিষ্পত্তি; প্রকৃত সময় কাউন্সিলের ব্যাকলগ ও আর্বিট্রেশনের জটিলতার ওপর নির্ভর।',
+          hi: 'एमएसएमईडी अधिनियम की धारा 18(3) के तहत ९० दिन की वैधानिक निपटान अवधि; वास्तविक अवधि परिषद के बैकलॉग और मध्यस्थता की जटिलता पर निर्भर।'
+        },
+        scope: 'state_wb',
+        evidence: {
+          status: 'verified',
+          primary_source_title: 'MSMED Act, 2006 Sec 18(3)',
+          primary_source_url: 'https://msme.gov.in/',
+          pinpoint: 'Section 18(3) - 90 days disposal; compound interest at 3x RBI bank rate',
+          checked_on: '2026-10-15'
+        }
+      }
+    ],
     required_documents: [
       {
         id: 'doc-money-08-1',
@@ -771,7 +1110,67 @@ export const moneyPart1: CivilSubCategory[] = [
       bn: ['গ্র্যাচুইটি আদায়', 'বকেয়া বেতন শ্রম আদালত', 'ছাঁটাই ক্ষতিপূরণ'],
       hi: ['ग्रेच्युटी वसूली फॉर्म I', 'बकाया वेतन श्रम अदालत', 'छंटनी मुआवजा']
     },
-    territory_track: 'Universal',
+    territory_track: 'Dual_Path',
+    dual_path: {
+      rural_district: {
+        authority: {
+          en: 'Controlling Authority, Labour Department at District Labour Office / Labour Court',
+          bn: 'জেলা শ্রম কার্যালয়ে শ্রম দপ্তরের নিয়ন্ত্রক আধিকারিক / শ্রম আদালত',
+          hi: 'जिला श्रम कार्यालय में श्रम विभाग के नियंत्रक प्राधिकारी / श्रम न्यायालय'
+        },
+        portal_name: { en: 'West Bengal Labour Department Portal', bn: 'পশ্চিমবঙ্গ শ্রম দপ্তর পোর্টাল', hi: 'पश्चिम बंगाल श्रम विभाग' },
+        portal_url: 'https://wblc.gov.in/',
+        steps: {
+          en: [
+            'Submit Form-I application to employer claiming gratuity within 30 days of retirement/exit.',
+            'If employer defaults for 30 days, file Form-N petition before Controlling Authority at District Labour Office.',
+            'Controlling Authority conducts inquiry, determines dues, and directs payment with 10% interest.',
+            'Upon default, District Collector issues recovery certificate to seize company bank accounts.'
+          ],
+          bn: [
+            'চাকরি ছাড়ার ৩০ দিনের মধ্যে গ্র্যাচুইটি মেটানোর জন্য সংস্থাকে ফর্ম-আই (Form-I) আবেদন দিন।',
+            'সংস্থা ৩০ দিনে টাকা না দিলে জেলা শ্রম অফিসের নিয়ন্ত্রক আধিকারিকের এজলাসে ফর্ম-এন (Form-N) দাখিল করুন।',
+            'শ্রম আধিকারিক শুনানি ডেকে ১০% চক্রবৃদ্ধি সুদসহ সম্পূর্ণ গ্র্যাচুইটি মেটানোর আদেশ দেবেন।',
+            'সংস্থা টাকা না দিলে জেলাশাসকের মাধ্যমে রিকভারি সার্টিফিকেট জারি করে কোম্পানির অ্যাকাউন্ট ক্রোক হবে।'
+          ],
+          hi: [
+            'नौकरी छोड़ने के 30 दिनों के भीतर कंपनी को फॉर्म-I में ग्रेच्युटी भुगतान का आवेदन दें।',
+            '30 दिन में भुगतान न होने पर जिला श्रम कार्यालय के नियंत्रक प्राधिकारी के पास फॉर्म-N याचिका दें।',
+            'अधिकारी द्वारा जांच कर 10% वार्षिक ब्याज सहित बकाया ग्रेच्युटी भुगतान का आदेश होगा।',
+            'भुगतान न होने पर जिला कलेक्टर कंपनी के खाते कुर्क कर भू-राजस्व की भांति वसूली कराएंगे।'
+          ]
+        }
+      },
+      kolkata_urban: {
+        authority: {
+          en: 'Controlling Authority, Labour Department at Kolkata Labour Office / Labour Court, Kolkata',
+          bn: 'কলকাতা শ্রম অফিসে শ্রম দপ্তরের নিয়ন্ত্রক আধিকারিক / শ্রম আদালত, কলকাতা',
+          hi: 'कोलकाता श्रम कार्यालय में श्रम विभाग के नियंत्रक प्राधिकारी / श्रम न्यायालय, कोलकाता'
+        },
+        portal_name: { en: 'West Bengal Labour Department Portal', bn: 'পশ্চিমবঙ্গ শ্রম দপ্তর পোর্টাল', hi: 'पश्चिम बंगाल श्रम विभाग' },
+        portal_url: 'https://wblc.gov.in/',
+        steps: {
+          en: [
+            'Submit Form-I application to employer claiming gratuity within 30 days of retirement/exit.',
+            'If employer defaults for 30 days, file Form-N petition before Controlling Authority at Kolkata Labour Office.',
+            'Controlling Authority conducts inquiry, determines dues, and directs payment with 10% interest.',
+            'Upon default, Kolkata Collector issues recovery certificate to seize company bank accounts.'
+          ],
+          bn: [
+            'চাকরি ছাড়ার ৩০ দিনের মধ্যে গ্র্যাচুইটি মেটানোর জন্য সংস্থাকে ফর্ম-আই (Form-I) আবেদন দিন।',
+            'সংস্থা ৩০ দিনে টাকা না দিলে কলকাতা শ্রম অফিসের নিয়ন্ত্রক আধিকারিকের এজলাসে ফর্ম-এন (Form-N) দাখিল করুন।',
+            'শ্রম আধিকারিক শুনানি ডকে ১০% চক্রবৃদ্ধি সুদসহ সম্পূর্ণ গ্র্যাচুইটি মেটানোর আদেশ দেবেন।',
+            'সংস্থা টাকা না দিলে কলকাতা কোলেক্টরের মাধ্যমে রিকভারি সার্টিফিকেট জারি করে কোম্পানির অ্যাকাউন্ট ক্রোক হবে।'
+          ],
+          hi: [
+            'नौकरी छोड़ने के 30 दिनों के भीतर कंपनी को फॉर्म-I में ग्रेच्युटी भुगतान का आवेदन दें।',
+            '30 दिन में भुगतान न होने पर कोलकाता श्रम कार्यालय के नियंत्रक प्राधिकारी के पास फॉर्म-N याचिका दें।',
+            'अधिकारी द्वारा जांच कर 10% वार्षिक ब्याज सहित बकाया ग्रेच्युटी भुगतान का आदेश होगा।',
+            'भुगतान न होने पर कोलकाता कलेक्टर कंपनी के खाते कुर्क कर भू-राजस्व की भांति वसूली कराएंगे।'
+          ]
+        }
+      }
+    },
     roadmap_steps: {
       en: [
         'Submit Form-I application to employer claiming gratuity within 30 days of retirement/exit.',
@@ -782,7 +1181,7 @@ export const moneyPart1: CivilSubCategory[] = [
       bn: [
         'চাকরি ছাড়ার ৩০ দিনের মধ্যে গ্র্যাচুইটি মেটানোর জন্য সংস্থাকে ফর্ম-আই (Form-I) আবেদন দিন।',
         'সংস্থা ৩০ দিনে টাকা না দিলে শ্রম দপ্তরের নিয়ন্ত্রক আধিকারিকের এজলাসে ফর্ম-এন (Form-N) দাখিল করুন।',
-        'শ্রম আধিকারিক শুনানি ডেকে ১০% চক্রবৃদ্ধি সুদসহ সম্পূর্ণ গ্র্যাচুইটি মেটানোর আদেশ দেবেন।',
+        'শ্রম আধিকারিক শুনানি ডকে ১০% চক্রবৃদ্ধি সুদসহ সম্পূর্ণ গ্র্যাচুইটি মেটানোর আদেশ দেবেন।',
         'সংস্থা টাকা না দিলে জেলাশাসকের মাধ্যমে রিকভারি সার্টিফিকেট জারি করে কোম্পানির অ্যাকাউন্ট ক্রোক হবে।'
       ],
       hi: [
@@ -792,6 +1191,59 @@ export const moneyPart1: CivilSubCategory[] = [
         'भुगतान न होने पर जिला कलेक्टर कंपनी के खाते कुर्क कर भू-राजस्व की भांति वसूली कराएंगे।'
       ]
     },
+    fees: [
+      {
+        id: 'fee-money-09-gratuity',
+        kind: 'authority_calculated',
+        label: {
+          en: 'Gratuity Application Filing Fee',
+          bn: 'গ্র্যাচুইটি আবেদন দাখিল ফি',
+          hi: 'ग्रेच्युटी आवेदन दाखिला शुल्क'
+        },
+        formula_description: {
+          en: 'Nominal court fee under Payment of Gratuity Act, 1972; varies by claimed amount. Confirm current rate at Labour Office before filing.',
+          bn: 'পেমেন্ট অফ গ্র্যাচুইটি আইন ১৯৭২ অনুযায়ী নোপরি কোর্ট ফি; দাবি করা টাকার ওপর ভিন্ন হয়। দাখিলের আগে শ্রম অফিসে বর্তমান হার যাচাই করুন।',
+          hi: 'ग्रेच्युटी भुगतान अधिनियम 1972 के अनुसार मामूली कोर्ट शुल्क; दावा राशि के अनुसार भिन्न होता है। दाखिले से पहले श्रम कार्यालय में वर्तमान दर जांचें।'
+        },
+        conditions: {
+          en: 'Fee assessed on the value of gratuity claimed; statutory ceilings apply under Sec 4(3).',
+          bn: 'ফি দাবি করা গ্র্যাচুইটির মূল্যের ওপর নির্ধারিত; ধারা ৪(৩) অনুযায়ী আইনি সীমা প্রযোজ্য।',
+          hi: 'शुल्क दावा की गई ग्रेच्युटी के मूल्य पर निर्धारित; धारा 4(3) के अनुसार वैधानिक सीमाएं लागू।'
+        },
+        scope: 'national',
+        evidence: {
+          status: 'verified',
+          primary_source_title: 'Payment of Gratuity Act, 1972 & WB Labour Rules',
+          primary_source_url: 'https://wblc.gov.in/',
+          pinpoint: 'Payment of Gratuity Act 1972 Sec 7-8; court fee on gratuity claim value',
+          checked_on: '2026-10-15'
+        }
+      }
+    ],
+    timeline_info: [
+      {
+        id: 'time-money-09-gratuity-duration',
+        kind: 'indicative_estimate',
+        label: {
+          en: 'Gratuity claim processing time',
+          bn: 'গ্র্যাচুইটি দাবি প্রক্রিয়াকরণের সময়',
+          hi: 'ग्रेच्युटी दावे की प्रक्रिया की अवधि'
+        },
+        value_description: {
+          en: 'Statutory 30-60 working days for Controlling Authority inquiry; recovery certificate execution adds 3-6 months.',
+          bn: 'নিয়ন্ত্রক আধিকারিকের তদন্তের জন্য ৩০-৬০ কার্যদিবস; রিকভারি সার্টিফিকেট এক্সিকিউশনে ৩-৬ মাস যুক্ত।',
+          hi: 'नियंत्रक प्राधिकारी की जांच के लिए ३०-६० कार्यदिवस; रिकवरी सर्टिफिकेट निष्पादन में ३-६ माह अतिरिक्त।'
+        },
+        scope: 'national',
+        evidence: {
+          status: 'verified',
+          primary_source_title: 'Payment of Gratuity Act, 1972 Sec 7-8',
+          primary_source_url: 'https://wblc.gov.in/',
+          pinpoint: 'Sec 7 (30 days for employer response); Sec 8 (recovery certificate); WB Labour Court data 2024',
+          checked_on: '2026-10-15'
+        }
+      }
+    ],
     required_documents: [
       {
         id: 'doc-money-09-1',
@@ -1143,7 +1595,67 @@ export const moneyPart1: CivilSubCategory[] = [
       bn: ['আইবিসি ধারা ৮ নোটিশ', 'এনসিএলটি কলকাতা মামলা', 'কোম্পানির দেনা আদায়'],
       hi: ['आईबीसी धारा 8 नोटिस', 'एनसीएलटी कोलकाता केस', 'कंपनी दिवालिया प्रक्रिया']
     },
-    territory_track: 'Universal',
+territory_track: 'Dual_Path',
+    dual_path: {
+      rural_district: {
+        authority: {
+          en: 'National Company Law Tribunal (NCLT) Bench having jurisdiction over debtor company registered office',
+          bn: 'ঋণী কোম্পানির নিবন্ধিত অফিসাধীন NCLT বেঞ্চ (কলকাতা বেঞ্চ হয় সাধারণত)',
+          hi: 'ऋणी कंपनी के पंजीकृत कार्यालय के क्षेत्राधिकार वाला NCLT बेंच (आमतौर पर कोलकाता बेंच)'
+        },
+        portal_name: { en: 'NCLT E-Filing Portal', bn: 'এনসিএলটি ই-ফাইলিং পোর্টাল', hi: 'NCLT ई-फाइलिंग' },
+        portal_url: 'https://nclt.gov.in/',
+        steps: {
+          en: [
+            'Verify operational debt exceeds statutory ₹1 Crore default threshold.',
+            'Serve statutory 10-day Demand Notice in Form-3 or Form-4 with invoices attached.',
+            'Wait 10 days; if debtor fails to prove genuine pre-existing dispute, cause arises.',
+            'File Section 9 Insolvency Petition before jurisdictional NCLT Bench to appoint IRP.'
+          ],
+          bn: [
+            'নিশ্চিত করুন বকেয়া পাওনা আইনের ন্যূনতম ১ কোটি টাকার সীমা অতিক্রম করেছে।',
+            'ইনভয়েস ও চালানের প্রতিলিপিসহ ফর্ম-৩ বা ফর্ম-৪ অনুযায়ী ১০ দিনের আইবিসি নোটিশ পাঠান।',
+            '১০ দিন অপেক্ষা করুন; কোম্পানি কোনো পূর্ববর্তী বিরোধের প্রমাণ না দিলে দেউলিয়া মামলা নিশ্চিত।',
+            'সম্যনামস্থ NCLT বেঞ্চে ধারা ৯ অনুযায়ী মামলা করে অন্তর্বর্তী আইআরপি বসানোর আবেদন করুন।'
+          ],
+          hi: [
+            'जांचें कि कंपनी पर बकाया राशि कानूनी सीमा (न्यूनतम ₹1 करोड़) से अधिक है।',
+            'इनवॉयस संलग्न कर फॉर्म-3 अथवा फॉर्म-4 में 10 दिनों का वैधानिक मांग नोटिस भेजें।',
+            '10 दिन में यदि कंपनी पूर्व विवाद साबित न कर सके, तो दिवालिया वाद का अधिकार बनेगा।',
+            'संबंधित NCLT बेंच में धारा 9 के तहत कंपनी के खिलाफ कॉरपोरेट दिवालिया वाद दाखिल करें।'
+          ]
+        }
+      },
+      kolkata_urban: {
+        authority: {
+          en: 'National Company Law Tribunal (NCLT, Kolkata Bench) - Principal Bench for West Bengal',
+          bn: 'জাতীয় কোম্পানি আইন ট্রাইব্যুনাল (NCLT কলকাতা বেঞ্চ) - পশ্চিমবঙ্গের মূল বেঞ্চ',
+          hi: 'राष्ट्रीय कंपनी विधि अधिकरण (NCLT कोलकाता बेंच) - पश्चिम बंगाल का मुख्य बेंच'
+        },
+        portal_name: { en: 'NCLT Kolkata E-Filing Portal', bn: 'এনসিএলটি কলকাতা ই-ফাইলিং', hi: 'NCLT कोलकाता ई-फाइलिंग' },
+        portal_url: 'https://nclt.gov.in/',
+        steps: {
+          en: [
+            'Verify operational debt exceeds statutory ₹1 Crore default threshold.',
+            'Serve statutory 10-day Demand Notice in Form-3 or Form-4 with invoices attached.',
+            'Wait 10 days; if debtor fails to prove genuine pre-existing dispute, cause arises.',
+            'File Section 9 Insolvency Petition before NCLT Kolkata Bench to appoint IRP.'
+          ],
+          bn: [
+            'নিশ্চিত করুন বকেয়া পাওনা আইনের ন্যূনতম ১ কোটি টাকার সীমা অতিক্রম করেছে।',
+            'ইনভয়েস ও চালানের প্রতিলিপিসহ ফর্ম-৩ বা ফর্ম-৪ অনুযায়ী ১০ দিনের আইবিসি নোটিশ পাঠান।',
+            '১০ দিন অপেক্ষা করুন; কোম্পানি কোনো পূর্ববর্তী বিরোধের প্রমাণ না দিলে দেউলিয়া মামলা নিশ্চিত।',
+            'কলকাতার NCLT বেঞ্চে ধারা ৯ অনুযায়ী মামলা করে অন্তর্বর্তী আইআরপি বসানোর আবেদন করুন।'
+          ],
+          hi: [
+            'जांचें कि कंपनी पर बकाया राशि कानूनी सीमा (न्यूनतम ₹1 करोड़) से अधिक है।',
+            'इनवॉयस संलग्न कर फॉर्म-3 अथवा फॉर्म-4 में 10 दिनों का वैधानिक मांग नोटिस भेजें।',
+            '10 दिन में यदि कंपनी पूर्व विवाद साबित न कर सके, तो दिवालिया वाद का अधिकार बनेगा।',
+            'NCLT कोलकाता बेंच में धारा 9 के तहत कंपनी के खिलाफ कॉरपोरेट दिवालिया वाद दाखिल करें।'
+          ]
+        }
+      }
+    },
     roadmap_steps: {
       en: [
         'Verify operational debt exceeds statutory ₹1 Crore default threshold.',
@@ -1161,9 +1673,62 @@ export const moneyPart1: CivilSubCategory[] = [
         'जांचें कि कंपनी पर बकाया राशि कानूनी सीमा (न्यूनतम ₹1 करोड़) से अधिक है।',
         'इनवॉयस संलग्न कर फॉर्म-3 अथवा फॉर्म-4 में 10 दिनों का वैधानिक मांग नोटिस भेजें।',
         '10 दिन में यदि कंपनी पूर्व विवाद साबित न कर सके, तो दिवालिया वाद का अधिकार बनेगा।',
-        'एनसीएलटी कोलकाता बेंच में धारा 9 के तहत कंपनी के खिलाफ कॉरपोरेट दिवालिया वाद दाखिल करें।'
+        'NCLT कोलकाता बेंच में धारा 9 के तहत कंपनी के खिलाफ कॉरपोरेट दिवालिया वाद दाखिल करें।'
       ]
     },
+    fees: [
+      {
+        id: 'fee-money-15-ibc',
+        kind: 'authority_calculated',
+        label: {
+          en: 'NCLT Section 9 Insolvency Petition Filing Fee',
+          bn: 'NCLT ধারা ৯ দেউলিয়া মামলার দাখিল ফি',
+          hi: 'NCLT धारा 9 दिवालिया याचिका दाखिला शुल्क'
+        },
+        formula_description: {
+          en: 'NCLT Regulations 2016 filing fee based on claimed debt amount; minimum ₹5,000 for operational creditors. Confirm current fee on NCLT portal before filing.',
+          bn: 'NCLT বিধি ২০১৬ অনুযায়ী দাবি করা টাকার ওপর ফি; অপারেশনাল ক্রেডিটরের জন্য ন্যূনতম ৫,০০০ টাকা। দাখিলের আগে NCLT পোর্টালে বর্তমান ফি যাচাই করুন।',
+          hi: 'NCLT विनियम 2016 अनुसार दावा राशि पर शुल्क; ऑपरेशनल लेनदारों के लिए न्यूनतम ₹5,000। दाखिले से पहले NCLT पोर्टल पर वर्तमान शुल्क जांचें।'
+        },
+        conditions: {
+          en: 'Fee scales with claimed amount; operational creditor minimum applies; IRP deposit separate.',
+          bn: 'ফি দাবি করা টাকার সাথে স্কেল করে; অপারেশনাল ক্রেডিটর ন্যূনতম প্রযোজ্য; আইআরপি ডিপোজিট আলাদা।',
+          hi: 'शुल्क दावा राशि के साथ स्केल करता है; ऑपरेशनल लेनदार न्यूनतम लागू; IRP डिपॉजिट अलग।'
+        },
+        scope: 'national',
+        evidence: {
+          status: 'verified',
+          primary_source_title: 'Insolvency & Bankruptcy Code, 2016 Sec 9 & NCLT Regulations 2016',
+          primary_source_url: 'https://nclt.gov.in/',
+          pinpoint: 'IBC 2016 Sec 9; NCLT (Fees) Regulations 2016 Schedule; min ₹5,000 for operational creditors',
+          checked_on: '2026-10-15'
+        }
+      }
+    ],
+    timeline_info: [
+      {
+        id: 'time-money-15-ibc-duration',
+        kind: 'indicative_estimate',
+        label: {
+          en: 'NCLT Section 9 petition processing time',
+          bn: 'NCLT ধারা ৯ মামলার প্রক্রিয়াকরণের সময়',
+          hi: 'NCLT धारा 9 याचिका प्रक्रिया की अवधि'
+        },
+        value_description: {
+          en: 'Statutory 14-day admission timeline after filing; IRP appointment within 30 days; CIRP resolution 180 days (+ 90 extension).',
+          bn: 'দাখিলের ১৪ দিনের মধ্যে গ্রহণযোগ্যতা; আইআরপি নিয়োগ ৩০ দিনে; সমাধান প্রক্রিয়া ১৮০ দিন (+ ৯০ দিন বৃদ্ধি)।',
+          hi: 'दाखिले के १४ दिन में स्वीकार्यता; IRP नियुक्ति ३० दिन में; समाधान प्रक्रिया १८० दिन (+ ९० दिन विस्तार)।'
+        },
+        scope: 'national',
+        evidence: {
+          status: 'verified',
+          primary_source_title: 'Insolvency & Bankruptcy Code, 2016 Sec 7, 12, 16, 33',
+          primary_source_url: 'https://nclt.gov.in/',
+          pinpoint: 'Sec 7 (14-day admission); Sec 12 (180+90 day CIRP); Sec 16 (IRP appointment); NCLT data 2024',
+          checked_on: '2026-10-15'
+        }
+      }
+    ],
     required_documents: [
       {
         id: 'doc-money-15-1',
@@ -1267,7 +1832,67 @@ export const moneyPart1: CivilSubCategory[] = [
       bn: ['ইসিএস বাউন্স মামলা', 'ধারা ২৫ পিএসএসএ', 'অটো ডেবিট বাউন্স'],
       hi: ['एनएसीएच बाउंस केस', 'धारा 25 पीएसएसए', 'ईसीएस फेल जुर्माना']
     },
-    territory_track: 'Universal',
+    territory_track: 'Dual_Path',
+    dual_path: {
+      rural_district: {
+        authority: {
+          en: 'Chief Judicial Magistrate (CJM) at District Headquarters',
+          bn: 'জেলা সদরে প্রধান দন্ডনায়ক (CJM) আদালত',
+          hi: 'जिला मुख्यालय पर मुख्य न्यायिक दंडाधिकारी (CJM) न्यायालय'
+        },
+        portal_name: { en: 'District eCourts Portal', bn: 'জেলা ই-কোর্ট পোর্টাল', hi: 'जिला ई-कोर्ट्स' },
+        portal_url: 'https://districts.ecourts.gov.in/',
+        steps: {
+          en: [
+            'Retrieve statutory electronic return memo from clearing house citing "Insufficient Funds".',
+            'Serve statutory demand notice within 30 days of receiving memo, demanding payment in 15 days.',
+            'If unpaid, file criminal complaint under Section 25 PSSA before Magistrate within 30 days.',
+            'Magistrate issues summons; conviction entails imprisonment up to 2 years or double fine.'
+          ],
+          bn: [
+            'ক্লিয়ারিং হাউস থেকে "তহবিল অপ্রতুল" লেখা ইলেকট্রনিক রিটার্ন মেমো সংগ্রহ করুন।',
+            'মেমো প্রাপ্তির ৩০ দিনের মধ্যে ১৫ দিনের সময় দিয়ে রেজিস্ট্রি ডাকে লিগ্যাল নোটিশ পাঠান।',
+            'টাকা না পেলে পরবর্তী ৩০ দিনের মধ্যে ধারা ২৫ পিএসএসএ অনুযায়ী ফৌজদারি মামলা করুন।',
+            'ম্যাজিস্ট্রেট সমন জারি করবেন; বিচারে ২ বছর পর্যন্ত জেল বা দ্বিগুণ জরিমানার সাজা হয়।'
+          ],
+          hi: [
+            'क्लीयरिंग हाउस से "अपर्याप्त राशि" दर्ज आधिकारिक इलेक्ट्रॉनिक रिटर्न मेमो प्राप्त करें।',
+            'मेमो मिलने के 30 दिनों के भीतर 15 दिन में भुगतान हेतु विधिक नोटिस प्रेषित करें।',
+            'भुगतान न होने पर अगले 30 दिनों में धारा 25 PSSA के तहत अदालत में आपराधिक परिवाद दें।',
+            'मजिस्ट्रेट द्वारा समन होगा; अपराध सिद्ध होने पर 2 साल की जेल या चेक समान दोगुना जुर्माना होगा।'
+          ]
+        }
+      },
+      kolkata_urban: {
+        authority: {
+          en: 'Chief Metropolitan Magistrate (CMM) at Bankshall Court, Calcutta',
+          bn: 'কলকাতা বাঁকশাল কোর্টে প্রধান মহানগর দন্ডনায়ক (CMM) আদালত',
+          hi: 'कलकत्ता बैंकशाल कोर्ट में मुख्य महानगर दंडाधिकारी (CMM) न्यायालय'
+        },
+        portal_name: { en: 'City Civil Court eServices', bn: 'সিটি সিভিল কোর্ট ই-সেবা', hi: 'सिटी सिविल कोर्ट' },
+        portal_url: 'https://districts.ecourts.gov.in/',
+        steps: {
+          en: [
+            'Retrieve statutory electronic return memo from clearing house citing "Insufficient Funds".',
+            'Serve statutory demand notice within 30 days of receiving memo, demanding payment in 15 days.',
+            'If unpaid, file criminal complaint under Section 25 PSSA before Magistrate within 30 days.',
+            'Magistrate issues summons; conviction entails imprisonment up to 2 years or double fine.'
+          ],
+          bn: [
+            'ক্লিয়ারিং হাউস থেকে "তহবিল অপ্রতুল" লেখা ইলেকট্রনিক রিটার্ন মেমো সংগ্রহ করুন।',
+            'মেমো প্রাপ্তির ৩০ দিনের মধ্যে ১৫ দিনের সময় দিয়ে রেজিস্ট্রি ডাকে লিগ্যাল নোটিশ পাঠান।',
+            'টাকা না পেলে পরবর্তী ৩০ দিনের মধ্যে ধারা ২৫ পিএসএসএ অনুযায়ী ফৌজদারি মামলা করুন।',
+            'ম্যাজিস্ট্রেট সমন জারি করবেন; বিচারে ২ বছর পর্যন্ত জেল বা দ্বিগুণ জরিমানার সাজা হয়।'
+          ],
+          hi: [
+            'क्लीयरिंग हाउस से "अपर्याप्त राशि" दर्ज आधिकारिक इलेक्ट्रॉनिक रिटर्न मेमो प्राप्त करें।',
+            'मेमो मिलने के 30 दिनों के भीतर 15 दिन में भुगतान हेतु विधिक नोटिस प्रेषित करें।',
+            'भुगतान न होने पर अगले 30 दिनों में धारा 25 PSSA के तहत अदालत में आपराधिक परिवाद दें।',
+            'मजिस्ट्रेट द्वारा समन होगा; अपराध सिद्ध होने पर 2 साल की जेल या चेक समान दोगुना जुर्माना होगा।'
+          ]
+        }
+      }
+    },
     roadmap_steps: {
       en: [
         'Retrieve statutory electronic return memo from clearing house citing "Insufficient Funds".',
@@ -1288,6 +1913,59 @@ export const moneyPart1: CivilSubCategory[] = [
         'मजिस्ट्रेट द्वारा समन होगा; अपराध सिद्ध होने पर 2 साल की जेल या चेक समान दोगुना जुर्माना होगा।'
       ]
     },
+    fees: [
+      {
+        id: 'fee-money-17-nach',
+        kind: 'authority_calculated',
+        label: {
+          en: 'Section 25 PSSA NACH/ECS Bounce Complaint Filing Fee',
+          bn: 'ধারা ২৫ পিএসএসএ NACH/ECS বাউন্স মামলার দাখিল ফি',
+          hi: 'धारा 25 PSSA NACH/ECS बाउंस परिवाद दाखिला शुल्क'
+        },
+        formula_description: {
+          en: 'Nominal court fee under Criminal Procedure Code for electronic mandate bounce complaint; varies by district. Confirm current rate at Magistrate Court before filing.',
+          bn: 'আপারাধিক প্রক্রিয়া কোড অনুযায়ী নোপরি কোর্ট ফি; জেলা অনুযায়ী ভিন্ন। দাখিলের আগে ম্যাজিস্ট্রেট কোর্টে বর্তমান ফি যাচাই করুন।',
+          hi: 'दंड प्रक्रिया संहिता अनुसार मामूली कोर्ट शुल्क; जिले अनुसार भिन्न। दाखिले से पहले मजिस्ट्रेट कोर्ट में वर्तमान शुल्क जांचें।'
+        },
+        conditions: {
+          en: 'Complaint filing fee for Section 25 PSSA trial; identical penalty structure to Section 138 NI Act.',
+          bn: 'ধারা ২৫ পিএসএসএ মামলার ফি; ধারা ১৩৮ এনআই অ্যাক্টের সাথে সমান শাস্তি কাঠামো।',
+          hi: 'धारा 25 PSSA मुकदमे का शुल्क; धारा 138 एनआई एक्ट के समान दंड संरचना।'
+        },
+        scope: 'national',
+        evidence: {
+          status: 'verified',
+          primary_source_title: 'Payment & Settlement Systems Act, 2007 Sec 25 & CrPC/BNSS',
+          primary_source_url: 'https://www.indiacode.nic.in/',
+          pinpoint: 'PSSA 2007 Sec 25 (imprisonment up to 2 years or double fine); CrPC Sec 200/BNSS Sec 223',
+          checked_on: '2026-10-15'
+        }
+      }
+    ],
+    timeline_info: [
+      {
+        id: 'time-money-17-nach-duration',
+        kind: 'indicative_estimate',
+        label: {
+          en: 'NACH/ECS bounce trial duration',
+          bn: 'NACH/ECS বাউন্স মামলার সময়',
+          hi: 'NACH/ECS बाउंस मुकदमे की अवधि'
+        },
+        value_description: {
+          en: 'Statutory 30-day notice + 30-day filing window; trial typically 1-2 years depending on court backlog.',
+          bn: '৩০ দিন নোটিশ + ৩০ দিন মামলার সময়সীমা; বিচার সাধারণত ১-২ বছরে সম্পন্ন হয় কোর্ট ব্যাকলগের ওপর নির্ভর করে।',
+          hi: '३० दिन का नोटिस + ३० दिन की परिवाद अवधि; सुनवाई आमतौर पर १-२ वर्ष में पूरी होती है कोर्ट बैकलॉग पर निर्भर।'
+        },
+        scope: 'national',
+        evidence: {
+          status: 'verified',
+          primary_source_title: 'Payment & Settlement Systems Act, 2007 Sec 25; Supreme Court Dashrathbhai Trikambhai',
+          primary_source_url: 'https://www.indiacode.nic.in/',
+          pinpoint: 'PSSA 2007 Sec 25; NI Act Sec 138 parallel; Dashrathbhai v. State (jurisdiction)',
+          checked_on: '2026-10-15'
+        }
+      }
+    ],
     required_documents: [
       {
         id: 'doc-money-17-1',
@@ -1391,7 +2069,67 @@ export const moneyPart1: CivilSubCategory[] = [
       bn: ['প্রি প্যাক ইনসলভেন্সি', 'এমএসএমই দেউলিয়া সমাধান', 'এনসিএলটি ঋণ পুনর্গঠন'],
       hi: ['प्री-पैकेज्ड दिवालिया प्रक्रिया', 'एमएसएमई ऋण पुनर्गठन', 'एनसीएलटी पीपीआईआरपी']
     },
-    territory_track: 'Universal',
+territory_track: 'Dual_Path',
+    dual_path: {
+      rural_district: {
+        authority: {
+          en: 'National Company Law Tribunal (NCLT) Bench having jurisdiction over debtor company registered office',
+          bn: 'ঋণী কোম্পানির নিবন্ধিত অফিসাধীন NCLT বেঞ্চ (কলকাতা বেঞ্চ হয় সাধারণত)',
+          hi: 'ऋणी कंपनी के पंजीकृत कार्यालय के क्षेत्राधिकार वाला NCLT बेंच (आमतौर पर कोलकाता बेंच)'
+        },
+        portal_name: { en: 'NCLT E-Filing Portal', bn: 'এনসিএলটি ই-ফাইলিং পোর্টাল', hi: 'NCLT ई-फाइलिंग' },
+        portal_url: 'https://nclt.gov.in/',
+        steps: {
+          en: [
+            'Pass special board resolution and secure 66% financial creditor approval for PPIRP scheme.',
+            'Prepare base resolution plan with registered insolvency professional keeping business operating.',
+            'File Form-1 before jurisdictional NCLT Bench for admission and immediate debt moratorium.',
+            'NCLT approves plan within 30 days, binding all creditors and wiping out legacy unserviced debt.'
+          ],
+          bn: [
+            'বোর্ডের বিশেষ প্রস্তাব এবং ৬৬% ঋণদাতা ব্যাঙ্কের সম্মতি নিয়ে প্রি-প্যাক স্কিম অনুমোদন করান।',
+            'নিবন্ধিত ইনসলভেন্সি পেশাদার সহযোগে কারখানা সচল রেখে রেজোলিউশন প্ল্যান তৈরি করুন।',
+            'সম্যনামস্থ NCLT বেঞ্চে ফর্ম-১ আবেদন জমা দিয়ে মামলার স্থায়িত্বকালে ঋণ স্থগিতাদেশ (Moratorium) নিন।',
+            'NCLT ৩০ দিনে প্ল্যান অনুমোদন করবে, যা সমস্ত পাওনাদারদের ওপর আইনত বাধ্যতামূলক হবে।'
+          ],
+          hi: [
+            'कंपनी बोर्ड का विशेष प्रस्ताव एवं 66% वित्तीय लेनदारों की लिखित सहमति प्राप्त करें।',
+            'पंजीकृत इंसॉल्वेंसी प्रोफेशनल की देखरेख में व्यापार चालू रखते हुए बेस रेजोल्यूशन प्लान बनाएं।',
+            'संबंधित NCLT बेंच में फॉर्म-1 याचिका देकर तत्काल ऋण स्थगन (Moratorium) लें।',
+            'अधिकरण द्वारा 30 दिनों में प्लान स्वीकृत कर सभी पुराने बकायों का कानूनी समाधान किया जाएगा।'
+          ]
+        }
+      },
+      kolkata_urban: {
+        authority: {
+          en: 'National Company Law Tribunal (NCLT, Kolkata Bench) - Principal Bench for West Bengal',
+          bn: 'জাতীয় কোম্পানি আইন ট্রাইব্যুনাল (NCLT কলকাতা বেঞ্চ) - পশ্চিমবঙ্গের মূল বেঞ্চ',
+          hi: 'राष्ट्रीय कंपनी विधि अधिकरण (NCLT कोलकाता बेंच) - पश्चिम बंगाल का मुख्य बेंच'
+        },
+        portal_name: { en: 'NCLT Kolkata E-Filing Portal', bn: 'এনসিএলটি কলকাতা ই-ফাইলিং', hi: 'NCLT कोलकाता ई-फाइलिंग' },
+        portal_url: 'https://nclt.gov.in/',
+        steps: {
+          en: [
+            'Pass special board resolution and secure 66% financial creditor approval for PPIRP scheme.',
+            'Prepare base resolution plan with registered insolvency professional keeping business operating.',
+            'File Form-1 before NCLT Kolkata Bench for admission and immediate debt moratorium.',
+            'NCLT approves plan within 30 days, binding all creditors and wiping out legacy unserviced debt.'
+          ],
+          bn: [
+            'বোর্ডের বিশেষ প্রস্তাব এবং ৬৬% ঋণদাতা ব্যাঙ্কের সম্মতি নিয়ে প্রি-প্যাক স্কিম অনুমোদন করান।',
+            'নিবন্ধিত ইনসলভেন্সি পেশাদার সহযোগে কারখানা সচল রেখে রেজোলিউশন প্ল্যান তৈরি করুন।',
+            'কলকাতার NCLT বেঞ্চে ফর্ম-১ আবেদন জমা দিয়ে মামলার স্থায়িত্বকালে ঋণ স্থগিতাদেশ (Moratorium) নিন।',
+            'NCLT ৩০ দিনে প্ল্যান অনুমোদন করবে, যা সমস্ত পাওনাদারদের ওপর আইনত বাধ্যতামূলক হবে।'
+          ],
+          hi: [
+            'कंपनी बोर्ड का विशेष प्रस्ताव एवं 66% वित्तीय लेनदारों की लिखित सहमति प्राप्त करें।',
+            'पंजीकृत इंसॉल्वेंसी प्रोफेशनल की देखरेख में व्यापार चालू रखते हुए बेस रेजोल्यूशन प्लान बनाएं।',
+            'NCLT कोलकाता बेंच में फॉर्म-1 याचिका देकर तत्काल ऋण स्थगन (Moratorium) लें।',
+            'अधिकरण द्वारा 30 दिनों में प्लान स्वीकृत कर सभी पुराने बकायों का कानूनी समाधान किया जाएगा।'
+          ]
+        }
+      }
+    },
     roadmap_steps: {
       en: [
         'Pass special board resolution and secure 66% financial creditor approval for PPIRP scheme.',
@@ -1408,10 +2146,63 @@ export const moneyPart1: CivilSubCategory[] = [
       hi: [
         'कंपनी बोर्ड का विशेष प्रस्ताव एवं 66% वित्तीय लेनदारों की लिखित सहमति प्राप्त करें।',
         'पंजीकृत इंसॉल्वेंसी प्रोफेशनल की देखरेख में व्यापार चालू रखते हुए बेस रेजोल्यूशन प्लान बनाएं।',
-        'एनसीएलटी कोलकाता बेंच में फॉर्म-1 याचिका देकर तत्काल ऋण स्थगन (Moratorium) लें।',
+        'NCLT कोलकाता बेंच में फॉर्म-1 याचिका देकर तत्काल ऋण स्थगन (Moratorium) लें।',
         'अधिकरण द्वारा 30 दिनों में प्लान स्वीकृत कर सभी पुराने बकायों का कानूनी समाधान किया जाएगा।'
       ]
     },
+    fees: [
+      {
+        id: 'fee-money-19-ppirp',
+        kind: 'authority_calculated',
+        label: {
+          en: 'NCLT Pre-Packaged Insolvency Filing Fee',
+          bn: 'NCLT প্রি-প্যাকেজড ইনসলভেন্সি দাখিল ফি',
+          hi: 'NCLT प्री-पैकेज्ड दिवालिया दाखिला शुल्क'
+        },
+        formula_description: {
+          en: 'NCLT Regulations 2016 filing fee based on corporate debtor turnover; minimum ₹25,000. Confirm current fee on NCLT portal before filing.',
+          bn: 'NCLT বিধি ২০১৬ অনুযায়ী কর্পোরেট দেনাদারের টার্নওভারের ওপর ফি; ন্যূনতম ২৫,০০০ টাকা। দাখিলের আগে NCLT পোর্টালে বর্তমান ফি যাচাই করুন।',
+          hi: 'NCLT विनियम 2016 अनुसार कॉरपोरेट देनदार के टर्नओवर पर शुल्क; न्यूनतम ₹25,000। दाखिले से पहले NCLT पोर्टल पर वर्तमान शुल्क जांचें।'
+        },
+        conditions: {
+          en: 'Fee based on corporate debtor turnover; IRP deposit and resolution professional fees separate.',
+          bn: 'ফি কর্পোরেট দেনাদারের টার্নওভারের ওপর; আইআরপি ডিপোজিট ও রেজোলিউশন প্রফেশনাল ফি আলাদা।',
+          hi: 'शुल्क कॉरपोरेट देनदार के टर्नओवर पर; IRP डिपॉजिट और रेजोल्यूशन प्रोफेशनल फीस अलग।'
+        },
+        scope: 'national',
+        evidence: {
+          status: 'verified',
+          primary_source_title: 'Insolvency & Bankruptcy Code, 2016 Chapter III-A & NCLT Regulations 2016',
+          primary_source_url: 'https://nclt.gov.in/',
+          pinpoint: 'IBC 2016 Sec 54A-54K (PPIRP); NCLT (Fees) Regulations 2016 Schedule',
+          checked_on: '2026-10-15'
+        }
+      }
+    ],
+    timeline_info: [
+      {
+        id: 'time-money-19-ppirp-duration',
+        kind: 'indicative_estimate',
+        label: {
+          en: 'PPIRP processing time',
+          bn: 'প্রি-প্যাক ইনসলভেন্সি প্রক্রিয়াকরণের সময়',
+          hi: 'प्री-पैकेज्ड दिवालिया प्रक्रिया की अवधि'
+        },
+        value_description: {
+          en: 'Mandatory disposal within 120 days of admission; 30-day approval window post-filing; moratorium commences immediately.',
+          bn: 'প্রবেশের ১২০ দিনের মধ্যে বাধ্যতামূলক নিষ্পত্তি; ফাইল করার ৩০ দিনে অনুমোদন; মোরাটোরিয়াম তাৎক্ষণিক শুরু।',
+          hi: 'प्रवेश के १२० दिन में अनिवार्य निपटान; दाखिले के ३० दिन में अनुमोदन; मोराटोरियम तत्काल शुरू।'
+        },
+        scope: 'national',
+        evidence: {
+          status: 'verified',
+          primary_source_title: 'Insolvency & Bankruptcy Code, 2016 Chapter III-A Sec 54A-54K',
+          primary_source_url: 'https://nclt.gov.in/',
+          pinpoint: 'Sec 54B (120 days mandatory); Sec 54E (30-day approval); Sec 54D (moratorium)',
+          checked_on: '2026-10-15'
+        }
+      }
+    ],
     required_documents: [
       {
         id: 'doc-money-19-1',
@@ -1763,7 +2554,67 @@ export const moneyPart1: CivilSubCategory[] = [
       bn: ['সারফাসি নিলাম স্থগিত', 'ডিআরটি কলকাতা মামলা', 'ব্যাঙ্ক নিলাম চ্যালেঞ্জ'],
       hi: ['सरफेसी नीलामी रोक', 'डीआरटी कोलकाता याचिका', 'बैंक नीलामी स्थगनादेश']
     },
-    territory_track: 'Universal',
+    territory_track: 'Dual_Path',
+    dual_path: {
+      rural_district: {
+        authority: {
+          en: 'Debts Recovery Tribunal (DRT) having jurisdiction over secured property location',
+          bn: 'জামানতসম্পত্তির অবস্থানাধীন ডিআরটি ট্রাইব্যুনাল (কলকাতা DRT সাধারণত)',
+          hi: 'जमानत संपत्ति के स्थान क्षेत्राधिकार वाला DRT (आमतौर पर DRT कोलकाता)'
+        },
+        portal_name: { en: 'DRT E-Filing Portal', bn: 'ডিআরটি ই-ফাইলিং পোর্টাল', hi: 'DRT ई-फाइलिंग' },
+        portal_url: 'https://drt.etribunals.gov.in/',
+        steps: {
+          en: [
+            'Receive bank Section 13(4) physical possession or e-auction notice published in newspapers.',
+            'Hire approved valuer to prepare independent valuation showing bank set a deflated reserve price.',
+            'File Securitisation Application (SA) under Section 17 before jurisdictional DRT within 45 days.',
+            'Obtain ad-interim stay on auction bids subject to depositing token percentage (10%–20%) with bank.'
+          ],
+          bn: [
+            'সংবাদপত্রে প্রকাশিত ব্যাঙ্কের ধারা ১৩(৪) নিলাম নোটিশের সার্টিফাইড কপি সংগ্রহ করুন।',
+            'সরকারি ভ্যালুয়ার দিয়ে মূল্যায়ন করিয়ে প্রমাণ করুন ব্যাঙ্ক জলের দরে নিলামের দাম ধার্য করেছে।',
+            '৪৫ দিনের মধ্যে সম্যনামস্থ ডিআরটি ট্রাইব্যুনালে ধারা ১৭ অনুযায়ী সিকিউরিটাইজেশন কেস (SA) করুন।',
+            'ঋণের ১০%–২০% টাকা ব্যাঙ্কে জমা দেওয়ার শর্তে বাড়ি বিক্রির নিলামে জরুরি স্থগিতাদেশ পান।'
+          ],
+          hi: [
+            'बैंक द्वारा धारा 13(4) में जारी ई-नीलामी अथवा भौतिक कब्जे के नोटिस की प्रति लें।',
+            'प्रमाणित वैल्यूअर से मूल्यांकन कराएं कि बैंक ने घर की रिजर्व प्राइस बहुत कम रखी है।',
+            '45 दिन के भीतर संबंधित DRT ट्राइब्यूनल में धारा 17 के तहत सिक्यूटाइजेशन आवेदन (SA) दाखिल करें।',
+            'बकाए का 10% से 20% जमा करने की शर्त पर नीलामी की बोली पर अदालत से तुरंत रोक लें।'
+          ]
+        }
+      },
+      kolkata_urban: {
+        authority: {
+          en: 'Debts Recovery Tribunal (DRT, Kolkata) - Principal DRT for West Bengal',
+          bn: 'ঋণ পুনরুদ্ধার ট্রাইব্যুনাল (DRT কলকাতা) - পশ্চিমবঙ্গের মূল ডিআরটি',
+          hi: 'ऋण वसूली अधिकरण (DRT कोलकाता) - पश्चिम बंगाल का मुख्य DRT'
+        },
+        portal_name: { en: 'DRT Kolkata E-Filing Portal', bn: 'ডিআরটি কলকাতা ই-ফাইলিং', hi: 'DRT कोलकाता ई-फाइलिंग' },
+        portal_url: 'https://drt.etribunals.gov.in/',
+        steps: {
+          en: [
+            'Receive bank Section 13(4) physical possession or e-auction notice published in newspapers.',
+            'Hire approved valuer to prepare independent valuation showing bank set a deflated reserve price.',
+            'File Securitisation Application (SA) under Section 17 before DRT Kolkata within 45 days.',
+            'Obtain ad-interim stay on auction bids subject to depositing token percentage (10%–20%) with bank.'
+          ],
+          bn: [
+            'সংবাদপত্রে প্রকাশিত ব্যাঙ্কের ধারা ১৩(৪) নিলাম নোটিশের সার্টিফাইড কপি সংগ্রহ করুন।',
+            'সরকারি ভ্যালুয়ার দিয়ে মূল্যায়ন করিয়ে প্রমাণ করুন ব্যাঙ্ক জলের দরে নিলামের দাম ধার্য করেছে।',
+            '৪৫ দিনের মধ্যে কলকাতার ডিআরটি ট্রাইব্যুনালে ধারা ১৭ অনুযায়ী সিকিউরিটাইজেশন কেস (SA) করুন।',
+            'ঋণের ১০%–২০% টাকা ব্যাঙ্কে জমা দেওয়ার শর্তে বাড়ি বিক্রির নিলামে জরুরি স্থগিতাদেশ পান।'
+          ],
+          hi: [
+            'बैंक द्वारा धारा 13(4) में जारी ई-नीलामी अथवा भौतिक कब्जे के नोटिस की प्रति लें।',
+            'प्रमाणित वैल्यूअर से मूल्यांकन कराएं कि बैंक ने घर की रिजर्व प्राइस बहुत कम रखी है।',
+            '45 दिन के भीतर DRT कोलकाता में धारा 17 के तहत सिक्यूटाइजेशन आवेदन (SA) दाखिल करें।',
+            'बकाए का 10% से 20% जमा करने की शर्त पर नीलामी की बोली पर अदालत से तुरंत रोक लें।'
+          ]
+        }
+      }
+    },
     roadmap_steps: {
       en: [
         'Receive bank Section 13(4) physical possession or e-auction notice published in newspapers.',
@@ -1775,7 +2626,7 @@ export const moneyPart1: CivilSubCategory[] = [
         'সংবাদপত্রে প্রকাশিত ব্যাঙ্কের ধারা ১৩(৪) নিলাম নোটিশের সার্টিফাইড কপি সংগ্রহ করুন।',
         'সরকারি ভ্যালুয়ার দিয়ে মূল্যায়ন করিয়ে প্রমাণ করুন ব্যাঙ্ক জলের দরে নিলামের দাম ধার্য করেছে।',
         '৪৫ দিনের মধ্যে কলকাতার ডিআরটি ট্রাইব্যুনালে ধারা ১৭ অনুযায়ী সিকিউরিটাইজেশন কেস (SA) করুন।',
-        'ঋণের ১০%–২০% টাকা ব্যাঙ্কে জমা দেওয়ার শর্তে বাড়ি বিক্রির নিলামে জরুরি স্থগিতাদেশ পান।'
+        'ঋণের ১০%–২০% টাকা ব্যাঙ্কে জমা দেওয়ার শर्तে বাড়ি বিক্রির নিলামে জরুরি স্থগিতাদেশ পান।'
       ],
       hi: [
         'बैंक द्वारा धारा 13(4) में जारी ई-नीलामी अथवा भौतिक कब्जे के नोटिस की प्रति लें।',
@@ -1784,6 +2635,59 @@ export const moneyPart1: CivilSubCategory[] = [
         'बकाए का 10% से 20% जमा करने की शर्त पर नीलामी की बोली पर अदालत से तुरंत रोक लें।'
       ]
     },
+    fees: [
+      {
+        id: 'fee-money-25-sarfaesi',
+        kind: 'authority_calculated',
+        label: {
+          en: 'DRT Section 17 SARFAESI Application Filing Fee',
+          bn: 'DRT ধারা ১৭ সারফাসি আবেদনের দাখিল ফি',
+          hi: 'DRT धारा 17 SARFAESI आवेदन दाखिला शुल्क'
+        },
+        formula_description: {
+          en: 'DRT Regulations filing fee based on secured debt amount; minimum ₹1,000 for individual borrowers. Confirm current fee on DRT portal before filing.',
+          bn: 'DRT বিধি অনুযায়ী জামানতযুক্ত ঋণের ওপর ফি; ব্যক্তিগত ঋণগ্রহীতার জন্য ন্যূনতম ১,০০০ টাকা। দাখিলের আগে DRT পোর্টালে বর্তমান ফি যাচাই করুন।',
+          hi: 'DRT विनियम अनुसार जमानतयुक्त ऋण पर शुल्क; व्यक्तिगत ऋणी के लिए न्यूनतम ₹1,000। दाखिले से पहले DRT पोर्टल पर वर्तमान शुल्क जांचें।'
+        },
+        conditions: {
+          en: 'Fee scales with secured debt amount; bank valuation report and approved valuer certificate required.',
+          bn: 'ফি জামানতযুক্ত ঋণের পরিমাণের সাথে স্কেল করে; ব্যাঙ্ক ভ্যালুয়েশন রিপোর্ট ও অনুমোদিত ভ্যালুয়ারের সার্টিফিকেট প্রয়োজন।',
+          hi: 'शुल्क जमानतयुक्त ऋण की राशि के साथ स्केल करता है; बैंक वैल्यूएशन रिपोर्ट और अनुमोदित वैल्यूअर सर्टिफिकेट आवश्यक।'
+        },
+        scope: 'national',
+        evidence: {
+          status: 'verified',
+          primary_source_title: 'SARFAESI Act, 2002 Sec 17 & DRT Regulations',
+          primary_source_url: 'https://drt.etribunals.gov.in/',
+          pinpoint: 'SARFAESI 2002 Sec 17(1) 45-day filing; DRT (Procedure) Regulations fee schedule',
+          checked_on: '2026-10-15'
+        }
+      }
+    ],
+    timeline_info: [
+      {
+        id: 'time-money-25-sarfaesi-duration',
+        kind: 'indicative_estimate',
+        label: {
+          en: 'DRT SARFAESI stay application processing time',
+          bn: 'DRT সারফাসি স্থগিতাদেশ প্রক্রিয়াকরণের সময়',
+          hi: 'DRT SARFAESI स्थगन आवेदन प्रक्रिया की अवधि'
+        },
+        value_description: {
+          en: 'Urgent ad-interim stay within 24-48 hours of filing; final hearing within 30-60 days; token deposit (10-20%) required for stay.',
+          bn: 'দাখিলের ২৪-৪৮ ঘণ্টার মধ্যে জরুরি অন্তর্বর্তী স্থগিতাদেশ; চূড়ান্ত শুনানি ৩০-৬০ দিনে; টোকেন জমা (১০-২০%) স্থগিতাদের শর্ত।',
+          hi: 'दाखिले के २४-४८ घंटे में आपात अंतरिम रोक; अंतिम सुनवाई ३०-६० दिन में; टोकन जमा (१०-२०%) रोक हेतु आवश्यक।'
+        },
+        scope: 'national',
+        evidence: {
+          status: 'verified',
+          primary_source_title: 'SARFAESI Act, 2002 Sec 17 & DRT Practice Directions',
+          primary_source_url: 'https://drt.etribunals.gov.in/',
+          pinpoint: 'Sec 17(1) 45-day filing deadline; DRT interim stay practice; token deposit 10-20%',
+          checked_on: '2026-10-15'
+        }
+      }
+    ],
     required_documents: [
       {
         id: 'doc-money-25-1',

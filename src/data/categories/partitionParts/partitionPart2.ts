@@ -95,7 +95,67 @@ export const partitionPart2: CivilSubCategory[] = [
       bn: ['হারানো উইলের প্রোবেট', 'পোড়া উইল প্রমাণ', 'ধারা ২৩৭ ইন্ডিয়ান সাকসেশন'],
       hi: ['खोई वसीयत का प्रोबेट', 'नष्ट वसीयत साबित करना', 'धारा 237 उत्तराधिकार']
     },
-    territory_track: 'Universal',
+    territory_track: 'Dual_Path',
+    dual_path: {
+      rural_district: {
+        authority: {
+          en: 'District Judge Court (22 Districts)',
+          bn: 'জেলা জজ আদালত (২২টি জেলা)',
+          hi: 'जिला जज न्यायालय'
+        },
+        portal_name: { en: 'District eCourts Portal', bn: 'জেলা ই-কোর্ট পোর্টাল', hi: 'जिला ई-कोर्ट्स' },
+        portal_url: 'https://districts.ecourts.gov.in/',
+        steps: {
+          en: [
+            'Retrieve drafts, photocopies, or digital Word/PDF scans preserved by drafting advocate.',
+            'File petition under Section 237 or 238 ISA for probate of Will limited until original is produced.',
+            'Examine drafting lawyer and attesting witnesses to prove due execution and lack of intent to revoke.',
+            'Court issues limited probate confirming reconstructed text as authentic last testamentary Will.'
+          ],
+          bn: [
+            'আইনজীবীর কাছে সংরক্ষিত উইলের খসড়া, ফটোকপি বা কম্পিউটারের ডিজিটাল কপি উদ্ধার করুন।',
+            'মূল কপি না পাওয়া পর্যন্ত ধারা ২৩৭ অনুযায়ী সীমিত প্রোবেটের আবেদন দাখিল করুন।',
+            'আইনজীবী ও সনাক্তকারী সাক্ষীদের জেরা করিয়ে প্রমাণ করুন উইলটি কখনো বাতিল করা হয়নি।',
+            'আদালত ফটোকপিটিকেই সত্য উইল হিসেবে স্বীকৃতি দিয়ে সীমিত প্রোবেট মঞ্জুর করবে।'
+          ],
+          hi: [
+            'अधिवक्ता के पास सुरक्षित वसीयत का ड्राफ्ट, फोटोकॉपी अथवा डिजिटल कॉपी निकालें।',
+            'धारा 237 के तहत मूल मिलने तक सीमित प्रोबेट (Limited Probate) हेतु याचिका दें।',
+            'वसीयत लिखने वाले वकील एवं गवाहों से गवाही कराकर साबित करें कि इसे रद्द नहीं किया गया था।',
+            'अदालत फोटोकॉपी को ही वैध अंतिम वसीयत मानते हुए प्रोबेट प्रमाणपत्र जारी करेगी।'
+          ]
+        }
+      },
+      kolkata_urban: {
+        authority: {
+          en: 'High Court at Calcutta (Original Civil Jurisdiction)',
+          bn: 'কলকাতা হাইকোর্ট (অরিজিনাল সিভিল এখতিয়ার)',
+          hi: 'कलकत्ता उच्च न्यायालय (मूल दीवानी अधिकारिता)'
+        },
+        portal_name: { en: 'Calcutta High Court Original Side', bn: 'কলকাতা হাইকোর্ট অরিজিনাল সাইড', hi: 'कलकत्ता हाईकोर्ट' },
+        portal_url: 'https://calcuttahighcourt.gov.in/',
+        steps: {
+          en: [
+            'Retrieve drafts, photocopies, or digital Word/PDF scans preserved by drafting advocate.',
+            'File petition under Section 237 or 238 ISA for probate of Will limited until original is produced.',
+            'Examine drafting lawyer and attesting witnesses to prove due execution and lack of intent to revoke.',
+            'Court issues limited probate confirming reconstructed text as authentic last testamentary Will.'
+          ],
+          bn: [
+            'আইনজীবীর কাছে সংরক্ষিত উইলের খসড়া, ফটোকপি বা কম্পিউটারের ডিজিটাল কপি উদ্ধার করুন।',
+            'মূল কপি না পাওয়া পর্যন্ত ধারা ২৩৭ অনুযায়ী সীমিত প্রোবেটের আবেদন দাখিল করুন।',
+            'আইনজীবী ও সনাক্তকারী সাক্ষীদের জেরা করিয়ে প্রমাণ করুন উইলটি কখনো বাতিল করা হয়নি।',
+            'আদালত ফটোকপিটিকেই সত্য উইল হিসেবে স্বীকৃতি দিয়ে সীমিত প্রোবেট মঞ্জুর করবে।'
+          ],
+          hi: [
+            'अधिवक्ता के पास सुरक्षित वसीयत का ड्राफ्ट, फोटोकॉपी अथवा डिजिटल कॉपी निकालें।',
+            'धारा 237 के तहत मूल मिलने तक सीमित प्रोबेट (Limited Probate) हेतु याचिका दें।',
+            'वसीयत लिखने वाले वकील एवं गवाहों से गवाही कराकर साबित करें कि इसे रद्द नहीं किया गया था।',
+            'अदालत फोटोकॉपी को ही वैध अंतिम वसीयत मानते हुए प्रोबेट प्रमाणपत्र जारी करेगी।'
+          ]
+        }
+      }
+    },
     roadmap_steps: {
       en: [
         'Retrieve drafts, photocopies, or digital Word/PDF scans preserved by drafting advocate.',
@@ -963,7 +1023,67 @@ export const partitionPart2: CivilSubCategory[] = [
       bn: ['হাসপাতালে তৈরি উইল বাতিল', 'সন্দেহজনক ইচ্ছাপত্র', 'ভেঙ্কটাচালা সুপ্রিম কোর্ট'],
       hi: ['संदेहास्पद वसीयत वेंकटाचला', 'आईसीयू में बनी वसीयत', 'फर्जी वसीयत रद्द']
     },
-    territory_track: 'Universal',
+    territory_track: 'Dual_Path',
+    dual_path: {
+      rural_district: {
+        authority: {
+          en: 'District Judge Court (22 Districts)',
+          bn: 'জেলা জজ আদালত (২২টি জেলা)',
+          hi: 'जिला जज न्यायालय'
+        },
+        portal_name: { en: 'District eCourts Portal', bn: 'জেলা ই-কোর্ট পোর্টাল', hi: 'जिला ई-कोर्ट्स' },
+        portal_url: 'https://districts.ecourts.gov.in/',
+        steps: {
+          en: [
+            'File caveat and written objection in probate highlighting suspicious factors (ICU execution).',
+            'Summon hospital admission registers and doctor bed-head tickets regarding testator consciousness.',
+            'Cross-examine propounder and witnesses regarding discrepancy in signatures and thumbprints.',
+            'Probate court refuses probate where propounder fails to dispel grave suspicious circumstances.'
+          ],
+          bn: [
+            'প্রোবেট মামলায় লিখিত আপত্তি দিন যে উইলটি আইসিইউতে অস্বাভাবিক পরিস্থিতিতে তৈরি করা হয়েছে।',
+            'হাসপাতালের ডাক্তারদের বেড-হেড টিকিট তলব করে প্রমাণ করুন রোগী সই করার মতো সচেতন ছিলেন না।',
+            'সুবিধাভোগী ও তার ভুয়ো সাক্ষীদের জেরা করে সই বা টিপসইয়ের অসঙ্গতি আদালতের সামনে তুলে ধরুন।',
+            'সন্দেহ দূর করতে ব্যর্থ হলে আদালত প্রোবেট খারিজ করে উইলটিকে সম্পূর্ণ বাতিল ঘোষণা করবে।'
+          ],
+          hi: [
+            'प्रोबेट में कैविएट लगाकर आपत्ति दें कि वसीयत अस्पताल के आईसीयू में संदिग्ध रूप से बनी है।',
+            'डॉक्टर के बेड-हेड टिकट एवं मेडिकल चार्ट तलब कर साबित करें कि मरीज हस्ताक्षर की स्थिति में नहीं था।',
+            'लाभार्थी एवं उसके गवाहों से जिरह कर अंगूठे के निशान और हस्ताक्षरों की जालसाजी उजागर करें।',
+            'संदेह दूर न होने पर अदालत प्रोबेट देने से इनकार कर वसीयत को पूर्णतः निरस्त करेगी।'
+          ]
+        }
+      },
+      kolkata_urban: {
+        authority: {
+          en: 'High Court at Calcutta (Testamentary & Intestate Jurisdiction)',
+          bn: 'কলকাতা হাইকোর্ট (উইল ও টেস্টামেন্টারি বেঞ্চ)',
+          hi: 'कलकत्ता उच्च न्यायालय (वसीयत एवं टेस्टामेंटरी शाखा)'
+        },
+        portal_name: { en: 'Calcutta High Court Original Side', bn: 'কলকাতা হাইকোর্ট অরিজিনাল সাইড', hi: 'कलकत्ता हाईकोर्ट' },
+        portal_url: 'https://calcuttahighcourt.gov.in/',
+        steps: {
+          en: [
+            'File caveat and written objection in probate highlighting suspicious factors (ICU execution).',
+            'Summon hospital admission registers and doctor bed-head tickets regarding testator consciousness.',
+            'Cross-examine propounder and witnesses regarding discrepancy in signatures and thumbprints.',
+            'Probate court refuses probate where propounder fails to dispel grave suspicious circumstances.'
+          ],
+          bn: [
+            'প্রোবেট মামলায় লিখিত আপত্তি দিন যে উইলটি আইসিইউতে অস্বাভাবিক পরিস্থিতিতে তৈরি করা হয়েছে।',
+            'হাসপাতালের ডাক্তারদের বেড-হেড টিকিট তলব করে প্রমাণ করুন রোগী সই করার মতো সচেতন ছিলেন না।',
+            'সুবিধাভোগী ও তার ভুয়ো সাক্ষীদের জেরা করে সই বা টিপসইয়ের অসঙ্গতি আদালতের সামনে তুলে ধরুন।',
+            'সন্দেহ দূর করতে ব্যর্থ হলে আদালত প্রোবেট খারিজ করে উইলটিকে সম্পূর্ণ বাতিল ঘোষণা করবে।'
+          ],
+          hi: [
+            'प्रोबेट में कैविएट लगाकर आपत्ति दें कि वसीयत अस्पताल के आईसीयू में संदिग्ध रूप से बनी है।',
+            'डॉक्टर के बेड-हेड टिकट एवं मेडिकल चार्ट तलब कर साबित करें कि मरीज हस्ताक्षर की स्थिति में नहीं था।',
+            'लाभार्थी एवं उसके गवाहों से जिरह कर अंगूठे के निशान और हस्ताक्षरों की जालसाजी उजागर करें।',
+            'संदेह दूर न होने पर अदालत प्रोबेट देने से इनकार कर वसीयत को पूर्णतः निरस्त करेगी।'
+          ]
+        }
+      }
+    },
     roadmap_steps: {
       en: [
         'File caveat and written objection in probate highlighting suspicious factors (ICU execution).',
@@ -1025,7 +1145,67 @@ export const partitionPart2: CivilSubCategory[] = [
       bn: ['অবিবাহিত ভাইয়ের জমি উত্তরাধিকার', 'ক্লাস ২ ওয়ারিশ', 'নিঃসন্তান ব্যক্তির সম্পত্তি'],
       hi: ['अविवाहित भाई की संपत्ति', 'क्लास 2 उत्तराधिकारी', 'निःसंतान व्यक्ति का वारिस']
     },
-    territory_track: 'Universal',
+    territory_track: 'Dual_Path',
+    dual_path: {
+      rural_district: {
+        authority: {
+          en: 'Civil Court (Senior / Junior Division) at District Headquarters',
+          bn: 'জেলা সদরে দেওয়ানি আদালত (সিনিয়র / জুনিয়র ডিভিশন)',
+          hi: 'जिला मुख्यालय पर सिविल कोर्ट (सीनियर/जूनियर डिवीजन)'
+        },
+        portal_name: { en: 'District eCourts Portal', bn: 'জেলা ই-কোর্ট পোর্টাল', hi: 'जिला ई-कोर्ट्स' },
+        portal_url: 'https://districts.ecourts.gov.in/',
+        steps: {
+          en: [
+            'Secure death certificate and verify deceased was unmarried and left no Class-I descendants.',
+            'Map Class-II heirs under Section 8: father, mother, followed by brothers and sisters equally.',
+            'File application for Succession Certificate or Legal Heirship Certificate before civil court.',
+            'Court issues succession grant allowing siblings to liquidate accounts and mutate real estate.'
+          ],
+          bn: [
+            'মৃত্যু সনদ সংগ্রহ করে নিশ্চিত হন যে মৃত ব্যক্তি অবিবাহিত এবং তার কোনো সন্তান বা স্ত্রী নেই।',
+            'ধারা ৮ অনুযায়ী দ্বিতীয় শ্রেণির ওয়ারিশ চিহ্নিত করুন: মা, বাবা এবং তাদের অবর্তমানে ভাই ও বোনেরা।',
+            'দেওয়ানি আদালতে আইনি ওয়ারিশ ঘোষণা অথবা সাকসেশন সার্টিফিকেটের জন্য পিটিশন দাখিল করুন।',
+            'আদালতের সার্টিফিকেট নিয়ে জীবিত ভাই-বোনেরা ব্যাঙ্কের টাকা তুলবে এবং জমির পর্চায় নাম তুলবে।'
+          ],
+          hi: [
+            'मृत्यु प्रमाणपत्र से पुष्टि करें कि मृतक अविवाहित था और कोई प्रथम श्रेणी वारिस नहीं है।',
+            'धारा 8 के तहत द्वितीय श्रेणी वारिस तय करें: माता-पिता, और उनके बाद सभी भाई-बहन बराबर।',
+            'दीवानी अदालत में उत्तराधिकार प्रमाणपत्र अथवा लीगल हेयर घोषणा का आवेदन दाखिल करें।',
+            'अदालती प्रमाणपत्र प्राप्त कर भाई-बहन बैंक खाते से पैसा निकालें एवं जमीन का म्यूटेशन कराएं।'
+          ]
+        }
+      },
+      kolkata_urban: {
+        authority: {
+          en: 'City Civil Court, Calcutta (Senior Division)',
+          bn: 'কলকাতা সিটি সিভিল কোর্ট (সিনিয়র ডিভিশন)',
+          hi: 'कलकत्ता सिटी सिविल कोर्ट (सीनियर डिवीजन)'
+        },
+        portal_name: { en: 'City Civil Court eServices', bn: 'সিটি সিভিল কোর্ট ই-সেবা', hi: 'सिटी सिविल कोर्ट' },
+        portal_url: 'https://districts.ecourts.gov.in/',
+        steps: {
+          en: [
+            'Secure death certificate and verify deceased was unmarried and left no Class-I descendants.',
+            'Map Class-II heirs under Section 8: father, mother, followed by brothers and sisters equally.',
+            'File application for Succession Certificate or Legal Heirship Certificate before City Civil Court.',
+            'Court issues succession grant allowing siblings to liquidate accounts and mutate real estate.'
+          ],
+          bn: [
+            'মৃত্যু সনদ সংগ্রহ করে নিশ্চিত হন যে মৃত ব্যক্তি অবিবাহিত এবং তার কোনো সন্তান বা স্ত্রী নেই।',
+            'ধারা ৮ অনুযায়ী দ্বিতীয় শ্রেণির ওয়ারিশ চিহ্নিত করুন: মা, বাবা এবং তাদের অবর্তমানে ভাই ও বোনেরা।',
+            'কলকাতা সিটি সিভিল কোর্টে আইনি ওয়ারিশ ঘোষণা অথবা সাকসেশন সার্টিফিকেটের জন্য পিটিশন দাখিল করুন।',
+            'আদালতের সার্টিফিকেট নিয়ে জীবিত ভাই-বোনেরা ব্যাঙ্কের টাকা তুলবে এবং জমির পর্চায় নাম তুলবে।'
+          ],
+          hi: [
+            'मृत्यु प्रमाणपत्र से पुष्टि करें कि मृतक अविवाहित था और कोई प्रथम श्रेणी वारिस नहीं है।',
+            'धारा 8 के तहत द्वितीय श्रेणी वारिस तय करें: माता-पिता, और उनके बाद सभी भाई-बहन बराबर।',
+            'कलकत्ता सिटी सिविल कोर्ट में उत्तराधिकार प्रमाणपत्र अथवा लीगल हेयर घोषणा का आवेदन दाखिल करें।',
+            'अदालती प्रमाणपत्र प्राप्त कर भाई-बहन बैंक खाते से पैसा निकालें एवं जमीन का म्यूटेशन कराएं।'
+          ]
+        }
+      }
+    },
     roadmap_steps: {
       en: [
         'Secure death certificate and verify deceased was unmarried and left no Class-I descendants.',
@@ -1087,7 +1267,67 @@ export const partitionPart2: CivilSubCategory[] = [
       bn: ['বন্ধকি জমি বাটোয়ারা', 'লোন থাকা জমি ভাগ', 'ব্যাঙ্ক মর্টগেজ যৌথ জমি'],
       hi: ['बंधक संयुक्त जमीन बंटवारा', 'बैंक लोन हिस्सा अलग कराना', 'डीआरटी बंधक बंटवारा']
     },
-    territory_track: 'Universal',
+    territory_track: 'Dual_Path',
+    dual_path: {
+      rural_district: {
+        authority: {
+          en: 'Civil Court / Debts Recovery Tribunal (DRT) at District Headquarters',
+          bn: 'জেলা সদরে দেওয়ানি আদালত / ঋণ পুনরুদ্ধার ট্রাইব্যুনাল (DRT)',
+          hi: 'जिला मुख्यालय पर सिविल न्यायालय / ऋण वसूली अधिकरण (DRT)'
+        },
+        portal_name: { en: 'District DRT Portal', bn: 'জেলা ডিআরটি পোর্টাল', hi: 'जिला डीआरटी' },
+        portal_url: 'https://drt.etribunals.gov.in/',
+        steps: {
+          en: [
+            'Obtain bank loan sanction letter identifying specific mortgaged fraction and outstanding debt.',
+            'Implead lending bank as formal party under Order I Rule 10 CPC in the partition suit.',
+            'Pray for court to carve out defaulting co-sharer lot and shift bank mortgage lien strictly onto it.',
+            'Secure final partition decree granting unencumbered, mortgage-free title of remaining lots to others.'
+          ],
+          bn: [
+            'লোন প্রদানকারী ব্যাঙ্কের কাছ থেকে কোন শরিক কত টাকা লোন নিয়েছে তার নোটিশ কপি সংগ্রহ করুন।',
+            'অর্ডার ১ রুল ১০ সিপিসি অনুযায়ী বাটোয়ারা মামলায় ঋণদাতা ব্যাঙ্ককে অন্যতম পক্ষভুক্ত করুন।',
+            'আদালতে আবেদন করুন যেন ব্যাঙ্কের বন্ধকি দায় কেবল ঋণগ্রহীতা শরিকের নির্দিষ্ট অংশে চাপানো হয়।',
+            'চূড়ান্ত ডিক্রির মাধ্যমে বাকি নির্দোষ শরিকদের জমি সম্পূর্ণ লোনমুক্ত ও দাগমুক্ত করে বুঝিয়ে নিন।'
+          ],
+          hi: [
+            'बैंक से लोन दस्तावेज निकालें कि किस भाई ने कितने कर्ज हेतु संयुक्त जमीन गिरवी रखी।',
+            'आदेश 1 नियम 10 सीपीसी के तहत बंटवारा मुकदमे में संबंधित बैंक को पक्षकार बनाएं।',
+            'अदालत से मांग करें कि बैंक का बंधक केवल कर्ज लेने वाले भाई के हिस्से पर ही सीमित किया जाए।',
+            'अंतिम डिक्री द्वारा अन्य सभी भाइयों की जमीन को बैंक बंधक से पूर्णतः मुक्त कराएं।'
+          ]
+        }
+      },
+      kolkata_urban: {
+        authority: {
+          en: 'City Civil Court, Calcutta / Debts Recovery Tribunal (DRT-II Kolkata)',
+          bn: 'কলকাতা সিটি সিভিল কোর্ট / ঋণ পুনরুদ্ধার ট্রাইব্যুনাল-২ (কলকাতা)',
+          hi: 'कलकत्ता सिटी सिविल कोर्ट / ऋण वसूली अधिकरण-२ (कोलकाता)'
+        },
+        portal_name: { en: 'Kolkata DRT Portal', bn: 'কলকাতা ডিআরটি পোর্টাল', hi: 'कोलकाता डीआरटी' },
+        portal_url: 'https://drt.etribunals.gov.in/',
+        steps: {
+          en: [
+            'Obtain bank loan sanction letter identifying specific mortgaged fraction and outstanding debt.',
+            'Implead lending bank as formal party under Order I Rule 10 CPC in the partition suit.',
+            'Pray for court to carve out defaulting co-sharer lot and shift bank mortgage lien strictly onto it.',
+            'Secure final partition decree granting unencumbered, mortgage-free title of remaining lots to others.'
+          ],
+          bn: [
+            'লোন প্রদানকারী ব্যাঙ্কের কাছ থেকে কোন শরিক কত টাকা লোন নিয়েছে তার নোটিশ কপি সংগ্রহ করুন।',
+            'অর্ডার ১ রুল ১০ সিপিসি অনুযায়ী বাটোয়ারা মামলায় ঋণদাতা ব্যাঙ্ককে অন্যতম পক্ষভুক্ত করুন।',
+            'আদালতে আবেদন করুন যেন ব্যাঙ্কের বন্ধকি দায় কেবল ঋণগ্রহীতা শরিকের নির্দিষ্ট অংশে চাপানো হয়।',
+            'চূড়ান্ত ডিক্রির মাধ্যমে বাকি নির্দোষ শরিকদের জমি সম্পূর্ণ লোনমুক্ত ও দাগমুক্ত করে বুঝিয়ে নিন।'
+          ],
+          hi: [
+            'बैंक से लोन दस्तावेज निकालें कि किस भाई ने कितने कर्ज हेतु संयुक्त जमीन गिरवी रखी।',
+            'आदेश 1 नियम 10 सीपीसी के तहत बंटवारा मुकदमे में संबंधित बैंक को पक्षकार बनाएं।',
+            'अदालत से मांग करें कि बैंक का बंधक केवल कर्ज लेने वाले भाई के हिस्से पर ही सीमित किया जाए।',
+            'अंतिम डिक्री द्वारा अन्य सभी भाइयों की जमीन को बैंक बंधक से पूर्णतः मुक्त कराएं।'
+          ]
+        }
+      }
+    },
     roadmap_steps: {
       en: [
         'Obtain bank loan sanction letter identifying specific mortgaged fraction and outstanding debt.',

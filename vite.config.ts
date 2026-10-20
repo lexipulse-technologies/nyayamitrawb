@@ -2,11 +2,12 @@
 process.env.ROLLDOWN_OPTIONS_VALIDATION = 'off';
 
 import { defineConfig, loadEnv } from 'vite';
-import react from '@vitejs/plugin-react';
+import react from '@vitejs/plugin-react-oxc';
 import https from 'node:https';
 import crypto from 'node:crypto';
 import nodemailer from 'nodemailer';
 import { createClient } from '@supabase/supabase-js';
+import { createHmac, timingSafeEqual } from 'crypto';
 
 const FALLBACK_CI_KEY = 'ci_live_9a53020eb31fa1be3b88c19a9b6c63dab30ba24c01071567';
 
@@ -556,6 +557,116 @@ export default defineConfig(({ mode }) => {
             });
           });
 
+          // Admin Auth Middleware (local dev only; production uses Vercel Serverless Functions)
+          const ADMIN_USER = 'abi786';
+          const ADMIN_PASS = 'Baabuujii@5623';
+          const JWT_SECRET = env.ADMIN_JWT_SECRET || 'dev-secret-change-in-production';
+          const COOKIE_NAME = 'nyayamitra_admin_session';
+
+          function base64url(input: Buffer | string): string {
+            return Buffer.from(input).toString('base64').replace(/\+/g, '-').replace(/\//g, '_').replace(/=/g, '');
+          }
+
+          function signJWT(payload: object): string {
+            const header = { alg: 'HS256', typ: 'JWT' };
+            const encodedHeader = base64url(JSON.stringify(header));
+            const encodedPayload = base64url(JSON.stringify(payload));
+            const signature = createHmac('sha256', JWT_SECRET)
+              .update(`${encodedHeader}.${encodedPayload}`)
+              .digest();
+            const encodedSignature = base64url(signature);
+            return `${encodedHeader}.${encodedPayload}.${encodedSignature}`;
+          }
+
+          function base64urlDecode(input: string): Buffer {
+            const padded = input.replace(/-/g, '+').replace(/_/g, '/') + '==='.slice(0, (input.length % 4) || 4);
+            return Buffer.from(padded, 'base64');
+          }
+
+          function verifyJWT(token: string): { valid: boolean; payload?: any } {
+            try {
+              const parts = token.split('.');
+              if (parts.length !== 3) return { valid: false };
+              const [header, payload, signature] = parts;
+              const expectedSignature = createHmac('sha256', JWT_SECRET)
+                .update(`${header}.${payload}`)
+                .digest();
+              const providedSignature = base64urlDecode(signature);
+              if (!timingSafeEqual(expectedSignature, providedSignature)) return { valid: false };
+              const decodedPayload = JSON.parse(base64urlDecode(payload).toString());
+              if (decodedPayload.exp && decodedPayload.exp * 1000 < Date.now()) return { valid: false };
+              return { valid: true, payload: decodedPayload };
+            } catch {
+              return { valid: false };
+            }
+          }
+
+          function constantTimeEqual(a: string, b: string): boolean {
+            if (a.length !== b.length) return false;
+            return timingSafeEqual(Buffer.from(a), Buffer.from(b));
+          }
+
+          function getCookie(req: any, name: string): string | undefined {
+            const cookieHeader = req.headers.cookie;
+            if (!cookieHeader) return undefined;
+            const cookies = cookieHeader.split(';').map(c => c.trim());
+            for (const cookie of cookies) {
+              const [key, ...valueParts] = cookie.split('=');
+              if (key === name) return valueParts.join('=');
+            }
+            return undefined;
+          }
+
+          // Admin Login
+          server.middlewares.use('/api/admin/login', async (req, res) => {
+            if (req.method === 'OPTIONS') { res.statusCode = 200; res.end(); return; }
+            if (req.method !== 'POST') { res.statusCode = 405; res.end(JSON.stringify({ error: 'Method not allowed' })); return; }
+            let bodyStr = '';
+            req.on('data', chunk => { bodyStr += chunk; });
+            req.on('end', async () => {
+              try {
+                const { username, password } = JSON.parse(bodyStr || '{}');
+                if (!username || !password) { res.statusCode = 400; res.end(JSON.stringify({ error: 'Username and password required' })); return; }
+                const cleanUser = username.trim().toLowerCase();
+                const cleanPass = password.trim();
+                const isUserValid = constantTimeEqual(cleanUser, ADMIN_USER);
+                const isPassValid = constantTimeEqual(cleanPass, ADMIN_PASS);
+                if (!isUserValid || !isPassValid) { res.statusCode = 401; res.end(JSON.stringify({ error: 'Invalid credentials' })); return; }
+                const token = signJWT({ sub: 'admin', iat: Math.floor(Date.now() / 1000), exp: Math.floor(Date.now() / 1000) + 8 * 60 * 60 });
+                res.setHeader('Set-Cookie', `${COOKIE_NAME}=${token}; HttpOnly; Secure; SameSite=Strict; Path=/; Max-Age=${8 * 60 * 60}`);
+                res.statusCode = 200;
+                res.setHeader('Content-Type', 'application/json');
+                res.end(JSON.stringify({ success: true, user: { role: 'admin' } }));
+              } catch (e: any) {
+                res.statusCode = 500;
+                res.end(JSON.stringify({ error: e.message }));
+              }
+            });
+          });
+
+          // Admin Verify
+          server.middlewares.use('/api/admin/verify', async (req, res) => {
+            if (req.method === 'OPTIONS') { res.statusCode = 200; res.end(); return; }
+            if (req.method !== 'GET') { res.statusCode = 405; res.end(JSON.stringify({ error: 'Method not allowed' })); return; }
+            const token = getCookie(req, COOKIE_NAME);
+            if (!token) { res.statusCode = 401; res.end(JSON.stringify({ authenticated: false, error: 'No session' })); return; }
+            const { valid, payload } = verifyJWT(token);
+            if (!valid) { res.setHeader('Set-Cookie', `${COOKIE_NAME}=; HttpOnly; Secure; SameSite=Strict; Path=/; Max-Age=0`); res.statusCode = 401; res.end(JSON.stringify({ authenticated: false, error: 'Invalid or expired session' })); return; }
+            res.statusCode = 200;
+            res.setHeader('Content-Type', 'application/json');
+            res.end(JSON.stringify({ authenticated: true, user: payload }));
+          });
+
+          // Admin Logout
+          server.middlewares.use('/api/admin/logout', async (req, res) => {
+            if (req.method === 'OPTIONS') { res.statusCode = 200; res.end(); return; }
+            if (req.method !== 'POST') { res.statusCode = 405; res.end(JSON.stringify({ error: 'Method not allowed' })); return; }
+            res.setHeader('Set-Cookie', `${COOKIE_NAME}=; HttpOnly; Secure; SameSite=Strict; Path=/; Max-Age=0`);
+            res.statusCode = 200;
+            res.setHeader('Content-Type', 'application/json');
+            res.end(JSON.stringify({ success: true }));
+          });
+
           // 6. Local visitor counter response. Production is served by api/counter.js.
           server.middlewares.use('/api/counter', (req, res) => {
             res.statusCode = 200;
@@ -670,7 +781,7 @@ export default defineConfig(({ mode }) => {
       target: 'es2020',
       modulePreload: { polyfill: false },
       cssCodeSplit: true,
-      chunkSizeWarningLimit: 2000,
+      chunkSizeWarningLimit: 2500,
       rollupOptions: {
         output: {
           manualChunks(id: string) {
@@ -680,8 +791,23 @@ export default defineConfig(({ mode }) => {
               if (id.includes('lucide-react')) return 'icons';
               if (id.includes('jspdf') || id.includes('qrcode')) return 'pro-engine';
             }
-            if (id.includes('src/data/categories') || id.includes('src/data/civilLegalData')) {
-              return 'legal-data';
+            if (id.includes('src/data/categories/landParts') || id.includes('src/data/categories/landData')) {
+              return 'legal-land';
+            }
+            if (id.includes('src/data/categories/partitionParts') || id.includes('src/data/categories/partitionData')) {
+              return 'legal-partition';
+            }
+            if (id.includes('src/data/categories/moneyParts') || id.includes('src/data/categories/moneyData')) {
+              return 'legal-money';
+            }
+            if (id.includes('src/data/categories/consumerParts') || id.includes('src/data/categories/consumerData')) {
+              return 'legal-consumer';
+            }
+            if (id.includes('src/data/categories/familyParts') || id.includes('src/data/categories/familyData')) {
+              return 'legal-family';
+            }
+            if (id.includes('src/data/categories/tenancyParts') || id.includes('src/data/categories/tenancyData')) {
+              return 'legal-tenancy';
             }
           }
         }

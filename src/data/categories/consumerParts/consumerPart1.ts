@@ -5,15 +5,15 @@ export const consumerPart1: CivilSubCategory[] = [
     id: 'sub-consumer-01',
     productCategory: 'paid',
     title: {
-      en: 'Consumer Claims on e-Jagriti Portal (e-Daakhil)',
+      en: 'Consumer Claims on e-Jagriti Portal',
       bn: 'ই-জাগৃতি পোর্টালে অনলাইন ক্রেতা মামলা',
-      hi: 'ई-जागृति पोर्टल पर ऑनलाइन उपभोक्ता वाद (e-Daakhil)'
+      hi: 'ई-जागृति पोर्टल पर ऑनलाइन उपभोक्ता वाद'
     },
     relevant_act: 'Sec 35, Consumer Protection Act, 2019',
     summary: {
-      en: 'Filing digital consumer complaints on national e-Jagriti portal against defective goods or deficient services across district commissions.',
-      bn: 'ত্রুটিযুক্ত পণ্য বা সেবার গাফিলতির বিরুদ্ধে জাতীয় ই-জাগৃতি পোর্টালে ঘরে বসে অনলাইন ক্রেতা মামলা দায়ের।',
-      hi: 'खराब सामान या सेवा में कमी के विरुद्ध राष्ट्रीय ई-जागृति पोर्टल पर घर बैठे ऑनलाइन उपभोक्ता शिकायत दर्ज करना।'
+      en: 'Filing digital consumer complaints on national e-Jagriti portal against defective goods or deficient services across district commissions. Legacy e-Daakhil terminology has been replaced with current official e-Jagriti nomenclature.',
+      bn: 'ত্রুটিযুক্ত পণ্য বা সেবার গাফিলতির বিরুদ্ধে জাতীয় ই-জাগৃতি পোর্টালে ঘরে বসে অনলাইন ক্রেতা মামলা দায়ের। পুরনো ই-দাখিল শব্দের পরিবর্তে বর্তমান ই-জাগৃতি নামকরণ ব্যবহার করা হয়েছে।',
+      hi: 'खराब सामान या सेवा में कमी के विरुद्ध राष्ट्रीय ई-जागृति पोर्टल पर घर बैठे ऑनलाइन उपभोक्ता शिकायत दर्ज करना। पुराने ई-दाखिल शब्दावली को वर्तमान आधिकारिक ई-जागृति नामकरण से बदला गया है।'
     },
     authority_forum: {
       en: 'District Consumer Disputes Redressal Commission (DCDRC)',
@@ -29,11 +29,77 @@ export const consumerPart1: CivilSubCategory[] = [
       hi: 'स्वीकार्यता और निस्तारण का समय उपभोक्ता संरक्षण अधिनियम, लागू नियमों और आयोग की कार्यसूची पर निर्भर करता है; किसी निश्चित अवधि की गारंटी नहीं है।'
     },
     search_keywords: {
-      en: ['e-jagriti consumer complaint', 'e-daakhil online case', 'dcdrc filing wb'],
+      en: ['e-jagriti consumer complaint', 'online consumer case filing', 'dcdrc filing wb'],
       bn: ['ই-জাগৃতি ক্রেতা আদালত', 'অনলাইন কনজিউমার ফোরাম', 'ক্রেতা সুরক্ষা মামলা'],
-      hi: ['ई-जागृति उपभोक्ता फोरम', 'ई-दाखिल ऑनलाइन केस', 'उपभोक्ता अदालत शिकायत']
+      hi: ['ई-जागृति उपभोक्ता फोरम', 'ऑनलाइन उपभोक्ता केस', 'उपभोक्ता अदालत शिकायत']
     },
-    territory_track: 'Universal',
+    territory_track: 'Dual_Path',
+    dual_path: {
+      rural_district: {
+        authority: {
+          en: 'District Consumer Commission (DCDRC) of the district where the cause of action arose or the opposite party resides/works',
+          bn: 'কারণ ক্রিয়া অনুষ্ঠান করা জেলা বা বিপক্ষের জীবিকা/বাসস্থানের জেলার DCDRC',
+          hi: 'कारण क्रिया वाले जिले या विपक्षी के निवास/कार्य जिले का जिला उपभोक्ता आयोग'
+        },
+        portal_name: { en: 'e-Jagriti National Portal', bn: 'ই-জাগৃতি জাতীয় পোর্টাল', hi: 'ई-जागृति राष्ट्रीय पोर्टल' },
+        portal_url: 'https://e-jagriti.gov.in/',
+        steps: {
+          en: [
+            'Register on https://e-jagriti.gov.in/ with Aadhaar and mobile OTP verification.',
+            'Confirm the competent District Consumer Commission using consideration paid and applicable pecuniary jurisdiction rules (District Commission up to ₹50 lakh); seek legal advice if forum or limitation is unclear.',
+            'Prepare the complaint with relevant facts, parties, relief sought, and supporting documents; keep claims and compensation calculations evidence-based.',
+            'Upload proof of purchase/service, payment records, relevant communications, and other supporting documents as per current e-Jagriti filing flow.',
+            'Review the current fee shown by the official portal before payment; the portal\'s assessed demand controls. Save filing acknowledgement and monitor notices, hearings, and directions.'
+          ],
+          bn: [
+            'আধার ও ওটিপি যাচাইকরণের মাধ্যমে e-jagriti.gov.in পোর্টালে নাগরিক অ্যাকাউন্ট খুলুন।',
+            'প্রদত্ত বিবেচ্য মূল্য ও প্রযোজ্য আর্থিকcompetent District Consumer Commission (৫০ লক্ষ টাকা পর্যন্ত) যাচাই করুন; ফোরাম বা তামাদি অস্পষ্ট হলে আইনগত পরামর্শ নিন।',
+            'প্রাসঙ্গিক ঘটনা, পক্ষসমূহ, চাওয়া প্রতিকার ও সহায়ক নথি দিয়ে অভিযোগ প্রস্তুত করুন; দাবি ও ক্ষতিপূরণের হিসাব প্রমাণনির্ভর রাখুন।',
+            'ক্রয় বা পরিষেবার প্রমাণ, পেমেন্টের রেকর্ড, প্রাসঙ্গিক যোগাযোগ এবং বর্তমান ই-জাগৃতি দাখিল প্রক্রিয়ায় চাওয়া অন্যান্য নথি আপলোড করুন।',
+            'পেমেন্টের আগে সরকারি পোর্টালে দেখানো বর্তমান ফি ও প্রযোজ্য বিধি যাচাই করুন; পোর্টালে নির্ধারিত চাহিদাই চূড়ান্ত। দাখিলের স্বীকৃতি সংরক্ষণ করে নোটিশ, শুনানি ও নির্দেশ পর্যবেক্ষণ করুন।'
+          ],
+          hi: [
+            'आधार एवं ओटीपी सत्यापन द्वारा e-jagriti.gov.in पोर्टल पर उपभोक्ता खाता पंजीकृत करें।',
+            'अदा किए गए प्रतिफल और लागू आर्थिक अधिकारिता नियमों (जिला आयोग ५० लाख तक) के आधार पर सक्षम जिला उपभोक्ता आयोग की पुष्टि करें; मंच या परिसीमा अस्पष्ट हो तो कानूनी सलाह लें।',
+            'संबंधित तथ्य, पक्षकार, मांगी गई राहत और सहायक दस्तावेजों सहित शिकायत तैयार करें; दावे और क्षतिपूर्ति की गणना साक्ष्य-आधारित रखें।',
+            'खरीद या सेवा का प्रमाण, भुगतान रिकॉर्ड, संबंधित पत्राचार और वर्तमान ई-जागृति दाखिला प्रक्रिया में मांगे गए अन्य दस्तावेज अपलोड करें।',
+            'भुगतान से पहले आधिकारिक पोर्टल पर दिखाई गई वर्तमान फीस और लागू नियम जांचें; पोर्टल द्वारा निर्धारित मांग प्रभावी होगी। दाखिले की पावती सुरक्षित रखें और नोटिस, सुनवाई तथा निर्देशों को ट्रैक करें।'
+          ]
+        }
+      },
+      kolkata_urban: {
+        authority: {
+          en: 'Kolkata District Consumer Commission (DCDRC, Kolkata) at the designated bench; note territorial allocation differs from surrounding districts',
+          bn: 'কলকাতা জেলা ভোক্তা সুরক্ষা কমিশন (DCDRC, কলকাতা) নির্দিষ্ট বেঞ্চে; অঞ্চলীয় জেলা থেকে প্রাদেশিক বিতরণ আলাদা',
+          hi: 'कोलकाता जिला उपभोक्ता आयोग (DCDRC, कोलकाता) नामित बेंच पर; आसपास के जिलों से प्रादेशिक आवंटन भिन्न है'
+        },
+        portal_name: { en: 'e-Jagriti National Portal', bn: 'ই-জাগৃতি জাতীয় পোর্টাল', hi: 'ई-जागृति राष्ट्रीय पोर्टल' },
+        portal_url: 'https://e-jagriti.gov.in/',
+        steps: {
+          en: [
+            'Register on https://e-jagriti.gov.in/ with Aadhaar and mobile OTP verification.',
+            'Confirm the competent Kolkata District Consumer Commission using consideration paid; note Kolkata territorial allocation is distinct from North 24 Parganas, South 24 Parganas, Howrah.',
+            'Prepare the complaint with relevant facts, parties, relief sought, and supporting documents; keep claims evidence-based.',
+            'Upload proof of purchase/service, payment records, relevant communications per current e-Jagriti filing flow.',
+            'Review the current fee on the official portal before payment; save filing acknowledgement and track notices, hearings, directions.'
+          ],
+          bn: [
+            'আধার ও ওটিপি যাচাইকরণের মাধ্যমে e-jagriti.gov.in পোর্টালে নাগরিক অ্যাকাউন্ট খুলুন।',
+            'প্রদত্ত বিবেচ্য মূল্য ব্যবহার করে কলকাতা জেলা ভোক্তা কমিশন যাচাই করুন; কলকাতার প্রাদেশিক বিতরণ উত্তর ২৪ পরগনা, দক্ষিণ ২৪ পরগনা, হাওড়া থেকে আলাদা।',
+            'প্রাসঙ্গিক ঘটনা, পক্ষসমূহ, চাওয়া প্রতিকার ও সহায়ক নথি দিয়ে অভিযোগ প্রস্তুত করুন; দাবি প্রমাণনির্ভর রাখুন।',
+            'ক্রয় বা পরিষেবার প্রমাণ, পেমেন্ট রেকর্ড, যোগাযোগ ইত্যাদি বর্তমান ই-জাগৃতি প্রক্রিয়ায় আপলোড করুন।',
+            'পেমেন্টের আগে পোর্টালে বর্তমান ফি যাচাই করুন; দাখিল স্বীকৃতি সংরক্ষণ করুন এবং নোটিশ, শুনানি, নির্দেশ পর্যবেক্ষণ করুন।'
+          ],
+          hi: [
+            'आधार एवं ओटीपी सत्यापन द्वारा e-jagriti.gov.in पोर्टल पर उपभोक्ता खाता पंजीकृत करें।',
+            'अदा प्रतिफल से कोलकाता जिला उपभोक्ता आयोग की पुष्टि करें; कोलकाता का प्रादेशिक आवंटन उत्तर २४ परगना, दक्षिण २४ परगना, हावड़ा से भिन्न है।',
+            'संबंधित तथ्य, पक्षकार, मांगी गई राहत और सहायक दस्तावेजों सहित शिकायत तैयार करें; दावे साक्ष्य-आधारित रखें।',
+            'खरीद/सेवा प्रमाण, भुगतान रिकॉर्ड, पत्राचार वर्तमान ई-जागृति प्रक्रिया में अपलोड करें।',
+            'भुगतान से पहले पोर्टल पर वर्तमान फीस जांचें; दाखिला पावती सुरक्षित रखें और नोटिस, सुनवाई, निर्देश ट्रैक करें।'
+          ]
+        }
+      }
+    },
     roadmap_steps: {
       en: [
         'Register on https://e-jagriti.gov.in/ with Aadhaar and mobile OTP verification.',
@@ -77,16 +143,16 @@ export const consumerPart1: CivilSubCategory[] = [
           hi: 'भुगतान से ठीक पहले आधिकारिक e-Jagriti दाखिला प्रक्रिया पर राशि की पुष्टि करें। पोर्टल की निर्धारित मांग और लागू नियम प्रभावी होंगे।'
         },
         scope: 'national',
-        evidence: {
+evidence: {
           status: 'variable',
           primary_source_title: 'Consumer Protection Act, 2019 and applicable Consumer Commission Rules',
           primary_source_url: 'https://consumeraffairs.gov.in/pages/consumer-protection-acts',
           pinpoint: 'Consumer Protection Act, 2019, section 35(2); applicable Commission Rules and current e-Jagriti fee demand',
           checked_on: '2026-10-10',
           notes: {
-            en: 'Confirm current rules and the live portal amount before filing.',
-            bn: 'দাখিলের আগে বর্তমান বিধি ও লাইভ পোর্টালের অঙ্ক যাচাই করুন।',
-            hi: 'दाखिले से पहले वर्तमान नियम और लाइव पोर्टल राशि जांचें।'
+            en: 'Confirm current rules and the live portal amount before filing. 2021 Jurisdiction Rules: District up to ₹50 lakh, State above ₹50 lakh through ₹2 crore, National above ₹2 crore. 2023 Fee Schedule: Nil up to ₹5 lakh, then ₹200 (₹5-10L), ₹400 (₹10-20L), ₹1,000 (₹20-50L); State ₹2,000 (₹50L-1Cr), ₹2,500 (₹1-2Cr).',
+            bn: 'দাখিলের আগে বর্তমান বিধি ও লাইভ পোর্টালের অঙ্ক যাচাই করুন। ২০২১ অধিকার বিধি: জেলা ৫০ লক্ষ পর্যন্ত, রাজ্য ৫০ লক্ষ-২ কোটি, জাতীয় ২ কোটির উপরে। ২০২৩ ফি সূচি: ৫ লক্ষ পর্যন্ত শূন্য, তারপর ২০০ (৫-১০ লক্ষ), ৪০০ (১০-২০ লক্ষ), ১,০০০ (২০-৫০ লক্ষ); রাজ্য ২,০০০ (৫০ লক্ষ-১ কোটি), ২,৫০০ (১-২ কোটি)।',
+            hi: 'दाखिले से पहले वर्तमान नियम और लाइव पोर्टल राशि जांचें। २०२१ अधिकारिता नियम: जिला ५० लाख तक, राज्य ५० लाख-२ करोड़, राष्ट्रीय २ करोड़ से ऊपर। २०२३ शुल्क अनुसूची: ५ लाख तक शून्य, फिर २०० (५-१० लाख), ४०० (१०-२० लाख), १,००० (२०-५० लाख); राज्य २,००० (५० लाख-१ करोड़), २,५०० (१-२ करोड़)।'
           }
         }
       }
@@ -156,25 +222,85 @@ export const consumerPart1: CivilSubCategory[] = [
       bn: ['রেরা ফর্ম এম', 'ফ্ল্যাট হস্তান্তরে দেরি', 'প্রমোটার রিফান্ড রেরা'],
       hi: ['रेरा फॉर्म M', 'बिल्डर देरी रिफंड', 'फ्लैट पजेशन ब्याज']
     },
-    territory_track: 'Universal',
+    territory_track: 'Dual_Path',
+    dual_path: {
+      rural_district: {
+        authority: {
+          en: 'West Bengal Real Estate Regulatory Authority (WBRERA Bench) — jurisdiction follows project location, not complainant city',
+          bn: 'পশ্চিমবঙ্গ রেরা বেঞ্চ (WBRERA) — অঞ্চলিক অঞ্চল অনুযায়ী, নয়ামিত্র শহর অনুযায়ী নয়',
+          hi: 'पश्चिम बंगाल रेरा बेंच (WBRERA) — क्षेत्राधिकार परियोजना स्थान के अनुसार, शिकायतकर्ता शहर नहीं'
+        },
+        portal_name: { en: 'WBRERA Official Portal', bn: 'রেরা অফিসিয়াল পোর্টাল', hi: 'WBRERA आधिकारिक पोर्टल' },
+        portal_url: 'https://rera.wb.gov.in/',
+        steps: {
+          en: [
+            'Verify project RERA registration number on https://rera.wb.gov.in/ and confirm sanctioned possession completion date.',
+            'File online complaint in Form-M on the WBRERA portal (rera.wb.gov.in/complaints.php) paying applicable fee; confirm current fee on portal before payment.',
+            'Serve formal digital notice to developer detailing payment receipts and default days.',
+            'WBRERA Bench orders refund with SBI MCLR+2% interest or monthly delay payout per Section 18.'
+          ],
+          bn: [
+            'https://rera.wb.gov.in/-এ প্রজেক্টের রেরা নম্বর এবং চুক্তিতে উল্লেখিত ফ্ল্যাট হস্তান্তরের শেষ তারিখ পরীক্ষা করুন।',
+            'রেরা পোর্টালে (rera.wb.gov.in/complaints.php) ফর্ম-এম (Form-M) অনলাইন অভিযোগ দাখিল করুন প্রযোজ্য ফি দিয়ে; পেমেন্টের আগে পোর্টালে বর্তমান ফি যাচাই করুন।',
+            'সমস্ত পেমেন্ট রসিদ ও চুক্তিপত্রের প্রতিলিপিসহ প্রমোটারকে আইনি নোটিশ প্রেরণ করুন।',
+            'রেরা বেঞ্চ ধারা ১৮ অনুযায়ী এসবিআই সুদের হারে টাকা ফেরত বা মাসিক ক্ষতিপূরণ মঞ্জুর করবে।'
+          ],
+          hi: [
+            'https://rera.wb.gov.in/ पर प्रोजेक्ट का रेरा नंबर एवं अनुबंध में दर्ज पजेशन की अंतिम तिथि सत्यापित करें।',
+            'WBRERA पोर्टल (rera.wb.gov.in/complaints.php) पर फॉर्म-M ऑनलाइन शिकायत दर्ज करें लागू शुल्क के साथ; भुगतान से पहले पोर्टल पर वर्तमान शुल्क जांचें।',
+            'समस्त भुगतान रसीदों के साथ विधिक शिकायत की प्रति बिल्डर को तामील कराएं।',
+            'रेरा बेंच धारा 18 अनुसार एसबीआई ब्याज दर पर पूरा पैसा या मासिक ब्याज का आदेश देगा।'
+          ]
+        }
+      },
+      kolkata_urban: {
+        authority: {
+          en: 'West Bengal Real Estate Regulatory Authority (WBRERA Bench) — Kolkata projects fall under WBRERA; RERA jurisdiction follows the project, not merely the complainant city',
+          bn: 'পশ্চিমবঙ্গ রেরা বেঞ্চ (WBRERA) — কলকাতার প্রজেক্ট WBRERA-এর অধীন; রেরা জুরিসডিকশন প্রকল্পের অনুযায়ী, শুধু ফরিয়াদীর শহর নয়',
+          hi: 'पश्चिम बंगाल रेरा बेंच (WBRERA) — कोलकाता प्रोजेक्ट WBRERA के अंतर्गत; रेरा अधिकारिता परियोजना अनुसार, केवल शिकायतकर्ता शहर नहीं'
+        },
+        portal_name: { en: 'WBRERA Official Portal', bn: 'রেরা অফিসিয়াল পোর্টাল', hi: 'WBRERA आधिकारिक पोर्टल' },
+        portal_url: 'https://rera.wb.gov.in/',
+        steps: {
+          en: [
+            'Verify project RERA registration number on https://rera.wb.gov.in/ and confirm sanctioned possession completion date.',
+            'File online complaint in Form-M on the WBRERA portal (rera.wb.gov.in/complaints.php) paying applicable fee; confirm current fee on portal before payment.',
+            'Serve formal digital notice to developer detailing payment receipts and default days.',
+            'WBRERA Bench orders refund with SBI MCLR+2% interest or monthly delay payout per Section 18.'
+          ],
+          bn: [
+            'https://rera.wb.gov.in/-এ প্রজেক্টের রেরা নম্বর এবং চুক্তিতে উল্লেখিত ফ্ল্যাট হস্তান্তরের শেষ তারিখ পরীক্ষা করুন।',
+            'রেরা পোর্টালে (rera.wb.gov.in/complaints.php) ফর্ম-এম (Form-M) অনলাইন অভিযোগ দাখিল করুন প্রযোজ্য ফি দিয়ে; পেমেন্টের আগে পোর্টালে বর্তমান ফি যাচাই করুন।',
+            'সমস্ত পেমেন্ট রসিদ ও চুক্তিপত্রের প্রতিলিপিসহ প্রমোটারকে আইনি নোটিশ প্রেরণ করুন।',
+            'রেরা বেঞ্চ ধারা ১৮ অনুযায়ী এসবিআই সুদের হারে টাকা ফেরত বা মাসিক ক্ষতিপূরণ মঞ্জুর করবে।'
+          ],
+          hi: [
+            'https://rera.wb.gov.in/ पर प्रोजेक्ट का रेरा नंबर एवं अनुबंध में दर्ज पजेशन की अंतिम तिथि सत्यापित करें।',
+            'WBRERA पोर्टल (rera.wb.gov.in/complaints.php) पर फॉर्म-M ऑनलाइन शिकायत दर्ज करें लागू शुल्क के साथ; भुगतान से पहले पोर्टल पर वर्तमान शुल्क जांचें।',
+            'समस्त भुगतान रसीदों के साथ विधिक शिकायत की प्रति बिल्डर को तामील कराएं।',
+            'रेरा बेंच धारा 18 अनुसार एसबीआई ब्याज दर पर पूरा पैसा या मासिक ब्याज का आदेश देगा।'
+          ]
+        }
+      }
+    },
     roadmap_steps: {
       en: [
-        'Verify project RERA registration number and sanctioned possession completion date.',
-        'File online complaint in Form-M on the WBRERA portal paying statutory ₹1,000 fee.',
+        'Verify project RERA registration number on https://rera.wb.gov.in/ and confirm sanctioned possession completion date.',
+        'File online complaint in Form-M on the WBRERA portal (rera.wb.gov.in/complaints.php) paying applicable fee; confirm current fee on portal before payment.',
         'Serve formal digital notice to developer detailing payment receipts and default days.',
-        'WBRERA Bench orders refund with SBI MCLR+2% interest or monthly delay payout.'
+        'WBRERA Bench orders refund with SBI MCLR+2% interest or monthly delay payout per Section 18.'
       ],
       bn: [
-        'প্রজেক্টের রেরা নম্বর এবং চুক্তিতে উল্লেখিত ফ্ল্যাট হস্তান্তরের শেষ তারিখ পরীক্ষা করুন।',
-        '১,০০০ টাকা ফি দিয়ে রেরা পোর্টালে ফর্ম-এম (Form-M) অনলাইন অভিযোগ দাখিল করুন।',
+        'https://rera.wb.gov.in/-এ প্রজেক্টের রেরা নম্বর এবং চুক্তিতে উল্লেখিত ফ্ল্যাট হস্তান্তরের শেষ তারিখ পরীক্ষা করুন।',
+        'রেরা পোর্টালে (rera.wb.gov.in/complaints.php) ফর্ম-এম (Form-M) অনলাইন অভিযোগ দাখিল করুন প্রযোজ্য ফি দিয়ে; পেমেন্টের আগে পোর্টালে বর্তমান ফি যাচাই করুন।',
         'সমস্ত পেমেন্ট রসিদ ও চুক্তিপত্রের প্রতিলিপিসহ প্রমোটারকে আইনি নোটিশ প্রেরণ করুন।',
-        'রেরা বেঞ্চ শুনানি শেষে এসবিআই সুদের হারে টাকা ফেরত বা মাসিক ক্ষতিপূরণ মঞ্জুর করবে।'
+        'রেরা বেঞ্চ ধারা ১৮ অনুযায়ী এসবিআই সুদের হারে টাকা ফেরত বা মাসিক ক্ষতিপূরণ মঞ্জুর করবে।'
       ],
       hi: [
-        'प्रोजेक्ट का रेरा नंबर एवं अनुबंध में दर्ज पजेशन की अंतिम तिथि सत्यापित करें।',
-        '₹1,000 शुल्क के साथ WBRERA पोर्टल पर ऑनलाइन फॉर्म-M शिकायत दर्ज करें।',
-        'बिल्डर को समस्त भुगतान रसीदों के साथ विधिक शिकायत की प्रति तामील कराएं।',
-        'रेरा बेंच द्वारा बिल्डर को एसबीआई ब्याज दर पर पूरा पैसा या मासिक ब्याज का आदेश होगा।'
+        'https://rera.wb.gov.in/ पर प्रोजेक्ट का रेरा नंबर एवं अनुबंध में दर्ज पजेशन की अंतिम तिथि सत्यापित करें।',
+        'WBRERA पोर्टल (rera.wb.gov.in/complaints.php) पर फॉर्म-M ऑनलाइन शिकायत दर्ज करें लागू शुल्क के साथ; भुगतान से पहले पोर्टल पर वर्तमान शुल्क जांचें।',
+        'समस्त भुगतान रसीदों के साथ विधिक शिकायत की प्रति बिल्डर को तामील कराएं।',
+        'रेरा बेंच धारा 18 अनुसार एसबीआई ब्याज दर पर पूरा पैसा या मासिक ब्याज का आदेश देगा।'
       ]
     },
     required_documents: [
@@ -524,7 +650,67 @@ export const consumerPart1: CivilSubCategory[] = [
       bn: ['রেরা রিকভারি সার্টিফিকেট', 'জেলাশাসক মারফত টাকা উদ্ধার', 'বিল্ডারের সম্পত্তি ক্রোক'],
       hi: ['रेरा रिकवरी वारंट', 'डीएम द्वारा वसूली', 'बंगाल पीडीआर एक्ट बिल्डर']
     },
-    territory_track: 'Universal',
+    territory_track: 'Dual_Path',
+    dual_path: {
+      rural_district: {
+        authority: {
+          en: 'District Magistrate / Certificate Officer (Barasat, Alipore, Howrah, Chinsurah, etc.) for district projects',
+          bn: 'জেলার প্রজেক্টের জন্য জেলাশাসক / সার্টিফিকেট অফিসার (বরাসাত, আলিপুর, হাওড়া, চুঁচুড়া ইত্যাদি)',
+          hi: 'जिला परियोजनाओं के लिए जिला मजिस्ट्रेट / सर्टिफिकेट अधिकारी (बारासात, अलीपुर, हावड़ा, चिनसुराह आदि)'
+        },
+        portal_name: { en: 'WBRERA Portal', bn: 'রেরা পোর্টাল', hi: 'WBRERA पोर्टल' },
+        portal_url: 'https://rera.wb.gov.in/',
+        steps: {
+          en: [
+            'Obtain certified Recovery Certificate under Section 40(1) from the WBRERA Authority.',
+            'WBRERA transmits certificate directly to concerned District Magistrate as public demand arrears.',
+            'Certificate Officer issues demand notice under Section 7 of Bengal PDR Act, 1913.',
+            'If unpaid in 30 days, freeze builder bank accounts and attach real estate inventory.'
+          ],
+          bn: [
+            'রেরা কর্তৃপক্ষ থেকে ধারা ৪০(১) অনুযায়ী প্রত্যয়িত রিকভারি সার্টিফিকেট সংগ্রহ করুন।',
+            'রেরা সরাসরি সংশ্লিষ্ট জেলাশাসকের (DM) কাছে সার্টিফিকেট রিকভারির নির্দেশ পাঠাবে।',
+            'সার্টিফিকেট অফিসার বেঙ্গল পিডিআর আইনের ধারা ৭ অনুযায়ী বিল্ডারকে নোটিশ দেবেন।',
+            'টাকা না দিলে বিল্ডারের ব্যাঙ্ক অ্যাকাউন্ট সিল ও অবিক্রীত ফ্ল্যাট নিলাম করে টাকা আদায় হবে।'
+          ],
+          hi: [
+            'WBRERA प्राधिकरण से धारा 40(1) के तहत आधिकारिक रिकवरी सर्टिफिकेट प्राप्त करें।',
+            'रेरा द्वारा सीधे संबंधित जिला कलेक्टर को भू-राजस्व बकाए के रूप में वसूली का आदेश भेजा जाएगा।',
+            'सर्टिफिकेट अधिकारी बंगाल पीडीआर एक्ट 1913 की धारा 7 में बिल्डर को नोटिस जारी करेंगे।',
+            '30 दिन में भुगतान न होने पर बिल्डर के खाते फ्रीज कर संपत्तियों की नीलामी से वसूली होगी।'
+          ]
+        }
+      },
+      kolkata_urban: {
+        authority: {
+          en: 'Kolkata Collector / Certificate Officer for KMC area projects; distinct from surrounding districts',
+          bn: 'কেএমসি এলাকার প্রজেক্টের জন্য কলকাতা কোলেক্টর / সার্টিফিকেট অফিসার; kuul delar থেকে আলাদা',
+          hi: 'केएमसी क्षेत्र की परियोजनाओं के लिए कोलकाता कलेक्टर / सर्टिफिकेट अधिकारी; आसपास के जिलों से अलग'
+        },
+        portal_name: { en: 'WBRERA Portal', bn: 'রেরা পোর্টাল', hi: 'WBRERA पोर्टल' },
+        portal_url: 'https://rera.wb.gov.in/',
+        steps: {
+          en: [
+            'Obtain certified Recovery Certificate under Section 40(1) from the WBRERA Authority.',
+            'WBRERA transmits certificate directly to Kolkata Collector as public demand arrears.',
+            'Certificate Officer issues demand notice under Section 7 of Bengal PDR Act, 1913.',
+            'If unpaid in 30 days, freeze builder bank accounts and attach real estate inventory.'
+          ],
+          bn: [
+            'রেরা কর্তৃপক্ষ থেকে ধারা ৪০(১) অনুযায়ী প্রত্যয়িত রিকভারি সার্টিফিকেট সংগ্রহ করুন।',
+            'রেরা সরাসরি কলকাতা কোলেক্টরের কাছে সার্টিফিকেট রিকভারির নির্দেশ পাঠাবে।',
+            'সার্টিফিকেট অফিসার বেঙ্গল পিডিআর আইনের ধারা ৭ অনুযায়ী বিল্ডারকে নোটিশ দেবেন।',
+            'টাকা না দিলে বিল্ডারের ব্যাঙ্ক অ্যাকাউন্ট সিল ও অবিক্রীত ফ্ল্যাট নিলাম করে টাকা আদায় হবে।'
+          ],
+          hi: [
+            'WBRERA प्राधिकरण से धारा 40(1) के तहत आधिकारिक रिकवरी सर्टिफिकेट प्राप्त करें।',
+            'रेरा द्वारा सीधे कोलकाता कलेक्टर को भू-राजस्व बकाए के रूप में वसूली का आदेश भेजा जाएगा।',
+            'सर्टिफिकेट अधिकारी बंगाल पीडीआर एक्ट 1913 की धारा 7 में बिल्डर को नोटिस जारी करेंगे।',
+            '30 दिन में भुगतान न होने पर बिल्डर के खाते फ्रीज कर संपत्तियों की नीलामी से वसूली होगी।'
+          ]
+        }
+      }
+    },
     roadmap_steps: {
       en: [
         'Obtain certified Recovery Certificate under Section 40(1) from the WBRERA Authority.',
@@ -1392,7 +1578,67 @@ export const consumerPart1: CivilSubCategory[] = [
       bn: ['সোসাইটি গঠনে দেরি', 'মেইনটেন্যান্স হস্তান্তর', 'রেরা সমিতি গঠন'],
       hi: ['सोसाइटी हैंडओवर देरी', 'आरडब्ल्यूए गठन बिल्डर', 'धारा 11(4)(e) रेरा']
     },
-    territory_track: 'Universal',
+    territory_track: 'Dual_Path',
+    dual_path: {
+      rural_district: {
+        authority: {
+          en: 'Competent Authority (District Housing Cell) / BMC / HMC / WBRERA',
+          bn: 'জেলা আবাসন সেল / বিধাননগর পুরনিগম (BMC) / হাওড়া (HMC) / রেরা',
+          hi: 'जिला आवास सेल / नगर निगम (BMC/HMC) / रेरा'
+        },
+        portal_name: { en: 'WB Housing / Municipal Portal', bn: 'পশ্চিমবঙ্গ আবাসন / পুরনিগম পোর্টাল', hi: 'पश्चिम बंगाल आवास / नगर निगम पोर्टल' },
+        portal_url: 'https://wbhousing.gov.in/',
+        steps: {
+          en: [
+            'Convene general body meeting of allottees to pass resolution constituting ad-hoc association.',
+            'Submit Form-1 before Competent Authority (Housing Department, Salt Lake) under WB Apartment Ownership Act for registration.',
+            'Serve 15-day requisition notice on builder to transfer unspent sinking fund and audited accounts.',
+            'Move WBRERA under Section 31 to impose daily non-compliance penalties until physical handover.'
+          ],
+          bn: [
+            'ফ্ল্যাট মালিকদের সাধারণ সভা ডেকে অ্যাড-হক ওনার্স অ্যাসোসিয়েশন গঠনের প্রস্তাব পাস করুন।',
+            'অ্যাপার্টমেন্ট ওনারশিপ অ্যাক্ট মেনে রেজিস্ট্রেশনের জন্য সল্টলেকের আবাসন দপ্তরে ফর্ম-১ আবেদন জমা দিন।',
+            'সিঙ্কিং ফান্ডের গচ্ছিত টাকা ও অডিট খাতা বুঝিয়ে দিতে বিল্ডারকে ১৫ দিনের চরমপত্র দিন।',
+            'রেরা বেঞ্চে মামলা করে হ্যান্ডওভার না করা পর্যন্ত প্রমোটারের ওপর দৈনিক জরিমানা ধার্য করান।'
+          ],
+          hi: [
+            'खरीदारों की बैठक बुलाकर एसोसिएशन गठन का आम प्रस्ताव सर्वसम्मति से पारित करें।',
+            'अपार्टमेंट ओनरशिप एक्ट के तहत सक्षम प्राधिकारी (साल्ट लेक) को फॉर्म-1 में पंजीकरण हेतु भेजें।',
+            'जमा सिंकिंग फंड एवं ऑडिट बहीखाता सौंपने का 15 दिवसीय अल्टीमेटम बिल्डर को दें।',
+            'रेरा में धारा 31 के तहत वाद कर हैंडओवर होने तक बिल्डर पर दैनिक जुर्माना लगवाएं।'
+          ]
+        }
+      },
+      kolkata_urban: {
+        authority: {
+          en: 'Competent Authority (Housing Dept, New Secretariat) / KMC / WBRERA',
+          bn: 'কম্পিটেন্ট অথরিটি (আবাসন দপ্তর, নিউ সেক্রেটারিয়েট) / কেএমসি / রেরা',
+          hi: 'सक्षम प्राधिकारी (आवास विभाग, न्यू सेक्रेटेरिएट) / केएमसी / रेरा'
+        },
+        portal_name: { en: 'KMC / WB Housing Portal', bn: 'কেএমসি / পশ্চিমবঙ্গ আবাসন পোর্টাল', hi: 'केएमसी / प.बं. आवास पोर्टल' },
+        portal_url: 'https://www.kmcgov.in/',
+        steps: {
+          en: [
+            'Convene general body meeting of allottees to pass resolution constituting ad-hoc association.',
+            'Submit Form-1 before Competent Authority (Housing Department, New Secretariat, Kolkata) for registration.',
+            'Serve 15-day requisition notice on builder to transfer unspent sinking fund and audited accounts.',
+            'Move WBRERA under Section 31 to impose daily non-compliance penalties until physical handover.'
+          ],
+          bn: [
+            'ফ্ল্যাট মালিকদের সাধারণ সভা ডেকে অ্যাড-হক ওনার্স অ্যাসোসিয়েশন গঠনের প্রস্তাব পাস করুন।',
+            'নিউ সেক্রেটারিয়েট, কলকাতার আবাসন দপ্তরের কম্পিটেন্ট অথরিটির কাছে ফর্ম-১ আবেদন জমা দিন।',
+            'সিঙ্কিং ফান্ডের গচ্ছিত টাকা ও অডিট খাতা বুঝিয়ে দিতে বিল্ডারকে ১৫ দিনের চরমপত্র দিন।',
+            'রেরা বেঞ্চে মামলা করে হ্যান্ডওভার না করা পর্যন্ত প্রমোটারের ওপর দৈনিক জরিমানা ধার্য করান।'
+          ],
+          hi: [
+            'खरीदारों की बैठक बुलाकर एसोसिएशन गठन का आम प्रस्ताव सर्वसम्मति से पारित करें।',
+            'न्यू सेक्रेटेरिएट, कोलकाता के आवास विभाग के सक्षम प्राधिकारी को फॉर्म-1 में पंजीकरण हेतु भेजें।',
+            'जमा सिंकिंग फंड एवं ऑडिट बहीखाता सौंपने का 15 दिवसीय अल्टीमेटम बिल्डर को दें।',
+            'रेरा में धारा 31 के तहत वाद कर हैंडओवर होने तक बिल्डर पर दैनिक जुर्माना लगवाएं।'
+          ]
+        }
+      }
+    },
     roadmap_steps: {
       en: [
         'Convene general body meeting of allottees to pass resolution constituting ad-hoc association.',
@@ -1733,3 +1979,5 @@ export const consumerPart1: CivilSubCategory[] = [
     ]
   }
 ];
+
+

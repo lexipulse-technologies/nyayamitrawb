@@ -773,6 +773,18 @@ export const DocumentDrafterModal: React.FC<Props> = ({
                 {/* Blurred preview with paywall */}
                 {!showFullContent && (
                   <div className="relative font-mono text-[10px] sm:text-[11px] leading-relaxed whitespace-pre-wrap text-slate-800 max-h-72 overflow-y-auto p-2 bg-white/80 rounded border border-slate-200 relative">
+                    {/* Centered Extract Pro Form Badge */}
+                    <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-10">
+                      <div className="flex flex-col items-center gap-2 bg-white/95 backdrop-blur-sm border-2 border-amber-300 rounded-xl px-6 py-4 shadow-xl transform transition-all hover:scale-105">
+                        <Lock className="w-8 h-8 text-amber-600" />
+                        <span className="text-[11px] sm:text-[12px] font-extrabold text-amber-700 uppercase tracking-wider whitespace-nowrap">
+                          Extract Pro Form
+                        </span>
+                        <span className="text-[9px] text-slate-500 font-medium">
+                          Pay ₹99 to unlock full statutory notice
+                        </span>
+                      </div>
+                    </div>
                     {/* Show first 2 lines after Subject: header */}
                     <div className="flex items-center gap-1 mb-2 text-slate-800">
                       {visibleLines.map((line, idx) => (

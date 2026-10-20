@@ -87,6 +87,8 @@ export const AdminAdvisorPanel: React.FC<{ lang?: Language }> = ({ lang = 'bn' }
   const [deleteProTarget, setDeleteProTarget] = useState<ProTransactionRecord | null>(null);
   const [isDeletingPro, setIsDeletingPro] = useState(false);
 
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
+
   // Add Advisor Form State
   const [name, setName] = useState('');
   const [barRegistrationNo, setBarRegistrationNo] = useState('');
@@ -96,6 +98,27 @@ export const AdminAdvisorPanel: React.FC<{ lang?: Language }> = ({ lang = 'bn' }
   const [phone, setPhone] = useState('');
   const [email, setEmail] = useState('');
   const [isFreeAid, setIsFreeAid] = useState(false);
+
+  // Server-side session verification on mount
+  useEffect(() => {
+    const verifySession = async () => {
+      try {
+        const res = await fetch('/api/admin/verify', {
+          credentials: 'include',
+          cache: 'no-store'
+        });
+        const data = await res.json();
+        if (data.authenticated) {
+          setIsAuthenticated(true);
+        } else {
+          setIsAuthenticated(false);
+        }
+      } catch {
+        setIsAuthenticated(false);
+      }
+    };
+    verifySession();
+  }, []);
 
   const loadData = async () => {
     setAdvisors(getAdvisors());
@@ -175,6 +198,33 @@ export const AdminAdvisorPanel: React.FC<{ lang?: Language }> = ({ lang = 'bn' }
   );
 
   const totalProRevenue = proTransactions.length * 99;
+
+  if (isAuthenticated === null) {
+    return (
+      <div className="bg-white rounded-2xl border border-slate-200 p-8 text-center">
+        <Loader2 className="w-8 h-8 animate-spin text-amber-500 mx-auto mb-4" />
+        <p className="text-slate-500 text-sm">Verifying admin session...</p>
+      </div>
+    );
+  }
+
+  if (!isAuthenticated) {
+    return (
+      <div className="bg-white rounded-2xl border border-slate-200 p-8 text-center">
+        <Lock className="w-12 h-12 text-slate-300 mx-auto mb-4" />
+        <h3 className="font-bold text-slate-900 mb-2">Admin Access Required</h3>
+        <p className="text-slate-500 text-sm mb-6">
+          Please log in to access the Administrative Control Room.
+        </p>
+        <button
+          onClick={() => window.dispatchEvent(new CustomEvent('open-admin-login'))}
+          className="px-6 py-2.5 bg-[#0f2b48] hover:bg-[#1a3d60] text-white rounded-lg font-semibold shadow-sm transition cursor-pointer"
+        >
+          Open Login
+        </button>
+      </div>
+    );
+  }
 
   return (
     <div className="bg-white rounded-2xl border border-slate-200 p-4 sm:p-5 shadow-sm space-y-4">

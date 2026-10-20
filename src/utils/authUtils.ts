@@ -16,89 +16,49 @@ export interface AdminLoginRecord {
   userAgent?: string;
 }
 
-// Layer 1: Verified Base64 Tokens
-const ENC_ADMIN_USER = 'QWJpNzg2';
-const ENC_ADMIN_PASS = 'QmFhYnV1amlpQDU2MjM=';
-
-// Layer 2: Direct ASCII Byte Arrays (Zero-Failure Backup)
-const USER_BYTES = [65, 98, 105, 55, 56, 54]; // "Abi786"
-const PASS_BYTES = [66, 97, 97, 98, 117, 117, 106, 105, 105, 64, 53, 54, 50, 51]; // "Baabuujii@5623"
-
-const SESSION_TOKEN_KEY = 'nyayamitra_sec_token_v4';
-const LOCKOUT_STORAGE_KEY = 'nyayamitra_auth_lockout';
-const LAST_LOGIN_STORAGE_KEY = 'nyayamitra_last_admin_login';
-
-if (typeof window !== 'undefined' && window.localStorage) {
-  try {
-    window.localStorage.removeItem(LOCKOUT_STORAGE_KEY);
-  } catch {}
+export async function resetFailedAttempts(): Promise<void> {
+  // Server-side handles lockout via rate limiting
+  return Promise.resolve();
 }
 
-function bytesToString(bytes: number[]): string {
-  return String.fromCharCode(...bytes);
-}
-
-function decodeToken(token: string): string {
-  try {
-    return atob(token);
-  } catch {
-    return '';
-  }
-}
-
-function constantTimeEquals(a: string, b: string): boolean {
-  if (a.length !== b.length) return false;
-  let result = 0;
-  for (let i = 0; i < a.length; i++) {
-    result |= a.charCodeAt(i) ^ b.charCodeAt(i);
-  }
-  return result === 0;
-}
-
-export function resetFailedAttempts(): void {
-  try {
-    localStorage.removeItem(LOCKOUT_STORAGE_KEY);
-  } catch {}
-}
-
-export function verifyAdminCredentials(user: string, pass: string): boolean {
+export async function verifyAdminCredentials(user: string, pass: string): Promise<boolean> {
+  // This is now ONLY for client-side validation BEFORE calling the API
+  // The actual verification happens server-side in /api/admin/login
   const cleanUser = (user || '').trim().toLowerCase();
   const cleanPass = (pass || '').trim();
-
-  const expectedUserA = decodeToken(ENC_ADMIN_USER).toLowerCase();
-  const expectedUserB = bytesToString(USER_BYTES).toLowerCase();
-
-  const expectedPassA = decodeToken(ENC_ADMIN_PASS);
-  const expectedPassB = bytesToString(PASS_BYTES);
-
-  const isUserValid = constantTimeEquals(cleanUser, expectedUserA) || constantTimeEquals(cleanUser, expectedUserB);
-  const isPassValid = constantTimeEquals(cleanPass, expectedPassA) || constantTimeEquals(cleanPass, expectedPassB);
-
-  if (isUserValid && isPassValid) {
-    resetFailedAttempts();
-    return true;
-  }
-
-  return false;
+  
+  // Basic format validation only - real auth is server-side
+  return cleanUser.length > 0 && cleanPass.length > 0;
 }
 
-export function setAdminSession(): void {
+export async function setAdminSession(): Promise<void> {
+  // Server-side session is set via HttpOnly cookie by /api/admin/login
+  // This function is kept for compatibility but no longer manages client-side tokens
+  return Promise.resolve();
+}
+
+export async function isAdminSessionActive(): Promise<boolean> {
   try {
-    const randomBytes = new Uint8Array(32);
-    window.crypto.getRandomValues(randomBytes);
-    const secureToken = Array.from(randomBytes, b => b.toString(16).padStart(2, '0')).join('');
-    sessionStorage.setItem(SESSION_TOKEN_KEY, secureToken);
+    const res = await fetch('/api/admin/verify', {
+      credentials: 'include',
+      cache: 'no-store'
+    });
+    const data = await res.json();
+    return data.authenticated === true;
   } catch {
-    sessionStorage.setItem(SESSION_TOKEN_KEY, 'auth_valid_' + Date.now());
+    return false;
   }
 }
 
-export function isAdminSessionActive(): boolean {
-  return Boolean(sessionStorage.getItem(SESSION_TOKEN_KEY));
-}
-
-export function clearAdminSession(): void {
-  sessionStorage.removeItem(SESSION_TOKEN_KEY);
+export async function clearAdminSession(): Promise<void> {
+  try {
+    await fetch('/api/admin/logout', {
+      method: 'POST',
+      credentials: 'include'
+    });
+  } catch {
+    // Ignore errors
+  }
 }
 
 /**

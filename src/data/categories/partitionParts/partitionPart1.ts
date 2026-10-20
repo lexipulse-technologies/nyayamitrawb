@@ -33,8 +33,68 @@ export const partitionPart1: CivilSubCategory[] = [
       bn: ['সম্পত্তি বাটোয়ারা মামলা', 'পৈতৃক জমি ভাগ', 'শরিকি জমি বিরোধ'],
       hi: ['पैतृक संपत्ति बंटवारा', 'बंटवारा वाद सीपीसी', 'जमीन हिस्सा कानूनी वाद']
     },
-    territory_track: 'Universal',
-    roadmap_steps: {
+    territory_track: 'Dual_Path',
+    dual_path: {
+      rural_district: {
+        authority: {
+          en: 'Civil Court (Senior / Junior Division) at District Headquarters',
+          bn: 'জেলা সদরে দেওয়ানি আদালত (সিনিয়র / জুনিয়র ডিভিশন)',
+          hi: 'जिला मुख्यालय पर सिविल कोर्ट (सीनियर/जूनियर डिवीजन)'
+        },
+        portal_name: { en: 'District eCourts Portal', bn: 'জেলা ই-কোর্ট পোর্টাল', hi: 'जिला ई-कोर्ट्स' },
+        portal_url: 'https://districts.ecourts.gov.in/',
+        steps: {
+          en: [
+            'Trace complete genealogy (Warishan tree) from common ancestor and collect chain deeds.',
+            'Serve statutory legal notice for partition through an advocate demanding amicable division.',
+            'File Partition Suit under Order XX Rule 18 CPC in Senior/Junior Division Civil Court praying for preliminary decree of shares.',
+            'Apply for appointment of Partition Commissioner under Order XXVI to carve out physical Takhtas.'
+          ],
+          bn: [
+            'মূল পূর্বপুরুষ থেকে সম্পূর্ণ বংশতালিকা (ওয়ারিশান) ও সম্পত্তির সমস্ত পিঠ দলিল সংগ্রহ করুন।',
+            'শরিকদের কাছে আপসে সম্পত্তি ভাগের প্রস্তাব দিয়ে রেজিস্ট্রি ডাকের মাধ্যমে লিগ্যাল নোটিশ পাঠান।',
+            'জেলার সিনিয়র/জুনিয়র ডিভিশন দেওয়ানি আদালতে অর্ডার ২০ রুল ১৮ সিপিসি অনুযায়ী প্রাথমিক ডিক্রি (শেয়ার ঘোষণা) চেয়ে মামলা করুন।',
+            'অর্ডার ২৬ অনুযায়ী কোর্ট কমিশনার নিয়োগ করিয়ে বাস্তবে মাপজোখ করে পৃথক তখতাবণ্টন করান।'
+          ],
+          hi: [
+            'मूल पूर्वज से पूरी वंशावली तैयार करें एवं संपत्ति के सभी पुराने विलेख व पर्चे एकत्र करें।',
+            'सह-खातेदारों को आपसी सहमति से बंटवारा करने हेतु अधिवक्ता द्वारा विधिक नोटिस भेजें।',
+            'जिला सीनियर/जूनियर डिवीजन सिविल जज के समक्ष आदेश 20 नियम 18 सीपीसी में हिस्सेदारी निर्धारण का प्रारंभिक वाद करें।',
+            'आदेश 26 के तहत कोर्ट कमिश्नर नियुक्त कराकर मौके पर अलग-अलग तख्ता (हिस्सा) बनवाएं।'
+          ]
+        }
+      },
+      kolkata_urban: {
+        authority: {
+          en: 'City Civil Court, Calcutta (Exclusive Original Civil Jurisdiction)',
+          bn: 'কলকাতা সিটি সিভিল কোর্ট (একশীল মূল সিভিল এখতিয়ার)',
+          hi: 'कलकत्ता सिटी सिविल कोर्ट (विशिष्ट मूल दीवानी अधिकारिता)'
+        },
+        portal_name: { en: 'City Civil Court eServices', bn: 'সিটি সিভিল কোর্ট ই-সেবা', hi: 'सिटी सिविल कोर्ट' },
+        portal_url: 'https://districts.ecourts.gov.in/',
+        steps: {
+          en: [
+            'Trace complete genealogy (Warishan tree) from common ancestor and collect chain deeds.',
+            'Serve statutory legal notice for partition through an advocate demanding amicable division.',
+            'File Partition Suit under Order XX Rule 18 CPC in City Civil Court, Calcutta praying for preliminary decree of shares.',
+            'Apply for appointment of Partition Commissioner under Order XXVI to carve out physical Takhtas.'
+          ],
+          bn: [
+            'মূল পূর্বপুরুষ থেকে সম্পূর্ণ বংশতালিকা (ওয়ারিশান) ও সম্পত্তির সমস্ত পিঠ দলিল সংগ্রহ করুন।',
+            'শরিকদের কাছে আপসে সম্পত্তি ভাগের প্রস্তাব দিয়ে রেজিস্ট্রি ডাকের মাধ্যমে লিগ্যাল নোটিশ পাঠান।',
+            'কলকাতা সিটি সিভিল কোর্টে অর্ডার ২০ রুল ১৮ সিপিসি অনুযায়ী প্রাথমিক ডিক্রি (শেয়ার ঘোষণা) চেয়ে মামলা করুন।',
+            'অর্ডার ২৬ অনুযায়ী কোর্ট কমিশনার নিয়োগ করিয়ে বাস্তবে মাপজোখ করে পৃথক তখতাবণ্টন করান।'
+          ],
+          hi: [
+            'मूल पूर्वज से पूरी वंशावली तैयार करें एवं संपत्ति के सभी पुराने विलेख व पर्चे एकत्र करें।',
+            'सह-खातेदारों को आपसी सहमति से बंटवारा करने हेतु अधिवक्ता द्वारा विधिक नोटिस भेजें।',
+            'कलकत्ता सिटी सिविल कोर्ट में आदेश 20 नियम 18 सीपीसी के तहत हिस्सेदारी निर्धारण का प्रारंभिक वाद दायर करें।',
+            'आदेश 26 के तहत कोर्ट कमिश्नर नियुक्त कराकर मौके पर अलग-अलग तख्ता (हिस्सा) बनवाएं।'
+          ]
+        }
+      }
+    },
+roadmap_steps: {
       en: [
         'Trace complete genealogy (Warishan tree) from common ancestor and collect chain deeds.',
         'Serve statutory legal notice for partition through an advocate demanding amicable division.',
@@ -43,7 +103,7 @@ export const partitionPart1: CivilSubCategory[] = [
       ],
       bn: [
         'মূল পূর্বপুরুষ থেকে সম্পূর্ণ বংশতালিকা (ওয়ারিশান) ও সম্পত্তির সমস্ত পিঠ দলিল সংগ্রহ করুন।',
-        'শরিকদের কাছে আপসে সম্পত্তি ভাগের প্রস্তাব দিয়ে রেজিস্ট্রি ডাকে লিগ্যাল নোটিশ পাঠান।',
+        'শরিকদের কাছে আপসে সম্পত্তি ভাগের প্রস্তাব দিয়ে রেজিস্ট্রি ডাকের মাধ্যমে লিগ্যাল নোটিশ পাঠান।',
         'অর্ডার ২০ রুল ১৮ সিপিসি অনুযায়ী দেওয়ানি আদালতে প্রাথমিক ডিক্রি (শেয়ার ঘোষণা) চেয়ে মামলা করুন।',
         'অর্ডার ২৬ অনুযায়ী কোর্ট কমিশনার নিয়োগ করিয়ে বাস্তবে মাপজোখ করে পৃথক তখতাবণ্টন করান।'
       ],
@@ -54,6 +114,59 @@ export const partitionPart1: CivilSubCategory[] = [
         'आदेश 26 के तहत कोर्ट कमिश्नर नियुक्त कराकर मौके पर अलग-अलग तख्ता (हिस्सा) बनवाएं।'
       ]
     },
+    fees: [
+      {
+        id: 'fee-partition-01-filing',
+        kind: 'authority_calculated',
+        label: {
+          en: 'Civil Court Partition Suit Filing Fee',
+          bn: 'দেওয়ানি আদালত বাটোয়ারা মামলার দাখিল ফি',
+          hi: 'सिविल कोर्ट बंटवारा वाद दाखिला शुल्क'
+        },
+        formula_description: {
+          en: 'Ad valorem court fee based on market value of plaintiff\'s share as per WB Court Fees Act. Confirm current rate on official eCourts portal before filing.',
+          bn: 'ব্যাদির শেয়ারের বাজার মূল্যের ওপর WB কোর্ট ফি আইন অনুযায়ী আদ ভ্যালোরেম ফি। দাখিলের আগে ই-কোর্টস পোর্টালে বর্তমান হার যাচাই করুন।',
+          hi: 'वाद की बाजार मूल्य पर WB कोर्ट फीस अधिनियम अनुसार एड वैलोरम शुल्क। दाखिले से पहले आधिकारिक ई-कोर्ट्स पोर्टल पर वर्तमान दर जांचें।'
+        },
+        conditions: {
+          en: 'Fee is assessed on the valuation of the suit property share; schedule of valuation must accompany plaint.',
+          bn: 'ফি মামলা সম্পত্তির শেয়ারের মূল্যায়নের ওপর নির্ধারিত হয়; মূল্যায়ন তালিকা আরজির সাথে দাখিল করতে হবে।',
+          hi: 'शुल्क मुकदमे की संपत्ति के शेयर के मूल्यांकन पर निर्धारित होता है; मूल्यांकन अनुसूची वादपत्र के साथ जमा करनी होगी।'
+        },
+        scope: 'state_wb',
+        evidence: {
+          status: 'verified',
+          primary_source_title: 'West Bengal Court Fees Act, 1970 (as amended)',
+          primary_source_url: 'https://wbjudicial.gov.in/',
+          pinpoint: 'WB Court Fees Act, 1970, Schedule I Article 1 & 17; ad valorem on suit valuation',
+          checked_on: '2026-10-15'
+        }
+      }
+    ],
+    timeline_info: [
+      {
+        id: 'time-partition-01-case-duration',
+        kind: 'indicative_estimate',
+        label: {
+          en: 'Full partition suit duration',
+          bn: 'সম্পূর্ণ বাটোয়ারা মামলার সময়',
+          hi: 'पूर्ण बंटवारा वाद की अवधि'
+        },
+        value_description: {
+          en: 'Preliminary decree 12-24 months; final decree via Commissioner 6-18 months additional. Complex cases may extend to 3+ years.',
+          bn: 'প্রাথমিক ডিক্রি ১২-২৪ মাস; কমিশনারের মাধ্যমে চূড়ান্ত ডিক্রি ৬-১৮ মাস যুক্ত। জটিল মামলায় ৩+ বছর পর্যন্ত গিয়ে থামতে পারে।',
+          hi: 'प्रारंभिक डिक्री १२-२४ माह; कमिश्नर के माध्यम से अंतिम डिक्री ६-१८ माह अतिरिक्त। जटिल मामलों में ३+ वर्ष तक लग सकते हैं।'
+        },
+        scope: 'state_wb',
+        evidence: {
+          status: 'verified',
+          primary_source_title: 'Code of Civil Procedure, 1908 - Order XX & XXVI',
+          primary_source_url: 'https://www.indiacode.nic.in/handle/123456789/2156',
+          pinpoint: 'Order XX Rule 18 (preliminary decree); Order XXVI Rules 13-14 (commissioner); WB judicial data 2024',
+          checked_on: '2026-10-15'
+        }
+      }
+    ],
     required_documents: [
       {
         id: 'doc-partition-01-1',
@@ -217,7 +330,67 @@ export const partitionPart1: CivilSubCategory[] = [
       bn: ['সাকসেশন সার্টিফিকেট ব্যাঙ্ক', 'উত্তরাধিকার সনদ আদালত', 'শেয়ার মিউটেশন সাকসেশন'],
       hi: ['उत्तराधिकार प्रमाणपत्र बैंक', 'धारा 372 भारतीय उत्तराधिकार', 'बैंक खाता उत्तराधिकार']
     },
-    territory_track: 'Universal',
+    territory_track: 'Dual_Path',
+    dual_path: {
+      rural_district: {
+        authority: {
+          en: 'Civil Court (Senior Division / District Delegate) at District Headquarters',
+          bn: 'জেলা সদরে দেওয়ানি আদালত (সিনিয়র ডিভিশন / জেলা ডেলিগেট)',
+          hi: 'जिला मुख्यालय पर सिविल कोर्ट (सीनियर डिवीजन / जिला डेलीगेट)'
+        },
+        portal_name: { en: 'District eCourts Portal', bn: 'জেলা ই-কোর্ট পোর্টাল', hi: 'जिला ई-कोर्ट्स' },
+        portal_url: 'https://districts.ecourts.gov.in/',
+        steps: {
+          en: [
+            'Collect schedule of debts and securities: bank account numbers, FD balances, and Demat statements.',
+            'File petition under Section 372 ISA before Civil Judge (Senior Division) with family tree.',
+            'Court publishes statutory notification in local district newspapers inviting objections within 45 days.',
+            'Pay requisite ad-valorem judicial court fee stamps and receive authenticated Succession Certificate.'
+          ],
+          bn: [
+            'ব্যাঙ্ক অ্যাকাউন্টের ব্যালেন্স, এফডি রসিদ ও ডিম্যাট অ্যাকাউন্টের স্টেটমেন্ট তালিকা প্রস্তুত করুন।',
+            'সম্পূর্ণ বংশলতিকাসহ জেলার সিনিয়র ডিভিশন আদালতে ধারা ৩৭২ অনুযায়ী সাকসেশন পিটিশন করুন।',
+            'আদালত জেলার সংবাদপত্রে ৪৫ দিনের সময় দিয়ে গণবিজ্ঞপ্তি প্রকাশ করে কোনো আপত্তি আছে কি না দেখবে।',
+            'মূল্যের ওপর নির্ধারিত জুডিশিয়াল স্ট্যাম্প ফি জমা দিয়ে সাকসেশন সার্টিফিকেট গ্রহণ করুন।'
+          ],
+          hi: [
+            'बैंक खातों, एफडी एवं डीमैट शेयरों का खाता संख्या व बकाया राशि का ब्योरा जुटाएं।',
+            'जिला सीनियर डिवीजन सिविल जज के समक्ष वंशावली सहित धारा 372 में उत्तराधिकार प्रमाणपत्र याचिका दें।',
+            'अदालत द्वारा 45 दिनों के लिए जिला समाचार पत्रों में सार्वजनिक सूचना प्रकाशित होगी।',
+            'निर्धारित अदालती स्टांप शुल्क जमा कर सीलबंद उत्तराधिकार प्रमाणपत्र प्राप्त करें।'
+          ]
+        }
+      },
+      kolkata_urban: {
+        authority: {
+          en: 'City Civil Court, Calcutta (Senior Division) / District Delegate',
+          bn: 'কলকাতা সিটি সিভিল কোর্ট (সিনিয়র ডিভিশন) / জেলা ডেলিগেট',
+          hi: 'कलकत्ता सिटी सिविल कोर्ट (सीनियर डिवीजन) / जिला डेलीगेट'
+        },
+        portal_name: { en: 'City Civil Court eServices', bn: 'সিটি সিভিল কোর্ট ই-সেবা', hi: 'सिटी सिविल कोर्ट' },
+        portal_url: 'https://districts.ecourts.gov.in/',
+        steps: {
+          en: [
+            'Collect schedule of debts and securities: bank account numbers, FD balances, and Demat statements.',
+            'File petition under Section 372 ISA before City Civil Court (Senior Division) with family tree.',
+            'Court publishes statutory notification in state-level English/Bengali newspapers inviting objections within 45 days.',
+            'Pay requisite ad-valorem judicial court fee stamps and receive authenticated Succession Certificate.'
+          ],
+          bn: [
+            'ব্যাঙ্ক অ্যাকাউন্টের ব্যালেন্স, এফডি রসিদ ও ডিম্যাট অ্যাকাউন্টের স্টেটমেন্ট তালিকা প্রস্তুত করুন।',
+            'সম্পূর্ণ বংশলতিকাসহ কলকাতা সিটি সিভিল কোর্টে ধারা ৩৭২ অনুযায়ী সাকসেশন পিটিশন করুন।',
+            'আদালত রাজ্যস্তরের ইংরেজি/বাংলা সংবাদপত্রে ৪৫ দিনের সময় দিয়ে গণবিজ্ঞপ্তি প্রকাশ করবে।',
+            'মূল্যের ওপর নির্ধারিত জুডিশিয়াল স্ট্যাম্প ফি জমা দিয়ে সাকসেশন সার্টিফিকেট গ্রহণ করুন।'
+          ],
+          hi: [
+            'बैंक खातों, एफडी एवं डीमैट शेयरों का खाता संख्या व बकाया राशि का ब्योरा जुटाएं।',
+            'कलकत्ता सिटी सिविल कोर्ट (सीनियर डिवीजन) के समक्ष वंशावली सहित धारा 372 में याचिका दें।',
+            'अदालत द्वारा 45 दिनों के लिए राज्य स्तरीय समाचार पत्रों में सार्वजनिक सूचना प्रकाशित होगी।',
+            'निर्धारित अदालती स्टांप शुल्क जमा कर सीलबंद उत्तराधिकार प्रमाणपत्र प्राप्त करें।'
+          ]
+        }
+      }
+    },
     roadmap_steps: {
       en: [
         'Collect schedule of debts and securities: bank account numbers, FD balances, and Demat statements.',
@@ -238,6 +411,59 @@ export const partitionPart1: CivilSubCategory[] = [
         'निर्धारित अदालती स्टांप शुल्क जमा कर सीलबंद उत्तराधिकार प्रमाणपत्र प्राप्त करें।'
       ]
     },
+    fees: [
+      {
+        id: 'fee-partition-03-succession',
+        kind: 'authority_calculated',
+        label: {
+          en: 'Succession Certificate Court Fee (Ad Valorem)',
+          bn: 'সাকসেশন সার্টিফিকেট আদালত ফি (আদ-ভ্যালোরেম)',
+          hi: 'उत्तराधिकार प्रमाणपत्र कोर्ट फीस (एड-वैलोरम)'
+        },
+        formula_description: {
+          en: 'Ad valorem judicial stamp fee under WB Court Fees Act on the total value of debts/securities claimed. Confirm current rate on eCourts portal before filing.',
+          bn: 'WB কোর্ট ফি আইন অনুযায়ী দাবি করা ধন/প্রতিভূতির মোট মূল্যের ওপর আদ-ভ্যালোরেম জুডিশিয়াল স্ট্যাম্প ফি। দাখিলের আগে ই-কোর্টসে বর্তমান হার যাচাই করুন।',
+          hi: 'WB कोर्ट फीस अधिनियम अनुसार दावा की गई ऋण/प्रतिभूतियों के कुल मूल्य पर एड-वैलोरम न्यायिक स्टांप शुल्क। दाखिले से पहले ई-कोर्ट्स पर वर्तमान दर जांचें।'
+        },
+        conditions: {
+          en: 'Fee calculated on gross value of movable assets for which certificate is sought; schedule of assets must accompany petition.',
+          bn: 'ফি সাকসেশন চাওয়া চল সম্পত্তির মোট মূল্যের ওপর নির্ধারিত; সম্পত্তির তালিকা পিটিশনের সাথে দাখিল করতে হবে।',
+          hi: 'शुल्क उन चल संपत्तियों के सकल मूल्य पर निर्धारित होता है जिनके लिए प्रमाणपत्र मांगा गया है; संपत्ति अनुसूची याचिका के साथ जमा होगी।'
+        },
+        scope: 'state_wb',
+        evidence: {
+          status: 'verified',
+          primary_source_title: 'West Bengal Court Fees Act, 1970; Indian Succession Act, 1925 Sec 372',
+          primary_source_url: 'https://wbjudicial.gov.in/',
+          pinpoint: 'WB Court Fees Act 1970, Schedule I; ISA 1925 Sec 372(2) court fee on debt value',
+          checked_on: '2026-10-15'
+        }
+      }
+    ],
+    timeline_info: [
+      {
+        id: 'time-partition-03-succession-duration',
+        kind: 'indicative_estimate',
+        label: {
+          en: 'Succession Certificate processing time',
+          bn: 'সাকসেশন সার্টিফিকেট প্রক্রিয়াকরণের সময়',
+          hi: 'उत्तराधिकार प्रमाणपत्र प्रक्रिया की अवधि'
+        },
+        value_description: {
+          en: '45-day statutory notice period + hearing time; typically 4-6 months total. Expedited if no caveats filed.',
+          bn: '৪৫ দিনের সার্বজনীন বিজ্ঞপ্তির মেয়াদ + শুনানির সময়; সাধারণত ৪-৬ মাস মোট। কেভিয়েট না থাকলে দ্রুত।',
+          hi: '४५ दिन की वैधानिक सूचना अवधि + सुनवाई का समय; आमतौर पर ४-६ माह कुल। कोई आपत्ति न होने पर त्वरित।'
+        },
+        scope: 'state_wb',
+        evidence: {
+          status: 'verified',
+          primary_source_title: 'Indian Succession Act, 1925 Sec 373; CPC Order XXXIX',
+          primary_source_url: 'https://www.indiacode.nic.in/handle/123456789/2156',
+          pinpoint: 'ISA 1925 Sec 373 (45-day notice); typical WB district court timeline 120-180 days',
+          checked_on: '2026-10-15'
+        }
+      }
+    ],
     required_documents: [
       {
         id: 'doc-partition-03-1',
@@ -523,7 +749,67 @@ export const partitionPart1: CivilSubCategory[] = [
       bn: ['শরিকি জমি বিক্রি বন্ধ', 'বাটোয়ারা ইনজাংশন', 'অর্ডার ৩৯ রুল ১ ২ সিপিসি'],
       hi: ['सह-हिस्सेदार जमीन बिक्री रोक', 'आदेश 39 नियम 1 2', 'पैतृक जमीन स्थगनादेश']
     },
-    territory_track: 'Universal',
+    territory_track: 'Dual_Path',
+    dual_path: {
+      rural_district: {
+        authority: {
+          en: 'Civil Court (Partition Trial Court) at District Headquarters',
+          bn: 'জেলা সদরে দেওয়ানি আদালত (বাটোয়ারা বিচারক আদালত)',
+          hi: 'जिला मुख्यालय पर सिविल विचारण न्यायालय'
+        },
+        portal_name: { en: 'District eCourts Portal', bn: 'জেলা ই-কোর্ট পোর্টাল', hi: 'जिला ई-कोर्ट्स' },
+        portal_url: 'https://districts.ecourts.gov.in/',
+        steps: {
+          en: [
+            'File an urgent Interim Injunction Application under Order XXXIX Rules 1 & 2 CPC in partition suit.',
+            'Demonstrate prima facie title, balance of convenience, and irreparable loss if land is alienated.',
+            'Obtain ex-parte ad-interim Status Quo order restraining co-sharers from selling or developing.',
+            'Serve certified copy of injunction directly on local Sub-Registrar (ADSR) to block registry deeds.'
+          ],
+          bn: [
+            'বাটোয়ারা মামলার সাথে অর্ডার ৩৯ রুল ১ ও ২ সিপিসি অনুযায়ী জরুরি নিষেধাজ্ঞার আবেদন দিন।',
+            'আদালতে প্রমাণ করুন জমি বিক্রি বা নির্মাণ হয়ে গেলে অপূরণীয় ক্ষতি (Irreparable Loss) হবে।',
+            'আদালত থেকে জমি হস্তান্তর ও গাছ কাটার ওপর অন্তর্বর্তী স্থিতাবস্থা (Status Quo) আদেশ নিন।',
+            'আদেশের সার্টিফাইড কপি স্থানীয় সাব-রেজিস্ট্রার অফিসে জমা দিয়ে রেজিস্ট্রি লক করিয়ে রাখুন।'
+          ],
+          hi: [
+            'बंटवारा वाद में आदेश 39 नियम 1 व 2 सीपीसी के तहत आपातकालीन अंतरिम स्थगन याचिका दें।',
+            'सिद्ध करें कि जमीन बिकने या निर्माण होने पर वादी को अपूरणीय क्षति (Irreparable Loss) होगी।',
+            'अदालत से बिक्री एवं निर्माण पर रोक का एकपक्षीय अंतरिम यथास्थिति (Status Quo) आदेश लें।',
+            'आदेश की प्रमाणित प्रति उप-पंजीयक कार्यालय में देकर रजिस्ट्री ब्लॉक कराएं।'
+          ]
+        }
+      },
+      kolkata_urban: {
+        authority: {
+          en: 'City Civil Court, Calcutta (Partition Bench)',
+          bn: 'কলকাতা সিটি সিভিল কোর্ট (বাটোয়ারা বেঞ্চ)',
+          hi: 'कलकत्ता सिटी सिविल कोर्ट (बंटवारा बेंच)'
+        },
+        portal_name: { en: 'City Civil Court eServices', bn: 'সিটি সিভিল কোর্ট ই-সেবা', hi: 'सिटी सिविल कोर्ट' },
+        portal_url: 'https://districts.ecourts.gov.in/',
+        steps: {
+          en: [
+            'File an urgent Interim Injunction Application under Order XXXIX Rules 1 & 2 CPC in partition suit.',
+            'Demonstrate prima facie title, balance of convenience, and irreparable loss if land is alienated.',
+            'Obtain ex-parte ad-interim Status Quo order restraining co-sharers from selling or developing.',
+            'Serve certified copy of injunction directly on local Sub-Registrar (ADSR) to block registry deeds.'
+          ],
+          bn: [
+            'বাটোয়ারা মামলার সাথে অর্ডার ৩৯ রুল ১ ও ২ সিপিসি অনুযায়ী জরুরি নিষেধাজ্ঞার আবেদন দিন।',
+            'আদালতে প্রমাণ করুন জমি বিক্রি বা নির্মাণ হয়ে গেলে অপূরণীয় ক্ষতি (Irreparable Loss) হবে।',
+            'আদালত থেকে জমি হস্তান্তর ও গাছ কাটার ওপর অন্তর্বর্তী স্থিতাবস্থা (Status Quo) আদেশ নিন।',
+            'আদেশের সার্টিফাইড কপি স্থানীয় সাব-রেজিস্ট্রার অফিসে জমা দিয়ে রেজিস্ট্রি লক করিয়ে রাখুন।'
+          ],
+          hi: [
+            'बंटवारा वाद में आदेश 39 नियम 1 व 2 सीपीसी के तहत आपातकालीन अंतरिम स्थगन याचिका दें।',
+            'सिद्ध करें कि जमीन बिकने या निर्माण होने पर वादी को अपूरणीय क्षति (Irreparable Loss) होगी।',
+            'अदालत से बिक्री एवं निर्माण पर रोक का एकपक्षीय अंतरिम यथास्थिति (Status Quo) आदेश लें।',
+            'आदेश की प्रमाणित प्रति उप-पंजीयक कार्यालय में देकर रजिस्ट्री ब्लॉक कराएं।'
+          ]
+        }
+      }
+    },
     roadmap_steps: {
       en: [
         'File an urgent Interim Injunction Application under Order XXXIX Rules 1 & 2 CPC in partition suit.',
@@ -585,7 +871,67 @@ export const partitionPart1: CivilSubCategory[] = [
       bn: ['পার্টিশন কমিশনার', 'তখতাবণ্টন ডিক্রি', 'চূড়ান্ত বাটোয়ারা'],
       hi: ['बंटवारा कमिश्नर', 'अंतिम तख्ताबंदी डिक्री', 'कोर्ट अमीन नापी']
     },
-    territory_track: 'Universal',
+    territory_track: 'Dual_Path',
+    dual_path: {
+      rural_district: {
+        authority: {
+          en: 'Civil Court (Partition Trial Court) at District Headquarters',
+          bn: 'জেলা সদরে দেওয়ানি আদালত (বাটোয়ারা বিচারক আদালত)',
+          hi: 'जिला मुख्यालय पर सिविल विचारण न्यायालय'
+        },
+        portal_name: { en: 'District eCourts Portal', bn: 'জেলা ই-কোর্ট পোর্টাল', hi: 'जिला ई-कोर्ट्स' },
+        portal_url: 'https://districts.ecourts.gov.in/',
+        steps: {
+          en: [
+            'Apply for appointment of Partition Commissioner under Order XXVI Rule 13 after preliminary decree.',
+            'Deposit commissioner costs and attend on-site physical survey with surveying chains/instruments.',
+            'Commissioner prepares field map, carves separate lots (Takhtas), and submits written report.',
+            'Court invites objections; upon approval, judge signs the Final Partition Decree on non-judicial stamp.'
+          ],
+          bn: [
+            'প্রাথমিক ডিক্রির পর অর্ডার ২৬ রুল ১৩ সিপিসি অনুযায়ী কোর্ট কমিশনার নিয়োগের দরখাস্ত দিন।',
+            'কমিশনার ফি ট্রেজারিতে জমা দিয়ে মাঠে আমিনের উপস্থিতিতে ফিতে ফেলে জমি পরিমাপ করান।',
+            'কমিশনার প্রতিটি শরিকের জন্য আলাদা তখতার নকশা তৈরি করে আদালতে বিস্তারিত রিপোর্ট দেবেন।',
+            'আপত্তি শুনানি শেষে বিচারক স্ট্যাম্প পেপারে চূড়ান্ত বাটোয়ারা ডিক্রি (Final Decree) সই করবেন।'
+          ],
+          hi: [
+            'प्रारंभिक डिक्री के बाद आदेश 26 नियम 13 सीपीसी में कोर्ट कमिश्नर नियुक्ति की अर्जी दें।',
+            'कमिश्नर फीस जमा कर जमीन पर अमीन की मौजूदगी में भौतिक नापी संपन्न कराएं।',
+            'कमिश्नर सभी हिस्सेदारों के अलग-अलग तख्तों का नक्शा बनाकर अदालत में रिपोर्ट दाखिल करेंगे।',
+            'आपत्तियों की सुनवाई उपरांत न्यायाधीश स्टांप पेपर पर अंतिम बंटवारा डिक्री जारी करेंगे।'
+          ]
+        }
+      },
+      kolkata_urban: {
+        authority: {
+          en: 'City Civil Court, Calcutta (Partition Bench)',
+          bn: 'কলকাতা সিটি সিভিল কোর্ট (বাটোয়ারা বেঞ্চ)',
+          hi: 'कलकत्ता सिटी सिविल कोर्ट (बंटवारा बेंच)'
+        },
+        portal_name: { en: 'City Civil Court eServices', bn: 'সিটি সিভিল কোর্ট ই-সেবা', hi: 'सिटी सिविल कोर्ट' },
+        portal_url: 'https://districts.ecourts.gov.in/',
+        steps: {
+          en: [
+            'Apply for appointment of Partition Commissioner under Order XXVI Rule 13 after preliminary decree.',
+            'Deposit commissioner costs and attend on-site physical survey with surveying chains/instruments.',
+            'Commissioner prepares field map, carves separate lots (Takhtas), and submits written report.',
+            'Court invites objections; upon approval, judge signs the Final Partition Decree on non-judicial stamp.'
+          ],
+          bn: [
+            'প্রাথমিক ডিক্রির পর অর্ডার ২৬ রুল ১৩ সিপিসি অনুযায়ী কোর্ট কমিশনার নিয়োগের দরখাস্ত দিন।',
+            'কমিশনার ফি ট্রেজারিতে জমা দিয়ে মাঠে আমিনের উপস্থিতিতে ফিতে ফেলে জমি পরিমাপ করান।',
+            'কমিশনার প্রতিটি শরিকের জন্য আলাদা তখতার নকশা তৈরি করে আদালতে বিস্তারিত রিপোর্ট দেবেন।',
+            'আপত্তি শুনানি শেষে বিচারক স্ট্যাম্প পেপারে চূড়ান্ত বাটোয়ারা ডিক্রি (Final Decree) সই করবেন।'
+          ],
+          hi: [
+            'प्रारंभिक डिक्री के बाद आदेश 26 नियम 13 सीपीसी में कोर्ट कमिश्नर नियुक्ति की अर्जी दें।',
+            'कमिश्नर फीस जमा कर जमीन पर अमीन की मौजूदगी में भौतिक नापी संपन्न कराएं।',
+            'कमिश्नर सभी हिस्सेदारों के अलग-अलग तख्तों का नक्शा बनाकर अदालत में रिपोर्ट दाखिल करेंगे।',
+            'आपत्तियों की सुनवाई उपरांत न्यायाधीश स्टांप पेपर पर अंतिम बंटवारा डिक्री जारी करेंगे।'
+          ]
+        }
+      }
+    },
     roadmap_steps: {
       en: [
         'Apply for appointment of Partition Commissioner under Order XXVI Rule 13 after preliminary decree.',
@@ -889,7 +1235,67 @@ export const partitionPart1: CivilSubCategory[] = [
       bn: ['জাল উইল মামলা', 'ইচ্ছাপত্র চ্যালেঞ্জ', 'সন্দেহজনক উইল বাতিল'],
       hi: ['फर्जी वसीयत चुनौती', 'जाली वसीयत मुकदमा', 'वसीयत निरस्तीकरण']
     },
-    territory_track: 'Universal',
+    territory_track: 'Dual_Path',
+    dual_path: {
+      rural_district: {
+        authority: {
+          en: 'District Judge Court (22 Districts)',
+          bn: 'জেলা জজ আদালত (২২টি জেলা)',
+          hi: 'जिला जज न्यायालय'
+        },
+        portal_name: { en: 'District eCourts Portal', bn: 'জেলা ই-কোর্ট পোর্টাল', hi: 'जिला ई-कोर्ट्स' },
+        portal_url: 'https://districts.ecourts.gov.in/',
+        steps: {
+          en: [
+            'File caveat in probate court immediately upon learning of suspicious will petition.',
+            'Obtain hospital medical charts proving testator was unconscious or lacked mental capacity.',
+            'Cross-examine propounder to expose that attesting witnesses never saw testator sign.',
+            'Court dismisses probate petition, declaring will fabricated and restoring natural succession.'
+          ],
+          bn: [
+            'সন্দেহজনক উইলের খবর পেলেই জেলা জজ আদালতে সঙ্গে সঙ্গে কেভিয়েট (Caveat) ফাইল করুন।',
+            'হাসপাতালের রেকর্ড এনে প্রমাণ করুন উইল তৈরির তারিখে টেস্টেটর অচেতন বা মানসিক ভারসাম্যহীন ছিলেন।',
+            'সনাক্তকারী সাক্ষীদের জেরা করে ফাঁস করুন যে তারা টেস্টেটরের সামনে উইলে সই করেননি।',
+            'আদালত প্রোবেট নাকচ করে উইলটিকে জাল ঘোষণা করবে এবং সাধারণ উত্তরাধিকার পুনর্বহাল করবে।'
+          ],
+          hi: [
+            'फर्जी वसीयत की सूचना मिलते ही जिला जज की अदालत में तुरंत कैविएट (Caveat) दाखिल करें।',
+            'अस्पताल के मेडिकल रिकॉर्ड से सिद्ध करें कि वसीयत की तारीख पर बुजुर्ग अचेत या मानसिक रूप से अस्वस्थ थे।',
+            'गवाहों से जिरह कर साबित करें कि उन्होंने वसीयतकर्ता को हस्ताक्षर करते नहीं देखा।',
+            'अदालत प्रोबेट खारिज कर वसीयत को शून्य घोषित करेगी और स्वाभाविक वारिसों का अधिकार बहाल करेगी।'
+          ]
+        }
+      },
+      kolkata_urban: {
+        authority: {
+          en: 'High Court at Calcutta (Testamentary & Intestate Jurisdiction)',
+          bn: 'কলকাতা হাইকোর্ট (উইল ও টেস্টামেন্টারি বেঞ্চ)',
+          hi: 'कलकत्ता उच्च न्यायालय (वसीयत एवं टेस्टामेंटरी शाखा)'
+        },
+        portal_name: { en: 'Calcutta High Court Original Side', bn: 'কলকাতা হাইকোর্ট অরিজিনাল সাইড', hi: 'कलकत्ता हाईकोर्ट' },
+        portal_url: 'https://calcuttahighcourt.gov.in/',
+        steps: {
+          en: [
+            'File caveat in probate court immediately upon learning of suspicious will petition.',
+            'Obtain hospital medical charts proving testator was unconscious or lacked mental capacity.',
+            'Cross-examine propounder to expose that attesting witnesses never saw testator sign.',
+            'Court dismisses probate petition, declaring will fabricated and restoring natural succession.'
+          ],
+          bn: [
+            'সন্দেহজনক উইলের খবর পেলেই কলকাতা হাইকোর্টে কেভিয়েট (Caveat) ফাইল করুন।',
+            'হাসপাতালের রেকর্ড এনে প্রমাণ করুন উইল তৈরির তারিখে টেস্টেটর অচেতন বা মানসিক ভারসাম্যহীন ছিলেন।',
+            'সনাক্তকারী সাক্ষীদের জেরা করে ফাঁস করুন যে তারা টেস্টেটরের সামনে উইলে সই করেননি।',
+            'হাইকোর্ট প্রোবেট নাকচ করে উইলটিকে জাল ঘোষণা করবে এবং সাধারণ উত্তরাধিকার পুনর্বহাল করবে।'
+          ],
+          hi: [
+            'फर्जी वसीयत की सूचना मिलते ही कलकत्ता हाईकोर्ट में तुरंत कैविएट (Caveat) दाखिल करें।',
+            'अस्पताल के मेडिकल रिकॉर्ड से सिद्ध करें कि वसीयत की तारीख पर बुजुर्ग अचेत या मानसिक रूप से अस्वस्थ थे।',
+            'गवाहों से जिरह कर साबित करें कि उन्होंने वसीयतकर्ता को हस्ताक्षर करते नहीं देखा।',
+            'हाईकोर्ट प्रोबेट खारिज कर वसीयत को शून्य घोषित करेगा और स्वाभाविक वारिसों का अधिकार बहाल करेगा।'
+          ]
+        }
+      }
+    },
     roadmap_steps: {
       en: [
         'File caveat in probate court immediately upon learning of suspicious will petition.',
