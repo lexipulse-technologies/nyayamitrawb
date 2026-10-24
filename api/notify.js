@@ -3,13 +3,46 @@ import { createClient } from '@supabase/supabase-js';
 
 export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
   if (req.method === 'OPTIONS') {
     return res.status(200).end();
   }
 
+  // GET: Fetch advocate connect requests for admin panel
+  if (req.method === 'GET') {
+    const supabaseUrl = process.env.VITE_SUPABASE_URL || process.env.SUPABASE_URL || 'https://mwborzyxcgykrjuyqfel.supabase.co';
+    const supabaseKey = process.env.VITE_SUPABASE_ANON_KEY || process.env.SUPABASE_ANON_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY;
+
+    if (!supabaseUrl || !supabaseKey) {
+      return res.status(200).json({ success: true, data: [], error: 'Supabase not configured' });
+    }
+
+    try {
+      const supabase = createClient(supabaseUrl, supabaseKey, {
+        auth: { persistSession: false, autoRefreshToken: false }
+      });
+
+      const { data, error } = await supabase
+        .from('advocate_connect_requests')
+        .select('*')
+        .order('created_at', { ascending: false })
+        .limit(100);
+
+      if (error) {
+        console.error('[Notify GET] Supabase error:', error.message);
+        return res.status(200).json({ success: true, data: [], error: error.message });
+      }
+
+      return res.status(200).json({ success: true, data: data || [] });
+    } catch (err) {
+      console.error('[Notify GET] Error:', err.message);
+      return res.status(200).json({ success: true, data: [], error: err.message });
+    }
+  }
+
+  // POST: Existing notification logic (unchanged)
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
   }

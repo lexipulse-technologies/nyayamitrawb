@@ -136,7 +136,7 @@ export const familyPart1: CivilSubCategory[] = [
         evidence: {
           status: 'verified',
           primary_source_title: 'Bharatiya Nagarik Suraksha Sanhita, 2023 Sec 144 & Court Fees Act',
-          primary_source_url: 'https://www.indiacode.nic.in/',
+          primary_source_url: 'https://indiacode.gov.in/',
           pinpoint: 'BNSS 2023 Sec 144; CrPC Sec 125 parallel; Supreme Court Rajnesh v. Neha (2020) affidavit format',
           checked_on: '2026-10-15'
         }
@@ -160,7 +160,7 @@ export const familyPart1: CivilSubCategory[] = [
         evidence: {
           status: 'verified',
           primary_source_title: 'BNSS 2023 Sec 144 & Supreme Court Rajnesh v. Neha',
-          primary_source_url: 'https://www.indiacode.nic.in/',
+          primary_source_url: 'https://indiacode.gov.in/',
           pinpoint: 'BNSS Sec 144(2) 60-day interim; Rajnesh v. Neha (2020) 9 SCC 741; Family Court disposal data 2024',
           checked_on: '2026-10-15'
         }
@@ -306,7 +306,7 @@ export const familyPart1: CivilSubCategory[] = [
         evidence: {
           status: 'verified',
           primary_source_title: 'Senior Citizens Act, 2007 Sec 5 & 23',
-          primary_source_url: 'https://www.indiacode.nic.in/',
+          primary_source_url: 'https://indiacode.gov.in/',
           pinpoint: 'Sec 5 (maintenance application); Sec 23 (eviction); Sec 9 (no fee for senior citizens)',
           checked_on: '2026-10-15'
         }
@@ -330,7 +330,7 @@ export const familyPart1: CivilSubCategory[] = [
         evidence: {
           status: 'verified',
           primary_source_title: 'Senior Citizens Act, 2007 Sec 5, 9, 23',
-          primary_source_url: 'https://www.indiacode.nic.in/',
+          primary_source_url: 'https://indiacode.gov.in/',
           pinpoint: 'Sec 5 (60-90 day disposal); Sec 9 (no fee); Sec 23 (eviction); tribunal disposal data 2024',
           checked_on: '2026-10-15'
         }
@@ -401,7 +401,7 @@ export const familyPart1: CivilSubCategory[] = [
         evidence: {
           status: 'verified',
           primary_source_title: 'Protection of Women from Domestic Violence Act, 2005 Sec 12',
-          primary_source_url: 'https://www.indiacode.nic.in/',
+          primary_source_url: 'https://indiacode.gov.in/',
           pinpoint: 'PWDVA 2005 Sec 12(2) (no court fee); CrPC Sec 125 parallel for monetary relief',
           checked_on: '2026-10-15'
         }
@@ -425,7 +425,7 @@ export const familyPart1: CivilSubCategory[] = [
         evidence: {
           status: 'verified',
           primary_source_title: 'Protection of Women from Domestic Violence Act, 2005 Sec 12, 18, 19, 20',
-          primary_source_url: 'https://www.indiacode.nic.in/',
+          primary_source_url: 'https://indiacode.gov.in/',
           pinpoint: 'PWDVA Sec 12 (3-day hearing); Sec 19 (residence order); Sec 20 (monetary relief); disposal data 2024',
           checked_on: '2026-10-15'
         }
@@ -540,7 +540,7 @@ export const familyPart1: CivilSubCategory[] = [
         evidence: {
           status: 'verified',
           primary_source_title: 'Hindu Marriage Act, 1955 Sec 13B & Amardeep Singh v. Harveen Kaur (2017)',
-          primary_source_url: 'https://www.indiacode.nic.in/',
+          primary_source_url: 'https://indiacode.gov.in/',
           pinpoint: 'HMA Sec 13B(2) (6 months); Amardeep Singh (2017) 8 SCC 746 (waiver); Family Court WB data 2024',
           checked_on: '2026-10-15'
         }

@@ -629,7 +629,7 @@ export const tenancyPart2: CivilSubCategory[] = [
           hi: 'सीईएससी लिमिटेड (कोलकाता एवं हावड़ा)'
         },
         portal_name: { en: 'CESC Official Portal', bn: 'সিইএসসি অফিশিয়াল পোর্টাল', hi: 'सीईएससी पोर्टल' },
-        portal_url: 'https://cesc.co.in/',
+        portal_url: 'https://www.cesc.co.in/',
         steps: {
           en: [
             'Submit online new connection request on CESC portal with rent challan/receipt as occupancy proof.',

@@ -1,0 +1,210 @@
+NYAYAMITRA WORKFLOW PHASE 1 BASELINE FINDINGS
+Read-only snapshot; no workflow data changed.
+Total workflow records: 300
+Unique workflow IDs: 300
+Category counts: {'land': 50, 'tenancy': 50, 'consumer': 50, 'partition': 50, 'money': 50, 'family': 50}
+Dual_Path records: 31
+Dual_Path records missing a rural or Kolkata English step array: 0
+Records with one or more static review flags: 198
+
+STATIC FLAGS (not legal findings; counsel/source review required):
+sub-land-08 | Right of Pre-emption by Co-sharer / Contiguous Tenant | timeframe_claim_requires_source_and_type
+sub-land-09 | Illegal Waterbody/Pond Filling & Restoration | timeframe_claim_requires_source_and_type
+sub-land-10 | Cancellation of Fraudulent Registered Sale Deed | timeframe_claim_requires_source_and_type
+sub-land-13 | Specific Performance of Land Sale Agreement (Baina) | timeframe_claim_requires_source_and_type
+sub-land-14 | Land Acquisition Compensation Enhancement | timeframe_claim_requires_source_and_type
+sub-land-16 | Adverse Possession & Title by Prescription | timeframe_claim_requires_source_and_type
+sub-land-18 | Easementary Right of Way & Air/Light Protection | timeframe_claim_requires_source_and_type
+sub-land-19 | Rectification of Clerical Errors in Registered Sale Deeds | timeframe_claim_requires_source_and_type
+sub-land-20 | Cancellation of Misused Power of Attorney / GPA Land Sale | timeframe_claim_requires_source_and_type
+sub-land-21 | De Facto Land Taking by Govt without Compensation | timeframe_claim_requires_source_and_type
+sub-land-22 | Declaration of Title & Recovery of Possession | timeframe_claim_requires_source_and_type
+sub-land-23 | Benami Property Attachment & Citizen Defense | timeframe_claim_requires_source_and_type
+sub-land-26 | Boundary Wall Erection Injunction & Neighbor Nuisance | timeframe_claim_requires_source_and_type
+sub-land-27 | Agricultural Land Ceiling Exemption & Surplus Land Disputes | timeframe_claim_requires_source_and_type
+sub-land-28 | Waqf Land Encroachment & Dedicated Estate Protection | timeframe_claim_requires_source_and_type
+sub-land-29 | Sale of Mortgaged Land Without Bank Disclosure | timeframe_claim_requires_source_and_type
+sub-land-31 | Writ of Mandamus Against Revenue Officer Inaction | timeframe_claim_requires_source_and_type
+sub-land-32 | Restoration of Dispossessed Agricultural Tenant / Ryot | timeframe_claim_requires_source_and_type
+sub-land-34 | De-freezing & Release of Land Attached in Criminal Trials | timeframe_claim_requires_source_and_type
+sub-land-38 | Consolidation of Fragmented Holdings (Chakbandi) | timeframe_claim_requires_source_and_type
+sub-land-41 | Challenge to Highway Land Acquisition Compensation | timeframe_claim_requires_source_and_type
+sub-land-42 | Riverbed Siltation & Illegal Sand Mining Farmland Erosion | timeframe_claim_requires_source_and_type
+sub-land-47 | Easement of Necessity for Landlocked Plots | timeframe_claim_requires_source_and_type
+sub-land-48 | Restoration of Alienated Scheduled Caste Land | timeframe_claim_requires_source_and_type
+sub-land-49 | Suit for Mesne Profits from Illegal Cultivation | timeframe_claim_requires_source_and_type
+sub-land-50 | Solar & Wind Power Project Land Lease Disputes | timeframe_claim_requires_source_and_type
+sub-tenancy-01 | Deposit of Rent with Rent Controller (Districts SDO vs Kolkata) | timeframe_claim_requires_source_and_type
+sub-tenancy-02 | Tenancy Eviction Suit on Statutory Grounds | timeframe_claim_requires_source_and_type
+sub-tenancy-04 | Fixation & Revision of Fair/Standard Rent | timeframe_claim_requires_source_and_type
+sub-tenancy-05 | Essential Structural Repairs & Rent Deduction | missing_portal_url
+sub-tenancy-06 | Commercial vs Residential Exemption Ceilings | timeframe_claim_requires_source_and_type
+sub-tenancy-07 | Sub-letting without Landlord Consent Eviction | timeframe_claim_requires_source_and_type
+sub-tenancy-08 | Succession of Tenancy Rights & 5-Year Expiry | timeframe_claim_requires_source_and_type
+sub-tenancy-09 | Immediate Recovery for Senior Citizens & Armed Forces | missing_portal_url | timeframe_claim_requires_source_and_type
+sub-tenancy-10 | Unlawful Dispossession / Lock-out of Tenant | timeframe_claim_requires_source_and_type
+sub-tenancy-11 | Execution of Eviction Decree & Police Assistance | timeframe_claim_requires_source_and_type
+sub-tenancy-12 | Refund of Security Deposit / Advance Rent | missing_portal_url | timeframe_claim_requires_source_and_type
+sub-tenancy-13 | Eviction of Licensee upon Revocation of License | timeframe_claim_requires_source_and_type
+sub-tenancy-14 | Dangerous Insecure Building Notice & Rehabilitation | outcome_language_review | timeframe_claim_requires_source_and_type
+sub-tenancy-15 | Thika Tenant vs Bharatia (Sub-tenant) Dispute | timeframe_claim_requires_source_and_type
+sub-tenancy-16 | Model Tenancy Act & Digital Agreement Protocols | missing_portal_url | timeframe_claim_requires_source_and_type
+sub-tenancy-17 | Arbitrary & Unilateral Rent Escalation | missing_portal_url | timeframe_claim_requires_source_and_type
+sub-tenancy-18 | Commercial Co-Working & Office Lock-in Disputes | timeframe_claim_requires_source_and_type
+sub-tenancy-19 | Damages & Mesne Profits for Overstaying Tenant | timeframe_claim_requires_source_and_type
+sub-tenancy-20 | Landlord Intrusions & Tenant Privacy Violations | missing_portal_url | timeframe_claim_requires_source_and_type
+sub-tenancy-21 | Recovery of Costs for Property Damage Caused by Tenant | missing_portal_url | timeframe_claim_requires_source_and_type
+sub-tenancy-22 | Eviction for Landlord's Bonafide Personal Use | timeframe_claim_requires_source_and_type
+sub-tenancy-23 | Commercial Lease Force Majeure & Rent Abatement | timeframe_claim_requires_source_and_type
+sub-tenancy-24 | Unauthorized Commercial Use in Residential Tenancy | missing_portal_url | timeframe_claim_requires_source_and_type
+sub-tenancy-28 | Tenant Right of Pre-emption / First Refusal to Buy | timeframe_claim_requires_source_and_type
+sub-tenancy-31 | Tenancy at Will vs Tenancy at Sufferance Liabilities | timeframe_claim_requires_source_and_type
+sub-tenancy-32 | Industrial Warehouse & Logistics Space Eviction | timeframe_claim_requires_source_and_type
+sub-tenancy-33 | Eviction Defense for Schools, Hospitals & Charities | timeframe_claim_requires_source_and_type
+sub-tenancy-34 | Expiry of 99-Year Leasehold Estate & Resumption | timeframe_claim_requires_source_and_type
+sub-tenancy-36 | Eviction Due to Public Nuisance & Immoral Activities | timeframe_claim_requires_source_and_type
+sub-tenancy-39 | Formal Landlord-Tenant Settlement & Exit Agreements | timeframe_claim_requires_source_and_type
+sub-tenancy-44 | Suing Landlord for Withheld Deposit with 18% Interest | timeframe_claim_requires_source_and_type
+sub-tenancy-45 | Landlord Liability for Tenant Injuries from Collapsing Ceilings | timeframe_claim_requires_source_and_type
+sub-tenancy-46 | Defense of Waiver: Landlord Accepting Rent Post-Notice | timeframe_claim_requires_source_and_type
+sub-tenancy-47 | Determination of Lease by Forfeiture | timeframe_claim_requires_source_and_type
+sub-tenancy-49 | Paying Guest (PG) & Student Hostel Arbitrary Eviction | timeframe_claim_requires_source_and_type
+sub-consumer-01 | Consumer Claims on e-Jagriti Portal (e-Daakhil) | timeframe_claim_requires_source_and_type
+sub-consumer-08 | Non-Issuance of Completion (CC) & Occupancy (OC) | timeframe_claim_requires_source_and_type
+sub-consumer-09 | Defective Motor Vehicle & Dealer Fraud | timeframe_claim_requires_source_and_type
+sub-consumer-10 | Health / Mediclaim Insurance Claim Repudiation | timeframe_claim_requires_source_and_type
+sub-consumer-11 | E-Commerce Counterfeit Goods & Refund Refusal | timeframe_claim_requires_source_and_type
+sub-consumer-15 | Airline Flight Delay, Cancellation & Baggage Loss | timeframe_claim_requires_source_and_type
+sub-consumer-18 | Structural Cracks & 5-Year Defect Liability | timeframe_claim_requires_source_and_type
+sub-consumer-19 | Forfeiture of Booking Token on Home Loan Rejection | timeframe_claim_requires_source_and_type
+sub-consumer-20 | Delay in Forming Housing Co-operative Society | timeframe_claim_requires_source_and_type
+sub-consumer-21 | Twin Allotment Fraud: Same Flat Sold to Multiple Buyers | timeframe_claim_requires_source_and_type
+sub-consumer-22 | Health Insurance Rejection for Pre-Existing Diseases | timeframe_claim_requires_source_and_type
+sub-consumer-24 | Electric Vehicle (EV) Battery Fire, Explosion & Range Defect | timeframe_claim_requires_source_and_type
+sub-consumer-25 | Dark Patterns, Drip Pricing & Stealth Cancellation Fees | timeframe_claim_requires_source_and_type
+sub-consumer-26 | Refusal of Warranty for Home Appliances | timeframe_claim_requires_source_and_type
+sub-consumer-27 | Online Furniture & Electronics Damaged in Transit | timeframe_claim_requires_source_and_type
+sub-consumer-32 | Builder Delay in Executing Registered Conveyance Deed | timeframe_claim_requires_source_and_type
+sub-consumer-33 | Insurance Repudiation of Commercial Fire / Flood Losses | timeframe_claim_requires_source_and_type
+sub-consumer-42 | Arbitrary Gym & Salon Multi-Year Membership Lock-ins | timeframe_claim_requires_source_and_type
+sub-consumer-45 | Matrimonial Apps & Fraudulent Profile Matchmaking Scams | timeframe_claim_requires_source_and_type
+sub-consumer-46 | Cloud Storage Outages & Critical Data Loss for Small Firms | outcome_language_review | timeframe_claim_requires_source_and_type
+sub-consumer-47 | Credit Card Fraud & Denial of Zero-Liability Protection | timeframe_claim_requires_source_and_type
+sub-consumer-48 | Severe Medical Malpractice: Wrong Surgery & Foreign Object Left Inside | timeframe_claim_requires_source_and_type
+sub-consumer-50 | Allottees Association Class Action Complaint Before State Commission | timeframe_claim_requires_source_and_type
+sub-partition-01 | Ancestral Property Partition Suit | timeframe_claim_requires_source_and_type
+sub-partition-02 | Voluntary Probate (Post-2025 Sec 213 ISA Omission) | timeframe_claim_requires_source_and_type
+sub-partition-03 | Succession Certificate for Bank Accounts & Shares | timeframe_claim_requires_source_and_type
+sub-partition-04 | Letters of Administration for Intestate Estates | timeframe_claim_requires_source_and_type
+sub-partition-05 | Warishan Certificate vs Court Succession Certificate | timeframe_claim_requires_source_and_type
+sub-partition-06 | Injunction against Co-sharer Selling Joint Land | timeframe_claim_requires_source_and_type
+sub-partition-07 | Partition Commissioner & Final Takhta Division | timeframe_claim_requires_source_and_type
+sub-partition-08 | Hindu Daughter’s Coparcenary Share in Joint Estate | timeframe_claim_requires_source_and_type
+sub-partition-09 | Muslim Law of Inheritance, Hiba & Partition | timeframe_claim_requires_source_and_type
+sub-partition-11 | Will Challenge for Forgery & Undue Influence | timeframe_claim_requires_source_and_type
+sub-partition-13 | Shebaiti Rights & Debottar Temple Estate Dispute | timeframe_claim_requires_source_and_type
+sub-partition-14 | Inheritance Rights of Children from Void Marriages | timeframe_claim_requires_source_and_type
+sub-partition-15 | Nominee vs Legal Heir Dispute in Bank Deposits | timeframe_claim_requires_source_and_type
+sub-partition-16 | Christian Intestate & Testamentary Succession | timeframe_claim_requires_source_and_type
+sub-partition-17 | Parsi Intestate & Testamentary Succession Rights | timeframe_claim_requires_source_and_type
+sub-partition-19 | Substitution of Legal Heirs on Death of Co-Sharer in Partition | timeframe_claim_requires_source_and_type
+sub-partition-20 | Rights of Adopted Child in Ancestral vs Self-Acquired Property | timeframe_claim_requires_source_and_type
+sub-partition-21 | Inheritance Rights of Stepmother & Stepchildren | timeframe_claim_requires_source_and_type
+sub-partition-22 | Setting Aside Gift Deeds Procured by Coercion or Fraud | timeframe_claim_requires_source_and_type
+sub-partition-23 | Inheritance Rights in Inter-Faith Civil Marriages | timeframe_claim_requires_source_and_type
+sub-partition-24 | Cancellation of Deceptively Obtained Relinquishment Deed | timeframe_claim_requires_source_and_type
+sub-partition-25 | Disinheriting Natural Heirs: Inofficious Will Claims | timeframe_claim_requires_source_and_type
+sub-partition-26 | Multi-State Estate Administration & Ancillary Letters | timeframe_claim_requires_source_and_type
+sub-partition-27 | Probate of Lost, Destroyed or Burned Wills | timeframe_claim_requires_source_and_type
+sub-partition-28 | Oral (Nuncupative) Wills for Soldiers & Defense Personnel | timeframe_claim_requires_source_and_type
+sub-partition-29 | Partition of Family Business Assets & Firm Goodwill | timeframe_claim_requires_source_and_type
+sub-partition-30 | Benami Land Claims Among Brothers & Joint Family Funds | timeframe_claim_requires_source_and_type
+sub-partition-32 | Creation & Revocation of Private Family Trusts | timeframe_claim_requires_source_and_type
+sub-partition-33 | Right of Pre-emption in Inherited Family Dwelling | timeframe_claim_requires_source_and_type
+sub-partition-35 | Inheritance Rights of Non-Marital (Illegitimate) Children | timeframe_claim_requires_source_and_type
+sub-partition-36 | Unilateral Family Settlement Favoring One Sibling | timeframe_claim_requires_source_and_type
+sub-partition-37 | Appointment of Court Receiver to Collect Joint Rents | timeframe_claim_requires_source_and_type
+sub-partition-38 | Allocation of Ancestral Debts & Mortgages in Partition | timeframe_claim_requires_source_and_type
+sub-partition-40 | Rights of Posthumous Child Born After Instituted Partition | timeframe_claim_requires_source_and_type
+sub-partition-41 | Will Executed Under Mysterious Circumstances | timeframe_claim_requires_source_and_type
+sub-partition-42 | Succession to Estates of Childless Unmarried Persons | timeframe_claim_requires_source_and_type
+sub-partition-43 | Partition of Real Estate with Pre-existing Bank Mortgage | timeframe_claim_requires_source_and_type
+sub-partition-44 | Absolute Ownership Rights of Hindu Widows | timeframe_claim_requires_source_and_type
+sub-partition-45 | Succession of Digital Assets, Royalties & Intellectual Property | timeframe_claim_requires_source_and_type
+sub-partition-46 | Family Settlement Challenged by Non-Signatory Legal Heir | timeframe_claim_requires_source_and_type
+sub-partition-47 | Mohammedan Law Rule on Bequests Capped at One-Third | timeframe_claim_requires_source_and_type
+sub-partition-49 | Customary Tribal Succession vs Non-Applicability of HSA | timeframe_claim_requires_source_and_type
+sub-partition-50 | Rights of Minor Co-sharers in Family Partition | timeframe_claim_requires_source_and_type
+sub-money-01 | Cheque Dishonour Criminal Complaint (Bankshall vs District Courts) | timeframe_claim_requires_source_and_type
+sub-money-02 | Cyber UPI / Net-Banking Fraud Account Freezing | timeframe_claim_requires_source_and_type
+sub-money-03 | Order XXXVII Fast-Track Summary Debt Suit | timeframe_claim_requires_source_and_type
+sub-money-05 | Pre-Institution Commercial Mediation via DLSA | timeframe_claim_requires_source_and_type
+sub-money-06 | Interim Compensation Deposit of 20% in Cheque Trials | timeframe_claim_requires_source_and_type
+sub-money-07 | Stop Payment & Account Closed Cheque Liability | timeframe_claim_requires_source_and_type
+sub-money-08 | MSME Delayed Payment Recovery & Compound Interest | timeframe_claim_requires_source_and_type
+sub-money-11 | Execution of Money Decree via Bank Garnishee Order | timeframe_claim_requires_source_and_type
+sub-money-12 | Recovery of Advance Token Money for Failed Deals | timeframe_claim_requires_source_and_type
+sub-money-15 | Demand Notice for Corporate Debt under IBC | timeframe_claim_requires_source_and_type
+sub-money-16 | Recovery of Commercial Security Deposits from Mall Owners | timeframe_claim_requires_source_and_type
+sub-money-17 | NACH & Electronic ECS Mandate Dishonour Prosecution | timeframe_claim_requires_source_and_type
+sub-money-19 | Pre-Packaged Insolvency for Stressed MSME Vendors | timeframe_claim_requires_source_and_type
+sub-money-20 | Execution of Foreign Court Money Decrees in India | timeframe_claim_requires_source_and_type
+sub-money-21 | Attachment of Salary for Money Decree Execution | timeframe_claim_requires_source_and_type
+sub-money-23 | Unpaid Dues of Civil, Electrical & Construction Contractors | outcome_language_review | timeframe_claim_requires_source_and_type
+sub-money-24 | Recovery of Unpaid Consultant & Freelance Professional Fees | timeframe_claim_requires_source_and_type
+sub-money-25 | Urgent Appeal Against SARFAESI Bank Property Auction | timeframe_claim_requires_source_and_type
+sub-money-26 | Liability & Discharge of Personal Guarantors for Corporate Loans | timeframe_claim_requires_source_and_type
+sub-money-28 | Siphoning of Partnership Funds & Action for Accounts | timeframe_claim_requires_source_and_type
+sub-money-31 | Appeal Before Debts Recovery Appellate Tribunal (DRAT) | timeframe_claim_requires_source_and_type
+sub-money-33 | Recovery of Debts from Deceased Borrower’s Estate | timeframe_claim_requires_source_and_type
+sub-money-34 | Attachment of Property Before Judgment to Stop Asset Stripping | timeframe_claim_requires_source_and_type
+sub-money-36 | High Court Quashing of Malicious Cheque Cases | timeframe_claim_requires_source_and_type
+sub-money-37 | Education Loan Recovery & One-Time Settlement (OTS) | timeframe_claim_requires_source_and_type
+sub-money-38 | Repossession Defense in Commercial Vehicle Loans | timeframe_claim_requires_source_and_type
+sub-money-39 | Insolvency of Proprietary Concerns & Personal Firms | timeframe_claim_requires_source_and_type
+sub-money-40 | Recovery of Demurrage, Port & Ocean Shipping Freight | timeframe_claim_requires_source_and_type
+sub-money-41 | Defense Against Forged Signature on Handnotes | timeframe_claim_requires_source_and_type
+sub-money-42 | Suit Against State for Overpaid Stamp Duty & Tax Refunds | timeframe_claim_requires_source_and_type
+sub-money-43 | Suit for Dissolution of Partnership & Rendering of Accounts | timeframe_claim_requires_source_and_type
+sub-money-44 | Whistleblower & Fraud Recovery Petitions Before SFIO | timeframe_claim_requires_source_and_type
+sub-money-45 | Defamation & Correction of Damaged CIBIL / Credit Reports | timeframe_claim_requires_source_and_type
+sub-money-47 | Execution of Commercial Arbitral Award as Civil Decree | timeframe_claim_requires_source_and_type
+sub-money-48 | Insurance Agents Suing for Unlawfully Withheld Commissions | timeframe_claim_requires_source_and_type
+sub-family-01 | Monthly Maintenance for Wife & Children (Sec 144 BNSS) | missing_portal_url | timeframe_claim_requires_source_and_type
+sub-family-03 | Domestic Violence Protection & Shared Residence | timeframe_claim_requires_source_and_type
+sub-family-04 | Mutual Consent Divorce & Settlement (Sec 13B) | timeframe_claim_requires_source_and_type
+sub-family-05 | Child Custody & Interim Visitation Rights | timeframe_claim_requires_source_and_type
+sub-family-06 | Contested Divorce on Mental Cruelty & Desertion | timeframe_claim_requires_source_and_type
+sub-family-07 | Restitution of Conjugal Rights (RCR - Sec 9 HMA) | timeframe_claim_requires_source_and_type
+sub-family-08 | Interim Maintenance Pendente Lite & Legal Costs | timeframe_claim_requires_source_and_type
+sub-family-09 | Special Marriage Act, 1954 Registration & Notice | timeframe_claim_requires_source_and_type
+sub-family-11 | Distress Warrants & Civil Jail for Unpaid Maintenance | timeframe_claim_requires_source_and_type
+sub-family-13 | Maintenance for Major Unmarried Daughters (College Fees) | timeframe_claim_requires_source_and_type
+sub-family-14 | Paternity Disputes & Forensic DNA Testing Petitions | timeframe_claim_requires_source_and_type
+sub-family-16 | Annulment of Marriage on Fraud, Impotency & Concealment | timeframe_claim_requires_source_and_type
+sub-family-17 | Nullity of Void Marriages (Bigamy & Sapinda Relations) | timeframe_claim_requires_source_and_type
+sub-family-19 | High Court Quashing of Malicious 498A Dowry FIRs | timeframe_claim_requires_source_and_type
+sub-family-20 | Protection of Shared Household Rights for Daughters-in-Law | timeframe_claim_requires_source_and_type
+sub-family-21 | Mandatory Income & Asset Disclosure Affidavits in Alimony | timeframe_claim_requires_source_and_type
+sub-family-22 | International Child Custody Battles & NRI Parent Disputes | timeframe_claim_requires_source_and_type
+sub-family-23 | Multi-Faith Civil Matrimonial Dissolution & Rights | timeframe_claim_requires_source_and_type
+sub-family-24 | Legal Parentage & Custody Rights in Commercial Surrogacy | timeframe_claim_requires_source_and_type
+sub-family-25 | Inter-Country Adoption & CARA Clearance Protocols | timeframe_claim_requires_source_and_type
+sub-family-26 | Parental Alienation Syndrome (PAS) & Custody Modification | timeframe_claim_requires_source_and_type
+sub-family-27 | Setting Aside Ex-Parte Divorce Decrees | timeframe_claim_requires_source_and_type
+sub-family-29 | Lifelong Maintenance for Disabled Adult Offspring | timeframe_claim_requires_source_and_type
+sub-family-30 | Declaration of Presumption of Death for Missing Spouse | timeframe_claim_requires_source_and_type
+sub-family-31 | Parsi Matrimonial Dissolution & Alimony | timeframe_claim_requires_source_and_type
+sub-family-32 | Christian Matrimonial Dissolution & Alimony (Divorce Act) | timeframe_claim_requires_source_and_type
+sub-family-33 | Muslim Dissolution of Marriage (Khula, Faskh & Mubarat) | timeframe_claim_requires_source_and_type
+sub-family-34 | Muslim Custody (Hizanat) & Father Guardianship (Wilayat) | timeframe_claim_requires_source_and_type
+sub-family-35 | Adoption by Single Male or Female Parents (CARA Norms) | timeframe_claim_requires_source_and_type
+sub-family-36 | Judicial Separation vs Divorce (Sec 10 HMA) | timeframe_claim_requires_source_and_type
+sub-family-37 | Interim Maintenance for Working Wives with Income Disparity | timeframe_claim_requires_source_and_type
+sub-family-41 | Injunction Against Matrimonial Private Spying & Wiretapping | timeframe_claim_requires_source_and_type
+sub-family-42 | Enforcement of Foreign Divorce Decrees in India (Sec 13 CPC) | timeframe_claim_requires_source_and_type
+sub-family-48 | Declaration of Legitimacy of Children of Voidable Marriages | timeframe_claim_requires_source_and_type
+sub-family-49 | Appointment of Court Guardian for Property of Minor Orphans | timeframe_claim_requires_source_and_type
+sub-family-50 | Family Court Mandatory In-Camera Conciliation & Mediation | timeframe_claim_requires_source_and_type
+
+Inventory CSV includes current English roadmap, authority, timeframes, both dual-path step sets, document IDs, flags and per-record SHA-256.

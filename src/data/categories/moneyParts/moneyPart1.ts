@@ -71,7 +71,7 @@ export const moneyPart1: CivilSubCategory[] = [
           hi: 'मुख्य महानगर दंडाधिकारी न्यायालय (CMM), बैंकशाल कोर्ट, कोलकाता'
         },
         portal_name: { en: 'Calcutta CMM Bankshall Court Portal', bn: 'ব্যাঙ্কশাল কোর্ট পোর্টাল', hi: 'बैंकशाल कोर्ट कोलकाता' },
-        portal_url: 'https://calcuttahighcourt.gov.in/',
+        portal_url: 'https://citysessions.dcourts.gov.in/',
         steps: {
           en: [
             'Collect bank return memo from Kolkata bank branch confirming dishonour.',
@@ -689,7 +689,7 @@ export const moneyPart1: CivilSubCategory[] = [
         evidence: {
           status: 'verified',
           primary_source_title: 'Negotiable Instruments Act, 1881 Sec 143A & CrPC/BNSS',
-          primary_source_url: 'https://www.indiacode.nic.in/',
+          primary_source_url: 'https://indiacode.gov.in/',
           pinpoint: 'NI Act 1881 Sec 143A (20% max interim); CrPC Sec 421/BNSS Sec 460 (recovery as fine)',
           checked_on: '2026-10-15'
         }
@@ -713,7 +713,7 @@ export const moneyPart1: CivilSubCategory[] = [
         evidence: {
           status: 'verified',
           primary_source_title: 'Negotiable Instruments Act, 1881 Sec 143A(2)',
-          primary_source_url: 'https://www.indiacode.nic.in/',
+          primary_source_url: 'https://indiacode.gov.in/',
           pinpoint: 'Sec 143A(2) - 60 days (+ 30 extension); default as fine under CrPC 421',
           checked_on: '2026-10-15'
         }
@@ -864,7 +864,7 @@ territory_track: 'Dual_Path',
         evidence: {
           status: 'verified',
           primary_source_title: 'Negotiable Instruments Act, 1881 Sec 138 & CrPC/BNSS',
-          primary_source_url: 'https://www.indiacode.nic.in/',
+          primary_source_url: 'https://indiacode.gov.in/',
           pinpoint: 'NI Act 1881 Sec 138; CrPC Sec 200/BNSS Sec 223 (complaint filing); Dashrathbhai ruling on jurisdiction',
           checked_on: '2026-10-15'
         }
@@ -888,7 +888,7 @@ territory_track: 'Dual_Path',
         evidence: {
           status: 'verified',
           primary_source_title: 'Negotiable Instruments Act, 1881 Sec 138 & Supreme Court Dashrathbhai Trikambhai',
-          primary_source_url: 'https://www.indiacode.nic.in/',
+          primary_source_url: 'https://indiacode.gov.in/',
           pinpoint: 'NI Act Sec 138 (30+30 day timelines); Dashrathbhai v. State (jurisdiction); trial duration per NALSA data 2024',
           checked_on: '2026-10-15'
         }
@@ -1936,7 +1936,7 @@ territory_track: 'Dual_Path',
         evidence: {
           status: 'verified',
           primary_source_title: 'Payment & Settlement Systems Act, 2007 Sec 25 & CrPC/BNSS',
-          primary_source_url: 'https://www.indiacode.nic.in/',
+          primary_source_url: 'https://indiacode.gov.in/',
           pinpoint: 'PSSA 2007 Sec 25 (imprisonment up to 2 years or double fine); CrPC Sec 200/BNSS Sec 223',
           checked_on: '2026-10-15'
         }
@@ -1960,7 +1960,7 @@ territory_track: 'Dual_Path',
         evidence: {
           status: 'verified',
           primary_source_title: 'Payment & Settlement Systems Act, 2007 Sec 25; Supreme Court Dashrathbhai Trikambhai',
-          primary_source_url: 'https://www.indiacode.nic.in/',
+          primary_source_url: 'https://indiacode.gov.in/',
           pinpoint: 'PSSA 2007 Sec 25; NI Act Sec 138 parallel; Dashrathbhai v. State (jurisdiction)',
           checked_on: '2026-10-15'
         }

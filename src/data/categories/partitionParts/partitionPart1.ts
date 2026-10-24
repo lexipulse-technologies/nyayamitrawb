@@ -161,7 +161,7 @@ roadmap_steps: {
         evidence: {
           status: 'verified',
           primary_source_title: 'Code of Civil Procedure, 1908 - Order XX & XXVI',
-          primary_source_url: 'https://www.indiacode.nic.in/handle/123456789/2156',
+          primary_source_url: 'https://indiacode.gov.in/handle/123456789/2156',
           pinpoint: 'Order XX Rule 18 (preliminary decree); Order XXVI Rules 13-14 (commissioner); WB judicial data 2024',
           checked_on: '2026-10-15'
         }
@@ -458,7 +458,7 @@ roadmap_steps: {
         evidence: {
           status: 'verified',
           primary_source_title: 'Indian Succession Act, 1925 Sec 373; CPC Order XXXIX',
-          primary_source_url: 'https://www.indiacode.nic.in/handle/123456789/2156',
+          primary_source_url: 'https://indiacode.gov.in/handle/123456789/2156',
           pinpoint: 'ISA 1925 Sec 373 (45-day notice); typical WB district court timeline 120-180 days',
           checked_on: '2026-10-15'
         }

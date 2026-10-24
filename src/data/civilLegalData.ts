@@ -12,10 +12,10 @@ import { familyCategory } from './categories/familyData';
  */
 const CANONICAL_URL_MAP: Record<string, string> = {
   // 1. State Water Investigation Directorate (SWID / WRIDD WB)
-  'https://swidwb.gov.in/': 'http://wbwridd.gov.in/',
-  'https://swidwb.gov.in': 'http://wbwridd.gov.in/',
-  'http://swidwb.gov.in/': 'http://wbwridd.gov.in/',
-  'http://swidwb.gov.in': 'http://wbwridd.gov.in/',
+  'https://swidwb.gov.in/': 'https://wbwridd.gov.in/',
+  'https://swidwb.gov.in': 'https://wbwridd.gov.in/',
+  'http://swidwb.gov.in/': 'https://wbwridd.gov.in/',
+  'http://swidwb.gov.in': 'https://wbwridd.gov.in/',
 
   // 2. e-Courts Services (West Bengal District Courts)
   'https://districts.ecourts.gov.in/': 'https://ecourts.gov.in/',

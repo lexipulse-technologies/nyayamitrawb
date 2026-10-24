@@ -1,0 +1,38 @@
+NYAYAMITRA ADMIN FREE CITIZEN INTAKES DIAGNOSTIC
+Date: 2026-10-14
+Status: Targeted local fix implemented; no production deployment or Supabase changes.
+
+DATA INTEGRITY
+- Workflow source remains 300 unique IDs, 50 per category.
+- Phase 1/Phase 2 restore snapshots verified.
+- Fresh email-compliance restore copy: Backups/Email-Recipient-Compliance-20261014-014113.
+
+ROOT CAUSE
+- Free Citizen Intakes did not show because AdminAdvisorPanel rendered <Lock /> from lucide-react.
+- In this installed package/browser, Lock resolves to the browser Web Locks API constructor, not a React SVG component.
+- React runtime error: TypeError: Illegal constructor, component stack at AdminAdvisorPanel Hide IP button.
+- After refresh, the same admin render path crashes again. This is a frontend component failure, separate from Supabase sync.
+- Isolated diagnostic server used https://supabase.invalid, so its Supabase 404/DNS errors were intentionally non-production test failures and not treated as the UI crash.
+
+FIX
+- Replaced invalid <Lock /> usage with existing valid Lucide ShieldCheck icon.
+- Existing tab logic/content and legacy admin credentials/RPC were not changed.
+- No Phase 2 rollback performed.
+
+EMAIL COMPLIANCE REQUEST
+- Removed khantanweer85@gmail.com from active api/submit-intake.js referral email recipient.
+- Removed it from active vite.config.ts notification recipient logic; admin-audit and Pro notification paths remain to owner mailbox only.
+- Source scan confirms no active code/config recipient reference remains. Historical restore backups are intentionally preserved and may still contain the old address.
+
+VALIDATION
+- npm run build: PASS. Existing Vite/Rolldown deprecation warnings remain.
+- Isolated dev server: http://127.0.0.1:5174/ with non-routable Supabase URL; stopped after test.
+- Admin login and panel render in isolation.
+- Free Citizen Intakes button present; clicking renders IP controls and empty-state text.
+- Refresh preserves admin session; tab remains present and selectable; no Lock Illegal constructor runtime error.
+- Remaining console errors are DNS failures to supabase.invalid for existing admin audit/cloud sync; the isolated URL prevents production network traffic.
+- 300 workflow IDs remain intact.
+
+DEPLOYMENT NOTE
+- Do not execute supabase/referral-ip-audit.sql or deploy until separate production prerequisites, schema validation, secrets and owner approval are complete.
+- Phase 2 remains open pending founder review; no Vercel/Supabase production action was taken.

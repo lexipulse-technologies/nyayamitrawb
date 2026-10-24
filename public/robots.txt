@@ -8,16 +8,45 @@ Allow: /sitemap.xml
 Disallow: /api/verify-payment
 Disallow: /api/create-order
 Disallow: /api/notify
+Disallow: /api/razorpay-webhook
+Disallow: /api/counter
 
-# Search Engine Specific Directives (Google, Bing, Slurp, DuckDuckGo)
+# Search Engine Specific Directives
 User-agent: Googlebot
 Allow: /
 
 User-agent: Bingbot
 Allow: /
 
+User-agent: Slurp
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
+User-agent: YandexBot
+Allow: /
+Allow: /assets/
+Allow: /sitemap.xml
+Disallow: /api/
+
+User-agent: Google-Extended
+Disallow: /
+
+User-agent: CCBot
+Disallow: /
+
+User-agent: GPTBot
+Disallow: /
+
+User-agent: ChatGPT-User
+Disallow: /
+
 User-agent: IndexNow
 Allow: /
 
 # Canonical XML Sitemap Reference
 Sitemap: https://nyayamitrawb.in/sitemap.xml
+
+# IndexNow Endpoint for Instant Indexing
+# https://www.bing.com/indexnow?url=https://nyayamitrawb.in/&key=700bbbd64a194a72940dfa81206b73cd

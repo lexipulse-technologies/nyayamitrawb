@@ -17,7 +17,8 @@ import {
   Globe,
   Zap,
   CreditCard,
-  Check
+  Check,
+  Scale
 } from 'lucide-react';
 import type { Advisor, ProTransactionRecord, Language } from '../types/legal';
 import {
@@ -38,6 +39,7 @@ const ADMIN_TEXT = {
   title: { bn: 'অ্যাডমিন কন্ট্রোল রুম (CMO West Bengal Inspired)', hi: 'प्रशासनिक कंट्रोल रूम', en: 'NyayaMitra Administrative Panel' },
   subtitle: { bn: 'প্যানেল আইনজীবী তালিকা ও প্রো ট্রানজ্যাকশন পর্যবেক্ষণ', hi: 'अधिवक्ता प्रबंधन एवं प्रो ट्रांजैक्शन निगरानी', en: 'Manage the advisor directory and monitor verified Pro transactions' },
   tabAdvisors: { bn: 'প্যানেল আইনজীবী ডিরেক্টরি', hi: 'अधिवक्ता डायरेक्टरी', en: 'Advisors Directory' },
+  tabAdvocateFees: { bn: 'অ্যাডভোকেট কানেক্ট ফি (₹৪৯৯)', hi: 'एडवोकेट कनेक्ट शुल्क (₹499)', en: 'Advocate Connect Fees (₹499)' },
   tabPro: { bn: 'প্রো ট্রানজ্যাকশন (₹৯৯)', hi: 'प्रो ट्रांजैक्शन (₹99)', en: 'Pro Transactions (₹99)' },
   addAdvisorBtn: { bn: 'নতুন আইনজীবী যুক্ত করুন', hi: 'नए अधिवक्ता जोड़ें', en: 'Add New Panel Advisor' },
   syncCloudBtn: { bn: 'ক্লাউড থেকে রিফ্রেশ করুন', hi: 'ক্লাউড সে রিফ্রেশ करें', en: 'Sync Cloud Data' },
@@ -70,9 +72,11 @@ const ADMIN_TEXT = {
 };
 
 export const AdminAdvisorPanel: React.FC<{ lang?: Language }> = ({ lang = 'bn' }) => {
-  const [tab, setTab] = useState<'pro' | 'advisors'>('pro');
+  const [tab, setTab] = useState<'pro' | 'advisors' | 'advocate'>('pro');
   const [advisors, setAdvisors] = useState<Advisor[]>([]);
   const [proTransactions, setProTransactions] = useState<ProTransactionRecord[]>([]);
+  const [advocateFees, setAdvocateFees] = useState<any[]>([]);
+  const [isLoadingAdvocate, setIsLoadingAdvocate] = useState(false);
 
   const [showAddModal, setShowAddModal] = useState(false);
   const [showCloudModal, setShowCloudModal] = useState(false);
@@ -120,7 +124,7 @@ export const AdminAdvisorPanel: React.FC<{ lang?: Language }> = ({ lang = 'bn' }
     verifySession();
   }, []);
 
-  const loadData = async () => {
+const loadData = async () => {
     setAdvisors(getAdvisors());
     setProTransactions(getProTransactions());
     setCloudUrlInput(getCloudSyncUrl());
@@ -129,6 +133,22 @@ export const AdminAdvisorPanel: React.FC<{ lang?: Language }> = ({ lang = 'bn' }
       const audit = await getLastAdminLogin();
       setAuditRecord(audit);
     } catch {}
+
+    // Fetch advocate connect fees
+    try {
+      setIsLoadingAdvocate(true);
+      const res = await fetch('/api/notify', {
+        credentials: 'include',
+        cache: 'no-store'
+      });
+      const data = await res.json();
+      if (data.success && data.data) {
+        setAdvocateFees(data.data);
+      }
+    } catch {}
+    finally {
+      setIsLoadingAdvocate(false);
+    }
 
     handleSyncAll();
   };
@@ -248,7 +268,7 @@ export const AdminAdvisorPanel: React.FC<{ lang?: Language }> = ({ lang = 'bn' }
             {ADMIN_TEXT.cloudSettingsBtn[lang]}
           </button>
 
-          {/* Pro transactions and advisor directory */}
+{/* Pro transactions and advisor directory */}
           <div className="flex bg-slate-100 p-1 rounded-xl gap-1">
             <button
               onClick={() => setTab('pro')}
@@ -260,6 +280,18 @@ export const AdminAdvisorPanel: React.FC<{ lang?: Language }> = ({ lang = 'bn' }
             >
               <Zap className="w-3.5 h-3.5 fill-slate-950 text-slate-950" />
               <span>{ADMIN_TEXT.tabPro[lang]} ({proTransactions.length})</span>
+            </button>
+
+            <button
+              onClick={() => setTab('advocate')}
+              className={`px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1.5 transition cursor-pointer ${
+                tab === 'advocate'
+                  ? 'bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 shadow-sm'
+                  : 'text-slate-700 hover:bg-slate-200'
+              }`}
+            >
+              <Scale className="w-3.5 h-3.5" />
+              <span>{ADMIN_TEXT.tabAdvocateFees[lang]} ({advocateFees.length})</span>
             </button>
 
             <button
@@ -424,6 +456,154 @@ export const AdminAdvisorPanel: React.FC<{ lang?: Language }> = ({ lang = 'bn' }
                           <Trash2 className="w-3.5 h-3.5 text-red-600" />
                           <span>{ADMIN_TEXT.deleteBtn[lang]}</span>
                         </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* Advocate Connect Fees (₹499) */}
+      {tab === 'advocate' && (
+        <div className="space-y-4">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div className="p-3.5 bg-gradient-to-br from-amber-50 to-white border border-amber-200 rounded-xl space-y-1">
+              <span className="text-[10.5px] font-bold text-amber-900 uppercase tracking-wider">
+                Total Advocate Connect Orders
+              </span>
+              <div className="text-xl font-mono font-black text-amber-950">
+                {advocateFees.length}
+              </div>
+            </div>
+
+            <div className="p-3.5 bg-gradient-to-br from-emerald-50 to-white border border-emerald-200 rounded-xl space-y-1">
+              <span className="text-[10.5px] font-bold text-emerald-900 uppercase tracking-wider">
+                Total Revenue (₹499 each)
+              </span>
+              <div className="text-xl font-mono font-black text-emerald-950">
+                ₹{(advocateFees.length * 499).toLocaleString('en-IN')}.00 INR
+              </div>
+            </div>
+
+            <div className="p-3.5 bg-gradient-to-br from-blue-50 to-white border border-blue-200 rounded-xl space-y-1">
+              <span className="text-[10.5px] font-bold text-blue-900 uppercase tracking-wider">
+                Pending Advocate Contact
+              </span>
+              <div className="text-xl font-mono font-black text-blue-950">
+                {advocateFees.filter(f => !f.notified_advocate).length}
+              </div>
+            </div>
+          </div>
+
+          <div className="flex flex-wrap items-center justify-between gap-2 bg-slate-50 p-3 rounded-xl border border-slate-200">
+            <button
+              onClick={() => {
+                setIsLoadingAdvocate(true);
+                fetch('/api/notify', { credentials: 'include', cache: 'no-store' })
+                  .then(r => r.json())
+                  .then(d => { if (d.success && d.data) setAdvocateFees(d.data); })
+                  .finally(() => setIsLoadingAdvocate(false));
+              }}
+              disabled={isLoadingAdvocate}
+              className="px-3 py-1.5 bg-blue-700 hover:bg-blue-800 text-white rounded-lg text-xs font-bold flex items-center gap-1.5 shadow-sm transition disabled:bg-slate-400 cursor-pointer"
+            >
+              <RefreshCw className={`w-3.5 h-3.5 ${isLoadingAdvocate ? 'animate-spin' : ''}`} />
+              <span>Refresh from Cloud</span>
+            </button>
+
+            <button
+              onClick={() => {
+                const csv = [
+                  ['Citizen Name', 'Mobile', 'Email', 'Workflow', 'Comment', 'Payment ID', 'Order ID', 'Amount (₹)', 'Status', 'Notified Advocate', 'Created At'],
+                  ...advocateFees.map(f => [
+                    f.citizen_name,
+                    f.citizen_mobile,
+                    f.citizen_email,
+                    f.workflow_title || '',
+                    f.citizen_comment || '',
+                    f.razorpay_payment_id,
+                    f.razorpay_order_id || '',
+                    f.amount,
+                    f.status,
+                    f.notified_advocate ? 'Yes' : 'No',
+                    f.created_at
+                  ])
+                ].map(row => row.map(cell => `"${String(cell).replace(/"/g, '""')}"`).join(',')).join('\n');
+                const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(blob);
+                link.download = `advocate-connect-fees-${new Date().toISOString().slice(0,10)}.csv`;
+                link.click();
+              }}
+              className="px-3 py-1.5 bg-emerald-700 hover:bg-emerald-800 text-white rounded-lg text-xs font-bold flex items-center gap-1.5 shadow-sm transition cursor-pointer"
+            >
+              <Download className="w-3.5 h-3.5" />
+              <span>Export CSV</span>
+            </button>
+          </div>
+
+          {advocateFees.length === 0 ? (
+            <div className="p-10 text-center text-slate-500 text-xs border border-dashed border-slate-200 rounded-xl">
+              <p>No ₹499 Advocate Connect payments recorded yet. Click "Refresh from Cloud" to fetch records from Supabase.</p>
+            </div>
+          ) : (
+            <div className="overflow-x-auto border border-slate-200 rounded-xl">
+              <table className="w-full text-left text-xs border-collapse">
+                <thead>
+                  <tr className="bg-slate-50 border-b border-slate-200 text-slate-700 font-bold">
+                    <th className="p-3">Citizen Name</th>
+                    <th className="p-3">Mobile</th>
+                    <th className="p-3">Email</th>
+                    <th className="p-3">Workflow</th>
+                    <th className="p-3">Comment</th>
+                    <th className="p-3">Razorpay Payment ID</th>
+                    <th className="p-3">Amount (₹)</th>
+                    <th className="p-3">Status</th>
+                    <th className="p-3">Notified</th>
+                    <th className="p-3">Created At</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-slate-100">
+                  {advocateFees.map(item => (
+                    <tr key={item.razorpay_payment_id} className="hover:bg-amber-50/40 transition">
+                      <td className="p-3 font-bold text-slate-900">{item.citizen_name}</td>
+                      <td className="p-3 font-mono text-slate-700">{item.citizen_mobile}</td>
+                      <td className="p-3 text-slate-600">{item.citizen_email}</td>
+                      <td className="p-3 text-slate-800 max-w-xs truncate" title={item.workflow_title || ''}>
+                        {item.workflow_title || '—'}
+                      </td>
+                      <td className="p-3 text-slate-600 max-w-xs truncate" title={item.citizen_comment || ''}>
+                        {item.citizen_comment || '—'}
+                      </td>
+                      <td className="p-3 font-mono font-bold text-emerald-800">
+                        <span className="bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded text-[11px]">
+                          {item.razorpay_payment_id}
+                        </span>
+                      </td>
+                      <td className="p-3 font-bold text-amber-950">₹{item.amount}</td>
+                      <td className="p-3">
+                        <span className={`px-2 py-0.5 rounded text-[10.5px] font-bold ${
+                          item.status === 'paid_pending_advocate_contact'
+                            ? 'bg-amber-50 text-amber-900 border border-amber-200'
+                            : 'bg-emerald-50 text-emerald-900 border border-emerald-200'
+                        }`}>
+                          {item.status.replace(/_/g, ' ')}
+                        </span>
+                      </td>
+                      <td className="p-3 text-center">
+                        <span className={`px-2 py-0.5 rounded text-[10.5px] font-bold ${
+                          item.notified_advocate
+                            ? 'bg-emerald-50 text-emerald-900 border border-emerald-200'
+                            : 'bg-red-50 text-red-900 border border-red-200'
+                        }`}>
+                          {item.notified_advocate ? 'Yes' : 'No'}
+                        </span>
+                      </td>
+                      <td className="p-3 text-slate-500 text-[11px] whitespace-nowrap">
+                        {item.created_at}
                       </td>
                     </tr>
                   ))}

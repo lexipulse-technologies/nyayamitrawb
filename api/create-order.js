@@ -23,6 +23,11 @@ export default async function handler(req, res) {
 
   const { referenceId, disputeTopic } = req.body || {};
 
+  // Amount whitelist (paise): ₹99 drafter default, ₹199 dispatch, ₹499 advocate connect
+  const ALLOWED = { 9900: true, 19900: true, 49900: true };
+  const body = req.body || {};
+  const amountPaise = ALLOWED[Number(body.amount)] ? Number(body.amount) : 9900;
+
   const keyId = (process.env.RAZORPAY_KEY_ID || 'rzp_live_TkN8MUwR01Npxf').trim();
   const keySecret = (process.env.RAZORPAY_KEY_SECRET || '7L6obgTM86jcU2egxsXEpvlL').trim();
 
@@ -30,9 +35,8 @@ export default async function handler(req, res) {
     return res.status(500).json({ error: 'Razorpay Live credentials not configured on server.' });
   }
 
-  // ₹99.00 = 9900 Paise (Minimum 100 paise required by Razorpay)
   const orderPayload = JSON.stringify({
-    amount: 9900,
+    amount: amountPaise,
     currency: 'INR',
     receipt: referenceId || `NM-DOC-${Date.now()}`,
     notes: {

@@ -31,6 +31,52 @@ declare global {
   }
 }
 
+// Helper to ensure Razorpay script is loaded - defined as IIFE to avoid top-level function declaration issues
+export const ensureRazorpayLoaded = (() => {
+  let loadPromise: Promise<void> | null = null;
+  
+  return (): Promise<void> => {
+    if (loadPromise) return loadPromise;
+    
+    loadPromise = new Promise((resolve, reject) => {
+      if (typeof window !== 'undefined' && window.Razorpay) {
+        resolve();
+        return;
+      }
+      if (typeof window === 'undefined') {
+        reject(new Error('Window not available'));
+        return;
+      }
+      // Check if script is already loading or loaded
+      const existingScript = document.querySelector('script[src*="checkout.razorpay.com"]');
+      if (existingScript) {
+        // Wait for it to load
+        const checkRazorpay = setInterval(() => {
+          if (window.Razorpay) {
+            clearInterval(checkRazorpay);
+            resolve();
+          }
+        }, 100);
+        setTimeout(() => {
+          clearInterval(checkRazorpay);
+          if (!window.Razorpay) reject(new Error('Razorpay script load timeout'));
+          else resolve();
+        }, 10000);
+        return;
+      }
+      // Load the script
+      const script = document.createElement('script');
+      script.src = 'https://checkout.razorpay.com/v1/checkout.js';
+      script.async = true;
+      script.onload = () => resolve();
+      script.onerror = () => reject(new Error('Failed to load Razorpay script'));
+      document.head.appendChild(script);
+    });
+    
+    return loadPromise;
+  };
+})();
+
 interface Props {
   isOpen: boolean;
   onClose: () => void;
@@ -275,10 +321,19 @@ export const DocumentDrafterModal: React.FC<Props> = ({
     setStep(2);
   };
 
-  // RAZORPAY STANDARD LIVE CHECKOUT
+// RAZORPAY STANDARD LIVE CHECKOUT
   const handleOpenRazorpayCheckout = async () => {
     setIsProcessingPayment(true);
     setPaymentError('');
+
+    // Ensure Razorpay script is loaded (with auto-load fallback)
+    try {
+      await ensureRazorpayLoaded();
+    } catch (e) {
+      setPaymentError('Payment gateway failed to load. Please check your internet connection and refresh.');
+      setIsProcessingPayment(false);
+      return;
+    }
 
     try {
       const orderRes = await fetch('/api/create-order', {

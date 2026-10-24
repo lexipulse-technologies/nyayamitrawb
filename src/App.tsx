@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect, useRef } from 'react';
+import React, { useState, useMemo, useEffect, useRef, useCallback } from 'react';
 import { CIVIL_CATEGORIES, TOTAL_WORKFLOW_COUNT } from './data/civilLegalData';
 import type { Language, CivilCategory, CivilSubCategory } from './types/legal';
 import { DisclaimerBanner } from './components/DisclaimerBanner';
@@ -10,8 +10,10 @@ import { VisitorCounter } from './components/VisitorCounter';
 import { CommandPalette } from './components/CommandPalette';
 import { CaseReadinessGauge } from './components/CaseReadinessGauge';
 import { DocumentDrafterModal } from './components/DocumentDrafterModal';
+import { SplashScreen } from './components/SplashScreen';
 import { LegalPolicyModal } from './components/LegalPolicyModal';
 import type { PolicyTab } from './components/LegalPolicyModal';
+import { AdvocateConnectModal } from './components/AdvocateConnectModal';
 import { getWorkflowTemplateMapping, getTemplateById } from './utils/proDocumentTemplates';
 import { searchLegalTopics } from './utils/triageEngine';
 import { isAdminSessionActive, clearAdminSession } from './utils/authUtils';
@@ -179,7 +181,7 @@ const HIGH_VALUE_PORTALS = [
   {
     id: 'portal-swid',
     name: { en: 'State Water Investigation Directorate (SWID)', bn: 'রাজ্য জলসম্পদ অনুসন্ধান অধিকার (SWID)', hi: 'राज्य जल संसाधन अन्वेषण निदेशालय (SWID)' },
-    url: 'http://wbwridd.gov.in/',
+    url: 'https://wbwridd.gov.in/',
     scope: { en: 'Groundwater / Agri', bn: 'ভূগর্ভস্থ জল ও সেচ', hi: 'भूजल एवं सिंचाई' },
     desc: {
       en: 'Water Resources Investigation & Development Department: permissions for agricultural submersible tubewell borewells.',
@@ -268,7 +270,7 @@ const UI_TEXT = {
 const WATERMARK_SVG_URI = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='420' height='260' viewBox='0 0 420 260'%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dominant-baseline='middle' transform='rotate(-24 210 130)' font-family='serif' font-weight='800' font-size='22' letter-spacing='4' fill='%230f2b48' opacity='0.028'%3ENYAYAMITRA WB%3C/text%3E%3C/svg%3E")`;
 
 export function App() {
-  const [lang, setLang] = useState<Language>('bn');
+  const [lang, setLang] = useState<Language>('en');
  
   const defaultCategory = CIVIL_CATEGORIES[0] || {
     id: 'cat-land-mutation',
@@ -324,6 +326,14 @@ export function App() {
   // Statutory Compliance Policy Modal State
   const [showPolicyModal, setShowPolicyModal] = useState<boolean>(false);
   const [policyModalTab, setPolicyModalTab] = useState<PolicyTab>('terms');
+
+  // Advocate Connect (₹499) Modal State
+  const [showAdvocateModal, setShowAdvocateModal] = useState<boolean>(false);
+
+  // Splash Screen State (Session-based)
+  const [showSplash, setShowSplash] = useState<boolean>(true);
+
+  const handleSplashClose = useCallback(() => setShowSplash(false), []);
 
   // Floating Toast Notification State
   const [showDrafterToast, setShowDrafterToast] = useState<boolean>(true);
@@ -552,6 +562,7 @@ export function App() {
         backgroundRepeat: 'repeat'
       }}
     >
+      <SplashScreen isOpen={showSplash} onClose={handleSplashClose} lang={lang} />
       <DisclaimerBanner lang={lang} />
       <OfflineBanner lang={lang} />
 
@@ -723,18 +734,18 @@ export function App() {
                 </button>
               </div>
 
-              {/* ACTION BUTTON 1: NYAYAMITRA PRO DRAFTER (₹99) */}
-              <button
-                type="button"
-                onClick={() => setShowProModal(true)}
-                className="shrink-0 flex items-center justify-center gap-1.5 px-4 py-3.5 rounded-2xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 text-xs sm:text-sm font-extrabold shadow-xl transition-all hover:scale-105 active:scale-95 group w-full sm:w-auto border-2 border-amber-300 cursor-pointer"
-                title="Draft Statutory Notice (₹99)"
-              >
-                <Zap className="w-4 h-4 fill-slate-950 text-slate-950" />
-                <span>{UI_TEXT.proDrafterBtn[lang]}</span>
-              </button>
+{/* ACTION BUTTON 1: NYAYAMITRA PRO DRAFTER (₹99) - Always visible for easy access */}
+                  <button
+                    type="button"
+                    onClick={() => setShowProModal(true)}
+                    className="shrink-0 flex items-center justify-center gap-2 px-4 py-3.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-extrabold text-xs sm:text-sm shadow-[0_0_20px_rgba(245,158,11,0.7)] animate-pulse-glow transition hover:scale-105 cursor-pointer border-2 border-amber-300 w-full sm:w-auto"
+                    title="Draft Statutory Notice (₹99)"
+                  >
+                    <Zap className="w-4 h-4 fill-slate-950 text-slate-950" />
+                    <span>{UI_TEXT.proDrafterBtn[lang]}</span>
+                  </button>
 
-              {/* ACTION BUTTON 2: Quick Jump (Ctrl+K) */}
+                  {/* ACTION BUTTON 2: Quick Jump (Ctrl+K) */}
               <button
                 type="button"
                 onClick={() => setIsCommandPaletteOpen(true)}
@@ -747,6 +758,17 @@ export function App() {
                   Ctrl K
                 </kbd>
               </button>
+
+                  {/* ACTION BUTTON 3: Advocate Connect (₹499) - Global access beside Quick Jump */}
+                  <button
+                    type="button"
+                    onClick={() => setShowAdvocateModal(true)}
+                    className="shrink-0 flex items-center justify-center gap-2 px-4 py-3.5 rounded-2xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-extrabold text-xs sm:text-sm shadow-[0_0_20px_rgba(245,158,11,0.7)] animate-pulse-glow transition hover:scale-105 cursor-pointer border-2 border-amber-300 w-full sm:w-auto"
+                    title="Connect with Legal Advocate (₹499)"
+                  >
+                    <Scale className="w-4 h-4" />
+                    <span>Connect Legal Advocate (₹499)</span>
+                  </button>
             </div>
 
             {/* Search Dropdown */}
@@ -966,15 +988,7 @@ export function App() {
                         </span>
                       )}
                       
-                      <button
-                        type="button"
-                        onClick={() => setShowProModal(true)}
-                        className="inline-flex items-center gap-1 px-2.5 py-1 rounded text-[11px] font-bold bg-amber-100 text-amber-950 border border-amber-300 hover:bg-amber-200 transition shadow-2xs cursor-pointer"
-                      >
-                        <Zap className="w-3.5 h-3.5 fill-amber-500 text-amber-600" />
-                        <span>⚡ {UI_TEXT.inWorkflowNotice.btn[lang]}</span>
-                      </button>
-                    </div>
+                      </div>
 
                     <h3 className="text-lg sm:text-xl font-extrabold text-slate-900 mt-2">
                       {selectedSubCat?.title?.[lang]}
@@ -982,35 +996,6 @@ export function App() {
                     <p className="text-xs sm:text-sm text-slate-600 mt-1 leading-relaxed">
                       {selectedSubCat?.summary?.[lang]}
                     </p>
-                  </div>
-
-                  {/* IN-WORKFLOW STATUTORY NOTICE CALLOUT */}
-                  <div className="p-3.5 sm:p-4 bg-gradient-to-r from-amber-50 via-amber-50/70 to-emerald-50 rounded-2xl border-2 border-amber-400 shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 select-none">
-                    <div className="space-y-1 min-w-0">
-                      <div className="flex items-center gap-1.5">
-                        <span className="px-2 py-0.5 rounded text-[9.5px] font-black bg-amber-400 text-slate-950 uppercase tracking-wider">
-                          {UI_TEXT.inWorkflowNotice.badge[lang]}
-                        </span>
-                        <span className="text-slate-500 text-[11px] font-semibold font-mono">
-                          • {activeProTemplate.code}
-                        </span>
-                      </div>
-                      <h4 className="font-extrabold text-xs sm:text-sm text-slate-950 leading-snug">
-                        {UI_TEXT.inWorkflowNotice.heading[lang]}
-                      </h4>
-                      <p className="text-[11px] text-slate-700 leading-relaxed">
-                        {UI_TEXT.inWorkflowNotice.desc(resolvedProTitle)[lang]}
-                      </p>
-                    </div>
-                    <button
-                      type="button"
-                      onClick={() => setShowProModal(true)}
-                      className="shrink-0 px-4 py-2.5 bg-gradient-to-r from-[#0f2b48] to-[#1a3d60] hover:from-[#14385d] hover:to-[#224e7a] text-white rounded-xl text-xs font-bold transition shadow-md flex items-center gap-2 border border-amber-400 cursor-pointer active:scale-95 whitespace-nowrap"
-                    >
-                      <Zap className="w-4 h-4 text-amber-400 fill-amber-400" />
-                      <span>{UI_TEXT.inWorkflowNotice.btn[lang]}</span>
-                      <ArrowRight className="w-3.5 h-3.5" />
-                    </button>
                   </div>
 
                   {/* Dual-Track Jurisdictional Switcher */}
@@ -1220,6 +1205,17 @@ export function App() {
                       <div />
                     )}
 
+                    {/* ADVOCATE CONNECT — glowing golden CTA (all 300 workflows) */}
+                    <button
+                      type="button"
+                      onClick={() => setShowAdvocateModal(true)}
+                      className="flex items-center gap-2 px-4 py-3 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-extrabold text-xs sm:text-sm shadow-[0_0_20px_rgba(245,158,11,0.7)] animate-pulse-glow transition hover:scale-105 cursor-pointer border-2 border-amber-300"
+                      title="Connect with Legal Advocate (₹499)"
+                    >
+                      <Scale className="w-4 h-4" />
+                      <span>Connect Legal Advocate (₹499)</span>
+                    </button>
+
                   </div>
                 </div>
               </div>
@@ -1275,72 +1271,6 @@ export function App() {
           </>
         )}
       </main>
-
-      {/* FLOATING QUICK-ACTION PILL AT BOTTOM-LEFT */}
-      {!isAdminView && (
-        <div className="fixed bottom-6 left-4 sm:left-6 z-40 flex items-center gap-2">
-          <button
-            type="button"
-            onClick={() => setShowProModal(true)}
-            className="flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 rounded-full font-black text-xs shadow-2xl border-2 border-white/70 transition-all hover:scale-105 active:scale-95 cursor-pointer"
-            title="Open Statutory Notice Drafter"
-          >
-            <Zap className="w-4 h-4 fill-slate-950 text-slate-950" />
-            <span>{UI_TEXT.inWorkflowNotice.btn[lang]}</span>
-          </button>
-        </div>
-      )}
-
-      {/* FLOATING PROACTIVE TOAST NOTIFICATION */}
-      {showDrafterToast && !showProModal && !isAdminView && (
-        <aside aria-label="Statutory Notice Drafter Notification" className="fixed bottom-20 left-4 sm:left-6 z-40 max-w-sm w-full bg-[#0a1e34]/95 text-white border-2 border-amber-400/90 rounded-2xl shadow-2xl p-4 backdrop-blur-md">
-          <div className="flex items-start justify-between gap-2">
-            <div className="flex items-center gap-2">
-              <div className="w-7 h-7 rounded-lg bg-amber-400 text-slate-950 flex items-center justify-center shrink-0">
-                <Zap className="w-4 h-4 fill-slate-950" />
-              </div>
-              <span className="font-extrabold text-xs text-amber-300 uppercase tracking-wider">
-                {UI_TEXT.inWorkflowNotice.toastBadge[lang]}
-              </span>
-            </div>
-            <button
-              type="button"
-              onClick={() => setShowDrafterToast(false)}
-              className="text-slate-400 hover:text-white p-1 rounded-md transition cursor-pointer"
-              title="Dismiss Notification"
-            >
-              <X className="w-4 h-4" />
-            </button>
-          </div>
-
-          <p className="text-[11px] text-slate-200 mt-2 leading-relaxed">
-            {UI_TEXT.inWorkflowNotice.toastDesc(resolvedProTitle)[lang]}
-          </p>
-
-          <div className="mt-3 flex items-center gap-2">
-            <button
-              type="button"
-              onClick={() => {
-                setShowProModal(true);
-                setShowDrafterToast(false);
-              }}
-              className="flex-1 py-2 px-3 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 rounded-xl text-xs font-bold transition shadow-md flex items-center justify-center gap-1.5 cursor-pointer active:scale-95"
-            >
-              <Zap className="w-3.5 h-3.5 fill-slate-950" />
-              <span>{UI_TEXT.inWorkflowNotice.btn[lang]}</span>
-              <ArrowRight className="w-3.5 h-3.5" />
-            </button>
-
-            <button
-              type="button"
-              onClick={() => setShowDrafterToast(false)}
-              className="py-2 px-3 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl text-xs font-semibold transition cursor-pointer"
-            >
-              {UI_TEXT.inWorkflowNotice.toastLater[lang]}
-            </button>
-          </div>
-        </aside>
-      )}
 
       {/* ATTRIBUTED FOOTER WITH RAZORPAY COMPLIANCE LINKS (LEXIPULSE TECHNOLOGIES) */}
       <footer 
@@ -1439,6 +1369,17 @@ export function App() {
           onClose={() => setShowPolicyModal(false)}
           initialTab={policyModalTab}
           lang={lang}
+        />
+      )}
+
+      {/* Advocate Connect (₹499) Modal */}
+      {showAdvocateModal && (
+        <AdvocateConnectModal
+          isOpen={showAdvocateModal}
+          onClose={() => setShowAdvocateModal(false)}
+          lang={lang}
+          workflowId={selectedSubCat?.id ?? ''}
+          workflowTitle={selectedSubCat?.title?.[lang] ?? ''}
         />
       )}
 

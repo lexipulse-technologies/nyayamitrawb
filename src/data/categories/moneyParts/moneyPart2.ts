@@ -147,7 +147,7 @@ export const moneyPart2: CivilSubCategory[] = [
         evidence: {
           status: 'verified',
           primary_source_title: 'Indian Contract Act, 1872 & Bharatiya Sakshya Adhiniyam, 2023 Sec 63',
-          primary_source_url: 'https://www.indiacode.nic.in/',
+          primary_source_url: 'https://indiacode.gov.in/',
           pinpoint: 'Contract Act 1872 (implied contracts); BSA 2023 Sec 63 (electronic evidence); Limitation Act 1963 Art 55',
           checked_on: '2026-10-15'
         }
@@ -171,7 +171,7 @@ export const moneyPart2: CivilSubCategory[] = [
         evidence: {
           status: 'verified',
           primary_source_title: 'Indian Contract Act 1872; BSA 2023 Sec 63; Limitation Act 1963',
-          primary_source_url: 'https://www.indiacode.nic.in/',
+          primary_source_url: 'https://indiacode.gov.in/',
           pinpoint: 'Contract Act (implied promise); BSA 2023 Sec 63 (electronic records); Limitation Act Art 55 (3 years)',
           checked_on: '2026-10-15'
         }
@@ -286,7 +286,7 @@ export const moneyPart2: CivilSubCategory[] = [
         evidence: {
           status: 'verified',
           primary_source_title: 'Indian Partnership Act, 1932 Sec 44 & Commercial Courts Act 2015',
-          primary_source_url: 'https://www.indiacode.nic.in/',
+          primary_source_url: 'https://indiacode.gov.in/',
           pinpoint: 'Partnership Act 1932 Sec 44 (action for accounts); Commercial Courts Act summary timeline',
           checked_on: '2026-10-15'
         }
@@ -802,7 +802,7 @@ export const moneyPart2: CivilSubCategory[] = [
         evidence: {
           status: 'verified',
           primary_source_title: 'Negotiable Instruments Act, 1881 Sec 138 & CrPC/BNSS',
-          primary_source_url: 'https://www.indiacode.nic.in/',
+          primary_source_url: 'https://indiacode.gov.in/',
           pinpoint: 'NI Act 1881 Sec 138; CrPC Sec 243/BNSS Sec 265 (defense filing); Dashrathbhai ruling on jurisdiction',
           checked_on: '2026-10-15'
         }
@@ -826,7 +826,7 @@ export const moneyPart2: CivilSubCategory[] = [
         evidence: {
           status: 'verified',
           primary_source_title: 'Negotiable Instruments Act, 1881 Sec 138, 139, 143A',
-          primary_source_url: 'https://www.indiacode.nic.in/',
+          primary_source_url: 'https://indiacode.gov.in/',
           pinpoint: 'Sec 138-139 (liability); Sec 143A (20% interim); trial duration per NALSA data 2024',
           checked_on: '2026-10-15'
         }

@@ -1,0 +1,272 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ==========================================================================
+   LEXIPULSE TECHNOLOGIES - INTELLECTUAL PROPERTY CONTENT-LOCK STYLES
+   ========================================================================== */
+
+*:not(input):not(textarea) {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+
+input,
+textarea {
+  -webkit-user-select: text !important;
+  -moz-user-select: text !important;
+  -ms-user-select: text !important;
+  user-select: text !important;
+}
+
+img {
+  -webkit-user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
+  user-drag: none;
+  pointer-events: none;
+}
+
+button,
+a,
+input,
+select,
+textarea {
+  pointer-events: auto !important;
+}
+
+/* ==========================================================================
+   3D SPLASH SCREEN ANIMATIONS
+   ========================================================================== */
+
+@keyframes floatSlow {
+  0%, 100% { 
+    transform: translate3d(0, 0, 0) scale(1); 
+  }
+  25% { 
+    transform: translate3d(10px, -15px, 0) scale(1.02); 
+  }
+  50% { 
+    transform: translate3d(-10px, -8px, 0) scale(0.98); 
+  }
+  75% { 
+    transform: translate3d(-5px, 12px, 0) scale(1.01); 
+  }
+}
+
+@keyframes pulseGlow {
+  0%, 100% { 
+    box-shadow: 0 0 30px rgba(245, 158, 11, 0.6), 0 0 60px rgba(245, 158, 11, 0.4), 0 0 90px rgba(245, 158, 11, 0.2);
+    transform: scale3d(1, 1, 1);
+  }
+  50% { 
+    box-shadow: 0 0 50px rgba(245, 158, 11, 0.8), 0 0 100px rgba(245, 158, 11, 0.6), 0 0 140px rgba(245, 158, 11, 0.3);
+    transform: scale3d(1.02, 1.02, 1.02);
+  }
+}
+
+@keyframes spinSlow {
+  from { transform: rotateZ(0deg); }
+  to { transform: rotateZ(360deg); }
+}
+
+@keyframes pulseSlow {
+  0%, 100% { opacity: 0.3; transform: scale3d(1, 1, 1); }
+  50% { opacity: 0.5; transform: scale3d(1.1, 1.1, 1.1); }
+}
+
+@keyframes fadeInScale {
+  from { opacity: 0; transform: scale3d(0.92, 0.92, 0.92); }
+  to { opacity: 1; transform: scale3d(1, 1, 1); }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translate3d(0, 25px, 0); }
+  to { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+
+.animate-fade-in-scale {
+  animation: fadeInScale 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  opacity: 0;
+}
+
+.animate-fade-in-up.delay-100 { animation-delay: 100ms; }
+.animate-fade-in-up.delay-200 { animation-delay: 200ms; }
+.animate-fade-in-up.delay-300 { animation-delay: 300ms; }
+.animate-fade-in-up.delay-400 { animation-delay: 400ms; }
+.animate-fade-in-up.delay-500 { animation-delay: 500ms; }
+.animate-fade-in-up.delay-600 { animation-delay: 600ms; }
+.animate-fade-in-up.delay-700 { animation-delay: 700ms; }
+
+.animate-pulse-glow {
+  animation: pulseGlow 2.5s ease-in-out infinite;
+}
+
+.animate-spin-slow {
+  animation: spinSlow 25s linear infinite;
+}
+
+.animate-pulse-slow {
+  animation: pulseSlow 5s ease-in-out infinite;
+}
+
+.animate-float-slow {
+  animation: floatSlow 6s ease-in-out infinite;
+}
+
+@keyframes floatSlow {
+  0%, 100% { 
+    transform: translate3d(0, 0, 0) scale(1); 
+  }
+  25% { 
+    transform: translate3d(10px, -15px, 0) scale(1.02); 
+  }
+  50% { 
+    transform: translate3d(-10px, -8px, 0) scale(0.98); 
+  }
+  75% { 
+    transform: translate3d(-5px, 12px, 0) scale(1.01); 
+  }
+}
+
+@keyframes pulseGlow {
+  0%, 100% { 
+    box-shadow: 0 0 30px rgba(245, 158, 11, 0.6), 0 0 60px rgba(245, 158, 11, 0.4), 0 0 90px rgba(245, 158, 11, 0.2);
+    transform: scale3d(1, 1, 1);
+  }
+  50% { 
+    box-shadow: 0 0 50px rgba(245, 158, 11, 0.8), 0 0 100px rgba(245, 158, 11, 0.6), 0 0 140px rgba(245, 158, 11, 0.3);
+    transform: scale3d(1.02, 1.02, 1.02);
+  }
+}
+
+@keyframes spinSlow {
+  from { transform: rotateZ(0deg); }
+  to { transform: rotateZ(360deg); }
+}
+
+@keyframes pulseSlow {
+  0%, 100% { opacity: 0.3; transform: scale3d(1, 1, 1); }
+  50% { opacity: 0.5; transform: scale3d(1.1, 1.1, 1.1); }
+}
+
+@keyframes fadeInScale {
+  from { opacity: 0; transform: scale3d(0.92, 0.92, 0.92); }
+  to { opacity: 1; transform: scale3d(1, 1, 1); }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translate3d(0, 25px, 0); }
+  to { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+
+.animate-fade-in-scale {
+  animation: fadeInScale 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  opacity: 0;
+}
+
+.animate-fade-in-up.delay-100 { animation-delay: 100ms; }
+.animate-fade-in-up.delay-200 { animation-delay: 200ms; }
+.animate-fade-in-up.delay-300 { animation-delay: 300ms; }
+.animate-fade-in-up.delay-400 { animation-delay: 400ms; }
+.animate-fade-in-up.delay-500 { animation-delay: 500ms; }
+.animate-fade-in-up.delay-600 { animation-delay: 600ms; }
+.animate-fade-in-up.delay-700 { animation-delay: 700ms; }
+
+.animate-pulse-glow {
+  animation: pulseGlow 2.5s ease-in-out infinite;
+}
+
+.animate-spin-slow {
+  animation: spinSlow 25s linear infinite;
+}
+
+.animate-pulse-slow {
+  animation: pulseSlow 5s ease-in-out infinite;
+}
+
+.animate-float-slow {
+  animation: floatSlow 6s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-in-scale,
+  .animate-fade-in-up,
+  .animate-pulse-glow,
+  .animate-spin-slow,
+  .animate-pulse-slow,
+  .animate-float-slow {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+/* ==========================================================================
+   LEXIPULSE TECHNOLOGIES - INTELLECTUAL PROPERTY CONTENT-LOCK STYLES
+   ========================================================================== */
+
+*:not(input):not(textarea) {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+
+input,
+textarea {
+  -webkit-user-select: text !important;
+  -moz-user-select: text !important;
+  -ms-user-select: text !important;
+  user-select: text !important;
+}
+
+img {
+  -webkit-user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
+  user-drag: none;
+  pointer-events: none;
+}
+
+button,
+a,
+input,
+select,
+textarea {
+  pointer-events: auto !important;
+}
+
+/* ==========================================================================
+   3D TRANSFORM UTILITIES
+   ========================================================================== */
+
+.transform-gpu {
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  will-change: transform;
+}
+
+@keyframes spinSlow {
+  from { transform: rotateZ(0deg); }
+  to { transform: rotateZ(360deg); }
+}
+
+@keyframes pulseSlow {
+  0%, 100% { opacity: 0.3; transform: scale3d(1, 1, 1); }
+  50% { opacity: 0.5; transform: scale3d(1.1, 1.1, 1.1); }
+}

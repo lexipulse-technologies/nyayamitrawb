@@ -1,0 +1,39 @@
+NYAYAMITRA PHASE 4 - LAND CATEGORY BATCH 1 REVIEW
+Date: 2026-10-11
+Status: Implemented locally; awaiting founder acceptance. No production deploy performed.
+
+INTEGRITY
+- Pre-edit restore point: Backups/Phase4-Batch1-20261011-012749/
+- 18 workflow category TypeScript files present.
+- Exactly 300 workflow IDs remain, 300 unique; 50 per category.
+- Changed workflow records only: sub-land-01 through sub-land-10.
+- Other categories and IDs unchanged.
+
+TRACK-SPECIFIC FEE/TIMELINE METADATA
+- sub-land-01: rural processing time is variable; Kolkata simple KMC mutation processing fee Rs 100 is displayed only under kolkata_urban and qualified by transaction type/current demand.
+- sub-land-02: Kolkata KMC simple processing fee Rs 100 only under kolkata_urban; complex transaction classes and arrears may add/differ.
+- sub-land-03: rural WBLR conversion fee is variable/authority-calculated under rural_district; eligible Silpasathi 30-day item is expressly a service standard, not a statutory limitation or guarantee. Kolkata KMC building sanction charges are separately variable under kolkata_urban.
+- No unsupported rural/KMC fee is placed on the opposite branch.
+
+CONTENT SAFEGUARDS IN THE BATCH
+- Mutation/correction entries distinguish administrative record update from title adjudication.
+- Land conversion is distinct from building sanction; written approvals and other permits remain conditional.
+- Boundary/survey and waterbody workflows no longer guarantee survey outcomes, stop-work orders, prosecution, demolition, restoration, or court commissioner appointments.
+- Bargadar status/recording and eviction protections are conditional and do not guarantee a certificate.
+- Thika workflow distinguishes Controller status determination, required Controller NOC, and separate municipal sanction.
+- Section 8 pre-emption gives trigger distinctions for bargadar, notified co-sharer and adjoining raiyat; non-notified co-sharer limitation is expressly not presumed and requires urgent counsel review. Deposit of consideration plus 10% is described as statutory deposit, not penalty.
+- Fraudulent deed cancellation uses Specific Relief Act section 31 and Limitation Act Article 59; cancellation or interim relief is not promised.
+- English, Bengali and Hindi title/summary/roadmap fields remain present for all ten records.
+
+VALIDATION
+- npm run build: PASSED (Vite/Rolldown deprecation warnings remain; no compile errors).
+- Dev checks: rural/kolkata route toggle; rural Silpasathi and variable-fee disclosure; KMC variable building charge; KMC simple mutation Rs 100 displayed on Kolkata only; rural route excludes KMC steps and vice versa.
+- Browser console: 0 errors, 0 warnings.
+- Batch diff assertions and fee branch-placement checks: PASSED.
+- Vite dev server stopped.
+
+RESEARCH CAUTION
+- Exact fees and service standards must be rechecked against live authority requirements before any future production release. This local batch has not been pushed/deployed.
+
+NEXT GATE
+- Founder reviews and accepts this Batch 1 result. Do not start sub-land-11 through sub-land-20 until explicit Go Ahead.

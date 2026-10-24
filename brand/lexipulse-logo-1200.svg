@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1200" viewBox="0 0 1200 1200" role="img" aria-label="LEXIPULSE TECHNOLOGIES logo">
+  <defs>
+    <linearGradient id="badgeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#123961"/>
+      <stop offset="100%" stop-color="#0f2b48"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="1200" fill="#ffffff"/>
+
+  <!-- Badge -->
+  <rect x="330" y="140" width="540" height="540" rx="110" fill="url(#badgeGrad)"/>
+
+  <!-- Tricolor accent bars (top and bottom of badge) -->
+  <path d="M440 140 H760" stroke="#f59e0b" stroke-width="10" stroke-linecap="round"/>
+  <path d="M440 680 H760" stroke="#059669" stroke-width="10" stroke-linecap="round"/>
+
+  <!-- Emblem: justice scales (gold) + pulse waveform (emerald) -->
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <!-- central post -->
+    <path d="M600 250 V560" stroke="#f59e0b" stroke-width="15"/>
+    <!-- finial -->
+    <circle cx="600" cy="238" r="17" fill="#f59e0b" stroke="none"/>
+    <!-- beam -->
+    <path d="M462 322 H738" stroke="#f59e0b" stroke-width="15"/>
+    <!-- left chains and pan -->
+    <path d="M462 322 V392" stroke="#f59e0b" stroke-width="11"/>
+    <path d="M404 392 H520" stroke="#f59e0b" stroke-width="12"/>
+    <path d="M410 392 Q462 452 514 392" stroke="#f59e0b" stroke-width="12"/>
+    <!-- right chains and pan -->
+    <path d="M738 322 V392" stroke="#f59e0b" stroke-width="11"/>
+    <path d="M680 392 H796" stroke="#f59e0b" stroke-width="12"/>
+    <path d="M686 392 Q738 452 790 392" stroke="#f59e0b" stroke-width="12"/>
+    <!-- pulse waveform crossing the base -->
+    <path d="M392 596 H452 L494 520 L548 640 L606 552 L660 612 H808"
+          stroke="#10b981" stroke-width="17"/>
+  </g>
+
+  <!-- Base plinth -->
+  <rect x="520" y="560" width="160" height="16" rx="8" fill="#f59e0b"/>
+
+  <!-- Wordmark -->
+  <text x="600" y="900" text-anchor="middle"
+        font-family="'Segoe UI', Arial, Helvetica, sans-serif"
+        font-size="118" font-weight="800" letter-spacing="6" fill="#0f2b48">LEXIPULSE</text>
+
+  <text x="600" y="985" text-anchor="middle"
+        font-family="'Segoe UI', Arial, Helvetica, sans-serif"
+        font-size="46" font-weight="700" letter-spacing="20" fill="#059669">TECHNOLOGIES</text>
+
+  <!-- Amber accent underline -->
+  <rect x="430" y="1032" width="340" height="10" rx="5" fill="#f59e0b"/>
+</svg>

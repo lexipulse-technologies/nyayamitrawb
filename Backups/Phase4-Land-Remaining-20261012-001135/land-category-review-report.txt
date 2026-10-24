@@ -1,0 +1,48 @@
+NYAYAMITRA - LAND, RECORDS & MUTATION CATEGORY PHASE REPORT
+Phase: Remaining Land workflows 31-50
+Date: 2026-10-12
+Status: Local dev review ready. No production deployment performed.
+
+DATA INTEGRITY / RESTORE
+- Non-Git restore folder: Backups/Phase4-Land-Remaining-20261012-001135
+- Contains landPart1.ts, landPart2.ts, legal.ts, civilLegalData.ts.
+- All 18 category TypeScript files remain present.
+- Exactly 300 workflow IDs remain, unique, 50 per category.
+- Changed Land IDs for this phase: sub-land-31 through sub-land-50.
+- A pre-existing correction to sub-land-29 from the earlier Land batch differs from this phase baseline and was preserved, not reverted.
+
+VALIDATION
+- npm run build: PASSED. Existing Vite/Rolldown/esbuild deprecation warnings only.
+- Strict diff and locale validation: Passed for all 20 remaining Land workflows.
+- Dual_Path structures preserved for sub-land-24 and sub-land-25, with separate rural/Kolkata procedures, authorities and time metadata.
+- Browser check: selected sub-land-31 shows updated roadmap and timeframe wording.
+- Browser console: 0 errors, 0 warnings.
+- Vite dev server intentionally remains running at http://127.0.0.1:5173/ for founder review.
+- No production files pushed/deployed.
+
+IMPORTANT CONTENT NOTES
+- sub-land-31: no universal 45-day deadline or guaranteed mandamus.
+- sub-land-32: WBLR 49A scope distinguished from tenant/bargadar restoration.
+- sub-land-33: FRA eligibility, evidence categories, committees, appeal and 4-hectare individual cultivation cap described without a generic two-acre patta claim.
+- sub-land-34: BNSS 106 seizure / 107 proceeds attachment / 497 custody / 503 police procedure separated; section 107(3) not misrepresented as a general objection.
+- sub-land-35: no universal BPL/one-acre/Form 12 entitlement.
+- sub-land-36: tree-felling permit separated from co-owner timber/title dispute; no universal 30-day permit.
+- sub-land-37: Bhoodan Act vesting and section 7 appeal route identified; no automatic re-allotment.
+- sub-land-38: consolidation applies only to formally notified statutory schemes.
+- sub-land-39: emergency/police, injunction enforcement and writ routes distinguished; no 24/7 protection guarantee.
+- sub-land-40: portal display fault separated from signed ROR/KMC assessment correction.
+- sub-land-41: National Highways Act section 3G arbitration appointment/reference route and deadlines qualified; no guaranteed 4x award/interest.
+- sub-land-42: mining authority is primary enforcement route; NGT jurisdiction conditional.
+- sub-land-43: Public Premises Act section 4 show-cause and section 9 12-day appeal notice limits identified.
+- sub-land-44: SWID permit depends on current area/category/use; no blanket 5HP cutoff.
+- sub-land-45: WBLR record correction separated from a criminal forgery case.
+- sub-land-46: survey/demarcation distinguished from title partition; commissioner is discretionary.
+- sub-land-47: necessity easement requires actual necessity and no reasonable alternate access; no fixed road width.
+- sub-land-48: no general SC prior-permission/restoration remedy asserted without a specific statute.
+- sub-land-49: mesne profits evidence/inquiry described; no fixed 6% interest or full crop-value award.
+- sub-land-50: lease notice/cure, limitation, commercial forum threshold and remedies are contract-specific; no automatic DISCOM attachment or self-help eviction.
+
+REVIEW GATE
+- Founder to review the Land category in dev. This category phase is not closed until founder confirms satisfaction.
+- Do not start the next category until separate explicit Go Ahead.
+- Do not deploy to Vercel; deployment authorization was not granted.

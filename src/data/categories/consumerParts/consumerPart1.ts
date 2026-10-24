@@ -175,7 +175,7 @@ evidence: {
         evidence: {
           status: 'verified',
           primary_source_title: 'Consumer Protection Act, 2019',
-          primary_source_url: 'https://www.indiacode.nic.in/handle/123456789/15256',
+          primary_source_url: 'https://indiacode.gov.in/handle/123456789/15256',
           pinpoint: 'Sections 36 and 38; statutory procedural targets do not guarantee final case duration',
           checked_on: '2026-10-10'
         }
@@ -382,7 +382,7 @@ evidence: {
           hi: 'सीईएससी लिमिटेड वाणिज्यिक सेल / सेंट्रल जीआरओ'
         },
         portal_name: { en: 'CESC Official Grievance Portal', bn: 'সিইএসসি পোর্টাল', hi: 'सीईएससी पोर्टल' },
-        portal_url: 'https://cesc.co.in/',
+        portal_url: 'https://www.cesc.co.in/',
         steps: {
           en: [
             'Lodge billing dispute online via CESC portal or visit Regional Commercial Office.',

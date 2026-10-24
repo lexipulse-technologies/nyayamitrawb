@@ -1,0 +1,35 @@
+NYAYAMITRA PHASE 2 LOCAL VALIDATION REPORT
+Date: 2026-10-13
+Status: Local implementation ready for founder review. Not closed. No production SQL/deployment.
+
+DATA INTEGRITY
+- Phase 2 restore snapshots remain present under Backups/UX-IP-Phase2-Implementation-20261013-204405 and Backups/UX-IP-Phase2-Resume2-20261013-224733.
+- 18 workflow TypeScript files remain; 300 unique workflow IDs; 50 per category.
+- No workflow records were edited by Phase 2.
+
+IMPLEMENTATION
+- api/submit-intake.js is the production server-side intake path. It validates affirmative consent and input, obtains a public IPv4 only from platform-forwarded headers, stores NULL/unavailable when no validated public IPv4 exists, and never returns the IPv4 in the citizen response.
+- public.case_intake_ip_audit is a separate RLS-protected table. public.case_intakes is unchanged, preserving the existing get_submission_by_id RPC response shape.
+- create_case_intake_with_ipv4 transactional RPC is provided in supabase/referral-ip-audit.sql. It is service-role-only, validates required fields/consent and does not overwrite an existing IP on a repeated ticket key. The SQL migration has NOT been executed.
+- api/admin-intake-ip.js requires separate INTAKE_IP_ADMIN_TOKEN and returns IPv4 only to a caller presenting that secret. Token is not embedded in frontend code.
+- Local Vite mock is opt-in and uses in-memory records only. No Supabase requests or email sends are performed by the mock. TEST-NET 198.51.100.23 is labelled MOCK and rejected by production IP validation.
+- Admin IP field is hidden until authorized lookup, supports masking/token clearing, distinguishes historic no-IP records from unavailable IP, and gates CSV export until lookup is complete.
+- Active referral notification recipient is only GMAIL_USER. khantanweer85@gmail.com removed from active senders; legacy /api/notify rejects referral writes and retains admin-audit/Pro notification paths.
+- DPDP consent and privacy text describe IPv4, indefinite retention, admin/CSV/email use, unavailable-IP handling and grievance contact. Indefinite retention remains an acknowledged high privacy risk.
+
+TEST RESULTS
+- npm run build: PASS. Existing Vite/Rolldown deprecation warnings only.
+- Local UI submission: affirmative consent required; synthetic Track B referral submitted successfully; generated ticket WB-REF-360344.
+- Success slip displayed Local development mock: not stored in cloud; displayed TEST-NET mock IPv4 status and counsel directory; no secure-save error.
+- Local admin endpoint returned mock IPv4 only with local token; wrong token returned 401 in earlier endpoint check.
+- Citizen submission response did not contain clientIpv4.
+- Legacy /api/notify referral POST returns HTTP 410; no duplicate referral notification.
+- Mock log explicitly states no Supabase write or email sent.
+- Browser console: 0 errors, 0 warnings.
+- Vite dev server remains running at http://127.0.0.1:5173/ with local mock flags enabled.
+
+PRODUCTION PREREQUISITES (OWNER ACTION ONLY AFTER DEV ACCEPTANCE)
+- Review and manually run supabase/referral-ip-audit.sql in the correct Supabase project only after confirming case_intakes schema is compatible.
+- Set SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, GMAIL_USER, GMAIL_APP_PASSWORD and a randomly generated INTAKE_IP_ADMIN_TOKEN as Vercel server-only Production secrets. Do not use VITE_ prefixes for secrets.
+- Confirm Vercel production mock flags are false/absent.
+- Deploy manually only after separate founder approval. Assistant did not execute SQL or deploy.

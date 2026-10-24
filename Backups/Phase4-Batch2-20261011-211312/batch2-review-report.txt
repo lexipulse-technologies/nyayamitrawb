@@ -1,0 +1,29 @@
+NYAYAMITRA PHASE 4 - LAND CATEGORY BATCH 2 REVIEW
+Date: 2026-10-11
+Status: Locally completed; founder conditionally approved progression to Batch 3. No production deploy.
+
+INTEGRITY
+- Restore point contains landPart1.ts, legal.ts, civilLegalData.ts.
+- 18 category TS files; 300 unique workflow IDs; 50 per category.
+- Changed only sub-land-11 through sub-land-20.
+
+LEGAL AND CONTENT SAFEGUARDS
+- 11: WBLR Chapter IIA; section 14C permitted transfer modes distinguished from sections 14D/14E restoration; no automatic restoration/police aid promise.
+- 12: section 49(2) narrow statutory grounds, inquiry/hearing, section 49(4) appeal generally 30 days, no automatic re-allotment.
+- 13: Specific Relief Act enforceability/readiness and Limitation Act Article 54 trigger variants; no assumed mandatory deposit/notice or guaranteed decree.
+- 14: RFCTLARR section 64 trigger-sensitive reference timelines, project-law applicability, no guaranteed compensation enhancement/interest.
+- 15: district revenue record process distinguished from Kolkata KMC Form A-42/LOI/NOC; assessed demand/transaction-specific fee caveat.
+- 16: adverse possession fact-intensive; utility bills alone not title; private, co-owner, Government/property regime distinctions.
+- 17: Dual_Path rural public common vs Kolkata municipal/State parcel; branch-specific authorities, procedures and variable time info; no automatic eviction/PIL claim.
+- 18: easement by grant/necessity/prescription/custom distinguished; prescriptive periods and evidentiary conditions; no guaranteed injunction/commissioner.
+- 19: section 26 rectification limited to fraud/mutual mistake; no nominal fee or generic 15-day claim; deed correction separate from record update.
+- 20: POA agency revocation distinct from a completed conveyance; section 202 and notice to affected persons; no automatic cancellation/FIR outcome.
+- BN/HI/EN roadmaps present for the ten records.
+
+VALIDATION
+- npm run build: passed; existing Vite/Rolldown deprecation warnings only.
+- 300 ID/category-count check passed.
+- Browser console: no errors/warnings. sub-land-17 rural/Kolkata toggle checked; correct branch shown, opposite branch hidden.
+- Dev server stopped.
+
+Batch 2 remains available for founder review. Batch 3 is authorized by the founder's conditional Go Ahead; Batch 4 remains separately gated.

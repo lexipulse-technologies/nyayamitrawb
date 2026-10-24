@@ -69,7 +69,7 @@ const ALL_12_PORTALS = [
   { id: 'p-ejagriti', name: 'National Consumer e-Filing (e-Jagriti)', url: 'https://e-jagriti.gov.in/', scope: 'Consumer Court' },
   { id: 'p-ecourts', name: 'e-Courts Services (District Courts)', url: 'https://ecourts.gov.in/', scope: 'District Courts' },
   { id: 'p-cybercrime', name: 'National Cyber Crime Portal (1930)', url: 'https://cybercrime.gov.in/', scope: 'Cyber Fraud' },
-  { id: 'p-swid', name: 'State Water Investigation Directorate (SWID)', url: 'http://wbwridd.gov.in/', scope: 'Groundwater' }
+  { id: 'p-swid', name: 'State Water Investigation Directorate (SWID)', url: 'https://wbwridd.gov.in/', scope: 'Groundwater' }
 ];
 
 export const CommandPalette: React.FC<Props> = ({

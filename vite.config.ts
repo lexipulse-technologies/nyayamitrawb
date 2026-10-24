@@ -682,6 +682,53 @@ export default defineConfig(({ mode }) => {
               res.end();
               return;
             }
+
+            // GET: Fetch advocate connect requests for admin panel
+            if (req.method === 'GET') {
+              const supabaseUrl = (env.SUPABASE_URL || env.VITE_SUPABASE_URL || '').replace(/\/rest\/v1\/?$/, '');
+              const supabaseKey = (env.SUPABASE_SERVICE_ROLE_KEY || env.VITE_SUPABASE_ANON_KEY || '').trim();
+
+              if (!supabaseUrl || !supabaseKey) {
+                res.statusCode = 200;
+                res.setHeader('Content-Type', 'application/json');
+                res.end(JSON.stringify({ success: true, data: [], error: 'Supabase not configured' }));
+                return;
+              }
+
+              try {
+                const { createClient } = await import('@supabase/supabase-js');
+                const supabase = createClient(supabaseUrl, supabaseKey, {
+                  auth: { persistSession: false, autoRefreshToken: false }
+                });
+
+                const { data, error } = await supabase
+                  .from('advocate_connect_requests')
+                  .select('*')
+                  .order('created_at', { ascending: false })
+                  .limit(100);
+
+                if (error) {
+                  console.warn('[Dev Notify GET] Supabase error:', error.message);
+                  res.statusCode = 200;
+                  res.setHeader('Content-Type', 'application/json');
+                  res.end(JSON.stringify({ success: true, data: [], error: error.message }));
+                  return;
+                }
+
+                res.statusCode = 200;
+                res.setHeader('Content-Type', 'application/json');
+                res.end(JSON.stringify({ success: true, data: data || [] }));
+                return;
+              } catch (err: any) {
+                console.error('[Dev Notify GET] Error:', err.message);
+                res.statusCode = 200;
+                res.setHeader('Content-Type', 'application/json');
+                res.end(JSON.stringify({ success: true, data: [], error: err.message }));
+                return;
+              }
+            }
+
+            // POST: Existing notification logic
             if (req.method !== 'POST') {
               res.statusCode = 405;
               res.end(JSON.stringify({ error: 'Method not allowed' }));

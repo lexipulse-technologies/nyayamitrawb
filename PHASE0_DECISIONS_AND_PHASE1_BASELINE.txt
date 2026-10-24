@@ -1,0 +1,45 @@
+NYAYAMITRA WORKFLOW UPDATE - PHASE 0 DECISIONS
+Checkpoint: 2026-10-10
+
+USER-APPROVED DECISIONS
+1. Resolve disputed legal claims using current official primary sources and explicit counsel approval.
+2. If an amount/time range is not exact but can responsibly be supported, show a qualified estimate with source/date and a clear statement that the competent authority's current calculation/order controls. If no reliable source/range exists, omit it pending verification.
+3. Use all three research inputs: GPT counsel-review DOCX, Gemini counsel-review DOCX, and the earlier counsel-review research dossier.
+4. Complete and approve each phase independently. Do not proceed to a later phase without the founder's explicit Go Ahead.
+5. No production deploy/push without separate, explicit production consent.
+
+CURRENT DATA INTEGRITY CHECK
+- Workflow source files: 18 TypeScript files (six wrappers + twelve part files).
+- Current workflow inventory: 300 unique IDs, 50 per category (verified by blueprint generator before this checkpoint).
+- Restore point files from 20261010-230252 exist:
+  - src/data/categories.backup-20261010-230252 (18 TypeScript files)
+  - src/types/legal.ts.backup-20261010-230252
+  - src/data/civilLegalData.ts.backup-20261010-230252
+- Current src/types/legal.ts SHA-256 matches its restore copy.
+- No workflow records, contracts, or production code have been edited during Phase 0.
+
+RESEARCH INPUTS LOCATED
+- NyayaMitra 300 Workflows - Legal Research for Counsel Review_GPT.docx
+- NyayaMitra 300 Workflows - Legal Research for Counsel Review_Gemini.docx
+- NyayaMitra 300 Workflows - Legal Research for Counsel Review.docx
+- NyayaMitra Master Technical Dossier & Founder Handover Ver06.docx
+
+IMPLEMENTATION INVARIANTS
+- Preserve existing IDs, category count/order, search, deep links, locales, required-doc IDs, audio and route behavior unless a separately reviewed change is approved.
+- Treat territory_track='Dual_Path' records independently for rural_district and kolkata_urban: each can have different authorities, portals, fees, forms, steps and local court routes.
+- Keep territory_track='Universal' where the process genuinely has one route. Do not force artificial rural/Kolkata branches.
+- Where dual-path exists, the overall roadmap_steps must not conflict with either territorial path. Prefer common preliminary steps and explicitly routed branch steps only with UI presentation reviewed.
+- Fee presentation must separate court/application fee, service/process charge, stamp duty/registration, treasury payment, professional costs, and other expenses.
+- Every displayed amount/timeline requires: category (fixed/formula/qualified range), conditions, locality/track, official authority, exact source reference, checked date, and counsel approval.
+- Never state administrative estimates as mandatory limitation periods or guaranteed case outcomes.
+- Bengali and Hindi updates must preserve all English qualifiers, exceptions, dates, fee conditions and forum distinctions.
+
+PHASE 1 BASELINE PROPOSED SCOPE - NOT YET STARTED
+1. Create a fresh dated Phase 1 restore point of the entire src/data/categories folder, src/types/legal.ts, src/data/civilLegalData.ts, and relevant components that render workflow roads, dual tracks, fees, required documents, and translations.
+2. Generate an inventory CSV/JSON/DOCX baseline without modifying source: ID, title, category, part file/line, forum type, territory_track, has_dual_path, rural and Kolkata authority/portal/steps, overall steps by locale, timeframe by locale, relevant act, official URLs, required-doc IDs.
+3. Flag data quality only: missing locale content; Dual_Path missing one track; track conflicts (e.g. overall step implies a single forum); claims with exact fees or hard deadlines lacking source metadata; guaranteed outcomes; old or inconsistent statutes; potentially stale portal links.
+4. Run baseline npm run build and selected local user-flow tests: category browse, search, workflow deep links, locale toggle, rural/Kolkata segmented toggle, required-doc rendering, audio/TTS, offline/PWA dev behavior.
+5. Produce baseline report and stop for user review. No production source data edits within Phase 1.
+
+PHASE GATE
+Phase 1 starts only after founder reviews this baseline scope and gives explicit Go Ahead. Any later phase ends with a dev result report and waits for founder satisfaction and approval before continuing.

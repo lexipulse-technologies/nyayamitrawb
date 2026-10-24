@@ -1,123 +1,124 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:xhtml="http://www.w3.org/1999/xhtml">
-
-  <!-- 1. Canonical Homepage -->
+<?xml version="1.0" encoding="utf-8"?>
+<urlset xmlns:html="http://www.w3.org/1999/xhtml" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://nyayamitrawb.in/</loc>
-    <lastmod>2026-10-06</lastmod>
+    <lastmod>2026-10-21</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://nyayamitrawb.in/" />
-    <xhtml:link rel="alternate" hreflang="bn" href="https://nyayamitrawb.in/?lang=bn" />
-    <xhtml:link rel="alternate" hreflang="hi" href="https://nyayamitrawb.in/?lang=hi" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://nyayamitrawb.in/?lang=en" />
+    <html:link rel="alternate" hreflang="x-default" href="https://nyayamitrawb.in/"/>
+    <html:link rel="alternate" hreflang="bn" href="https://nyayamitrawb.in/?lang=bn"/>
+    <html:link rel="alternate" hreflang="hi" href="https://nyayamitrawb.in/?lang=hi"/>
+    <html:link rel="alternate" hreflang="en" href="https://nyayamitrawb.in/?lang=en"/>
   </url>
-
-  <!-- 2. Land, Records & Mutation (WBLR Act 1955 & Banglarbhumi) -->
   <url>
     <loc>https://nyayamitrawb.in/?cat=cat-land-mutation</loc>
-    <lastmod>2026-10-06</lastmod>
+    <lastmod>2026-10-21</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-    <xhtml:link rel="alternate" hreflang="bn" href="https://nyayamitrawb.in/?cat=cat-land-mutation&amp;lang=bn" />
-    <xhtml:link rel="alternate" hreflang="hi" href="https://nyayamitrawb.in/?cat=cat-land-mutation&amp;lang=hi" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://nyayamitrawb.in/?cat=cat-land-mutation&amp;lang=en" />
+    <priority>0.95</priority>
+    <html:link rel="alternate" hreflang="bn" href="https://nyayamitrawb.in/?cat=cat-land-mutation&amp;lang=bn"/>
+    <html:link rel="alternate" hreflang="hi" href="https://nyayamitrawb.in/?cat=cat-land-mutation&amp;lang=hi"/>
+    <html:link rel="alternate" hreflang="en" href="https://nyayamitrawb.in/?cat=cat-land-mutation&amp;lang=en"/>
   </url>
-
-  <!-- 3. Tenancy & Premises Disputes (WBPT Act 1997 & KMC) -->
   <url>
     <loc>https://nyayamitrawb.in/?cat=cat-tenancy-disputes</loc>
-    <lastmod>2026-10-06</lastmod>
+    <lastmod>2026-10-21</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-    <xhtml:link rel="alternate" hreflang="bn" href="https://nyayamitrawb.in/?cat=cat-tenancy-disputes&amp;lang=bn" />
-    <xhtml:link rel="alternate" hreflang="hi" href="https://nyayamitrawb.in/?cat=cat-tenancy-disputes&amp;lang=hi" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://nyayamitrawb.in/?cat=cat-tenancy-disputes&amp;lang=en" />
+    <priority>0.95</priority>
+    <html:link rel="alternate" hreflang="bn" href="https://nyayamitrawb.in/?cat=cat-tenancy-disputes&amp;lang=bn"/>
+    <html:link rel="alternate" hreflang="hi" href="https://nyayamitrawb.in/?cat=cat-tenancy-disputes&amp;lang=hi"/>
+    <html:link rel="alternate" hreflang="en" href="https://nyayamitrawb.in/?cat=cat-tenancy-disputes&amp;lang=en"/>
   </url>
-
-  <!-- 4. Consumer Rights & Real Estate (WBRERA & e-Jagriti) -->
   <url>
     <loc>https://nyayamitrawb.in/?cat=cat-consumer-rights</loc>
-    <lastmod>2026-10-06</lastmod>
+    <lastmod>2026-10-21</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-    <xhtml:link rel="alternate" hreflang="bn" href="https://nyayamitrawb.in/?cat=cat-consumer-rights&amp;lang=bn" />
-    <xhtml:link rel="alternate" hreflang="hi" href="https://nyayamitrawb.in/?cat=cat-consumer-rights&amp;lang=hi" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://nyayamitrawb.in/?cat=cat-consumer-rights&amp;lang=en" />
+    <priority>0.95</priority>
+    <html:link rel="alternate" hreflang="bn" href="https://nyayamitrawb.in/?cat=cat-consumer-rights&amp;lang=bn"/>
+    <html:link rel="alternate" hreflang="hi" href="https://nyayamitrawb.in/?cat=cat-consumer-rights&amp;lang=hi"/>
+    <html:link rel="alternate" hreflang="en" href="https://nyayamitrawb.in/?cat=cat-consumer-rights&amp;lang=en"/>
   </url>
-
-  <!-- 5. Partition & Succession (Order XX CPC & Inheritance) -->
   <url>
     <loc>https://nyayamitrawb.in/?cat=cat-partition-succession</loc>
-    <lastmod>2026-10-06</lastmod>
+    <lastmod>2026-10-21</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-    <xhtml:link rel="alternate" hreflang="bn" href="https://nyayamitrawb.in/?cat=cat-partition-succession&amp;lang=bn" />
-    <xhtml:link rel="alternate" hreflang="hi" href="https://nyayamitrawb.in/?cat=cat-partition-succession&amp;lang=hi" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://nyayamitrawb.in/?cat=cat-partition-succession&amp;lang=en" />
+    <priority>0.95</priority>
+    <html:link rel="alternate" hreflang="bn" href="https://nyayamitrawb.in/?cat=cat-partition-succession&amp;lang=bn"/>
+    <html:link rel="alternate" hreflang="hi" href="https://nyayamitrawb.in/?cat=cat-partition-succession&amp;lang=hi"/>
+    <html:link rel="alternate" hreflang="en" href="https://nyayamitrawb.in/?cat=cat-partition-succession&amp;lang=en"/>
   </url>
-
-  <!-- 6. Money Recovery & Cheque Bounce (Sec 138 NI Act & PSSA) -->
   <url>
     <loc>https://nyayamitrawb.in/?cat=cat-money-recovery</loc>
-    <lastmod>2026-10-06</lastmod>
+    <lastmod>2026-10-21</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-    <xhtml:link rel="alternate" hreflang="bn" href="https://nyayamitrawb.in/?cat=cat-money-recovery&amp;lang=bn" />
-    <xhtml:link rel="alternate" hreflang="hi" href="https://nyayamitrawb.in/?cat=cat-money-recovery&amp;lang=hi" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://nyayamitrawb.in/?cat=cat-money-recovery&amp;lang=en" />
+    <priority>0.95</priority>
+    <html:link rel="alternate" hreflang="bn" href="https://nyayamitrawb.in/?cat=cat-money-recovery&amp;lang=bn"/>
+    <html:link rel="alternate" hreflang="hi" href="https://nyayamitrawb.in/?cat=cat-money-recovery&amp;lang=hi"/>
+    <html:link rel="alternate" hreflang="en" href="https://nyayamitrawb.in/?cat=cat-money-recovery&amp;lang=en"/>
   </url>
-
-  <!-- 7. Family Disputes & Maintenance (Sec 144 BNSS & PWDVA) -->
   <url>
     <loc>https://nyayamitrawb.in/?cat=cat-family-maintenance</loc>
-    <lastmod>2026-10-06</lastmod>
+    <lastmod>2026-10-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+    <html:link rel="alternate" hreflang="bn" href="https://nyayamitrawb.in/?cat=cat-family-maintenance&amp;lang=bn"/>
+    <html:link rel="alternate" hreflang="hi" href="https://nyayamitrawb.in/?cat=cat-family-maintenance&amp;lang=hi"/>
+    <html:link rel="alternate" hreflang="en" href="https://nyayamitrawb.in/?cat=cat-family-maintenance&amp;lang=en"/>
+  </url>
+  <url>
+    <loc>https://nyayamitrawb.in/?cat=cat-land-revenue</loc>
+    <lastmod>2026-10-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
-    <xhtml:link rel="alternate" hreflang="bn" href="https://nyayamitrawb.in/?cat=cat-family-maintenance&amp;lang=bn" />
-    <xhtml:link rel="alternate" hreflang="hi" href="https://nyayamitrawb.in/?cat=cat-family-maintenance&amp;lang=hi" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://nyayamitrawb.in/?cat=cat-family-maintenance&amp;lang=en" />
+    <html:link rel="alternate" hreflang="bn" href="https://nyayamitrawb.in/?cat=cat-land-revenue&amp;lang=bn"/>
+    <html:link rel="alternate" hreflang="hi" href="https://nyayamitrawb.in/?cat=cat-land-revenue&amp;lang=hi"/>
+    <html:link rel="alternate" hreflang="en" href="https://nyayamitrawb.in/?cat=cat-land-revenue&amp;lang=en"/>
   </url>
-
-  <!-- 8. Pricing & Digital Delivery Disclosure (Razorpay Compliance) -->
+  <url>
+    <loc>https://nyayamitrawb.in/?cat=cat-municipal-panchayat</loc>
+    <lastmod>2026-10-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <html:link rel="alternate" hreflang="bn" href="https://nyayamitrawb.in/?cat=cat-municipal-panchayat&amp;lang=bn"/>
+    <html:link rel="alternate" hreflang="hi" href="https://nyayamitrawb.in/?cat=cat-municipal-panchayat&amp;lang=hi"/>
+    <html:link rel="alternate" hreflang="en" href="https://nyayamitrawb.in/?cat=cat-municipal-panchayat&amp;lang=en"/>
+  </url>
+  <url>
+    <loc>https://nyayamitrawb.in/?cat=cat-rti-grievance</loc>
+    <lastmod>2026-10-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <html:link rel="alternate" hreflang="bn" href="https://nyayamitrawb.in/?cat=cat-rti-grievance&amp;lang=bn"/>
+    <html:link rel="alternate" hreflang="hi" href="https://nyayamitrawb.in/?cat=cat-rti-grievance&amp;lang=hi"/>
+    <html:link rel="alternate" hreflang="en" href="https://nyayamitrawb.in/?cat=cat-rti-grievance&amp;lang=en"/>
+  </url>
   <url>
     <loc>https://nyayamitrawb.in/?policy=pricing</loc>
-    <lastmod>2026-10-06</lastmod>
+    <lastmod>2026-10-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
-
-  <!-- 9. Terms of Service & Advocates Act Safe-Harbor -->
   <url>
     <loc>https://nyayamitrawb.in/?policy=terms</loc>
-    <lastmod>2026-10-06</lastmod>
+    <lastmod>2026-10-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
-
-  <!-- 10. Privacy Policy & DPDP Act 2023 -->
   <url>
     <loc>https://nyayamitrawb.in/?policy=privacy</loc>
-    <lastmod>2026-10-06</lastmod>
+    <lastmod>2026-10-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
-
-  <!-- 11. Refund & Cancellation Policy -->
   <url>
     <loc>https://nyayamitrawb.in/?policy=refund</loc>
-    <lastmod>2026-10-06</lastmod>
+    <lastmod>2026-10-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
-
-  <!-- 12. Contact Us & Grievance Redressal -->
   <url>
     <loc>https://nyayamitrawb.in/?policy=contact</loc>
-    <lastmod>2026-10-06</lastmod>
+    <lastmod>2026-10-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
-
 </urlset>

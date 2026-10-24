@@ -137,7 +137,7 @@ export const tenancyPart1: CivilSubCategory[] = [
         evidence: {
           status: 'verified',
           primary_source_title: 'West Bengal Premises Tenancy Act, 1997 Sec 21 & 22',
-          primary_source_url: 'https://www.indiacode.nic.in/',
+          primary_source_url: 'https://indiacode.gov.in/',
           pinpoint: 'WBPT Act 1997 Sec 21(1) (21-day deposit); Sec 22 (deposit procedure); WB Rent Controller Rules',
           checked_on: '2026-10-15'
         }
@@ -161,7 +161,7 @@ export const tenancyPart1: CivilSubCategory[] = [
         evidence: {
           status: 'verified',
           primary_source_title: 'West Bengal Premises Tenancy Act, 1997 Sec 21 & 22',
-          primary_source_url: 'https://www.indiacode.nic.in/',
+          primary_source_url: 'https://indiacode.gov.in/',
           pinpoint: 'Sec 21(1) 21-day window; Rent Controller disposal practice 2024',
           checked_on: '2026-10-15'
         }
@@ -336,7 +336,7 @@ export const tenancyPart1: CivilSubCategory[] = [
         evidence: {
           status: 'verified',
           primary_source_title: 'West Bengal Premises Tenancy Act, 1997 Sec 6 & Civil Procedure Code',
-          primary_source_url: 'https://www.indiacode.nic.in/',
+          primary_source_url: 'https://indiacode.gov.in/',
           pinpoint: 'WBPT Sec 6(4) (1-month notice); Sec 6(5) (cure period); Presidency Small Causes Court disposal data 2024',
           checked_on: '2026-10-15'
         }
@@ -406,7 +406,7 @@ export const tenancyPart1: CivilSubCategory[] = [
         evidence: {
           status: 'verified',
           primary_source_title: 'West Bengal Premises Tenancy Act, 1997 Sec 27',
-          primary_source_url: 'https://www.indiacode.nic.in/',
+          primary_source_url: 'https://indiacode.gov.in/',
           pinpoint: 'WBPT Act 1997 Sec 27 (emergency restoration); Rent Controller Rules 1998',
           checked_on: '2026-10-15'
         }
@@ -430,7 +430,7 @@ export const tenancyPart1: CivilSubCategory[] = [
         evidence: {
           status: 'verified',
           primary_source_title: 'West Bengal Premises Tenancy Act, 1997 Sec 27',
-          primary_source_url: 'https://www.indiacode.nic.in/',
+          primary_source_url: 'https://indiacode.gov.in/',
           pinpoint: 'WBPT Act 1997 Sec 27(1) (emergency order); Sec 27(2) (fine up to double cost); Rent Controller emergency practice 2024',
           checked_on: '2026-10-15'
         }
@@ -577,7 +577,7 @@ export const tenancyPart1: CivilSubCategory[] = [
         evidence: {
           status: 'verified',
           primary_source_title: 'West Bengal Premises Tenancy Act, 1997 Sec 17 & 18',
-          primary_source_url: 'https://www.indiacode.nic.in/',
+          primary_source_url: 'https://indiacode.gov.in/',
           pinpoint: 'WBPT Act 1997 Sec 17 (fair rent); Sec 18 (revision); Rent Controller Rules valuation formula',
           checked_on: '2026-10-15'
         }
@@ -601,7 +601,7 @@ export const tenancyPart1: CivilSubCategory[] = [
         evidence: {
           status: 'verified',
           primary_source_title: 'West Bengal Premises Tenancy Act, 1997 Sec 17 & 18',
-          primary_source_url: 'https://www.indiacode.nic.in/',
+          primary_source_url: 'https://indiacode.gov.in/',
           pinpoint: 'WBPT Sec 17 (fair rent); Sec 18 (revision); PWD valuation timeline; Rent Controller disposal 2024',
           checked_on: '2026-10-15'
         }
