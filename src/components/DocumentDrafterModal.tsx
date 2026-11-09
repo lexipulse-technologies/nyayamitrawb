@@ -992,14 +992,27 @@ export const DocumentDrafterModal: React.FC<Props> = ({
             )}
 
             {step === 2 && (
-              <button
-                type="button"
-                onClick={handleOpenRazorpayCheckout}
-                className="px-4 py-2 bg-emerald-700 hover:bg-emerald-800 text-white rounded-xl font-bold text-xs transition flex items-center gap-2 mx-auto cursor-pointer active:scale-95"
-              >
-                <span>Proceed to Razorpay Live Checkout</span>
-                <ArrowRight className="w-3.5 h-3.5" />
-              </button>
+              <div className="space-y-3">
+                {/* NON-REFUNDABLE PAYMENT NOTICE */}
+                <div className="p-3 bg-red-50 border-2 border-red-300 rounded-xl space-y-1">
+                  <span className="font-bold text-red-950 flex items-center gap-1.5 text-[10.5px]">
+                    <AlertCircle className="w-3.5 h-3.5 text-red-700" />
+                    Important: Non-Refundable Payment
+                  </span>
+                  <p className="text-[10px] text-red-800 leading-relaxed">
+                    This payment of <strong>₹99</strong> for NyayaMitra Pro Statutory Notice Drafter is <strong>fully non-refundable</strong>. By proceeding, you acknowledge that no refund will be granted for any reason including dissatisfaction, change of mind, non-usage, or procedural delays. The only exception is a confirmed platform technical failure preventing document generation.
+                  </p>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={handleOpenRazorpayCheckout}
+                  className="px-4 py-2 bg-emerald-700 hover:bg-emerald-800 text-white rounded-xl font-bold text-xs transition flex items-center gap-2 mx-auto cursor-pointer active:scale-95"
+                >
+                  <span>Proceed to Razorpay Live Checkout</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </button>
+              </div>
             )}
 
             {step === 4 && (

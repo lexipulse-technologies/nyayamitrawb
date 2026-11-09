@@ -82,14 +82,14 @@ const TEXT = {
     hi: 'अनिवार्य वैधानिक अस्वीकरण (BCI नियम 36)'
   },
   successTitle: {
-    en: 'Thank You!',
-    bn: 'ধন্যবাদ!',
-    hi: 'धन्यवाद!'
+    en: 'Thank You for your Successful Payment!',
+    bn: 'সফল পেমেন্টের জন্য ধন্যবাদ!',
+    hi: 'सफल भुगतान के लिए धन्यवाद!'
   },
   successMessage: {
-    en: "Your request has been sent to Advocate Tanweer Ahmed Khan's office. You will receive a call within 24 working hours.",
-    bn: "আপনার অনুরোধ অ্যাডভোকেট তানবীর আহমেদ খানের অফিসে পাঠানো হয়েছে। আপনি ২৪ কর্মঘণ্টার মধ্যে একটি কল পাবেন।",
-    hi: "आपका अनुरोध अधिवक्ता तनवीर अहमद खान के कार्यालय को भेज दिया गया है। आपको 24 कार्य घंटों के भीतर एक कॉल प्राप्त होगी।"
+    en: "Your payment of ₹499 has been successfully processed. Your request has been sent to Advocate Tanweer Ahmed Khan's office. You will receive a call within 24 working hours.",
+    bn: "আপনার ₹499 পেমেন্ট সফলভাবে প্রক্রিয়া করা হয়েছে। আপনার অনুরোধ অ্যাডভোকেট তানবীর আহমেদ খানের অফিসে পাঠানো হয়েছে। আপনি ২৪ কর্মঘণ্টার মধ্যে একটি কল পাবেন।",
+    hi: "आपका ₹499 का भुगतान सफलतापूर्वक संसाधित किया गया है। आपका अनुरोध अधिवक्ता तनवीर अहमद खान के कार्यालय को भेज दिया गया है। आपको 24 कार्य घंटों के भीतर एक कॉल प्राप्त होगी।"
   },
   paymentIdLabel: {
     en: 'Razorpay Payment ID',
@@ -250,9 +250,27 @@ export const AdvocateConnectModal: React.FC<Props> = ({
               <p className="text-[11.5px] text-slate-600 max-w-md mx-auto leading-relaxed">
                 {t('successMessage')}
               </p>
-              <div className="inline-flex items-center gap-2 bg-white px-3 py-1.5 rounded-full border border-emerald-200 font-mono text-[11px] text-emerald-950 font-bold">
-                <span className="text-slate-500">{t('paymentIdLabel')}:</span>
-                <span>{paymentId}</span>
+              <div className="bg-white rounded-xl border border-emerald-200 p-4 text-left space-y-2 max-w-md mx-auto">
+                <div className="flex justify-between text-xs">
+                  <span className="text-slate-500">Citizen Name:</span>
+                  <span className="font-bold text-slate-900">{citizenName}</span>
+                </div>
+                <div className="flex justify-between text-xs">
+                  <span className="text-slate-500">Mobile:</span>
+                  <span className="font-mono text-slate-900">{mobile}</span>
+                </div>
+                <div className="flex justify-between text-xs">
+                  <span className="text-slate-500">Email:</span>
+                  <span className="text-slate-900">{citizenEmail}</span>
+                </div>
+                <div className="flex justify-between text-xs">
+                  <span className="text-slate-500">Workflow:</span>
+                  <span className="font-medium text-slate-900 truncate max-w-[200px]">{workflowTitle || '—'}</span>
+                </div>
+                <div className="flex justify-between text-xs border-t border-emerald-100 pt-2">
+                  <span className="text-slate-500">{t('paymentIdLabel')}:</span>
+                  <span className="font-mono font-bold text-emerald-950">{paymentId}</span>
+                </div>
               </div>
               <div>
                 <button
@@ -270,7 +288,7 @@ export const AdvocateConnectModal: React.FC<Props> = ({
               <div className="p-4 sm:p-5 bg-gradient-to-br from-slate-50 to-white border-2 border-amber-300 rounded-2xl space-y-3">
                 <div className="flex items-start gap-4 relative">
                   {photoFailed ? (
-                    <div className="w-20 h-20 rounded-2xl bg-[#0f2b48] text-amber-300 flex items-center justify-center font-black text-2xl shrink-0 shadow-sm">
+                    <div className="w-28 h-28 rounded-2xl bg-[#0f2b48] text-amber-300 flex items-center justify-center font-black text-2xl shrink-0 shadow-sm">
                       K
                     </div>
                   ) : (
@@ -278,7 +296,7 @@ export const AdvocateConnectModal: React.FC<Props> = ({
                       src={ADVOCATE_PROFILE.photoUrl}
                       alt={ADVOCATE_PROFILE.name}
                       onError={() => setPhotoFailed(true)}
-                      className="w-20 h-20 rounded-2xl object-cover border-2 border-amber-300 shrink-0 shadow-sm"
+                      className="w-28 h-28 rounded-2xl object-cover border-4 border-amber-400 shrink-0 shadow-[0_0_20px_rgba(245,158,11,0.8)] animate-pulse-glow"
                     />
                   )}
                   <div className="min-w-0 space-y-1.5">
@@ -293,17 +311,21 @@ export const AdvocateConnectModal: React.FC<Props> = ({
                       <span className="inline-flex items-center gap-1 bg-[#0f2b48] text-amber-300 font-mono font-bold text-[10px] px-2 py-0.5 rounded-full">
                         {ADVOCATE_PROFILE.barCouncilId}
                       </span>
-                      <span className="bg-slate-100 border border-slate-300 text-slate-700 font-semibold text-[10px] px-2 py-0.5 rounded-full">
-                        {ADVOCATE_PROFILE.enrollmentYear}
-                      </span>
                     </div>
                   </div>
-                  {/* Bar Council of India Logo - Top Right Prominent */}
-                  <img
-                    src="/assets/barcouncilofindialogo.png"
-                    alt="Bar Council of India"
-                    className="absolute top-3 right-3 w-20 h-20 object-contain opacity-95 drop-shadow-lg"
-                  />
+                  {/* Dual Logos: Advocate Logo (left) + Bar Council Logo (right) */}
+                  <div className="absolute top-3 right-3 flex items-center gap-2">
+                    <img
+                      src="/assets/advocate_logo.jpg"
+                      alt="Advocate Logo"
+                      className="w-16 h-16 rounded-lg object-contain shadow-md opacity-95"
+                    />
+                    <img
+                      src="/assets/barcouncilofindialogo.png"
+                      alt="Bar Council of India"
+                      className="w-20 h-20 object-contain opacity-95 drop-shadow-lg"
+                    />
+                  </div>
                 </div>
 
                 <div className="space-y-1">

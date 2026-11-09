@@ -319,11 +319,15 @@ export default defineConfig(({ mode }) => {
                 const parsed = JSON.parse(bodyStr || '{}');
                 const { referenceId, disputeTopic } = parsed;
 
+                // Amount whitelist (paise): ₹99 drafter default, ₹199 dispatch, ₹499 advocate connect
+                const ALLOWED_AMOUNTS: Record<number, boolean> = { 9900: true, 19900: true, 49900: true };
+                const amountPaise = ALLOWED_AMOUNTS[Number(parsed.amount)] ? Number(parsed.amount) : 9900;
+
                 const keyId = (env.RAZORPAY_KEY_ID || 'rzp_live_TkN8MUwR01Npxf').trim();
                 const keySecret = (env.RAZORPAY_KEY_SECRET || '7L6obgTM86jcU2egxsXEpvlL').trim();
 
                 const orderPayload = JSON.stringify({
-                  amount: 9900,
+                  amount: amountPaise,
                   currency: 'INR',
                   receipt: referenceId || `NM-DOC-${Date.now()}`,
                   notes: {
@@ -667,14 +671,6 @@ export default defineConfig(({ mode }) => {
             res.end(JSON.stringify({ success: true }));
           });
 
-          // 6. Local visitor counter response. Production is served by api/counter.js.
-          server.middlewares.use('/api/counter', (req, res) => {
-            res.statusCode = 200;
-            res.setHeader('Content-Type', 'application/json');
-            res.setHeader('Cache-Control', 'no-store');
-            res.end(JSON.stringify({ success: true, uniqueVisitors: 1420, local: true }));
-          });
-
           // Admin audit and paid-drafter notifications.
           server.middlewares.use('/api/notify', async (req, res) => {
             if (req.method === 'OPTIONS') {
@@ -708,7 +704,10 @@ export default defineConfig(({ mode }) => {
                   .limit(100);
 
                 if (error) {
-                  console.warn('[Dev Notify GET] Supabase error:', error.message);
+                  const isPermDenied = error.message.includes('permission denied') || error.code === '42501';
+                  if (!isPermDenied) {
+                    console.warn('[Dev Notify GET] Supabase error:', error.message);
+                  }
                   res.statusCode = 200;
                   res.setHeader('Content-Type', 'application/json');
                   res.end(JSON.stringify({ success: true, data: [], error: error.message }));

@@ -1,0 +1,923 @@
+import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
+import {
+  ChevronRight,
+  ChevronDown,
+  FileText,
+  FolderOpen,
+  Folder,
+  Search,
+  X,
+  Eye,
+  Download,
+  Copy,
+  Maximize2,
+  Minimize2,
+  Scale,
+  BookOpen,
+  Library,
+  Shield,
+  BookOpenText,
+  ChevronLeft,
+  Menu,
+  X as XIcon,
+  RotateCcw,
+  MapPin,
+  CheckCircle2,
+  BadgeCheck,
+  Landmark,
+  ShieldAlert,
+  Loader2,
+  User,
+  Phone,
+  Mail,
+  MessageSquare,
+  FileCheck
+} from 'lucide-react';
+import { ELIBRARY_CATALOG_DATA, ELIBRARY_PDFS } from '../data/elibraryCatalog';
+import type { Language } from '../types/legal';
+import type { ELibraryPDF, ELibraryCategory, ELibrarySubCategory } from '../data/elibraryCatalog';
+import * as pdfjsLib from 'pdfjs-dist';
+
+// Set up PDF.js worker
+pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.0.379/pdf.worker.min.mjs';
+
+interface ELibraryProPageProps {
+  isOpen: boolean;
+  onClose: () => void;
+  lang: Language;
+}
+
+const UI_TEXT = {
+  title: {
+    en: 'E-Library Pro',
+    bn: 'ই-লাইব্রেরি প্রো',
+    hi: 'ई-लाइब्रेरी प्रो'
+  },
+  subtitle: {
+    en: 'Comprehensive Digital Legal Library for West Bengal',
+    bn: 'পশ্চিমবঙ্গের জন্য ব্যাপক ডিজিটাল আইনি লাইব্রেরি',
+    hi: 'पश्चिम बंगाल के लिए व्यापक डिजिटल कानूनी पुस्तकालय'
+  },
+  description: {
+    en: 'E-Library Pro is NyayaMitra\'s comprehensive digital legal library, providing instant access to 85+ authenticated bare acts, regulations, and judicial precedents relevant to West Bengal civil law. Designed for citizens, lawyers, and legal researchers, this platform empowers you with instant, searchable access to the exact legal texts that govern your rights and obligations — from the new Criminal Law codes (BNS, BNSS, BSA 2023) to West Bengal-specific land, tenancy, and municipal laws. All documents are official bare acts sourced from India Code, presented in a secure, copy-protected viewer for seamless reading across all devices.',
+    bn: 'ই-লাইব্রেরি প্রো হলো ন্যায়মিত্রের ব্যাপক ডিজিটাল আইনি লাইব্রেরি, যা পশ্চিমবঙ্গের সিভিল আইনের প্রাসঙ্গিক ৮৫+ প্রামাণিক খাড়া আইন, রেগুলেশন এবং ন্যায়িক সিদ্ধান্তের সন্ধানে তাৎক্ষণিক, খোঁজাযোগ্য প্রবেশ প্রদান করে। নাগরিক, উকিল এবং আইনি গবেষকদের জন্য ডিজাইন করা, এই প্ল্যাটফর্ম আপনাকে আপনার অধিকার ও দায়বদ্ধতা নিয়ন্ত্রণে সেই সঠিক আইনি গ্রন্থগুলোর সাথে তাৎক্ষণিকভাবে সংযুক্ত করে — নতুন আপরাধিক আইন কোড (BNS, BNSS, BSA 2023) থেকে लेकर পশ্চিমবঙ্গ-নির্দিষ্ট ভূমি, ভাড়া ও পৌর কানুন পর্যন্ত। সকল ডকুমেন্টস ইন্ডিয়া কোড থেকে অফিসিয়াল বেয়ের এক্ট, যেগুলো সকল ডিভাইসে নিরাপদে পড়তে পারা যায়।',
+    hi: 'ई-लाइब्रेरी प्रो नयामित्र का व्यापक डिजिटल कानूनी पुस्तकालय है, जो पश्चिम बंगाल के सिविल कानून से संबंधित 85+ प्रामाणिक खाड़ा अधिनियमों, विनियमों और न्यायिक मिसालों तक तत्काल पहुंच प्रदान करता है। नागरिकों, वकीलों और कानूनी शोधकर्ताओं के लिए डिज़ाइन किया गया, यह प्लेटफॉर्म आपको अपने अधिकारों और दायित्वों को नियंत्रित करने वाले सटीक कानूनी ग्रंथों तक तत्काल, खोज योग्य पहुंच प्रदान करता है — नए आपराधिक कानून कोड (BNS, BNSS, BSA 2023) से लेकर पश्चिम बंगाल-विशिष्ट भूमि, किरायेदारी और नगरपालिका कानूनों तक। सभी दस्तावेज़ इंडिया कोड से आधिकारिक खाड़ा अधिनियम हैं, जो सभी उपकरणों पर निर्बाध पढ़ने के लिए एक सुरक्षित, कॉपी-संरक्षित व्यूअर में प्रस्तुत किए गए हैं।'
+  },
+  searchPlaceholder: {
+    en: 'Search acts, regulations, precedents...',
+    bn: 'আইন, নিয়ম, প্রেসিডেন্ট খুঁজুন...',
+    hi: 'अधिनियम, विनियम, मिसाल खोजें...'
+  },
+  treeMapTitle: {
+    en: 'Library Map',
+    bn: 'লাইব্রেরি ম্যাপ',
+    hi: 'लाइब्रेरी मैप'
+  },
+  categories: {
+    en: 'Categories',
+    bn: 'বিভাগ',
+    hi: 'श्रेणियाँ'
+  },
+  searchResults: {
+    en: 'Search Results',
+    bn: 'অনুসন্ধানের ফলাফল',
+    hi: 'खोज परिणाम'
+  },
+  noResults: {
+    en: 'No documents found',
+    bn: 'কোনো দস্তাবেজ পাওয়া যায়নি',
+    hi: 'कोई दस्तावेज़ नहीं मिला'
+  },
+  openReader: {
+    en: 'Open in Reader',
+    bn: 'রিডারে খুলুন',
+    hi: 'रीडर में खोलें'
+  },
+  closeReader: {
+    en: 'Close Reader',
+    bn: 'রিডার বন্ধ করুন',
+    hi: 'रीडर बंद करें'
+  },
+  zoomIn: { en: 'Zoom In', bn: 'জুম ইন', hi: 'ज़ूम इन' },
+  zoomOut: { en: 'Zoom Out', bn: 'জুম আউট', hi: 'ज़ूम আউট' },
+  fitWidth: { en: 'Fit Width', bn: 'প্রস্থ মোড', hi: 'चौड़ाई फिट' },
+  pageNav: { en: 'Page', bn: 'পৃষ্ঠা', hi: 'पृष्ठ' },
+  of: { en: 'of', bn: 'এর', hi: 'का' },
+  protectedNotice: {
+    en: '🔒 Secure Viewer — Download, copy & paste disabled for copyright protection',
+    bn: '🔒 সুরক্ষিত রিডার — কপিরাইট রক্ষার জন্য ডাউনলোড, কপি এবং পেস্ট নিষিদ্ধ',
+    hi: '🔒 सुरक्षित रीडर — कॉपीराइट सुरक्षा के लिए डाउनलोड, कॉपी और पेस्ट अक्षम'
+  },
+  categoriesLabel: {
+    en: 'Categories',
+    bn: 'বিভাগসমূহ',
+    hi: 'श्रेणियाँ'
+  },
+  payButton: {
+    en: 'Pay & Connect Legal Counsel',
+    bn: 'পরিশোধ করুন ও আইনি পরামর্শদাতা থেকে যুক্ত হন',
+    hi: 'भुगतान करें और कानूनी सलाहकार से जुड़ें'
+  }
+} as const;
+
+type ELCategory = 'central_acts' | 'west_bengal_acts' | 'regulations_rules' | 'judicial_precedents';
+
+interface ELibraryProPageProps {
+  isOpen: boolean;
+  onClose: () => void;
+  lang: Language;
+}
+
+const categoryConfig = {
+  central_acts: {
+    icon: '⚖️',
+    label: { en: 'Central Acts', bn: 'কেন্দ্রীয় আইন', hi: 'केंद्रीय अधिनियम' },
+    subcategories: [
+      { id: 'criminal_law_2023', label: { en: 'Criminal Law (2023)', bn: 'আপরাধিক আইন (২০২৩)', hi: 'आपराधिक कानून (2023)' }, icon: '🛡️' },
+      { id: 'civil_procedure', label: { en: 'Civil Procedure', bn: 'সিভিল প্রোসিডিউর', hi: 'सिविल प्रक्रिया' }, icon: '📋' },
+      { id: 'property_law', label: { en: 'Property Law', bn: 'সম্পত্তি আইন', hi: 'संपत्ति कानून' }, icon: '🏠' },
+      { id: 'family_law', label: { en: 'Family Law', bn: 'পারিবারিক আইন', hi: 'पारिवारिक कानून' }, icon: '👨‍👩‍👧‍👦' },
+      { id: 'commercial_law', label: { en: 'Commercial Law', bn: 'বাণিজ্যিক আইন', hi: 'वाणिज्यिक कानून' }, icon: '💼' },
+      { id: 'consumer_protection', label: { en: 'Consumer Protection', bn: 'উপভোক্তা সুরক্ষা', hi: 'उपभोक्ता संरक्षण' }, icon: '🛡️' }
+    ]
+  },
+  west_bengal_acts: {
+    icon: '🏛️',
+    label: { en: 'West Bengal Acts', bn: 'পশ্চিমবঙ্গ আইন', hi: 'पश्चिम बंगाल अधिनियम' },
+    subcategories: [
+      { id: 'land_reforms', label: { en: 'Land Reforms', bn: 'ভূমি সংস্কার', hi: 'भूमि सुधार' }, icon: '🌾' },
+      { id: 'tenancy', label: { en: 'Tenancy', bn: 'ভাড়াটে দারি', hi: 'किरायेदारी' }, icon: '🔑' },
+      { id: 'municipal', label: { en: 'Municipal', bn: 'নগরপালিকা', hi: 'नगरपालिका' }, icon: '🏛️' },
+      { id: 'special_acts', label: { en: 'Special Acts', bn: 'বিশেষ আইন', hi: 'विशेष अधिनियम' }, icon: '⭐' }
+    ]
+  },
+  regulations_rules: {
+    icon: '📜',
+    label: { en: 'Regulations & Rules', bn: 'নিয়ম ও বিধি', hi: 'विनियम और नियम' },
+    subcategories: [
+      { id: 'cpc_orders', label: { en: 'CPC Orders', bn: 'সিপিসি অর্ডার', hi: 'सीपीसी आदेश' }, icon: '📋' },
+      { id: 'rbi_guidelines', label: { en: 'RBI Guidelines', bn: 'আরবিআই নির্দেশিকা', hi: 'आरबीआई दिशानिर्देश' }, icon: '🏦' },
+      { id: 'irdai_regulations', label: { en: 'IRDAI Regulations', bn: 'আইআরডিএআই রেগুলেশন', hi: 'आईआरडीएआई विनियम' }, icon: '🛡️' },
+      { id: 'sebi_regulations', label: { en: 'SEBI Regulations', bn: 'সেবি রেগুলেশন', hi: 'सेबी विनियम' }, icon: '📈' },
+      { id: 'ccpa_guidelines', label: { en: 'CCPA Guidelines', bn: 'সিপিএ গাইডলাইন', hi: 'सीसीपीए दिशानिर्देश' }, icon: '🛡️' }
+    ]
+  },
+  judicial_precedents: {
+    icon: '⚖️',
+    label: { en: 'Judicial Precedents', bn: 'ন্যায়িক প্রেসিডেন্ট', hi: 'न्यायिक मिसाल' },
+    subcategories: [
+      { id: 'supreme_court', label: { en: 'Supreme Court', bn: 'সুপ্রিম কোর্ট', hi: 'सुप्रीम कोर्ट' }, icon: '⚖️' },
+      { id: 'high_courts', label: { en: 'High Courts', bn: 'হাই কোর্ট', hi: 'हाई कोर्ट' }, icon: '⚖️' },
+      { id: 'tribunals', label: { en: 'Tribunals', bn: 'ট্রিবিউনাল', hi: 'ट्रिब्यूनাল' }, icon: '🏛️' }
+    ]
+  }
+} as const;
+
+const categoryOrder = [
+  { key: 'central_acts', label: { en: 'Central Acts', bn: 'কেন্দ্রীয় আইন', hi: 'केंद्रीय अधिनियम' }, icon: '⚖️' },
+  { key: 'west_bengal_acts', label: { en: 'West Bengal Acts', bn: 'পশ্চিমবঙ্গ আইন', hi: 'पश्चिम बंगाल अधिनियम' }, icon: '🏛️' },
+  { key: 'regulations_rules', label: { en: 'Regulations & Rules', bn: 'নিয়ম ও বিধি', hi: 'विनियम और नियम' }, icon: '📜' },
+  { key: 'judicial_precedents', label: { en: 'Judicial Precedents', bn: 'ন্যায়িক প্রেসিডেন্ট', hi: 'न्यायिक मिसाल' }, icon: '⚖️' }
+] as const;
+
+const ELibraryProPage: React.FC<ELibraryProPageProps> = ({ isOpen, onClose, lang }) => {
+  if (!isOpen) return null;
+
+  const [searchQuery, setSearchQuery] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [selectedSubcategory, setSelectedSubcategory] = useState<string | null>(null);
+  const [searchResults, setSearchResults] = useState<typeof import('../data/elibraryCatalog').ELIBRARY_PDFS>([]);
+  const [showReader, setShowReader] = useState(false);
+  const [currentPdf, setCurrentPdf] = useState<typeof import('../data/elibraryCatalog').ELibraryPDF | null>(null);
+  const [pdfPage, setPdfPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(0);
+  const [scale, setScale] = useState(1.0);
+  const [pdfError, setPdfError] = useState<string | null>(null);
+
+  const t = UI_TEXT;
+  const catConfig = categoryConfig;
+
+  // Filter PDFs by search query
+  const filteredPDFs = useMemo(() => {
+    if (!searchQuery.trim()) return [];
+    const query = searchQuery.toLowerCase();
+    return ELIBRARY_PDFS.filter(pdf =>
+      pdf.displayName.en.toLowerCase().includes(query) ||
+      pdf.displayName.bn.toLowerCase().includes(query) ||
+      pdf.displayName.hi.toLowerCase().includes(query) ||
+      pdf.keywords.en.some(k => k.toLowerCase().includes(query)) ||
+      pdf.keywords.bn.some(k => k.toLowerCase().includes(query)) ||
+      pdf.keywords.hi.some(k => k.toLowerCase().includes(query))
+    );
+  }, [searchQuery]);
+
+  // Get PDFs for selected category/subcategory
+  const categoryPDFs = useMemo(() => {
+    if (!selectedCategory) return [];
+    let filtered = ELIBRARY_PDFS.filter(p => p.category === selectedCategory);
+    if (selectedSubcategory) {
+      filtered = filtered.filter(p => p.subCategory === selectedSubcategory);
+    }
+    return filtered;
+  }, [selectedCategory, selectedSubcategory]);
+
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(e.target.value);
+    setSelectedCategory(null);
+    setSelectedSubcategory(null);
+  };
+
+  const selectCategory = (categoryKey: string) => {
+    if (selectedCategory === categoryKey) {
+      setSelectedCategory(null);
+      setSelectedSubcategory(null);
+    } else {
+      setSelectedCategory(categoryKey);
+      setSelectedSubcategory(null);
+    }
+  };
+
+  const selectSubcategory = (subcategoryKey: string) => {
+    setSelectedSubcategory(subcategoryKey);
+  };
+
+  const openPdf = (pdf: typeof import('../data/elibraryCatalog').ELibraryPDF) => {
+    setCurrentPdf(pdf);
+    setPdfPage(1);
+    setScale(1.0);
+    setPdfError(null);
+    setShowReader(true);
+  };
+
+  const closeReader = () => {
+    setShowReader(false);
+    setCurrentPdf(null);
+    setPdfPage(1);
+    setScale(1.0);
+    setPdfError(null);
+  };
+
+  const nextPage = () => setPdfPage(p => Math.min(p + 1, totalPages));
+  const prevPage = () => setPdfPage(p => Math.max(p - 1, 1));
+  const zoomIn = () => setScale(s => Math.min(s + 0.25, 3));
+  const zoomOut = () => setScale(s => Math.max(s - 0.25, 0.5));
+  const resetZoom = () => setScale(1);
+  const fitWidth = () => setScale(s => Math.min(s * 1.2, 3));
+
+  // Handle keyboard navigation in reader
+  useEffect(() => {
+    if (!showReader) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      switch (e.key) {
+        case 'ArrowRight': nextPage(); break;
+        case 'ArrowLeft': prevPage(); break;
+        case 'Escape': closeReader(); break;
+        case '+': case '=': e.preventDefault(); zoomIn(); break;
+        case '-': e.preventDefault(); zoomOut(); break;
+        case '0': e.preventDefault(); resetZoom(); break;
+        case 'f': e.preventDefault(); fitWidth(); break;
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [showReader]);
+
+  // Render PDF page using PDF.js
+  const pdfCanvasRef = useRef<HTMLCanvasElement>(null);
+  const [totalPages, setTotalPages] = useState(0);
+  const [pdfError, setPdfError] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!showReader || !currentPdf) return;
+
+    const canvas = pdfCanvasRef.current;
+    if (!canvas) return;
+
+    const context = canvas.getContext('2d');
+    if (!context) return;
+
+    pdfjsLib.getDocument(currentPdf.publicUrl).promise.then(pdf => {
+      setTotalPages(pdf.numPages);
+      renderPage(pdf, 1);
+    }).catch(err => {
+      console.error('PDF load error:', err);
+      setPdfError('Failed to load PDF. Please try again.');
+    });
+
+    function renderPage(pdf: any, pageNum: number) {
+      pdf.getPage(pageNum).then((page: any) => {
+        const viewport = page.getViewport({ scale: 1.0 });
+        const canvas = pdfCanvasRef.current;
+        if (!canvas) return;
+
+        const context = canvas.getContext('2d');
+        if (!context) return;
+
+        canvas.width = viewport.width;
+        canvas.height = viewport.height;
+
+        const renderContext = {
+          canvasContext: context,
+          viewport: viewport
+        };
+
+        page.render(renderContext).promise.then(() => {
+          // Page rendered successfully
+        });
+      });
+    }
+  }, [currentPdf, pdfPage, scale, showReader]);
+
+  // Prevent context menu, copy, paste, shortcuts in reader
+  useEffect(() => {
+    if (!showReader) return;
+
+    const handleContextMenu = (e: MouseEvent) => e.preventDefault();
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.ctrlKey && (e.key === 'c' || e.key === 'C' || e.key === 's' || e.key === 'S' || e.key === 'p' || e.key === 'P')) {
+        e.preventDefault();
+      }
+    };
+    const handleCopy = (e: ClipboardEvent) => e.preventDefault();
+    const handlePaste = (e: ClipboardEvent) => e.preventDefault();
+
+    document.addEventListener('contextmenu', handleContextMenu);
+    document.addEventListener('keydown', handleKeyDown);
+    document.addEventListener('copy', handleCopy);
+    document.addEventListener('paste', handlePaste);
+
+    return () => {
+      document.removeEventListener('contextmenu', handleContextMenu);
+      document.removeEventListener('keydown', handleKeyDown);
+      document.removeEventListener('copy', handleCopy);
+      document.removeEventListener('paste', handlePaste);
+    };
+  }, [showReader]);
+
+  // Trap focus in reader modal
+  const readerOverlayRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (showReader && readerOverlayRef.current) {
+      readerOverlayRef.current.focus();
+    }
+  }, [showReader]);
+
+  const getCategoryLabel = (key: string) => {
+    const cat = categoryOrder.find(c => c.key === key);
+    return cat ? cat.label[lang] : '';
+  };
+
+  const getSubcategoryLabel = (categoryKey: string, subKey: string) => {
+    const catConfig = categoryConfig[key as keyof typeof categoryConfig];
+    const sub = catConfig?.subcategories.find(s => s.id === subKey);
+    return sub ? sub.label[lang] : '';
+  };
+
+  const handleBackdropClick = (e: React.MouseEvent) => {
+    if (e.target === e.currentTarget) {
+      onClose();
+    }
+  };
+
+  const handleReaderBackdropClick = (e: React.MouseEvent) => {
+    if (e.target === e.currentTarget) {
+      closeReader();
+    }
+  };
+
+  const handleBackdropClick = (e: React.MouseEvent) => {
+    if (e.target === e.currentTarget) {
+      onClose();
+    }
+  };
+
+  const handleReaderBackdropClick = (e: React.MouseEvent) => {
+    if (e.target === e.currentTarget) {
+      closeReader();
+    }
+  };
+
+  return (
+    <>
+      {/* Main E-Library Pro Modal */}
+      <div
+        className="fixed inset-0 z-[100] bg-slate-950/95 backdrop-blur-md flex items-center justify-center p-2 sm:p-4 overflow-y-auto"
+        onClick={handleBackdropClick}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="elibrary-title"
+      >
+        <div
+          className="w-full max-w-7xl h-[95vh] max-h-[95vh] bg-white rounded-2xl shadow-2xl flex flex-col overflow-hidden"
+          onClick={e => e.stopPropagation()}
+        >
+          {/* Header */}
+          <header className="bg-[#0f2b48] text-white p-4 sm:p-5 flex items-center justify-between border-b border-[#1b3e63] shrink-0">
+            <div className="flex items-center gap-3 min-w-0">
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-amber-400 to-emerald-400 flex items-center justify-center text-slate-950 font-bold shrink-0">
+                <Library className="w-6 h-6" />
+              </div>
+              <div className="min-w-0">
+                <h2 id="elibrary-title" className="font-extrabold text-sm sm:text-base truncate">{UI_TEXT.title[lang]}</h2>
+                <p className="text-[11px] text-slate-300 truncate mt-0.5">{UI_TEXT.subtitle[lang]}</p>
+              </div>
+            </div>
+            <button
+              onClick={onClose}
+              className="p-2 rounded-lg text-slate-300 hover:text-white hover:bg-white/10 transition cursor-pointer shrink-0"
+              aria-label="Close"
+            >
+              <XIcon className="w-5 h-5" />
+            </button>
+          </header>
+
+          {/* Body */}
+          <div className="flex flex-1 overflow-hidden">
+            {/* Sidebar - Tree Navigation */}
+            <aside className="w-72 sm:w-80 bg-slate-50 border-r border-slate-200 flex flex-col shrink-0 hidden lg:block">
+              <div className="p-3 sm:p-4 border-b border-slate-200 shrink-0">
+                <h3 className="font-extrabold text-sm text-slate-900">{UI_TEXT.categories[lang]}</h3>
+              </div>
+              <div className="flex-1 overflow-y-auto p-2 sm:p-3 space-y-1">
+                {categoryOrder.map((cat) => {
+                  const catConfig = categoryConfig[cat.key as keyof typeof categoryConfig];
+                  const isSelected = selectedCategory === cat.key;
+                  const hasSubcategory = selectedCategory === cat.key && selectedSubcategory;
+
+                  return (
+                    <div key={cat.key} className="group">
+                      <button
+                        onClick={() => selectCategory(cat.key)}
+                        className={`w-full text-left px-3 py-2 rounded-lg text-xs font-semibold transition-all ${
+                          isSelected
+                            ? 'bg-[#0f2b48] text-white shadow-sm'
+                            : 'text-slate-700 hover:bg-slate-100 hover:text-[#0f2b48]'
+                        }`}
+                      >
+                        <div className="flex items-center gap-2">
+                          <span className="text-base">{cat.icon}</span>
+                          <span className="font-semibold truncate">{cat.label[lang]}</span>
+                        </div>
+                      </button>
+
+                      {isSelected && catConfig.subcategories.length > 0 && (
+                        <div className="mt-1 ml-2 space-y-0.5 animate-in fade-in">
+                          {catConfig.subcategories.map((sub) => {
+                            const isSubSelected = selectedSubcategory === sub.id;
+                            return (
+                              <button
+                                key={sub.id}
+                                onClick={() => selectSubcategory(sub.id)}
+                                className={`w-full text-left px-3 py-1.5 rounded-lg text-[11px] font-medium transition ${
+                                  isSubSelected
+                                    ? 'bg-[#0f2b48]/10 text-[#0f2b48] font-semibold'
+                                    : 'text-slate-600 hover:bg-slate-100 hover:text-[#0f2b48]'
+                                }`}
+                              >
+                                <div className="flex items-center gap-1.5">
+                                  <span className="text-sm">{sub.icon}</span>
+                                  <span className="font-medium truncate">{sub.label[lang]}</span>
+                                </div>
+                              </button>
+                            );
+                          })}
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            </aside>
+
+            {/* Main Content */}
+            <main className="flex-1 flex flex-col overflow-hidden min-w-0">
+              {/* Mobile Category Selector */}
+              <div className="lg:hidden p-3 border-b border-slate-200 bg-slate-50">
+                <select
+                  value={selectedCategory || ''}
+                  onChange={(e) => selectCategory(e.target.value || null)}
+                  className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-sm font-medium text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#0f2b48]"
+                >
+                  <option value="">{UI_TEXT.categories[lang]}</option>
+                  {categoryOrder.map(cat => (
+                    <option key={cat.key} value={cat.key}>{cat.icon} {cat.label[lang]}</option>
+                  ))}
+                </select>
+                {selectedCategory && (
+                  <select
+                    value={selectedSubcategory || ''}
+                    onChange={(e) => selectSubcategory(e.target.value || null)}
+                    className="w-full mt-2 px-3 py-2 bg-white border border-slate-300 rounded-lg text-sm font-medium text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#0f2b48]"
+                  >
+                    <option value="">{getCategoryConfig(selectedCategory).subcategories[0]?.label[lang] || 'All'}</option>
+                    {getCategoryConfig(selectedCategory).subcategories.map(sub => (
+                      <option key={sub.id} value={sub.id}>{sub.icon} {sub.label[lang]}</option>
+                    ))}
+                  </select>
+                )}
+              </div>
+
+              {/* Search Bar */}
+              <div className="p-3 sm:p-4 border-b border-slate-200 shrink-0">
+                <div className="relative">
+                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 w-5 h-5" />
+                  <input
+                    type="text"
+                    placeholder={UI_TEXT.searchPlaceholder[lang]}
+                    value={searchQuery}
+                    onChange={handleSearch}
+                    className="w-full pl-10 pr-4 py-2.5 bg-white border border-slate-300 rounded-xl text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#0f2b48] focus:border-transparent"
+                  />
+                </div>
+              </div>
+
+              {/* Content Area */}
+              <div className="flex-1 overflow-y-auto p-3 sm:p-4">
+                {/* Description Section */}
+                {!searchQuery && !selectedCategory && (
+                  <div className="mb-6 p-4 sm:p-6 bg-gradient-to-br from-amber-50 to-emerald-50 border border-amber-200 rounded-2xl">
+                    <h3 className="font-extrabold text-lg text-slate-900 mb-2 flex items-center gap-2">
+                      <BookOpenText className="w-5 h-5 text-amber-600" />
+                      <span className="text-base sm:text-lg">Welcome to E-Library Pro</span>
+                    </h3>
+                    <p className="text-sm sm:text-base text-slate-700 leading-relaxed max-w-3xl">
+                      {UI_TEXT.description[lang]}
+                    </p>
+                    <div className="mt-4 flex flex-wrap gap-2">
+                      <span className="px-2.5 py-1 bg-white/80 border border-amber-200 rounded-full text-[11px] font-semibold text-amber-900">85+ Acts</span>
+                      <span className="px-2.5 py-1 bg-white/80 border border-amber-200 rounded-full text-[11px] font-semibold text-amber-900">4 Categories</span>
+                      <span className="px-2.5 py-1 bg-white/80 border border-amber-200 rounded-full text-[11px] font-semibold text-amber-900">Trilingual (EN/BN/HI)</span>
+                      <span className="px-2.5 py-1 bg-white/80 border border-amber-200 rounded-full text-[11px] font-semibold text-amber-900">Secure Viewer</span>
+                    </div>
+                  </div>
+                )}
+
+                {/* Tree Map Diagram */}
+                {selectedCategory && !selectedSubcategory && !searchQuery && (
+                  <div className="mb-6 p-4 sm:p-6 bg-slate-50 border border-slate-200 rounded-2xl">
+                    <h3 className="font-extrabold text-sm sm:text-base text-slate-900 mb-3 flex items-center gap-2">
+                      <MapPin className="w-4 h-4 text-emerald-600" />
+                      {UI_TEXT.treeMapTitle[lang]}
+                    </h3>
+                    <div className="space-y-2 text-sm">
+                      <div className="font-bold text-slate-900">STATUTES</div>
+                      <div className="ml-4 space-y-1 border-l border-slate-300 pl-3">
+                        {categoryOrder.map(cat => (
+                          <div key={cat.key} className="text-slate-700">
+                            <span className="font-semibold">{cat.icon} {cat.label[lang]}</span>
+                            {categoryConfig[cat.key].subcategories.map(sub => (
+                              <div key={sub.id} className="ml-4 text-slate-600">
+                                {sub.icon} {sub.label[lang]}
+                              </div>
+                            ))}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* Search Results */}
+                {searchQuery && (
+                  <div className="mb-4">
+                    <h3 className="font-extrabold text-sm text-slate-900 mb-2 flex items-center gap-2">
+                      <Search className="w-4 h-4 text-emerald-600" />
+                      {UI_TEXT.searchResults[lang]} ({searchResults.length})
+                    </h3>
+                  </div>
+                )}
+
+                {/* Document Grid */}
+                <div className={searchQuery ? 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3' : 'space-y-3'}>
+                  {(searchQuery ? searchResults : categoryPDFs).map((pdf) => (
+                    <article
+                      key={pdf.id}
+                      className="group bg-white border border-slate-200 rounded-xl p-3 sm:p-4 hover:border-emerald-300 hover:shadow-lg transition-all duration-200 cursor-pointer"
+                      onClick={() => openPdf(pdf)}
+                    >
+                      <div className="flex items-start gap-3">
+                        <div className="w-12 h-16 sm:w-14 sm:h-20 flex-shrink-0 bg-gradient-to-br from-slate-100 to-slate-200 rounded-lg border border-slate-200 flex items-center justify-center relative overflow-hidden">
+                          <FileText className="w-6 h-6 sm:w-7 sm:h-7 text-slate-400" />
+                          <div className="absolute inset-0 bg-gradient-to-t from-amber-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <h4 className="font-bold text-sm sm:text-base text-slate-900 truncate group-hover:text-emerald-700 transition-colors">
+                            {pdf.displayName[lang]}
+                          </h4>
+                          <div className="flex items-center gap-2 mt-1.5 text-[10px] text-slate-500">
+                            <span className="font-mono text-slate-400">{pdf.fileName}</span>
+                            <span className="px-1.5 py-0.5 bg-slate-100 text-slate-600 rounded text-[11px] font-medium">
+                              {pdf.sizeKB} KB
+                            </span>
+                            {pdf.actYear && (
+                              <span className="px-1.5 py-0.5 bg-amber-100 text-amber-900 rounded text-[9px] font-bold">
+                                {pdf.actYear}
+                              </span>
+                            )}
+                          </div>
+                          <p className="mt-2 text-[11px] text-slate-600 line-clamp-2">
+                            {pdf.keywords[lang].slice(0, 3).join(', ') || 'Legal document'}
+                          </p>
+                        </div>
+                      </div>
+                      <div className="absolute bottom-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                        <button
+                          onClick={(e) => { e.stopPropagation(); openPdf(pdf); }}
+                          className="p-1.5 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors"
+                          aria-label={UI_TEXT.openReader[lang]}
+                        >
+                          <Eye className="w-4 h-4" />
+                        </button>
+                      </div>
+                    </article>
+                  ))}
+                  {(searchQuery ? searchResults : categoryPDFs).length === 0 && (
+                    <div className="text-center py-12 text-slate-500">
+                      <FileText className="w-12 h-12 mx-auto text-slate-300 mb-3" />
+                      <p className="text-slate-500">{UI_TEXT.noResults[lang]}</p>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </main>
+          </div>
+        </div>
+      </div>
+
+      {/* PDF Reader Modal */}
+      {showReader && currentPdf && (
+        <div
+          ref={readerOverlayRef}
+          className="fixed inset-0 z-[110] bg-slate-950/98 backdrop-blur-md flex items-center justify-center p-2 overflow-hidden"
+          onClick={handleReaderBackdropClick}
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="reader-title"
+          tabIndex={-1}
+        >
+          <div
+            className="w-full max-w-5xl h-[95vh] max-h-[95vh] bg-white rounded-xl shadow-2xl flex flex-col overflow-hidden"
+            onClick={e => e.stopPropagation()}
+          >
+            {/* HEADER */}
+            <div className="bg-[#0f2b48] text-white p-4 sm:p-5 flex items-center justify-between border-b border-[#1b3e63] shrink-0">
+              <div className="flex items-center gap-2.5 min-w-0">
+                <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-amber-400 to-emerald-400 flex items-center justify-center text-slate-950 font-bold shrink-0">
+                  <Scale className="w-5 h-5" />
+                </div>
+                <div className="min-w-0">
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <h3 className="font-extrabold text-sm sm:text-base truncate">{t('title')}</h3>
+                    <span className="bg-amber-400 text-slate-950 font-black text-[10px] px-2 py-0.5 rounded-full uppercase tracking-wider shrink-0">
+                      ₹{ADVOCATE_PROFILE.fee}
+                    </span>
+                  </div>
+                  <p className="text-[11px] text-slate-300 truncate mt-0.5">{t('subtitle')}</p>
+                </div>
+              </div>
+              <button
+                onClick={onClose}
+                className="p-1.5 rounded-lg text-slate-300 hover:text-white hover:bg-white/10 transition cursor-pointer shrink-0"
+                title="Close"
+              >
+                <XIcon className="w-5 h-5" />
+              </button>
+            </div>
+
+            {/* BODY */}
+            <div className="p-4 sm:p-6 overflow-y-auto flex-1 space-y-5 text-xs text-slate-800">
+              {step === 'success' ? (
+                <div className="p-6 bg-emerald-50 border border-emerald-300 rounded-2xl text-center space-y-3">
+                  <CheckCircle2 className="w-12 h-12 text-emerald-600 mx-auto" />
+                  <h4 className="font-extrabold text-lg text-slate-900">{t('successTitle')}</h4>
+                  <p className="text-[11.5px] text-slate-600 max-w-md mx-auto leading-relaxed">
+                    {t('successMessage')}
+                  </p>
+                  <div className="inline-flex items-center gap-2 bg-white px-3 py-1.5 rounded-full border border-emerald-200 font-mono text-[11px] text-emerald-950 font-bold">
+                    <span className="text-slate-500">{t('paymentIdLabel')}:</span>
+                    <span>{paymentId}</span>
+                  </div>
+                  <div>
+                    <button
+                      type="button"
+                      onClick={onClose}
+                      className="px-5 py-2.5 bg-[#0f2b48] hover:bg-[#1a3d60] text-white rounded-xl font-bold text-xs transition cursor-pointer shadow-sm"
+                    >
+                      {t('close')}
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                <>
+                  {/* SECTION 1: ADVOCATE BIO CARD */}
+                    <div className="flex items-start gap-4">
+                      {photoFailed ? (
+                        <div className="w-20 h-20 rounded-2xl bg-[#0f2b48] text-amber-300 flex items-center justify-center font-black text-2xl shrink-0 shadow-sm">
+                          K
+                        </div>
+                      ) : (
+                        <img
+                          src={ADVOCATE_PROFILE.photoUrl}
+                          alt={ADVOCATE_PROFILE.name}
+                          onError={() => setPhotoFailed(true)}
+                          className="w-20 h-20 rounded-2xl object-cover border-2 border-amber-300 shrink-0 shadow-sm"
+                        />
+                      )}
+                      <div className="min-w-0 space-y-1.5">
+                        <h4 className="font-black text-base text-slate-900">{ADVOCATE_PROFILE.name}</h4>
+                        <div className="flex items-center gap-2 flex-wrap">
+                          {hasRealEnrollment && (
+                            <span className="inline-flex items-center gap-1 bg-emerald-100 border border-emerald-300 text-emerald-800 font-bold text-[10px] px-2 py-0.5 rounded-full">
+                              <BadgeCheck className="w-3 h-3" />
+                              {t('verified')}
+                            </span>
+                          )}
+                          <span className="inline-flex items-center gap-1 bg-[#0f2b48] text-amber-300 font-mono font-bold text-[10px] px-2 py-0.5 rounded-full">
+                            {ADVOCATE_PROFILE.barCouncilId}
+                          </span>
+                          <span className="bg-slate-100 border border-slate-300 text-slate-700 font-semibold text-[10px] px-2 py-0.5 rounded-full">
+                            {ADVOCATE_PROFILE.enrollmentYear}
+                          </span>
+                        </div>
+                        <p className="text-[10.5px] text-slate-500">
+                          {ADVOCATE_PROFILE.email}
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="space-y-1">
+                      <span className="font-extrabold text-[10px] text-slate-900 uppercase tracking-wider flex items-center gap-1.5">
+                        <Landmark className="w-3.5 h-3.5 text-emerald-600" />
+                        Courts of Practice
+                      </span>
+                      <div className="flex flex-wrap gap-1.5">
+                        {ADVOCATE_PROFILE.courts.map((court) => (
+                          <span key={court} className="bg-emerald-50 border border-emerald-200 text-emerald-900 font-semibold text-[10px] px-2 py-0.5 rounded-full">
+                            {court}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div className="space-y-1">
+                      <span className="font-extrabold text-[10px] text-slate-900 uppercase tracking-wider">
+                        Specializations
+                      </span>
+                      <div className="flex flex-wrap gap-1.5">
+                        {ADVOCATE_PROFILE.specializations.map((spec) => (
+                          <span key={spec} className="bg-blue-50 border border-blue-200 text-blue-900 font-semibold text-[10px] px-2 py-0.5 rounded-full">
+                            {spec}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div className="space-y-1">
+                      <span className="font-extrabold text-[10px] text-slate-900 uppercase tracking-wider">
+                        Achievements
+                      </span>
+                      <ul className="list-disc pl-4 space-y-0.5 text-[10.5px] text-slate-600">
+                        {ADVOCATE_PROFILE.achievements.map((item) => (
+                          <li key={item}>{item}</li>
+                        ))}
+                      </ul>
+                    </div>
+
+                    <div className="flex items-center justify-between gap-2 pt-1">
+                      <div className="flex flex-wrap gap-1.5">
+                        {ADVOCATE_PROFILE.languages.map((language) => (
+                          <span key={language} className="bg-slate-100 border border-slate-200 text-slate-600 font-medium text-[10px] px-2 py-0.5 rounded-full">
+                            {language}
+                          </span>
+                        ))}
+                      </div>
+                      <span className="bg-amber-100 border border-amber-300 text-amber-900 font-extrabold text-[10px] px-2.5 py-1 rounded-full whitespace-nowrap">
+                        {t('consultationFee')}: ₹{ADVOCATE_PROFILE.fee}
+                      </span>
+                    </div>
+</div>
+    
+                  <div className="p-3.5 bg-red-50 border-2 border-red-300 rounded-xl space-y-1">
+                    <span className="font-extrabold text-[10.5px] text-red-900 uppercase tracking-wider flex items-center gap-1.5">
+                      <ShieldAlert className="w-3.5 h-3.5 text-red-600" />
+                      {t('disclaimerTitle')}
+                    </span>
+                    <p className="text-[10.5px] text-red-950 leading-relaxed font-medium">
+                      {STATUTORY_DISCLAIMER}
+                    </p>
+                  </div>
+
+                  {/* SECTION 3: CITIZEN CONTACT FORM */}
+                  <div className="p-4 bg-slate-50/80 border border-slate-200 rounded-xl space-y-3">
+                    <span className="font-extrabold text-[11px] text-slate-900 uppercase tracking-wider">
+                      {t('formHeading')}
+                    </span>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      <div>
+                        <label className="block text-[10.5px] font-semibold text-slate-700 mb-0.5">
+                          <User className="w-3 h-3 inline mr-1 text-emerald-600" />
+                          {t('nameLabel')}
+                        </label>
+                        <input
+                          type="text"
+                          value={citizenName}
+                          onChange={(e) => setCitizenName(e.target.value)}
+                          placeholder="e.g. Sunil Kumar Mondal"
+                          className={inputClass(citizenName.trim().length > 0, citizenName.length > 0)}
+                        />
+                      </div>
+
+                      <div>
+                        <label className="block text-[10.5px] font-semibold text-slate-700 mb-0.5">
+                          <Phone className="w-3 h-3 inline mr-1 text-emerald-600" />
+                          {t('mobileLabel')}
+                        </label>
+                        <input
+                          type="tel"
+                          inputMode="numeric"
+                          maxLength={10}
+                          value={mobile}
+                          onChange={(e) => setMobile(e.target.value.replace(/\D/g, '').slice(0, 10))}
+                          placeholder="e.g. 9830012345"
+                          className={inputClass(MOBILE_REGEX.test(mobile.trim()), mobile.length > 0)}
+                        />
+                      </div>
+                    </div>
+
+                    <div>
+                      <label className="block text-[10.5px] font-semibold text-slate-700 mb-0.5">
+                        <Mail className="w-3 h-3 inline mr-1 text-emerald-600" />
+                        {t('emailLabel')}
+                      </label>
+                      <input
+                        type="email"
+                        value={citizenEmail}
+                        onChange={(e) => setCitizenEmail(e.target.value)}
+                        placeholder="e.g. citizen@example.com"
+                        className={inputClass(EMAIL_REGEX.test(citizenEmail.trim()), citizenEmail.length > 0)}
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-[10.5px] font-semibold text-slate-700 mb-0.5">
+                        <MessageSquare className="w-3 h-3 inline mr-1 text-emerald-600" />
+                        {t('commentLabel')}
+                      </label>
+                      <textarea
+                        rows={3}
+                        value={comment}
+                        onChange={(e) => setComment(e.target.value)}
+                        placeholder="e.g. Tenant not returning deposit despite repeated reminders…"
+                        className="w-full px-3 py-2 text-xs rounded-lg border border-slate-300 focus:outline-none focus:ring-1 focus:ring-[#0f2b48] transition"
+                      />
+                    </div>
+                  </div>
+
+                  {error && (
+                    <div className="p-3 bg-red-50 border-2 border-red-500 text-red-800 rounded-xl font-bold flex items-center gap-2 text-xs">
+                      <ShieldAlert className="w-4 h-4 text-red-600 shrink-0" />
+                      <span>{error}</span>
+                    </div>
+                  )}
+
+                  {/* SECTION 4: PAY */}
+                  <button
+                    type="button"
+                    onClick={handlePay}
+                    disabled={!isFormValid || processing}
+                    className={`w-full flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl font-extrabold text-xs sm:text-sm shadow-lg transition active:scale-[0.99] ${
+                      isFormValid && !processing
+                        ? 'bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 shadow-[0_0_20px_rgba(245,158,11,0.7)] animate-pulse-glow cursor-pointer'
+                        : 'bg-slate-200 text-slate-400 cursor-not-allowed'
+                    }`}
+                  >
+                    {processing ? (
+                      <>
+                        <Loader2 className="w-4 h-4 animate-spin" />
+                        <span>{t('processing')}</span>
+                      </>
+                    ) : (
+                      <>
+                        <Scale className="w-4 h-4" />
+                        <span>{t('payButton')}</span>
+                      </>
+                    )}
+                  </button>
+</div>
+            </div>
+          </div>
+        </div>
+</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+</div>
+  );
+};
+
+export default ELibraryProPage;

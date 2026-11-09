@@ -6,7 +6,7 @@ import { OfflineBanner } from './components/OfflineBanner';
 import { AdminAdvisorPanel } from './components/AdminAdvisorPanel';
 import { AdminLoginModal } from './components/AdminLoginModal';
 import { AudioRoadmapPlayer } from './components/AudioRoadmapPlayer';
-import { VisitorCounter } from './components/VisitorCounter';
+
 import { CommandPalette } from './components/CommandPalette';
 import { CaseReadinessGauge } from './components/CaseReadinessGauge';
 import { DocumentDrafterModal } from './components/DocumentDrafterModal';
@@ -14,6 +14,7 @@ import { SplashScreen } from './components/SplashScreen';
 import { LegalPolicyModal } from './components/LegalPolicyModal';
 import type { PolicyTab } from './components/LegalPolicyModal';
 import { AdvocateConnectModal } from './components/AdvocateConnectModal';
+import { ELibraryProPage } from './pages/ELibraryProPage';
 import { getWorkflowTemplateMapping, getTemplateById } from './utils/proDocumentTemplates';
 import { searchLegalTopics } from './utils/triageEngine';
 import { isAdminSessionActive, clearAdminSession } from './utils/authUtils';
@@ -42,7 +43,8 @@ import {
   Compass,
   Check,
   Command,
-  Zap
+  Zap,
+  Download
 } from 'lucide-react';
 
 const HIGH_VALUE_PORTALS = [
@@ -330,6 +332,88 @@ export function App() {
   // Advocate Connect (₹499) Modal State
   const [showAdvocateModal, setShowAdvocateModal] = useState<boolean>(false);
 
+  // E-Library Pro — standalone route (/elibrarypro) + legacy ?view=elibrarypro deep link
+  const [showELibraryPro, setShowELibraryPro] = useState<boolean>(false);
+  const [routePath, setRoutePath] = useState<string>(() =>
+    typeof window !== 'undefined' ? window.location.pathname.replace(/\/+$/, '') || '/' : '/'
+  );
+
+  const isLibraryView = routePath === '/elibrarypro' || showELibraryPro;
+
+  // SECURITY: Disable all browser Back/Forward navigation (buttons, Alt+Arrow
+  // keys, mobile swipe gestures). A guard history entry is pushed on load and
+  // re-pushed on every popstate, re-anchoring the history stack to the last
+  // INTENTIONAL in-app URL, so the user always stays on the current in-page
+  // view with a consistent address bar. In-page navigation (E-Library entry,
+  // Back to Main Page, Back to Library) uses explicit pushState calls and
+  // keeps working.
+  const appUrlRef = useRef<string>('');
+
+  useEffect(() => {
+    if (!appUrlRef.current) {
+      appUrlRef.current = window.location.href;
+    }
+
+    const pushGuardEntry = () => {
+      try {
+        window.history.pushState(
+          { nmNavGuard: Date.now() },
+          '',
+          appUrlRef.current || window.location.href
+        );
+      } catch {
+        /* history unavailable — nothing to trap */
+      }
+    };
+    pushGuardEntry();
+
+    const handleNavTrap = () => {
+      // Neutralize Back/Forward: restore the intentional app URL
+      pushGuardEntry();
+    };
+
+    const blockNavKeys = (e: KeyboardEvent) => {
+      if (e.altKey && (e.key === 'ArrowLeft' || e.key === 'ArrowRight')) {
+        e.preventDefault();
+      }
+    };
+
+    window.addEventListener('popstate', handleNavTrap);
+    window.addEventListener('keydown', blockNavKeys);
+    return () => {
+      window.removeEventListener('popstate', handleNavTrap);
+      window.removeEventListener('keydown', blockNavKeys);
+    };
+  }, []);
+
+  // Instant client-side navigation to E-Library Pro (no page reload, zero latency)
+  const openLibraryView = useCallback(() => {
+    try {
+      window.history.pushState({ view: 'elibrarypro' }, '', '/elibrarypro');
+      appUrlRef.current = new URL('/elibrarypro', window.location.origin).href;
+    } catch {
+      /* history unavailable — state switch still works */
+    }
+    setRoutePath('/elibrarypro');
+    setShowELibraryPro(true);
+    window.scrollTo({ top: 0, behavior: 'auto' });
+  }, []);
+
+  // Return to the main landing page from E-Library Pro
+  const exitLibraryView = useCallback(() => {
+    try {
+      const isOnLibraryPath = window.location.pathname.replace(/\/+$/, '') === '/elibrarypro';
+      const target = isOnLibraryPath ? '/' : window.location.pathname + window.location.search;
+      window.history.pushState({}, '', target);
+      appUrlRef.current = new URL(target, window.location.origin).href;
+    } catch {
+      /* noop */
+    }
+    setRoutePath('/');
+    setShowELibraryPro(false);
+    window.scrollTo({ top: 0, behavior: 'auto' });
+  }, []);
+
   // Splash Screen State (Session-based)
   const [showSplash, setShowSplash] = useState<boolean>(true);
 
@@ -389,6 +473,11 @@ export function App() {
         setActiveTerritoryTrack(trackParam);
       }
 
+      const viewParam = params.get('view');
+      if (viewParam === 'elibrarypro') {
+        setShowELibraryPro(true);
+      }
+
       if (catParam) {
         const foundCat = CIVIL_CATEGORIES.find(c => c.id === catParam);
         if (foundCat && foundCat.subcategories && foundCat.subcategories.length > 0) {
@@ -413,6 +502,7 @@ export function App() {
   // Safe URL Sync
   useEffect(() => {
     try {
+      if (isLibraryView) return;
       if (!isAdminView && selectedCat?.id && selectedSubCat?.id) {
         const searchParams = new URLSearchParams(window.location.search);
         searchParams.set('cat', selectedCat.id);
@@ -427,14 +517,19 @@ export function App() {
 
         const newRelativePath = `${window.location.pathname}?${searchParams.toString()}`;
         window.history.replaceState(null, '', newRelativePath);
+        appUrlRef.current = new URL(newRelativePath, window.location.origin).href;
       }
     } catch (err) {
       console.warn('History replace notice:', err);
     }
-  }, [selectedCat?.id, selectedSubCat?.id, lang, isAdminView, activeTerritoryTrack]);
+  }, [selectedCat?.id, selectedSubCat?.id, lang, isAdminView, activeTerritoryTrack, isLibraryView]);
 
   // Dynamic SEO Engine Integration
   useEffect(() => {
+    if (isLibraryView) {
+      document.title = 'E-Library Pro | NyayaMitra — Genuine Digital Statute Library';
+      return;
+    }
     if (!isAdminView) {
       applySeoHeaders({
         subcategory: selectedSubCat,
@@ -443,7 +538,7 @@ export function App() {
     } else {
       document.title = 'NyayaMitra Admin Control Room';
     }
-  }, [selectedSubCat, lang, isAdminView]);
+  }, [selectedSubCat, lang, isAdminView, isLibraryView]);
 
   const searchResults = useMemo(() => {
     return searchLegalTopics(searchQuery, lang);
@@ -456,23 +551,8 @@ export function App() {
   const totalDocs = selectedSubCat?.required_documents?.length || 0;
   const markedDocs = selectedSubCat?.required_documents?.filter(d => checkedDocs[d.id])?.length || 0;
 
-  // History Guard
-  useEffect(() => {
-    if (isAdminView) {
-      window.history.pushState({ view: 'admin_panel' }, '', window.location.href);
-    }
-
-    const handlePopState = () => {
-      if (isAdminView) {
-        clearAdminSession();
-        setIsAdminView(false);
-        window.history.pushState(null, '', window.location.href);
-      }
-    };
-
-    window.addEventListener('popstate', handlePopState);
-    return () => window.removeEventListener('popstate', handlePopState);
-  }, [isAdminView]);
+  // Admin session exit is handled exclusively by the "Public View" button.
+  // Browser Back/Forward is globally disabled by the navigation trap above.
 
   const handlePublicViewClick = async () => {
     await clearAdminSession();
@@ -574,6 +654,10 @@ export function App() {
           <div
             className="flex items-center gap-2.5 sm:gap-3 cursor-pointer min-w-0 group select-none flex-1"
             onClick={() => {
+              if (isLibraryView) {
+                exitLibraryView();
+                return;
+              }
               if (isAdminView) handlePublicViewClick();
               setSearchQuery('');
             }}
@@ -593,7 +677,7 @@ export function App() {
                 <h1 className="font-black text-xs sm:text-base md:text-lg lg:text-xl tracking-tight leading-none text-transparent bg-clip-text bg-gradient-to-r from-white via-amber-200 to-amber-400 drop-shadow-[0_2px_10px_rgba(245,158,11,0.5)] select-none whitespace-nowrap shrink-0">
                   {UI_TEXT.portalTitle[lang]}
                 </h1>
-                <span className="hidden sm:inline-block px-2 py-0.5 rounded text-[10px] font-bold bg-amber-400/15 text-amber-300 border border-amber-400/40 shadow-[0_0_12px_rgba(245,158,11,0.25)] whitespace-nowrap">
+                <span className="hidden lg:inline-block shrink-0 px-2 py-0.5 rounded text-[10px] font-bold bg-amber-400/15 text-amber-300 border border-amber-400/40 shadow-[0_0_12px_rgba(245,158,11,0.25)] whitespace-nowrap">
                   300 Civil Workflows &bull; 23 Districts
                 </span>
               </div>
@@ -603,9 +687,51 @@ export function App() {
             </div>
           </div>
 
-          {/* Action Controls */}
+          {/* Action Controls — all header actions grouped on the right so the
+              NyayaMitra title area (badge + subtitle) is never truncated */}
           <div className="flex items-center gap-1.5 sm:gap-2 shrink-0 flex-nowrap">
-            
+
+            {/* E-LIBRARY PRO ENTRY — grouped in the right-side action cluster */}
+            <button
+              type="button"
+              onClick={openLibraryView}
+              className="group flex items-center gap-1.5 sm:gap-2 shrink-0 px-2 sm:px-3 py-1.5 rounded-xl bg-gradient-to-r from-amber-400/15 to-emerald-400/15 border border-amber-400/50 hover:border-amber-300 hover:from-amber-400/25 hover:to-emerald-400/25 transition-all shadow-[0_0_14px_rgba(245,158,11,0.25)] cursor-pointer"
+              title="E-Library Pro — Genuine Digital Statute Library (88 Official Bare Acts)"
+              aria-label="Open E-Library Pro"
+            >
+              <span className="relative flex w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-white items-center justify-center border-2 border-emerald-500 shadow-sm group-hover:scale-105 transition-transform shrink-0">
+                <BookOpen className="w-4 h-4 text-emerald-700" />
+              </span>
+              <span className="hidden md:flex flex-col leading-none text-left">
+                <span className="text-[10px] sm:text-[11px] font-black tracking-[0.12em] text-amber-300 whitespace-nowrap">E-LIBRARY</span>
+                <span className="text-[8px] font-bold tracking-[0.3em] text-emerald-300 whitespace-nowrap mt-0.5">PRO</span>
+              </span>
+              <span className="hidden sm:inline md:hidden text-[10px] font-black tracking-wider text-amber-300 whitespace-nowrap">E-LIB</span>
+            </button>
+
+            {/* WEBSITE QR SHARE CARD — shared header: visible on main landing page and E-Library Pro */}
+            <a
+              href="/assets/qr-logo.jpeg"
+              download="NyayaMitra-Website-QR.jpeg"
+              className="group hidden sm:flex items-center gap-1.5 sm:gap-2 shrink-0 pl-1.5 pr-2 sm:pl-2 sm:pr-2.5 py-1.5 rounded-xl bg-white/95 border border-emerald-400/70 hover:border-emerald-300 hover:shadow-[0_0_14px_rgba(16,185,129,0.45)] transition-all cursor-pointer"
+              title="Download Website QR to Share"
+              aria-label="Download Website QR to Share"
+            >
+              <img
+                src="/assets/qr-logo.jpeg"
+                alt="NyayaMitra Website QR Code"
+                className="w-7 h-7 sm:w-8 sm:h-8 rounded-md object-contain bg-white border border-slate-200 shrink-0 group-hover:scale-105 transition-transform"
+                width="32"
+                height="32"
+                loading="lazy"
+              />
+              <span className="hidden 2xl:flex flex-col leading-none text-left">
+                <span className="text-[9.5px] font-extrabold text-slate-900 whitespace-nowrap">Download Website QR</span>
+                <span className="text-[8.5px] font-bold text-emerald-700 whitespace-nowrap mt-0.5">to Share</span>
+              </span>
+              <Download className="w-3.5 h-3.5 text-emerald-700 shrink-0 group-hover:scale-110 transition-transform" />
+            </a>
+
             {/* Trilingual Switcher */}
             <div className="flex bg-[#071626] rounded-lg p-0.5 border border-slate-700/80 text-xs shadow-inner shrink-0">
               <button
@@ -634,14 +760,14 @@ export function App() {
               </button>
             </div>
 
-            {/* Contact Email Link */}
+            {/* Contact Email Link — compact icon button (full email in tooltip; also in footer) */}
             <a
               href="mailto:namaste@nyayamitrawb.in"
-              className="hidden md:flex px-2 sm:px-2.5 py-1.5 rounded-lg border text-[11px] sm:text-xs font-bold items-center gap-1.5 bg-slate-800/80 text-slate-300 border-slate-700 hover:bg-slate-700 hover:text-white transition shadow-xs whitespace-nowrap shrink-0"
-              title="Email NyayaMitra Support"
+              className="hidden sm:flex px-2 py-1.5 rounded-lg border text-xs font-bold items-center bg-slate-800/80 text-slate-300 border-slate-700 hover:bg-slate-700 hover:text-white transition shadow-xs shrink-0"
+              title="Contact: namaste@nyayamitrawb.in"
+              aria-label="Email NyayaMitra Support: namaste@nyayamitrawb.in"
             >
               <Mail className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
-              <span>Contact: <strong className="text-white font-bold">namaste@nyayamitrawb.in</strong></span>
             </a>
 
             {/* Admin Login / Public View Button */}
@@ -651,7 +777,7 @@ export function App() {
                 className="px-2.5 sm:px-3 py-1.5 rounded-lg border text-[11px] sm:text-xs font-bold flex items-center gap-1.5 bg-amber-500 text-slate-950 border-amber-400 hover:bg-amber-400 shadow-sm transition whitespace-nowrap shrink-0"
               >
                 <Globe className="w-3.5 h-3.5 shrink-0" />
-                <span>{UI_TEXT.publicViewBtn[lang]}</span>
+                <span className="hidden sm:inline">{UI_TEXT.publicViewBtn[lang]}</span>
               </button>
             ) : (
               <button
@@ -659,7 +785,7 @@ export function App() {
                 className="px-2.5 sm:px-3 py-1.5 rounded-lg border text-[11px] sm:text-xs font-bold flex items-center gap-1.5 bg-slate-800/80 text-slate-300 border-slate-700 hover:bg-slate-700 hover:text-white transition whitespace-nowrap shrink-0"
               >
                 <Lock className="w-3.5 h-3.5 text-amber-400 shrink-0" />
-                <span>{UI_TEXT.adminLoginBtn[lang]}</span>
+                <span className="hidden sm:inline">{UI_TEXT.adminLoginBtn[lang]}</span>
               </button>
             )}
 
@@ -674,7 +800,7 @@ export function App() {
                 width="36"
                 height="36"
               />
-              <span className="hidden xl:block text-[9px] leading-tight font-bold tracking-[0.08em] text-slate-300 whitespace-nowrap">
+              <span className="hidden 2xl:block text-[9px] leading-tight font-bold tracking-[0.08em] text-slate-300 whitespace-nowrap">
                 LEXIPULSE<br />TECHNOLOGIES
               </span>
             </div>
@@ -683,7 +809,7 @@ export function App() {
       </header>
 
       {/* HERO BANNER */}
-      {!isAdminView && (
+      {!isAdminView && !isLibraryView && (
         <section 
           className="relative text-white py-16 sm:py-20 md:py-26 px-4 overflow-hidden border-b-2 border-amber-500/50 bg-[#071626] bg-cover bg-center shadow-2xl z-10"
           style={{ backgroundImage: `url('/assets/hero-banner.webp')` }}
@@ -832,6 +958,8 @@ export function App() {
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 py-6 space-y-7 relative z-10">
         {isAdminView ? (
           <AdminAdvisorPanel lang={lang} />
+        ) : isLibraryView ? (
+          <ELibraryProPage lang={lang} onBackToMain={exitLibraryView} />
         ) : (
           <>
             {/* 1. 12 HIGH-VALUE OFFICIAL GOVERNMENT PORTALS */}
@@ -1281,11 +1409,7 @@ export function App() {
 
         <div className="relative max-w-5xl mx-auto px-3 sm:px-4 flex flex-col items-center justify-center gap-2.5">
           <div className="bg-[#0a1e34]/85 backdrop-blur-md rounded-xl py-1.5 px-3 sm:px-6 border border-amber-400/30 shadow-xl flex items-center justify-center gap-2.5 sm:gap-4 flex-nowrap overflow-x-auto scrollbar-none">
-            <div className="shrink-0 flex items-center">
-              <VisitorCounter lang={lang} />
-            </div>
-
-            <span className="text-amber-400/60 font-bold select-none shrink-0">&bull;</span>
+            
 
             <p className="font-bold text-white text-[9.5px] xs:text-[10.5px] sm:text-xs tracking-normal text-center drop-shadow-sm select-none whitespace-nowrap shrink-0">
               {UI_TEXT.footerBrand[lang]}

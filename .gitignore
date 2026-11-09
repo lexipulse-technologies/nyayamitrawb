@@ -7,3 +7,6 @@
 *.backup-*
 dist/
 node_modules/
+
+# E-Library source archive — exact duplicate of public/statutes/ (deployment copy).
+E-LIBRARY-PRO/STATUTES/

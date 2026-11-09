@@ -1,0 +1,121 @@
+{
+  "version": "1.0",
+  "generated": "2026-10-27",
+  "source": "NyayaMitra Website Codebase (src/data/categories/)",
+  "total_workflows": 300,
+  "categories": 6,
+  "statutes": {
+    "total_unique_acts": 280,
+    "central_acts": 145,
+    "west_bengal_acts": 42,
+    "regulations_rules": 58,
+    "judicial_precedents": 35
+  },
+  "structure": {
+    "STATUTES": {
+      "Central_Acts": {
+        "Criminal_Law_2023": ["BNS_2023.pdf", "BNSS_2023.pdf", "BSA_2023.pdf"],
+        "Civil_Procedure": ["CPC_1908.pdf", "Limitation_Act_1963.pdf", "Specific_Relief_Act_1963.pdf", "Registration_Act_1908.pdf"],
+        "Property_Law": ["Transfer_of_Property_Act_1882.pdf", "Indian_Easements_Act_1882.pdf", "Indian_Stamp_Act_1899.pdf", "Partition_Act_1893.pdf", "Indian_Trusts_Act_1882.pdf", "Benami_Property_Act_1988.pdf"],
+        "Family_Law": ["Hindu_Marriage_Act_1955.pdf", "Hindu_Succession_Act_1956.pdf", "Special_Marriage_Act_1954.pdf", "Indian_Succession_Act_1925.pdf", "Hindu_Adoptions_Maintenance_Act_1956.pdf", "Hindu_Minority_Guardianship_Act_1956.pdf", "Guardians_Wards_Act_1890.pdf", "Special_Marriage_Act_1954.pdf", "Indian_Divorce_Act_1869.pdf", "Parsi_Marriage_Divorce_Act_1936.pdf", "Dissolution_Muslim_Marriages_Act_1939.pdf", "Muslim_Women_Protection_Act_1986.pdf", "Prohibition_Child_Marriage_Act_2006.pdf", "Protection_Women_Domestic_Violence_Act_2005.pdf", "Senior_Citizens_Act_2007.pdf", "Medical_Termination_Pregnancy_Act_1971.pdf", "Surrogacy_Regulation_Act_2021.pdf", "ART_Act_2021.pdf", "Juvenile_Justice_Act_2015.pdf", "National_Trust_Act_1999.pdf", "RPwD_Act_2016.pdf"],
+        "Commercial_Law": ["Indian_Contract_Act_1872.pdf", "Sale_of_Goods_Act_1930.pdf", "Indian_Partnership_Act_1932.pdf", "Arbitration_Conciliation_Act_1996.pdf", "Commercial_Courts_Act_2015.pdf", "MSMED_Act_2006.pdf", "Insolvency_Bankruptcy_Code_2016.pdf", "SARFAESI_Act_2002.pdf", "Payment_Settlement_Systems_Act_2007.pdf", "Negotiable_Instruments_Act_1881.pdf", "Bengal_Money_Lenders_Act_1940.pdf", "Usurious_Loans_Act_1918.pdf", "Payment_Gratuity_Act_1972.pdf", "Payment_Wages_Act_1936.pdf", "Arbitration_Conciliation_Act_1996.pdf"],
+        "Consumer_Protection": ["Consumer_Protection_Act_2019.pdf", "Consumer_Protection_Ecommerce_Rules_2020.pdf", "Food_Safety_Standards_Act_2006.pdf", "Insurance_Act_1938.pdf", "IRDAI_Act_1999.pdf", "RERA_2016.pdf", "Electricity_Act_2003.pdf", "Clinical_Establishments_Act_2010.pdf", "IT_Act_2000.pdf", "Legal_Metrology_Act_2009.pdf", "Competition_Act_2002.pdf", "Carriage_Road_Act_2007.pdf", "Seeds_Act_1966.pdf"]
+      },
+      "West_Bengal_Acts": {
+        "Land_Reforms": ["WB_Land_Reforms_Act_1955.pdf", "WB_Land_Reforms_Manual.pdf", "WB_Bhudan_Yagna_Act_1962.pdf", "WB_Trees_Act_2006.pdf", "WB_Ground_Water_Act_2005.pdf", "WB_Heritage_Commission_Act_2001.pdf"],
+        "Tenancy": ["WB_Premises_Tenancy_Act_1997.pdf", "WB_Thika_Tenancy_Act_2001.pdf", "WB_Slum_Areas_Act_1972.pdf", "Public_Premises_Eviction_Act_1971.pdf"],
+        "Municipal": ["KMC_Act_1980.pdf", "WB_Municipal_Act.pdf", "Howrah_Municipal_Act.pdf", "Bidhannagar_Municipal_Act.pdf"],
+        "Special_Acts": ["WB_Apartment_Ownership_Act_1972.pdf", "WB_Clinical_Establishments_Act_2017.pdf", "WB_Thika_Tenancy_Act_2001.pdf", "WB_Bhudan_Yagna_Act_1962.pdf", "WB_Ground_Water_Act_2005.pdf", "WB_Trees_Act_2006.pdf", "WB_Bhudan_Yagna_Act_1962.pdf", "WB_Slum_Areas_Act_1972.pdf", "Public_Premises_Eviction_Act_1971.pdf", "WB_Heritage_Commission_Act_2001.pdf", "Waqf_Act_1995.pdf", "Waqf_Amendment_Act_2025.pdf", "FRA_2006.pdf", "Benami_Property_Act_1988.pdf", "National_Highways_Act_1956.pdf", "Mines_Minerals_Act_1957.pdf", "Environment_Protection_Act_1986.pdf", "NGT_Act_2010.pdf", "Mines_Minerals_Act_1957.pdf", "Public_Premises_Eviction_Act_1971.pdf"]
+      },
+      "Regulations_Rules": {
+        "CPC_Orders": ["CPC_Order_XXXIX_Rules_1-2.pdf", "CPC_Order_XXI_Rules_35-36_46-46I_48.pdf", "CPC_Order_XX_Rules_12_18.pdf", "CPC_Order_XXVI_Rules_13-14.pdf", "CPC_Order_XXXIV.pdf", "CPC_Order_XXXIX_Rules_1-2.pdf", "CPC_Order_XXII_Rules_3-4.pdf", "CPC_Order_XXVII.pdf"],
+        "RBI_Guidelines": ["RBI_Master_Directions.pdf", "RBI_Circulars.pdf", "RBI_Digital_Lending_Guidelines_2022.pdf", "RBI_Fair_Practices_Code.pdf", "RBI_Ombudsman_Scheme_2021.pdf", "RBI_Master_Directions_Gold_Loans.pdf", "RBI_Master_Directions_Prepayment_Penalties.pdf", "RBI_Master_Directions_Recovery_Agents.pdf"],
+        "IRDAI_Regulations": ["IRDAI_Act_1999.pdf", "IRDAI_Health_Insurance_Regulations_2020.pdf", "IRDAI_Insurance_Agents_Regulations_2016.pdf", "IRDAI_Regulations_2016.pdf"],
+        "SEBI_Regulations": ["SEBI_Stock_Brokers_Regulations.pdf", "SEBI_SCORES_Portal.pdf", "SEBI_Regulations.pdf", "CICRA_2005.pdf"],
+        "CCPA_Guidelines": ["CCPA_Guidelines_2024.pdf", "CCPA_Guidelines_2023_Dark_Patterns.pdf", "CCPA_Guidelines_2022_Coaching_Centers.pdf", "CCPA_Guidelines_Prevention_Dark_Patterns_2023.pdf"]
+      },
+      "Judicial_Precedents": {
+        "Supreme_Court": ["Rajnesh_v_Neha_HMA_Sec24.pdf", "Vineeta_Sharma_v_Rakesh_Sharma_HSA_Sec6.pdf", "Revanasiddappa_v_Mallikarjun_HMA_Sec16.pdf", "Nithya_Anand_Raghavan_GWA.pdf", "Satish_Chander_Ahuja_PWDVA_Sec24.pdf", "Lata_Singh_Article_226.pdf", "Shayara_Bano_Triple_Talaq.pdf", "Joseph_Shine_Adultery.pdf", "Navtej_Singh_Johar_Section_377.pdf", "Justice_KS_Puttaswamy_Privacy.pdf", "Arnesh_Kumar_BNSS_144.pdf", "Satish_Chander_Ahuja_v_Sneha_PWDVA.pdf", "Rajnesh_v_Neha_HMA_Sec24.pdf", "Vineeta_Sharma_v_Rakesh_HSA_Sec6.pdf", "Revanasiddappa_v_Mallikarjun_HMA_Sec16.pdf", "Nithya_Anand_Raghavan_GWA.pdf"],
+        "High_Courts": [],
+        "Tribunals": []
+      }
+    }
+  },
+  "categories": [
+    "Land",
+    "Tenancy", 
+    "Consumer",
+    "Money",
+    "Family",
+    "Partition"
+  ],
+  "wb_specific_acts": [
+    "West Bengal Land Reforms Act, 1955",
+    "West Bengal Premises Tenancy Act, 1997",
+    "West Bengal Thika Tenancy Act, 2001",
+    "Kolkata Municipal Corporation Act, 1980",
+    "West Bengal Apartment Ownership Act, 1972",
+    "West Bengal Clinical Establishments Act, 2017",
+    "West Bengal Land Reforms Manual",
+    "West Bengal Thika Tenancy Act, 2001",
+    "West Bengal Trees (Protection) Act, 2006",
+    "West Bengal Bhudan Yagna Act, 1962",
+    "West Bengal Ground Water Act, 2005",
+    "West Bengal Heritage Commission Act, 2001",
+    "Kolkata Municipal Corporation Act, 1980",
+    "West Bengal Municipal Act",
+    "West Bengal Slum Areas Act, 1972",
+    "West Bengal Ground Water Act, 2005",
+    "West Bengal Heritage Commission Act, 2001",
+    "Kolkata Municipal Corporation Act, 1980",
+    "West Bengal Municipal Act",
+    "West Bengal Slum Areas Act, 1972",
+    "West Bengal Ground Water Act, 2005",
+    "West Bengal Heritage Commission Act, 2001",
+    "Kolkata Municipal Corporation Act, 1980",
+    "West Bengal Municipal Act",
+    "West Bengal Slum Areas Act, 1972",
+    "West Bengal Ground Water Act, 2005",
+    "West Bengal Heritage Commission Act, 2001"
+  ],
+  "download_status": {
+    "total_expected": 99,
+    "downloaded": 85,
+    "not_available_on_indiacode": 13,
+    "pending_manual": 1,
+    "source": "https://indiacode.gov.in/home",
+    "method": "DSpace 7 REST API (/server/api/discover/search/objects + /core/bitstreams/{uuid}/content). Working scripts: download_acts_v3.ps1 (high-priority), download_batch_v4.ps1 (bulk, resumable via MANIFEST.jsonl), fix_matches_v5/v6.ps1 (strict-title corrections), fix_final_v8.ps1. See MANIFEST.jsonl for per-act provenance.",
+    "key_gotchas": "1) Search must be SCOPED with query=(title_auto:(*terms*)) - unscoped returns section-stub items without PDFs. 2) India Code rate-limits /core/items+bundles calls (429) after ~100 rapid calls - pace 1.5s and retry with backoff. 3) Renamed acts: Waqf Act 1995 = 'The Unified Waqf Management...Act, 1995'; Indian Divorce Act 1869 = 'The Divorce Act, 1869'; KMC Act 1980 = 'The Calcutta Municipal Corporation Act, 1980'; Major Port Trusts Act 1963 repealed by Major Port Authorities Act 2021. 4) Some WB items are metadata stubs with zero PDFs (AOA 1972, Ground Water 2005, Inland Fisheries 1984, E-Commerce Rules 2020).",
+    "not_available_on_indiacode": [
+      "The Evidence Act, 1872 (repealed by BSA 2023; BSA already in library)",
+      "The Payment of Gratuity Act, 1972 (labour.gov.in)",
+      "The Payment of Wages Act, 1936 (labour.gov.in)",
+      "The Bengal Public Demands Recovery Act, 1913 (WB legislative dept)",
+      "The Bengal Money-Lenders Act, 1940 (WB legislative dept)",
+      "The Waqf (Amendment) Act, 2025 (consolidated Unified Waqf Act 1995 downloaded)",
+      "The West Bengal Minor Minerals Concession Rules, 2016 (WB mining dept)",
+      "The West Bengal Apartment Ownership Act, 1972 (India Code item is PDF-less stub; wb legislature site)",
+      "The West Bengal Ground Water Resources Act, 2005 (PDF-less stub)",
+      "The West Bengal Inland Fisheries Act, 1984 (PDF-less stub)",
+      "The Consumer Protection (E-Commerce) Rules, 2020 (not indexed; ccpa.gov.in)",
+      "The Model Tenancy Act, 2021 (model law, never enacted)",
+      "The Constitution of India (special document-grid item; download manually from indiacode.gov.in document-grid/d5475e8d-1998-4ac8-8694-82f941074bb7)"
+    ],
+    "high_priority_batch": {
+      "completed_on": "2026-10-28",
+      "files": [
+        { "file": "STATUTES/Central_Acts/Criminal_Law_2023/BNS_2023.pdf", "source_pdf": "a2023-45.pdf", "size_kb": 1089.1, "title": "The Bharatiya Nyaya Sanhita, 2023" },
+        { "file": "STATUTES/Central_Acts/Criminal_Law_2023/BNSS_2023.pdf", "source_pdf": "A2023-46.pdf", "size_kb": 2805.1, "title": "The Bharatiya Nagarik Suraksha Sanhita, 2023" },
+        { "file": "STATUTES/Central_Acts/Criminal_Law_2023/BSA_2023.pdf", "source_pdf": "a2023-47.pdf", "size_kb": 627.8, "title": "The Bharatiya Sakshya Adhiniyam, 2023" },
+        { "file": "STATUTES/Central_Acts/Civil_Procedure/CPC_1908.pdf", "source_pdf": "a1908-05.pdf", "size_kb": 4426.4, "title": "The Code of Civil Procedure, 1908" },
+        { "file": "STATUTES/Central_Acts/Commercial_Law/Contract_Act_1872.pdf", "source_pdf": "a1872-9.pdf", "size_kb": 696.1, "title": "The Indian Contract Act, 1872" },
+        { "file": "STATUTES/Central_Acts/Property_Law/TP_Act_1882.pdf", "source_pdf": "a1882-04.pdf", "size_kb": 674.6, "title": "The Transfer of Property Act, 1882" },
+        { "file": "STATUTES/Central_Acts/Commercial_Law/NI_Act_1881.pdf", "source_pdf": "a1881-26.pdf", "size_kb": 457.7, "title": "The Negotiable Instruments Act, 1881" },
+        { "file": "STATUTES/Central_Acts/Consumer_Protection/CPA_2019.pdf", "source_pdf": "A2019-35.pdf", "size_kb": 613.1, "title": "The Consumer Protection Act, 2019" },
+        { "file": "STATUTES/West_Bengal_Acts/Land_Reforms/WBLR_Act_1955.pdf", "source_pdf": "32.pdf", "size_kb": 5355.2, "title": "The West Bengal Land Reforms Act, 1955" },
+        { "file": "STATUTES/West_Bengal_Acts/Tenancy/WBPT_Act_1997.pdf", "source_pdf": "1997-37.pdf", "size_kb": 6607.5, "title": "The West Bengal Premises Tenancy Act, 1997" },
+        { "file": "STATUTES/West_Bengal_Acts/Municipal/KMC_Act_1980.pdf", "source_pdf": "59.pdf", "size_kb": 2746.9, "title": "The Calcutta Municipal Corporation Act, 1980 (now Kolkata Municipal Corporation Act)" }
+      ]
+    }
+  }
+}

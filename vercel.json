@@ -1,5 +1,28 @@
 {
+  "rewrites": [
+    {
+      "source": "/elibrarypro",
+      "destination": "/index.html"
+    }
+  ],
   "headers": [
+    {
+      "source": "/statutes/(.*).pdf",
+      "headers": [
+        {
+          "key": "Content-Disposition",
+          "value": "inline"
+        },
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
     {
       "source": "/robots.txt",
       "headers": [

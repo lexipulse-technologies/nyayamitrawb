@@ -230,16 +230,36 @@ export const LegalPolicyModal: React.FC<Props> = ({
             </div>
           )}
 
-          {/* TAB 3: REFUND & CANCELLATION POLICY */}
+{/* TAB 3: REFUND & CANCELLATION POLICY */}
           {activeTab === 'refund' && (
             <div className="space-y-3.5">
               <div className="border-b pb-2">
                 <h4 className="font-extrabold text-sm text-slate-900">
-                  Refund &amp; Cancellation Policy (Razorpay Payment Gateway)
+                  Refund & Cancellation Policy (Razorpay Payment Gateway)
                 </h4>
                 <p className="text-[11px] text-slate-500">
-                  Governed by the Consumer Protection Act, 2019 &amp; RBI Payment Aggregator Norms
+                  Governed by the Consumer Protection Act, 2019 & RBI Payment Aggregator Norms
                 </p>
+              </div>
+
+              <div className="p-3 bg-red-50 border-2 border-red-300 rounded-xl space-y-2">
+                <span className="font-bold text-red-950 flex items-center gap-1.5 text-[11px]">
+                  <AlertCircle className="w-3.5 h-3.5 text-red-700" />
+                  Non-Refundable Digital Services Policy
+                </span>
+                <p className="text-[10.5px] text-red-900 leading-relaxed font-medium">
+                  All digital payments made on this platform — including <strong>₹99 NyayaMitra Pro Statutory Notice Drafter</strong> and <strong>₹499 Connect Legal Advocate</strong> — are <strong>fully non-refundable</strong> under all circumstances.
+                </p>
+                <p className="text-[10.5px] text-red-800 leading-relaxed">
+                  By initiating payment, you expressly acknowledge and agree that:
+                </p>
+                <ul className="list-disc pl-4 space-y-1 text-[10.5px] text-red-800">
+                  <li>You are purchasing an <strong>instant digital deliverable</strong> (software-generated legal document PDF/Word, or advocate connection service) which is <strong>irrevocably fulfilled upon payment verification</strong>.</li>
+                  <li>No refund shall be granted for <strong>dissatisfaction, change of mind, non-usage, dispute outcome, advocate non-availability, procedural delays, or any other reason whatsoever</strong>.</li>
+                  <li>This non-refundable policy applies to <strong>all payment modes</strong> (UPI, Net Banking, Credit/Debit Card, Wallet) processed via Razorpay Live.</li>
+                  <li>The only exception is a <strong>technical failure</strong> where payment is debited but the digital deliverable is not generated due to a confirmed platform-side technical error — in which case, email <strong>namaste@nyayamitrawb.in</strong> with your Razorpay Payment ID within 24 hours for resolution.
+                  </li>
+                </ul>
               </div>
 
               <div className="p-3 bg-blue-50 border border-blue-200 rounded-xl space-y-1">
@@ -258,7 +278,7 @@ export const LegalPolicyModal: React.FC<Props> = ({
                   Because the ₹99 Notice Drafter delivers instant, downloadable digital software assets (Vector PDF and Word Document), transactions are considered completed once the cryptographic payment signature is verified and files are compiled.
                 </p>
 
-                <h5 className="font-bold text-slate-900 text-xs">2. Technical Failure &amp; Automated Refund Protocol</h5>
+                <h5 className="font-bold text-slate-900 text-xs">2. Technical Failure & Automated Refund Protocol</h5>
                 <p>
                   If ₹99 is debited from your bank account or UPI app, but a network interruption, browser crash, or device power cut prevents the document from generating, you are protected by our automated resolution policy:
                 </p>
