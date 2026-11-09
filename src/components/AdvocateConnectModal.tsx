@@ -10,7 +10,9 @@ import {
   User,
   Phone,
   Mail,
-  MessageSquare
+  MessageSquare,
+  CalendarCheck,
+  ExternalLink
 } from 'lucide-react';
 import type { Language } from '../types/legal';
 import { ADVOCATE_PROFILE } from '../data/advocateProfile';
@@ -82,14 +84,29 @@ const TEXT = {
     hi: 'अनिवार्य वैधानिक अस्वीकरण (BCI नियम 36)'
   },
   successTitle: {
-    en: 'Thank You for your Successful Payment!',
-    bn: 'সফল পেমেন্টের জন্য ধন্যবাদ!',
-    hi: 'सफल भुगतान के लिए धन्यवाद!'
+    en: 'Payment Successful!',
+    bn: 'পেমেন্ট সফল হয়েছে!',
+    hi: 'भुगतान सफल रहा!'
   },
   successMessage: {
-    en: "Your payment of ₹499 has been successfully processed. Your request has been sent to Advocate Tanweer Ahmed Khan's office. You will receive a call within 24 working hours.",
-    bn: "আপনার ₹499 পেমেন্ট সফলভাবে প্রক্রিয়া করা হয়েছে। আপনার অনুরোধ অ্যাডভোকেট তানবীর আহমেদ খানের অফিসে পাঠানো হয়েছে। আপনি ২৪ কর্মঘণ্টার মধ্যে একটি কল পাবেন।",
-    hi: "आपका ₹499 का भुगतान सफलतापूर्वक संसाधित किया गया है। आपका अनुरोध अधिवक्ता तनवीर अहमद खान के कार्यालय को भेज दिया गया है। आपको 24 कार्य घंटों के भीतर एक कॉल प्राप्त होगी।"
+    en: "Your payment of ₹499 has been successfully processed and your request has been sent to Advocate Tanweer Ahmed Khan's office. IMPORTANT: To confirm your consultation, please schedule your 60-minute session using the Calendly link below.",
+    bn: "আপনার ₹499 পেমেন্ট সফলভাবে প্রক্রিয়া করা হয়েছে এবং আপনার অনুরোধ অ্যাডভোকেট তানবীর আহমেদ খানের অফিসে পাঠানো হয়েছে। গুরুত্বপূর্ণ: আপনার পরামর্শ নিশ্চিত করতে, নীচের ক্যালেন্ডলি লিঙ্ক ব্যবহার করে আপনার ৬০ মিনিটের সেশন নির্ধারণ করুন।",
+    hi: "आपका ₹499 का भुगतान सफलतापूर्वक संसाधित किया गया है और आपका अनुरोध अधिवक्ता तनवीर अहमद खान के कार्यालय को भेज दिया गया है। महत्वपूर्ण: अपनी परामर्श की पुष्टि करने के लिए, कृपया नीचे दिए गए Calendly लिंक का उपयोग करके अपना 60-मिनट का सत्र शेड्यूल करें।"
+  },
+  scheduleHeading: {
+    en: 'Schedule Your Lawyer Consultation',
+    bn: 'আপনার আইনজীবীর পরামর্শের সময় নির্ধারণ করুন',
+    hi: 'अपनी विधिक अधिवक्ता परामर्श का समय निर्धारित करें'
+  },
+  scheduleInstruction: {
+    en: 'You must schedule your 60-minute lawyer consultation via the Calendly link below. Your consultation is confirmed only after scheduling.',
+    bn: 'আপনাকে অবশ্যই নীচের ক্যালেন্ডলি লিঙ্কের মাধ্যমে আপনার ৬০ মিনিটের আইনজীবী পরামর্শের সময় নির্ধারণ করতে হবে। সময় নির্ধারণের পরেই আপনার পরামর্শ নিশ্চিত হবে।',
+    hi: 'आपको नीचे दिए गए Calendly लिंक के माध्यम से अपनी 60-मिनट की विधिक अधिवक्ता परामर्श का समय निर्धारित करना होगा। समय निर्धारण के बाद ही आपकी परामर्श पुष्टि होगी।'
+  },
+  scheduleButton: {
+    en: 'Schedule Consultation on Calendly',
+    bn: 'ক্যালেন্ডলিতে পরামর্শের সময় নির্ধারণ করুন',
+    hi: 'Calendly पर परामर्श का समय निर्धारित करें'
   },
   paymentIdLabel: {
     en: 'Razorpay Payment ID',
@@ -114,6 +131,8 @@ const TEXT = {
 };
 
 const STATUTORY_DISCLAIMER = `NyayaMitra is a technology platform that facilitates your request to the independent advocate listed above. NyayaMitra is not a law firm, takes no referral commission from any advocate, and does not guarantee case outcomes. The advocate is solely responsible for all professional advice. Advocate-client relationship, if any, arises directly between you and the advocate.`;
+
+const CALENDLY_URL = 'https://calendly.com/namaste-nyayamitrawb/60mins';
 
 const MOBILE_REGEX = /^[6-9]\d{9}$/;
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -244,12 +263,47 @@ export const AdvocateConnectModal: React.FC<Props> = ({
         <div className="p-4 sm:p-6 overflow-y-auto flex-1 space-y-5 text-xs text-slate-800">
 
           {step === 'success' ? (
-            <div className="p-6 bg-emerald-50 border border-emerald-300 rounded-2xl text-center space-y-3">
+            <div className="p-5 sm:p-6 bg-emerald-50 border border-emerald-300 rounded-2xl text-center space-y-4">
               <CheckCircle2 className="w-12 h-12 text-emerald-600 mx-auto" />
               <h4 className="font-extrabold text-lg text-slate-900">{t('successTitle')}</h4>
               <p className="text-[11.5px] text-slate-600 max-w-md mx-auto leading-relaxed">
                 {t('successMessage')}
               </p>
+
+              {/* CALENDLY SCHEDULING — mandatory next step after successful payment */}
+              <div className="relative overflow-hidden p-4 sm:p-5 rounded-2xl bg-gradient-to-br from-[#0f2b48] to-[#1b3e63] border-2 border-amber-400 text-left space-y-3 shadow-lg">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-amber-400 to-emerald-400 flex items-center justify-center shrink-0">
+                    <CalendarCheck className="w-5 h-5 text-slate-950" />
+                  </div>
+                  <h5 className="font-extrabold text-sm text-white leading-tight">{t('scheduleHeading')}</h5>
+                </div>
+                <p className="text-[11px] text-amber-100 leading-relaxed font-medium">
+                  {t('scheduleInstruction')}
+                </p>
+                <a
+                  href={CALENDLY_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-center gap-2 w-full px-4 py-3 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-extrabold text-xs sm:text-sm transition shadow-lg active:scale-[0.99] cursor-pointer"
+                >
+                  <CalendarCheck className="w-4 h-4 shrink-0" />
+                  <span>{t('scheduleButton')}</span>
+                  <ExternalLink className="w-3.5 h-3.5 shrink-0" />
+                </a>
+                <p className="text-[10px] text-slate-300 text-center break-all">
+                  <span className="font-semibold">Calendly Link: </span>
+                  <a
+                    href={CALENDLY_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-amber-300 underline hover:text-amber-200 font-mono"
+                  >
+                    {CALENDLY_URL}
+                  </a>
+                </p>
+              </div>
+
               <div className="bg-white rounded-xl border border-emerald-200 p-4 text-left space-y-2 max-w-md mx-auto">
                 <div className="flex justify-between text-xs">
                   <span className="text-slate-500">Citizen Name:</span>
