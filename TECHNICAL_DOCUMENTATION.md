@@ -1,5 +1,5 @@
 # NyayaMitra — Civil Legal Navigator
-## Technical Documentation (MIT)
+## Technical Documentation
 
 ---
 
