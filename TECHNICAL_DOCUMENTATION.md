@@ -3,7 +3,7 @@
 
 ---
 
-## 📋 EXECUTIVE SUMMARY
+## EXECUTIVE SUMMARY
 
 **NyayaMitra** is a free, trilingual civil legal companion for West Bengal — built by **LEXIPULSE TECHNOLOGIES**.  
 Whether you're a tenant facing eviction, a landowner with mutation issues, a consumer with a defective product, or someone navigating civil legal disputes, NyayaMitra gives you **step-by-step legal roadmaps** in **English, বাংলা, and हिन्दी**
@@ -23,7 +23,7 @@ BCI Rule 36 Compliant • DPDP Act 2023 Verified • SSL Encrypted
 
 ---
 
-## 🏗️ TECHNICAL ARCHITECTURE
+## TECHNICAL ARCHITECTURE
 
 ### Platform Strategy
 | Aspect | Decision |
@@ -63,7 +63,7 @@ nyayamitra/
 
 ---
 
-## 🔧 KEY FEATURES & IMPLEMENTATION
+## KEY FEATURES & IMPLEMENTATION
 
 ### 1. Trilingual Support (en/bn/hi)
 - **Persistence**: Capacitor Preferences (native) / localStorage (web fallback)
@@ -92,36 +92,24 @@ nyayamitra/
 | Service | Amount | Purpose |
 |---------|--------|---------|
 | Notice Draft | ₹99 (9,900 paise) | Statutory legal notice generation |
-| Notice Dispatch | ₹199 (19,900 paise) | Draft + registered post |
 | Advocate Connect | ₹499 (49,900 paise) | 60-min consultation + Calendly |
 
 - **Flow**: `create-order` → Razorpay WebView checkout → `verify-payment` (HMAC-SHA256 server-side) → `advocate-connect`/`notify`
 - **Security**: Only `RAZORPAY_KEY_ID` (public) in app; secrets server-side
-- **Classification**: Real-world advocate services — **exempt from Google Play Billing**
 
-### 6. AI Sahayak (NyayaMitra AI)
-- **Endpoint**: `POST /api/chat` (Vercel)
-- **Guardrails**: Civil law only, BCI Rule 36 footer mandatory, no markdown, declines criminal queries with DLSA 15100 referral
-- **Identity Lock**: "NyayaMitra AI Sahayak" branding enforced
-
-### 7. TTS Roadmap Player
+### 6. TTS Roadmap Player
 - **Endpoint**: `GET /api/tts?text=&lang=` (bn/hi/en)
 - **Limits**: 1000 chars, 160-char chunks, audio/mpeg streaming
 - **Player**: HTML5 Audio with play/pause/seek
 
-### 8. Exit Confirmation
+### 7. Exit Confirmation
 - **Button**: Header top-right (LogOut icon)
 - **Dialog**: "Exit Application?" → Cancel / Yes, Exit
 - **Android**: `@capacitor/app` → `App.exitApp()`
 - **Web**: `window.close()`
 
-### 9. Admin Exclusion (App Only)
-- Admin Login button & modal hidden via `Capacitor.isNativePlatform()` guard
-- **Website unchanged** — admin features fully functional on `nyayamitrawb.in`
 
----
-
-## 🔐 SECURITY & COMPLIANCE
+## SECURITY & COMPLIANCE
 
 ### Data Protection
 - **No secrets in APK**: Verified via grep for `SERVICE_ROLE`, `GMAIL_APP`, `KEY_SECRET`
@@ -137,7 +125,7 @@ nyayamitra/
 - **Account deletion**: Not applicable (no accounts)
 
 ### Play Store Compliance
-- **Target API**: 36 (Android 14) ✅
+- **Target API**: 36 (Android 14)
 - **Content Rating**: Everyone
 - **Privacy Policy**: `https://nyayamitrawb.in` (Privacy Policy page)
 - **Support Email**: `namaste@nyayamitrawb.in`
@@ -145,7 +133,7 @@ nyayamitra/
 
 ---
 
-## 📦 BUILD & RELEASE PIPELINE
+## BUILD & RELEASE PIPELINE
 
 ### Debug APK (Development)
 ```bash
@@ -169,7 +157,7 @@ cd android
 
 ---
 
-## 🧪 UAT VALIDATION CHECKLIST
+## UAT VALIDATION CHECKLIST
 
 | Test | Status |
 |------|--------|
@@ -180,7 +168,6 @@ cd android
 | Territory tracks (rural/urban) | ✅ |
 | E-Library Pro — 5+ PDFs open | ✅ |
 | PDF security (no copy/download) | ✅ |
-| AI Sahayak — criminal query declined | ✅ |
 | TTS plays (bn/hi/en) | ✅ |
 | Document Drafter ₹99 flow | ✅ |
 | Advocate Connect ₹499 + Calendly email | ✅ |
@@ -208,23 +195,19 @@ cd android
 
 ---
 
-## 📞 SUPPORT & CONTACT
+## SUPPORT & CONTACT
 
 - **Developer**: LEXIPULSE TECHNOLOGIES
 - **Support Email**: `namaste@nyayamitrawb.in`
-- **Advocate**: Advocate Tanweer Ahmed Khan (Bar Council of India enrolled)
 - **Website**: `https://nyayamitrawb.in`
 - **Privacy Policy**: `https://nyayamitrawb.in` (Privacy Policy tab)
 
 ---
 
-## 📝 CHANGELOG
+## CHANGELOG
 
 | Version | Date | Changes |
 |---------|------|---------|
 | 1.0.0 | 2026-11-14 | Initial release: Core shell, payments, E-Library, AI, TTS, exit confirmation, new logo |
 
 ---
-
-*Document generated: 2026-11-14*  
-*For internal use and Google Play Store submission*
