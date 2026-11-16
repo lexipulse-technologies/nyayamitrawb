@@ -44,11 +44,8 @@ Download the Android app: **NyayaMitra-v1.0.0.apk**
 - Trilingual persistence (English/Bengali/Hindi)
 - Offline detection with network status banner
 - Secure E-Library PDF viewer (no download/copy/paste)
-- Razorpay payment integration (₹99/₹199/₹499)
+- Razorpay payment integration (₹99/₹499)
 - Exit confirmation dialog
-- Google Play Billing exempt — real-world advocate services
-
----
 
 ## 🌐 Web Application
 
@@ -58,7 +55,7 @@ Built with:
 - Vite + React 19 + TypeScript
 - Tailwind CSS v4
 - Capacitor for Android wrapper
-- Vercel serverless functions for payments & AI
+- Vercel serverless functions for payments
 
 ---
 
@@ -70,7 +67,7 @@ See [TECHNICAL_DOCUMENTATION.md](TECHNICAL_DOCUMENTATION.md) for comprehensive a
 
 ## 📄 License
 
-This project is licensed under the terms in [LICENSE](LICENSE).
+This project is MIT licensed under the terms in [LICENSE](LICENSE).
 
 ---
 
@@ -78,7 +75,7 @@ This project is licensed under the terms in [LICENSE](LICENSE).
 
 - **Website:** https://nyayamitrawb.in
 - **Email:** namaste@nyayamitrawb.in
-- **Advocate:** Advocate Tanweer Ahmed Khan (Bar Council of India enrolled)
+- **Advocate:** Bar Council of India enrolled
 - **Support Hours:** Mon–Fri, 10 AM – 6 PM IST
 
 ---
@@ -89,4 +86,3 @@ This project is licensed under the terms in [LICENSE](LICENSE).
 - **DPDP Act 2023 Verified** — Digital Personal Data Protection compliance
 - **SSL Encrypted** — All data in transit protected
 - **Parent Company:** LEXIPULSE TECHNOLOGIES
-- **Legal Advisor:** Advocate Tanweer Ahmed Khan (BCI Enrolled)
