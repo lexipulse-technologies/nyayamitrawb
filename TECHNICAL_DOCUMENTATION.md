@@ -3,7 +3,7 @@
 
 ---
 
-## 📋 EXECUTIVE SUMMARY (Play Store Description)
+## 📋 EXECUTIVE SUMMARY
 
 **NyayaMitra** is a free, trilingual civil legal companion for West Bengal — built by **LEXIPULSE TECHNOLOGIES**.  
 Whether you're a tenant facing eviction, a landowner with mutation issues, a consumer with a defective product, or someone navigating civil legal disputes, NyayaMitra gives you **step-by-step legal roadmaps** in **English, বাংলা, and हिन्दी**
