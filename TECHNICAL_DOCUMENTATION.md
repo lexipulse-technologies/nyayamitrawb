@@ -1,5 +1,5 @@
 # NyayaMitra — Civil Legal Navigator
-## Technical Documentation for Google Play Store Submission
+## Technical Documentation (MIT)
 
 ---
 
