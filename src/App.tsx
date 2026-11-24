@@ -1115,7 +1115,7 @@ export function App() {
               <div className="max-w-3xl w-full mx-auto bg-[#051120]/70 backdrop-blur-sm border border-amber-400/40 rounded-2xl p-4 sm:p-6 shadow-2xl text-center space-y-3">
                 <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-[10px] sm:text-xs font-black tracking-widest uppercase bg-emerald-500/20 text-emerald-300 border border-emerald-400/50">
                   <Smartphone className="w-3.5 h-3.5 text-emerald-300 shrink-0" />
-                  <span>ANDROID NATIVE APPLICATION &bull; v1.0.0</span>
+                  <span>ANDROID NATIVE APPLICATION &bull; v1.0.1</span>
                 </div>
 
                 <h1 className="text-xl sm:text-3xl lg:text-4xl font-black tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-white via-amber-100 to-amber-300 drop-shadow-[0_2px_12px_rgba(0,0,0,0.9)]">

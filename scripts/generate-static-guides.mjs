@@ -603,18 +603,18 @@ async function main() {
           operatingSystem: 'Android 7.0+',
           applicationCategory: 'ReferenceApplication',
           url: appCanonical,
-          downloadUrl: 'https://github.com/lexipulse-technologies/nyayamitrawb/releases/download/v1.0.0/NyayaMitra-v1.0.0.apk',
-          softwareVersion: '1.0.0',
+          downloadUrl: 'https://github.com/lexipulse-technologies/nyayamitrawb/releases/download/v1.0.1/NyayaMitra-v1.0.1.apk',
+          softwareVersion: '1.0.1',
           offers: { '@type': 'Offer', price: '0', priceCurrency: 'INR' }
         }
       ],
       rootHtml: `
         <header style="padding:20px 16px;background:#0a1e34;color:#fff;text-align:center;">
-          <h1 style="font-size:22px;font-weight:800;margin:0;">Download NyayaMitra Android App (v1.0.0)</h1>
+          <h1 style="font-size:22px;font-weight:800;margin:0;">Download NyayaMitra Android App (v1.0.1)</h1>
           <p style="font-size:13px;color:#cbd5e1;margin:8px auto 0;">Offline civil legal roadmaps across 23 West Bengal districts, 88 bare acts &amp; audio guides.</p>
         </header>
         <main style="max-width:720px;margin:24px auto;padding:0 16px;text-align:center;font-family:sans-serif;">
-          <p><a href="https://github.com/lexipulse-technologies/nyayamitrawb/releases/download/v1.0.0/NyayaMitra-v1.0.0.apk">Download NyayaMitra-v1.0.0.apk</a></p>
+          <p><a href="https://github.com/lexipulse-technologies/nyayamitrawb/releases/download/v1.0.1/NyayaMitra-v1.0.1.apk">Download NyayaMitra-v1.0.1.apk</a></p>
           <p><a href="/">Return to NyayaMitra Home</a></p>
         </main>`
     }),

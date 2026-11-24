@@ -981,7 +981,37 @@ export default defineConfig(({ mode }) => {
       target: 'es2020',
       modulePreload: { polyfill: false },
       cssCodeSplit: true,
-      chunkSizeWarningLimit: 2500
+      chunkSizeWarningLimit: 2500,
+      rollupOptions: {
+        output: {
+          manualChunks(id: string) {
+            if (id.includes('node_modules')) {
+              if (id.includes('react') || id.includes('react-dom')) return 'vendor';
+              if (id.includes('@supabase')) return 'supabase';
+              if (id.includes('lucide-react')) return 'icons';
+              if (id.includes('jspdf') || id.includes('qrcode')) return 'pro-engine';
+            }
+            if (id.includes('src/data/categories/landParts') || id.includes('src/data/categories/landData')) {
+              return 'legal-land';
+            }
+            if (id.includes('src/data/categories/partitionParts') || id.includes('src/data/categories/partitionData')) {
+              return 'legal-partition';
+            }
+            if (id.includes('src/data/categories/moneyParts') || id.includes('src/data/categories/moneyData')) {
+              return 'legal-money';
+            }
+            if (id.includes('src/data/categories/consumerParts') || id.includes('src/data/categories/consumerData')) {
+              return 'legal-consumer';
+            }
+            if (id.includes('src/data/categories/familyParts') || id.includes('src/data/categories/familyData')) {
+              return 'legal-family';
+            }
+            if (id.includes('src/data/categories/tenancyParts') || id.includes('src/data/categories/tenancyData')) {
+              return 'legal-tenancy';
+            }
+          }
+        }
+      }
     }
   };
 });
