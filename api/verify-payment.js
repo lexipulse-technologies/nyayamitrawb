@@ -10,18 +10,32 @@ import crypto from 'node:crypto';
 import nodemailer from 'nodemailer';
 import { createClient } from '@supabase/supabase-js';
 
+const ALLOWED_ORIGINS = [
+  'https://nyayamitrawb.in',
+  'https://www.nyayamitrawb.in',
+  'https://localhost'
+];
+
+function setCors(req, res) {
+  const origin = req.headers.origin;
+  if (ALLOWED_ORIGINS.includes(origin)) {
+    res.setHeader('Access-Control-Allow-Origin', origin);
+    res.setHeader('Access-Control-Allow-Credentials', 'true');
+  }
+  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+}
+
 // Canonical Project Keys as resilient fallbacks
 const CANONICAL_SUPABASE_URL = 'https://mwborzyxcgykrjuyqfel.supabase.co';
 const CANONICAL_SUPABASE_ANON_KEY =
   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im13Ym9yenl4Y2d5a3JqdXlxZmVsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTY4ODczNTIsImV4cCI6MjAzMjQ2MzM1Mn0.Kk68-OQk8yF6-Xg2iSgV46hQ_x7tD3w5n4r_XQyL9z4';
 
 export default async function handler(req, res) {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  setCors(req, res);
 
   if (req.method === 'OPTIONS') {
-    return res.status(200).end();
+    return res.status(204).end();
   }
 
   if (req.method !== 'POST') {

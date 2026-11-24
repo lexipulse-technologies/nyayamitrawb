@@ -1,7 +1,16 @@
 {
+  "cleanUrls": true,
   "rewrites": [
     {
       "source": "/elibrarypro",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/app",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/guides/:slug",
       "destination": "/index.html"
     }
   ],

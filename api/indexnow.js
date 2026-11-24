@@ -6,34 +6,45 @@
  */
 
 import https from 'node:https';
+import fs from 'node:fs';
+import path from 'node:path';
 
 const INDEXNOW_KEY = 'c48e71b29a1d48c081e7d235bf367a12';
 const HOST = 'nyayamitrawb.in';
 const KEY_LOCATION = `https://${HOST}/${INDEXNOW_KEY}.txt`;
 
-const FULL_CRAWL_URL_LIST = [
+const FALLBACK_URL_LIST = [
   `https://${HOST}/`,
-  `https://${HOST}/?lang=bn`,
-  `https://${HOST}/?lang=hi`,
-  `https://${HOST}/?lang=en`,
-  `https://${HOST}/?cat=cat-land-mutation&lang=bn`,
-  `https://${HOST}/?cat=cat-tenancy-disputes&lang=bn`,
-  `https://${HOST}/?cat=cat-consumer-rights&lang=bn`,
-  `https://${HOST}/?cat=cat-partition-succession&lang=bn`,
-  `https://${HOST}/?cat=cat-money-recovery&lang=bn`,
-  `https://${HOST}/?cat=cat-family-maintenance&lang=bn`,
-  `https://${HOST}/?cat=cat-land-mutation&lang=en`,
-  `https://${HOST}/?cat=cat-tenancy-disputes&lang=en`,
-  `https://${HOST}/?cat=cat-consumer-rights&lang=en`,
-  `https://${HOST}/?cat=cat-partition-succession&lang=en`,
-  `https://${HOST}/?cat=cat-money-recovery&lang=en`,
-  `https://${HOST}/?cat=cat-family-maintenance&lang=en`,
-  `https://${HOST}/?policy=pricing`,
-  `https://${HOST}/?policy=terms`,
-  `https://${HOST}/?policy=privacy`,
-  `https://${HOST}/?policy=refund`,
-  `https://${HOST}/?policy=contact`
+  `https://${HOST}/elibrarypro`,
+  `https://${HOST}/app`,
+  `https://${HOST}/guides/land-records-mutation-west-bengal`,
+  `https://${HOST}/guides/tenancy-premises-disputes-west-bengal`,
+  `https://${HOST}/guides/consumer-rights-wbrera-west-bengal`,
+  `https://${HOST}/guides/partition-succession-probate-west-bengal`,
+  `https://${HOST}/guides/money-recovery-cheque-bounce-india`,
+  `https://${HOST}/guides/family-maintenance-divorce-india`
 ];
+
+function getUrlsFromSitemap() {
+  try {
+    const candidates = [
+      path.join(process.cwd(), 'dist', 'sitemap.xml'),
+      path.join(process.cwd(), 'public', 'sitemap.xml')
+    ];
+    for (const file of candidates) {
+      if (fs.existsSync(file)) {
+        const xml = fs.readFileSync(file, 'utf8');
+        const locs = [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) =>
+          m[1].replace(/&amp;/g, '&')
+        );
+        if (locs.length > 0) return locs.slice(0, 10000);
+      }
+    }
+  } catch {
+    /* fallback below */
+  }
+  return FALLBACK_URL_LIST;
+}
 
 function submitToIndexNow(payload) {
   return new Promise((resolve) => {
@@ -79,19 +90,31 @@ function submitToIndexNow(payload) {
 }
 
 export default async function handler(req, res) {
-  res.setHeader('Access-Control-Allow-Origin', '*');
+  const ALLOWED_ORIGINS = [
+    'https://nyayamitrawb.in',
+    'https://www.nyayamitrawb.in',
+    'https://localhost'
+  ];
+
+  const origin = req.headers.origin;
+  if (ALLOWED_ORIGINS.includes(origin)) {
+    res.setHeader('Access-Control-Allow-Origin', origin);
+    res.setHeader('Access-Control-Allow-Credentials', 'true');
+  }
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
   if (req.method === 'OPTIONS') {
-    return res.status(200).end();
+    return res.status(204).end();
   }
+
+  const urlList = getUrlsFromSitemap();
 
   const payload = {
     host: HOST,
     key: INDEXNOW_KEY,
     keyLocation: KEY_LOCATION,
-    urlList: FULL_CRAWL_URL_LIST
+    urlList
   };
 
   try {
@@ -101,7 +124,7 @@ export default async function handler(req, res) {
       status: result.ok ? 'success' : 'submitted',
       httpStatus: result.status,
       message: 'IndexNow dispatch completed for Microsoft Bing and Yandex.',
-      urlsSubmitted: FULL_CRAWL_URL_LIST.length,
+      urlsSubmitted: urlList.length,
       keyLocationVerified: KEY_LOCATION,
       apiResponse: result.response || 'OK'
     });

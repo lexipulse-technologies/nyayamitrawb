@@ -8,5 +8,14 @@
 dist/
 node_modules/
 
+# Generated APK assets (versioned, regenerated on build)
+public/app/
+
 # E-Library source archive — exact duplicate of public/statutes/ (deployment copy).
 E-LIBRARY-PRO/STATUTES/
+
+# Android platform — 3.4 GB, not for web deployment
+android/
+
+# Mobile application builds — not for git (use GitHub Releases)
+mobile application/

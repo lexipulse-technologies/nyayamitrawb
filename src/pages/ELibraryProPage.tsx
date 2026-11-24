@@ -46,6 +46,7 @@ import {
 import { ELIBRARY_PDFS } from '../data/elibraryCatalog';
 import type { ELibraryPDF } from '../data/elibraryCatalog';
 import type { Language } from '../types/legal';
+import { trackElibraryOpenAct } from '../utils/analytics';
 
 interface ELibraryProPageProps {
   lang: Language;
@@ -57,13 +58,34 @@ interface ELibraryProPageProps {
 // TRILINGUAL UI TEXT
 // ============================================================================
 
-const UI_TEXT = {
+export const ELIBRARY_HERO_UI = {
   title: { en: 'E-LIBRARY PRO', bn: 'ই-লাইব্রেরি প্রো', hi: 'ई-लाइब्रेरी प्रो' },
   tagline: {
     en: 'Genuine Digital Statute Library for Civil Legal Awareness',
     bn: 'দেওয়ানি আইনি সচেতনতার জন্য প্রামাণিক ডিজিটাল আইন গ্রন্থাগার',
     hi: 'नागरिक कानूनी जागरूकता हेतु प्रामाणिक डिजिटल विधि पुस्तकालय'
   },
+  subtitle: {
+    en: '88 Official Central & West Bengal Bare Acts sourced from India Code — Secure Read-Only Viewer',
+    bn: 'ইন্ডিয়া কোড থেকে সংগৃহীত ৮৮টি অফিসিয়াল কেন্দ্রীয় ও পশ্চিমবঙ্গ আইন — সুরক্ষিত রিডার',
+    hi: 'इंडिया कोड से प्राप्त 88 आधिकारिक केंद्रीय व पश्चिम बंगाल अधिनियम — सुरक्षित रीडर'
+  },
+  backToMain: {
+    en: 'Back to Main Page',
+    bn: 'মূল পাতায় ফিরুন',
+    hi: 'मुख्य पृष्ठ पर लौटें'
+  },
+  badges: {
+    acts: { en: '88 Official Bare Acts', bn: '৮৮টি অফিসিয়াল আইন', hi: '88 आधिकारिक अधिनियम' },
+    source: { en: 'Sourced from India Code', bn: 'ইন্ডিয়া কোড থেকে সংগৃহীত', hi: 'इंडिया कोड से प्राप्त' },
+    genuine: { en: '100% Genuine & Verified', bn: 'সম্পূর্ণ প্রামাণিক ও যাচাইকৃত', hi: 'पूर्णतः प्रामाणिक और सत्यापित' },
+    secure: { en: 'Secure Read-Only Viewer', bn: 'সুরক্ষিত শুধুমাত্র-পাঠযোগ্য রিডার', hi: 'सुरक्षित केवल-पठनीय रीडर' },
+    trilingual: { en: 'English / বাংলা / हिन्दी', bn: 'English / বাংলা / हिन्दी', hi: 'English / বাংলা / हिन्दी' }
+  }
+};
+
+const UI_TEXT = {
+  ...ELIBRARY_HERO_UI,
   p1: {
     en: 'NyayaMitra presents E-Library Pro — a genuine, curated digital library of 88 official bare acts, rules and regulations that shape everyday civil life in West Bengal and across India. From the new criminal codes (BNS, BNSS & BSA 2023) and the Code of Civil Procedure, 1908, to West Bengal\u2019s land reforms, tenancy, municipal and family laws, every document here is the authentic text sourced from India Code — the official portal of the Legislative Department, Ministry of Law & Justice, Government of India.',
     bn: 'ন্যায়মিত্র উপস্থাপন করছে ই-লাইব্রেরি প্রো — পশ্চিমবঙ্গ ও সমগ্র ভারতের দৈনন্দিন দেওয়ানি জীবনকে রূপ দেওয়া ৮৮টি অফিসিয়াল খাঁটি আইন, বিধি ও বিনিয়মের এক প্রামাণিক, যত্নে নির্বাচিত ডিজিটাল গ্রন্থাগার। নতুন ফৌজদারি সংহিতা (বিএনএস, বিএনএসএস ও বিএসএ ২০২৩) এবং দেওয়ানি কার্যবিধি, ১৯০৮ থেকে শুরু করে পশ্চিমবঙ্গের ভূমি সংস্কার, প্রজাস্বত্ব, পৌর ও পারিবারিক আইন পর্যন্ত — এখানের প্রতিটি নথি ভারত সরকারের আইন মন্ত্রকের আইন বিভাগের অফিসিয়াল পোর্টাল ইন্ডিয়া কোড থেকে সংগৃহীত প্রামাণিক পাঠ।',
@@ -398,6 +420,7 @@ const ELibraryProPage: React.FC<ELibraryProPageProps> = ({ lang, onBackToMain })
     setReaderScale(1.2);
     setReaderLoadError(false);
     setReaderPdf(pdf);
+    trackElibraryOpenAct(pdf.id, pdf.displayName.en, pdf.topFolder);
   }, []);
 
   const closeReader = useCallback(() => setReaderPdf(null), []);
@@ -503,58 +526,12 @@ const ELibraryProPage: React.FC<ELibraryProPageProps> = ({ lang, onBackToMain })
 
   return (
     <div className="space-y-7">
-      {/* ================= HERO / DESCRIPTION ================= */}
-      <section className="relative overflow-hidden rounded-2xl border border-[#f59e0b]/70 bg-gradient-to-br from-[#0a1e34] via-[#0f2b48] to-[#071626] text-white p-5 sm:p-8 shadow-[0_0_24px_rgba(245,158,11,0.2)]">
-        <div className="absolute inset-0 opacity-[0.05] pointer-events-none flex items-center justify-center">
-          <BookOpen className="w-64 h-64 text-amber-300" />
-        </div>
-        <div className="relative space-y-4">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-400/15 border border-amber-400/50 text-amber-300 text-[10.5px] font-black tracking-widest uppercase">
-            <Library className="w-3.5 h-3.5" />
-            <span>{t.tagline[lang]}</span>
-          </div>
-
-          <div className="flex items-center justify-between gap-3 sm:gap-4 flex-wrap">
-            <h2 className="text-2xl sm:text-3xl font-black tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-white via-amber-100 to-amber-400">
-              {t.title[lang]}
-            </h2>
-            <button
-              type="button"
-              onClick={onBackToMain}
-              className="group flex items-center gap-2 px-3 sm:px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 border border-emerald-400/60 hover:border-emerald-300 text-white transition-all shrink-0 cursor-pointer shadow-[0_0_12px_rgba(16,185,129,0.25)]"
-              title={t.backToMain[lang]}
-              aria-label={t.backToMain[lang]}
-            >
-              <span className="w-6 h-6 rounded-lg bg-gradient-to-tr from-amber-400 to-emerald-400 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
-                <Home className="w-3.5 h-3.5 text-slate-950" />
-              </span>
-              <span className="text-[11px] sm:text-xs font-extrabold tracking-wide whitespace-nowrap">{t.backToMain[lang]}</span>
-            </button>
-          </div>
-
-          <div className="space-y-3 max-w-4xl text-xs sm:text-sm text-slate-200 leading-relaxed font-medium">
-            <p>{t.p1[lang]}</p>
-            <p>{t.p2[lang]}</p>
-            <p>{t.p3[lang]}</p>
-          </div>
-
-          <div className="flex flex-wrap gap-2 pt-1">
-            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/10 border border-white/20 text-[10.5px] font-bold">
-              <BookOpenText className="w-3 h-3 text-amber-300" />{t.badges.acts[lang]}
-            </span>
-            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/10 border border-white/20 text-[10.5px] font-bold">
-              <Landmark className="w-3 h-3 text-emerald-300" />{t.badges.source[lang]}
-            </span>
-            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/10 border border-white/20 text-[10.5px] font-bold">
-              <ShieldCheck className="w-3 h-3 text-emerald-300" />{t.badges.genuine[lang]}
-            </span>
-            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/10 border border-white/20 text-[10.5px] font-bold">
-              <Lock className="w-3 h-3 text-rose-300" />{t.badges.secure[lang]}
-            </span>
-            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/10 border border-white/20 text-[10.5px] font-bold">
-              <Gavel className="w-3 h-3 text-sky-300" />{t.badges.trilingual[lang]}
-            </span>
-          </div>
+      {/* ================= OVERVIEW / MISSION (Displayed cleanly below shared Hero Banner) ================= */}
+      <section className="rounded-2xl border border-[#f59e0b]/70 bg-white/95 text-slate-800 p-4 sm:p-6 shadow-sm">
+        <div className="space-y-3 text-xs sm:text-sm text-slate-700 leading-relaxed font-medium">
+          <p>{t.p1[lang]}</p>
+          <p>{t.p2[lang]}</p>
+          <p className="text-[#0f2b48] font-semibold">{t.p3[lang]}</p>
         </div>
       </section>
 

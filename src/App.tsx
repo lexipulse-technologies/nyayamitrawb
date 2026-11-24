@@ -1,5 +1,7 @@
 import React, { useState, useMemo, useEffect, useRef, useCallback } from 'react';
 import { CIVIL_CATEGORIES, TOTAL_WORKFLOW_COUNT } from './data/civilLegalData';
+import { ADVOCATE_PROFILE } from './data/advocateProfile';
+import { PILLAR_ENRICHMENTS } from './data/pillarEnrichments';
 import type { Language, CivilCategory, CivilSubCategory } from './types/legal';
 import { DisclaimerBanner } from './components/DisclaimerBanner';
 import { OfflineBanner } from './components/OfflineBanner';
@@ -14,12 +16,36 @@ import { SplashScreen } from './components/SplashScreen';
 import { LegalPolicyModal } from './components/LegalPolicyModal';
 import type { PolicyTab } from './components/LegalPolicyModal';
 import { AdvocateConnectModal } from './components/AdvocateConnectModal';
-import { ELibraryProPage } from './pages/ELibraryProPage';
+import { ELibraryProPage, ELIBRARY_HERO_UI } from './pages/ELibraryProPage';
+import { AppDownloadPage } from './pages/AppDownloadPage';
 import { getWorkflowTemplateMapping, getTemplateById } from './utils/proDocumentTemplates';
 import { searchLegalTopics } from './utils/triageEngine';
 import { isAdminSessionActive, clearAdminSession } from './utils/authUtils';
 import { startVoiceRecognition, stopActiveVoiceRecognition, isVoiceSearchSupported } from './utils/speechEngine';
 import { applySeoHeaders } from './utils/seoEngine';
+import {
+  getCategoryGuidePath,
+  getWorkflowGuidePath,
+  resolveGuidePath
+} from './utils/guideSlugs';
+import {
+  trackPageView,
+  trackWorkflowSelect,
+  trackSearch,
+  trackLanguageSwitch,
+  trackTrackSwitch,
+  trackPortalClick
+} from './utils/analytics';
+import { Capacitor } from '@capacitor/core';
+import { App as CapacitorApp } from '@capacitor/app';
+import {
+  useNativeSplash,
+  useLanguagePersistence,
+  useNetworkStatus,
+  useShare,
+  useStatusBar,
+  useKeyboardShortcut
+} from './hooks/useCapacitor';
 import {
   Scale,
   CheckCircle2,
@@ -44,7 +70,14 @@ import {
   Check,
   Command,
   Zap,
-  Download
+  Download,
+  LogOut,
+  Library,
+  Landmark,
+  Gavel,
+  BookOpenText,
+  Home,
+  Smartphone
 } from 'lucide-react';
 
 const HIGH_VALUE_PORTALS = [
@@ -272,8 +305,14 @@ const UI_TEXT = {
 const WATERMARK_SVG_URI = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='420' height='260' viewBox='0 0 420 260'%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dominant-baseline='middle' transform='rotate(-24 210 130)' font-family='serif' font-weight='800' font-size='22' letter-spacing='4' fill='%230f2b48' opacity='0.028'%3ENYAYAMITRA WB%3C/text%3E%3C/svg%3E")`;
 
 export function App() {
-  const [lang, setLang] = useState<Language>('en');
- 
+  const [lang, setLang] = useLanguagePersistence('en');
+  const { isOnline } = useNetworkStatus();
+  const { share } = useShare();
+
+  useNativeSplash();
+  useStatusBar();
+  useKeyboardShortcut(() => setIsCommandPaletteOpen(prev => !prev));
+
   const defaultCategory = CIVIL_CATEGORIES[0] || {
     id: 'cat-land-mutation',
     title: { bn: '', hi: '', en: '' },
@@ -291,8 +330,20 @@ export function App() {
     required_documents: []
   };
 
-  const [selectedCat, setSelectedCat] = useState<CivilCategory>(defaultCategory);
-  const [selectedSubCat, setSelectedSubCat] = useState<CivilSubCategory>(defaultSubCategory);
+  const initialGuideRoute = useMemo(
+    () =>
+      typeof window !== 'undefined'
+        ? resolveGuidePath(window.location.pathname, CIVIL_CATEGORIES)
+        : null,
+    []
+  );
+
+  const [selectedCat, setSelectedCat] = useState<CivilCategory>(
+    () => initialGuideRoute?.category || defaultCategory
+  );
+  const [selectedSubCat, setSelectedSubCat] = useState<CivilSubCategory>(
+    () => initialGuideRoute?.subcategory || defaultSubCategory
+  );
   const [checkedDocs, setCheckedDocs] = useState<Record<string, boolean>>({});
 
   // Administrative State & Authentication
@@ -332,6 +383,9 @@ export function App() {
   // Advocate Connect (₹499) Modal State
   const [showAdvocateModal, setShowAdvocateModal] = useState<boolean>(false);
 
+  // Exit Confirmation Modal State
+  const [showExitConfirm, setShowExitConfirm] = useState<boolean>(false);
+
   // E-Library Pro — standalone route (/elibrarypro) + legacy ?view=elibrarypro deep link
   const [showELibraryPro, setShowELibraryPro] = useState<boolean>(false);
   const [routePath, setRoutePath] = useState<string>(() =>
@@ -339,15 +393,23 @@ export function App() {
   );
 
   const isLibraryView = routePath === '/elibrarypro' || showELibraryPro;
+  const isAppDownloadView = routePath === '/app';
 
-  // SECURITY: Disable all browser Back/Forward navigation (buttons, Alt+Arrow
-  // keys, mobile swipe gestures). A guard history entry is pushed on load and
-  // re-pushed on every popstate, re-anchoring the history stack to the last
-  // INTENTIONAL in-app URL, so the user always stays on the current in-page
-  // view with a consistent address bar. In-page navigation (E-Library entry,
-  // Back to Main Page, Back to Library) uses explicit pushState calls and
-  // keeps working.
+  // Redirect /app to home on native (no download page in app)
+  useEffect(() => {
+    if (Capacitor.isNativePlatform() && routePath === '/app') {
+      window.history.replaceState(null, '', '/');
+      setSelectedCat(defaultCategory);
+      setSelectedSubCat(defaultSubCategory);
+    }
+  }, [routePath, selectedCat, selectedSubCat, lang]);
+
+  // SECURITY: Disable browser Back/Forward navigation (buttons, Alt+Arrow
+  // keys, mobile swipe gestures). Allow programmatic navigation (pushState).
+  // A guard history entry is pushed on load and re-pushed on user-initiated
+  // popstate, re-anchoring the history stack to the last INTENTIONAL in-app URL.
   const appUrlRef = useRef<string>('');
+  const isProgrammaticNavigation = useRef(false);
 
   useEffect(() => {
     if (!appUrlRef.current) {
@@ -368,7 +430,13 @@ export function App() {
     pushGuardEntry();
 
     const handleNavTrap = () => {
-      // Neutralize Back/Forward: restore the intentional app URL
+      // Allow programmatic navigation (our own pushState calls)
+      if (isProgrammaticNavigation.current) {
+        isProgrammaticNavigation.current = false;
+        appUrlRef.current = window.location.href;
+        return;
+      }
+      // Neutralize user-initiated Back/Forward: restore the intentional app URL
       pushGuardEntry();
     };
 
@@ -389,6 +457,7 @@ export function App() {
   // Instant client-side navigation to E-Library Pro (no page reload, zero latency)
   const openLibraryView = useCallback(() => {
     try {
+      isProgrammaticNavigation.current = true;
       window.history.pushState({ view: 'elibrarypro' }, '', '/elibrarypro');
       appUrlRef.current = new URL('/elibrarypro', window.location.origin).href;
     } catch {
@@ -402,6 +471,7 @@ export function App() {
   // Return to the main landing page from E-Library Pro
   const exitLibraryView = useCallback(() => {
     try {
+      isProgrammaticNavigation.current = true;
       const isOnLibraryPath = window.location.pathname.replace(/\/+$/, '') === '/elibrarypro';
       const target = isOnLibraryPath ? '/' : window.location.pathname + window.location.search;
       window.history.pushState({}, '', target);
@@ -414,8 +484,16 @@ export function App() {
     window.scrollTo({ top: 0, behavior: 'auto' });
   }, []);
 
-  // Splash Screen State (Session-based)
-  const [showSplash, setShowSplash] = useState<boolean>(true);
+  // Explicit Topic Selection Flag — preserves clean homepage '/' canonical & title on initial load
+  const [hasExplicitTopic, setHasExplicitTopic] = useState<boolean>(() => {
+    if (initialGuideRoute?.kind === 'workflow') return true;
+    if (typeof window === 'undefined') return false;
+    const params = new URLSearchParams(window.location.search);
+    return Boolean(params.get('cat') || params.get('topic'));
+  });
+
+  // Splash Screen State — enabled ONLY on native Android app; disabled on Website for instant LCP & zero bounce
+  const [showSplash, setShowSplash] = useState<boolean>(() => Capacitor.isNativePlatform());
 
   const handleSplashClose = useCallback(() => setShowSplash(false), []);
 
@@ -427,6 +505,30 @@ export function App() {
   const openCompliancePolicy = (tab: PolicyTab) => {
     setPolicyModalTab(tab);
     setShowPolicyModal(true);
+  };
+
+  // Exit App Handler with Confirmation
+  const handleExitApp = () => {
+    setShowExitConfirm(true);
+  };
+
+  const confirmExitApp = async () => {
+    setShowExitConfirm(false);
+    if (Capacitor.isNativePlatform()) {
+      try {
+        await CapacitorApp.exitApp();
+      } catch {
+        // Fallback for older Capacitor versions
+        navigator.app?.exitApp?.();
+      }
+    } else {
+      // Web fallback - close window/tab
+      window.close();
+    }
+  };
+
+  const cancelExitApp = () => {
+    setShowExitConfirm(false);
   };
 
   // Global Keyboard Shortcut Listener for Ctrl+K / Cmd+K
@@ -444,7 +546,10 @@ export function App() {
 
   // Admin Login Modal Event Listener
   useEffect(() => {
-    const handleOpenAdminLogin = () => setShowLoginModal(true);
+    const handleOpenAdminLogin = () => {
+      if (Capacitor.isNativePlatform()) return;
+      setShowLoginModal(true);
+    };
     window.addEventListener('open-admin-login', handleOpenAdminLogin);
     return () => window.removeEventListener('open-admin-login', handleOpenAdminLogin);
   }, []);
@@ -455,7 +560,6 @@ export function App() {
       const params = new URLSearchParams(window.location.search);
       const catParam = params.get('cat');
       const topicParam = params.get('topic');
-      const langParam = params.get('lang') as Language | null;
       const trackParam = params.get('track');
       const policyParam = params.get('policy') as PolicyTab | null;
 
@@ -463,10 +567,6 @@ export function App() {
       if (policyParam && ['terms', 'privacy', 'refund', 'contact', 'pricing'].includes(policyParam)) {
         setPolicyModalTab(policyParam);
         setShowPolicyModal(true);
-      }
-
-      if (langParam && (langParam === 'bn' || langParam === 'hi' || langParam === 'en')) {
-        setLang(langParam);
       }
 
       if (trackParam === 'rural_district' || trackParam === 'kolkata_urban') {
@@ -499,10 +599,25 @@ export function App() {
     }
   }, []);
 
-  // Safe URL Sync
+  // Safe URL Sync — only update URL when user explicitly selects a category/workflow, never hijack '/' or '/app' or '/elibrarypro'
   useEffect(() => {
     try {
-      if (isLibraryView) return;
+      if (isLibraryView || isAppDownloadView) return;
+      if (routePath.startsWith('/guides/')) {
+        if (!isAdminView && selectedCat?.id && selectedSubCat?.id) {
+          const targetPath = hasExplicitTopic
+            ? getWorkflowGuidePath(selectedSubCat)
+            : getCategoryGuidePath(selectedCat.id);
+          const qs = lang !== 'en' ? `?lang=${lang}` : '';
+          const newRelativePath = `${targetPath}${qs}`;
+          if (`${window.location.pathname}${window.location.search}` !== newRelativePath) {
+            window.history.replaceState(null, '', newRelativePath);
+            appUrlRef.current = new URL(newRelativePath, window.location.origin).href;
+          }
+        }
+        return;
+      }
+      if (!hasExplicitTopic) return;
       if (!isAdminView && selectedCat?.id && selectedSubCat?.id) {
         const searchParams = new URLSearchParams(window.location.search);
         searchParams.set('cat', selectedCat.id);
@@ -522,27 +637,77 @@ export function App() {
     } catch (err) {
       console.warn('History replace notice:', err);
     }
-  }, [selectedCat?.id, selectedSubCat?.id, lang, isAdminView, activeTerritoryTrack, isLibraryView]);
+  }, [selectedCat?.id, selectedSubCat?.id, lang, isAdminView, activeTerritoryTrack, isLibraryView, isAppDownloadView, hasExplicitTopic, routePath]);
 
-  // Dynamic SEO Engine Integration
+  const lastTrackedPathRef = useRef<string>('');
+
+  // Dynamic SEO Engine + GA4 Virtual Page View Tracking
   useEffect(() => {
-    if (isLibraryView) {
-      document.title = 'E-Library Pro | NyayaMitra — Genuine Digital Statute Library';
-      return;
-    }
-    if (!isAdminView) {
+    const isCategoryGuideOnly = routePath.startsWith('/guides/') && !hasExplicitTopic;
+
+    if (isLibraryView || isAppDownloadView) {
+      applySeoHeaders({ lang });
+    } else if (!isAdminView) {
       applySeoHeaders({
-        subcategory: selectedSubCat,
-        lang: lang
+        category: selectedCat,
+        subcategory: hasExplicitTopic ? selectedSubCat : undefined,
+        guideKind: isCategoryGuideOnly ? 'category' : hasExplicitTopic ? 'workflow' : undefined,
+        lang
       });
     } else {
       document.title = 'NyayaMitra Admin Control Room';
+      return;
     }
-  }, [selectedSubCat, lang, isAdminView, isLibraryView]);
+
+    if (typeof window !== 'undefined' && !isAdminView) {
+      const virtualPath = isLibraryView
+        ? '/elibrarypro'
+        : isAppDownloadView
+          ? '/app'
+          : isCategoryGuideOnly
+            ? getCategoryGuidePath(selectedCat.id)
+            : hasExplicitTopic && selectedSubCat?.id
+              ? getWorkflowGuidePath(selectedSubCat)
+              : '/';
+
+      if (!lastTrackedPathRef.current) {
+        // Initial load is already tracked by gtag('config', ...) in index.html
+        lastTrackedPathRef.current = virtualPath;
+      } else if (lastTrackedPathRef.current !== virtualPath) {
+        lastTrackedPathRef.current = virtualPath;
+        trackPageView(virtualPath, document.title, lang);
+      }
+    }
+  }, [selectedCat, selectedSubCat, lang, isAdminView, isLibraryView, isAppDownloadView, hasExplicitTopic, routePath]);
 
   const searchResults = useMemo(() => {
     return searchLegalTopics(searchQuery, lang);
   }, [searchQuery, lang]);
+
+  // Alphabetical index of all 300 workflows (for crawlable A-Z directory with zero UI bloat)
+  const alphabeticalWorkflows = useMemo(() => {
+    const list: Array<{ cat: CivilCategory; sub: CivilSubCategory }> = [];
+    for (const cat of CIVIL_CATEGORIES) {
+      for (const sub of cat.subcategories || []) {
+        list.push({ cat, sub });
+      }
+    }
+    return list.sort((a, b) =>
+      (a.sub.title?.[lang] || a.sub.title?.en || '').localeCompare(
+        b.sub.title?.[lang] || b.sub.title?.en || ''
+      )
+    );
+  }, [lang]);
+
+  // Debounced GA4 Search Event Tracking
+  useEffect(() => {
+    const trimmed = searchQuery.trim();
+    if (isAdminView || trimmed.length < 2) return;
+    const timer = setTimeout(() => {
+      trackSearch(trimmed, searchResults.length, lang);
+    }, 800);
+    return () => clearTimeout(timer);
+  }, [searchQuery, searchResults.length, lang, isAdminView]);
 
   const toggleDoc = (docId: string) => {
     setCheckedDocs(prev => ({ ...prev, [docId]: !prev[docId] }));
@@ -642,301 +807,476 @@ export function App() {
         backgroundRepeat: 'repeat'
       }}
     >
-      <SplashScreen isOpen={showSplash} onClose={handleSplashClose} lang={lang} />
+      {Capacitor.isNativePlatform() && (
+        <SplashScreen isOpen={showSplash} onClose={handleSplashClose} lang={lang} />
+      )}
       <DisclaimerBanner lang={lang} />
       <OfflineBanner lang={lang} />
 
-      {/* STICKY NAVIGATION BAR */}
+{/* STICKY NAVIGATION BAR */}
       <header className="bg-[#0a1e34]/95 backdrop-blur-md text-white border-b border-white/10 sticky top-0 z-40 shadow-lg transition-all">
-        <div className="max-w-7xl mx-auto px-3 sm:px-4 py-2.5 sm:py-3 flex items-center justify-between gap-2">
-          
-          {/* 3D EMBLEM & TITLE */}
-          <div
-            className="flex items-center gap-2.5 sm:gap-3 cursor-pointer min-w-0 group select-none flex-1"
-            onClick={() => {
-              if (isLibraryView) {
-                exitLibraryView();
-                return;
-              }
-              if (isAdminView) handlePublicViewClick();
-              setSearchQuery('');
-            }}
-          >
-            <div 
-              className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-white border-2 border-red-500 flex items-center justify-center shrink-0 group-hover:scale-105 transition-all duration-300 relative transform-gpu"
-              style={{
-                boxShadow: '0 0 18px rgba(239, 68, 68, 0.95), 0 0 35px rgba(220, 38, 38, 0.55), inset 0 2px 3px #ffffff, inset 0 -3px 5px rgba(185, 28, 28, 0.5), 0 4px 8px rgba(0, 0, 0, 0.4)'
-              }}
-            >
-              <span className="absolute -inset-1 rounded-xl bg-red-500/25 blur-sm animate-pulse pointer-events-none" />
-              <Scale className="w-5 h-5 sm:w-6 sm:h-6 text-red-600 stroke-[2.5] drop-shadow-[0_1px_3px_rgba(185,28,28,0.7)] relative z-10" />
+        <div className="max-w-7xl mx-auto px-2.5 sm:px-3 xl:px-4 py-1.5 md:py-2.5">
+          {/* Header Layout: 2-row clean stack on mobile (<md: 768px), single unified row on tablet/desktop/Chrome-desktop-view (>=md: 768px) */}
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-1.5 md:gap-2 lg:gap-4 xl:gap-6 min-w-0">
+            {/* BRAND BAR: Logo + Title (left) & Lexipulse emblem (mobile-right <md) */}
+            <div className="flex items-center justify-between md:justify-start gap-2 md:gap-2.5 xl:gap-3 w-full md:w-auto shrink-0">
+              <div
+                className="flex items-center gap-2 md:gap-2.5 xl:gap-3 cursor-pointer shrink-0 group select-none"
+                onClick={() => {
+                  if (isLibraryView) {
+                    exitLibraryView();
+                    return;
+                  }
+                  if (isAdminView) handlePublicViewClick();
+                  if (isAppDownloadView) {
+                    setRoutePath('/');
+                    window.history.pushState({}, '', '/');
+                    return;
+                  }
+                  setSearchQuery('');
+                }}
+              >
+                <div 
+                  className="w-8 h-8 md:w-9 md:h-9 xl:w-10 xl:h-10 rounded-xl bg-white border-2 border-red-500 flex items-center justify-center shrink-0 group-hover:scale-105 transition-all duration-300 relative transform-gpu"
+                  style={{
+                    boxShadow: '0 0 18px rgba(239, 68, 68, 0.95), 0 0 35px rgba(220, 38, 38, 0.55), inset 0 2px 3px #ffffff, inset 0 -3px 5px rgba(185, 28, 28, 0.5), 0 4px 8px rgba(0, 0, 0, 0.4)'
+                  }}
+                >
+                  <span className="absolute -inset-1 rounded-xl bg-red-500/25 blur-sm animate-pulse pointer-events-none" />
+                  <Scale className="w-4 h-4 md:w-5 md:h-5 xl:w-6 xl:h-6 text-red-600 stroke-[2.5] drop-shadow-[0_1px_3px_rgba(185,28,28,0.7)] relative z-10" />
+                </div>
+
+                <div className="min-w-0">
+                  <span
+                    className={`block font-black tracking-wide leading-tight text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-yellow-100 to-emerald-400 drop-shadow-[0_2px_12px_rgba(245,158,11,0.65)] select-none whitespace-nowrap transition-transform group-hover:brightness-110 ${
+                      lang === 'en'
+                        ? 'text-lg sm:text-xl md:text-lg lg:text-xl xl:text-2xl'
+                        : 'text-sm sm:text-base md:text-sm lg:text-lg xl:text-xl'
+                    }`}
+                  >
+                    {UI_TEXT.portalTitle[lang]}
+                  </span>
+                </div>
+              </div>
+
+              {/* Mobile-only Lexipulse Emblem (<md, top row right, 1:1 square balanced) */}
+              <div
+                className="flex md:hidden items-center pl-2 border-l border-slate-700/80 shrink-0"
+                aria-label="Parent company: LEXIPULSE TECHNOLOGIES"
+              >
+                <img
+                  src="/brand/lexipulse-technologies-logo.png"
+                  alt="LEXIPULSE TECHNOLOGIES"
+                  className="w-9 h-9 sm:w-10 sm:h-10 aspect-square rounded-lg bg-white p-0.5 object-contain border border-amber-300/70 shadow-[0_2px_10px_rgba(245,158,11,0.25)]"
+                  width="40"
+                  height="40"
+                />
+              </div>
             </div>
 
-            <div className="min-w-0 flex-1">
-              <div className="flex items-center gap-1.5 sm:gap-2 flex-nowrap overflow-hidden">
-                <h1 className="font-black text-xs sm:text-base md:text-lg lg:text-xl tracking-tight leading-none text-transparent bg-clip-text bg-gradient-to-r from-white via-amber-200 to-amber-400 drop-shadow-[0_2px_10px_rgba(245,158,11,0.5)] select-none whitespace-nowrap shrink-0">
-                  {UI_TEXT.portalTitle[lang]}
-                </h1>
-                <span className="hidden lg:inline-block shrink-0 px-2 py-0.5 rounded text-[10px] font-bold bg-amber-400/15 text-amber-300 border border-amber-400/40 shadow-[0_0_12px_rgba(245,158,11,0.25)] whitespace-nowrap">
-                  300 Civil Workflows &bull; 23 Districts
+            {/* ACTION CLUSTER: Second row on mobile (<md), pinned right single-row on tablet/desktop (>=md) */}
+            <div className="flex items-center justify-between md:justify-end gap-1.5 md:gap-1.5 lg:gap-2.5 xl:gap-3 w-full md:w-auto shrink-0 flex-nowrap">
+              {/* E-LIBRARY PRO — primary action */}
+              <button
+                type="button"
+                onClick={openLibraryView}
+                className="group flex items-center gap-1 md:gap-1.5 xl:gap-2 shrink-0 px-2 md:px-2 lg:px-2.5 xl:px-3.5 py-1 md:py-1.5 xl:py-2 rounded-xl bg-gradient-to-r from-amber-400/15 to-emerald-400/15 border border-amber-400/50 hover:border-amber-300 hover:from-amber-400/25 hover:to-emerald-400/25 transition-all shadow-[0_0_14px_rgba(245,158,11,0.25)] cursor-pointer"
+                title="E-Library Pro — Genuine Digital Statute Library (88 Official Bare Acts)"
+                aria-label="Open E-Library Pro"
+              >
+                <span className="relative flex w-6 h-6 md:w-7 md:h-7 xl:w-8 xl:h-8 rounded-lg bg-white items-center justify-center border-2 border-emerald-500 shadow-sm group-hover:scale-105 transition-transform shrink-0">
+                  <BookOpen className="w-3.5 h-3.5 md:w-4 md:h-4 text-emerald-700" />
+                </span>
+                <span className="hidden xl:flex flex-col leading-none text-left">
+                  <span className="text-[11px] sm:text-[12px] font-black tracking-[0.12em] text-amber-300 whitespace-nowrap">E-LIBRARY</span>
+                  <span className="text-[8px] font-bold tracking-[0.3em] text-emerald-300 whitespace-nowrap mt-0.5">PRO</span>
+                </span>
+                <span className="inline xl:hidden text-[10px] md:text-[11px] font-black tracking-wider text-amber-300 whitespace-nowrap">E-LIB</span>
+              </button>
+
+              {/* QR SHARE — desktop only (>= 1280px) */}
+              <a
+                href="/assets/qr-logo.jpeg"
+                download="NyayaMitra-Website-QR.jpeg"
+                className="group hidden xl:flex items-center gap-2 shrink-0 pl-1.5 pr-2.5 py-1.5 rounded-xl bg-white/95 border border-emerald-400/70 hover:border-emerald-300 hover:shadow-[0_0_14px_rgba(16,185,129,0.45)] transition-all cursor-pointer"
+                title="Download Website QR to Share"
+                aria-label="Download Website QR to Share"
+              >
+                <img
+                  src="/assets/qr-logo.jpeg"
+                  alt="NyayaMitra Website QR Code"
+                  className="w-7 h-7 xl:w-8 xl:h-8 rounded-md object-contain bg-white border border-slate-200 shrink-0 group-hover:scale-105 transition-transform"
+                  width="32"
+                  height="32"
+                  loading="lazy"
+                />
+                <span className="hidden 2xl:flex flex-col leading-none text-left">
+                  <span className="text-[9.5px] font-extrabold text-slate-900 whitespace-nowrap">Download Website QR</span>
+                  <span className="text-[8.5px] font-bold text-emerald-700 whitespace-nowrap mt-0.5">to Share</span>
+                </span>
+              </a>
+
+              {/* LANGUAGE SWITCHER — compact, touch-friendly */}
+              <div className="flex bg-[#071626] rounded-lg p-0.5 md:p-1 border border-slate-700/80 text-xs shadow-inner shrink-0">
+                <button
+                  onClick={() => { setLang('bn'); trackLanguageSwitch('bn'); }}
+                  className={`px-1.5 md:px-1.5 lg:px-2 xl:px-2.5 py-1 rounded font-semibold transition text-[10px] sm:text-xs ${
+                    lang === 'bn' ? 'bg-emerald-600 text-white shadow-xs' : 'text-slate-300 hover:text-white'
+                  }`}
+                >
+                  বাংলা
+                </button>
+                <button
+                  onClick={() => { setLang('hi'); trackLanguageSwitch('hi'); }}
+                  className={`px-1.5 md:px-1.5 lg:px-2 xl:px-2.5 py-1 rounded font-semibold transition text-[10px] sm:text-xs ${
+                    lang === 'hi' ? 'bg-emerald-600 text-white shadow-xs' : 'text-slate-300 hover:text-white'
+                  }`}
+                >
+                  हिन्दी
+                </button>
+                <button
+                  onClick={() => { setLang('en'); trackLanguageSwitch('en'); }}
+                  className={`px-1.5 md:px-1.5 lg:px-2 xl:px-2.5 py-1 rounded font-semibold transition text-[10px] sm:text-xs ${
+                    lang === 'en' ? 'bg-emerald-600 text-white shadow-xs' : 'text-slate-300 hover:text-white'
+                  }`}
+                >
+                  English
+                </button>
+              </div>
+
+              {/* CONTACT EMAIL — compact icon button on >=lg (1024px+) */}
+              <a
+                href="mailto:namaste@nyayamitrawb.in"
+                className="hidden lg:flex p-1.5 xl:p-2 rounded-lg border text-xs font-bold items-center bg-slate-800/80 text-slate-300 border-slate-700 hover:bg-slate-700 hover:text-white transition shadow-xs shrink-0"
+                title="Contact: namaste@nyayamitrawb.in"
+                aria-label="Email NyayaMitra Support: namaste@nyayamitrawb.in"
+              >
+                <Mail className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+              </a>
+
+              {/* EXIT BUTTON — mobile native only */}
+              {Capacitor.isNativePlatform() && (
+                <button
+                  type="button"
+                  onClick={handleExitApp}
+                  className="flex px-2 sm:px-2.5 py-1.5 rounded-lg border text-xs font-bold items-center gap-1.5 bg-slate-800/80 text-slate-300 border-slate-700 hover:bg-red-900/30 hover:border-red-500 hover:text-red-400 transition shadow-xs shrink-0"
+                  title="Exit Application"
+                  aria-label="Exit Application"
+                >
+                  <LogOut className="w-3.5 h-3.5 text-slate-400 hover:text-red-400 shrink-0" />
+                  <span className="hidden sm:inline">Exit</span>
+                </button>
+              )}
+
+              {/* ADMIN / LOGIN — web only */}
+              {!Capacitor.isNativePlatform() && (
+                <>
+                  {isAdminView ? (
+                    <button
+                      onClick={handlePublicViewClick}
+                      className="px-2 md:px-2.5 xl:px-3 py-1 md:py-1.5 rounded-lg border text-xs font-bold flex items-center gap-1.5 bg-amber-500 text-slate-950 border-amber-400 hover:bg-amber-400 shadow-sm transition whitespace-nowrap shrink-0"
+                    >
+                      <Globe className="w-3.5 h-3.5 shrink-0" />
+                      <span className="hidden xl:inline">{UI_TEXT.publicViewBtn[lang]}</span>
+                    </button>
+                  ) : (
+                    <button
+                      onClick={() => setShowLoginModal(true)}
+                      className="hidden md:flex p-1.5 xl:px-3 xl:py-1.5 rounded-lg border text-xs font-bold items-center gap-1.5 bg-slate-800/80 text-slate-300 border-slate-700 hover:bg-slate-700 hover:text-white transition whitespace-nowrap shrink-0"
+                      title="Admin Login"
+                      aria-label="Admin Login"
+                    >
+                      <Lock className="w-3.5 h-3.5 text-amber-400 shrink-0" />
+                      <span className="hidden xl:inline">{UI_TEXT.adminLoginBtn[lang]}</span>
+                    </button>
+                  )}
+                </>
+              )}
+
+              {/* DOWNLOAD APP BUTTON — PROMINENT, BOLD, ALWAYS VISIBLE ON WEB */}
+              {!isAppDownloadView && !Capacitor.isNativePlatform() && (
+                <a
+                  href="/app"
+                  className="px-2.5 md:px-3 xl:px-3.5 py-1 md:py-1.5 rounded-xl border border-emerald-400/80 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-extrabold text-xs xl:text-sm shadow-[0_0_12px_rgba(16,185,129,0.35)] hover:shadow-[0_0_18px_rgba(16,185,129,0.55)] transition-all flex items-center gap-1.5 shrink-0 whitespace-nowrap select-none cursor-pointer"
+                  title="Download Mobile Application"
+                >
+                  <Download className="w-3.5 h-3.5 md:w-4 md:h-4 shrink-0 text-white" />
+                  <span className="tracking-wide">Download App</span>
+                </a>
+              )}
+
+              {/* RETURN TO MAIN PAGE — only on /app page */}
+              {isAppDownloadView && (
+                <a
+                  href="/"
+                  className="px-2.5 md:px-3 xl:px-3.5 py-1 md:py-1.5 rounded-xl border border-amber-400 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-extrabold text-xs xl:text-sm shadow-md hover:shadow-lg transition-all flex items-center gap-1.5 shrink-0 whitespace-nowrap select-none cursor-pointer"
+                  title="Return to Main Page"
+                  aria-label="Return to Main Page"
+                >
+                  <ArrowRight className="w-3.5 h-3.5 md:w-4 md:h-4 shrink-0" />
+                  <span className="sm:hidden font-bold">Main Page</span>
+                  <span className="hidden sm:inline font-bold">Return to Main Page</span>
+                </a>
+              )}
+
+              {/* LEXIPULSE LOGO (tablet/desktop >=md, always last, 1:1 aspect ratio) */}
+              <div
+                className="hidden md:flex items-center gap-2 md:pl-2.5 xl:pl-3 border-l border-slate-700/80 shrink-0"
+                aria-label="Parent company: LEXIPULSE TECHNOLOGIES"
+              >
+                <img
+                  src="/brand/lexipulse-technologies-logo.png"
+                  alt="LEXIPULSE TECHNOLOGIES"
+                  className="w-10 h-10 lg:w-11 lg:h-11 xl:w-12 xl:h-12 aspect-square rounded-xl bg-white p-0.5 object-contain border border-amber-300/70 shadow-[0_2px_12px_rgba(245,158,11,0.28)] hover:scale-105 transition-transform"
+                  width="48"
+                  height="48"
+                />
+                <span className="hidden xl:block text-[9.5px] leading-tight font-bold tracking-[0.08em] text-slate-300 whitespace-nowrap">
+                  LEXIPULSE<br />TECHNOLOGIES
                 </span>
               </div>
-              <p className="text-[10px] sm:text-xs text-slate-300 mt-0.5 font-medium truncate max-w-sm md:max-w-md lg:max-w-lg">
-                {UI_TEXT.portalSubtitle[lang]}
-              </p>
-            </div>
-          </div>
-
-          {/* Action Controls — all header actions grouped on the right so the
-              NyayaMitra title area (badge + subtitle) is never truncated */}
-          <div className="flex items-center gap-1.5 sm:gap-2 shrink-0 flex-nowrap">
-
-            {/* E-LIBRARY PRO ENTRY — grouped in the right-side action cluster */}
-            <button
-              type="button"
-              onClick={openLibraryView}
-              className="group flex items-center gap-1.5 sm:gap-2 shrink-0 px-2 sm:px-3 py-1.5 rounded-xl bg-gradient-to-r from-amber-400/15 to-emerald-400/15 border border-amber-400/50 hover:border-amber-300 hover:from-amber-400/25 hover:to-emerald-400/25 transition-all shadow-[0_0_14px_rgba(245,158,11,0.25)] cursor-pointer"
-              title="E-Library Pro — Genuine Digital Statute Library (88 Official Bare Acts)"
-              aria-label="Open E-Library Pro"
-            >
-              <span className="relative flex w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-white items-center justify-center border-2 border-emerald-500 shadow-sm group-hover:scale-105 transition-transform shrink-0">
-                <BookOpen className="w-4 h-4 text-emerald-700" />
-              </span>
-              <span className="hidden md:flex flex-col leading-none text-left">
-                <span className="text-[10px] sm:text-[11px] font-black tracking-[0.12em] text-amber-300 whitespace-nowrap">E-LIBRARY</span>
-                <span className="text-[8px] font-bold tracking-[0.3em] text-emerald-300 whitespace-nowrap mt-0.5">PRO</span>
-              </span>
-              <span className="hidden sm:inline md:hidden text-[10px] font-black tracking-wider text-amber-300 whitespace-nowrap">E-LIB</span>
-            </button>
-
-            {/* WEBSITE QR SHARE CARD — shared header: visible on main landing page and E-Library Pro */}
-            <a
-              href="/assets/qr-logo.jpeg"
-              download="NyayaMitra-Website-QR.jpeg"
-              className="group hidden sm:flex items-center gap-1.5 sm:gap-2 shrink-0 pl-1.5 pr-2 sm:pl-2 sm:pr-2.5 py-1.5 rounded-xl bg-white/95 border border-emerald-400/70 hover:border-emerald-300 hover:shadow-[0_0_14px_rgba(16,185,129,0.45)] transition-all cursor-pointer"
-              title="Download Website QR to Share"
-              aria-label="Download Website QR to Share"
-            >
-              <img
-                src="/assets/qr-logo.jpeg"
-                alt="NyayaMitra Website QR Code"
-                className="w-7 h-7 sm:w-8 sm:h-8 rounded-md object-contain bg-white border border-slate-200 shrink-0 group-hover:scale-105 transition-transform"
-                width="32"
-                height="32"
-                loading="lazy"
-              />
-              <span className="hidden 2xl:flex flex-col leading-none text-left">
-                <span className="text-[9.5px] font-extrabold text-slate-900 whitespace-nowrap">Download Website QR</span>
-                <span className="text-[8.5px] font-bold text-emerald-700 whitespace-nowrap mt-0.5">to Share</span>
-              </span>
-              <Download className="w-3.5 h-3.5 text-emerald-700 shrink-0 group-hover:scale-110 transition-transform" />
-            </a>
-
-            {/* Trilingual Switcher */}
-            <div className="flex bg-[#071626] rounded-lg p-0.5 border border-slate-700/80 text-xs shadow-inner shrink-0">
-              <button
-                onClick={() => setLang('bn')}
-                className={`px-1.5 sm:px-2 py-1 rounded font-semibold transition text-[11px] sm:text-xs ${
-                  lang === 'bn' ? 'bg-emerald-600 text-white shadow-xs' : 'text-slate-300 hover:text-white'
-                }`}
-              >
-                বাংলা
-              </button>
-              <button
-                onClick={() => setLang('hi')}
-                className={`px-1.5 sm:px-2 py-1 rounded font-semibold transition text-[11px] sm:text-xs ${
-                  lang === 'hi' ? 'bg-emerald-600 text-white shadow-xs' : 'text-slate-300 hover:text-white'
-                }`}
-              >
-                हिन्दी
-              </button>
-              <button
-                onClick={() => setLang('en')}
-                className={`px-1.5 sm:px-2 py-1 rounded font-semibold transition text-[11px] sm:text-xs ${
-                  lang === 'en' ? 'bg-emerald-600 text-white shadow-xs' : 'text-slate-300 hover:text-white'
-                }`}
-              >
-                English
-              </button>
-            </div>
-
-            {/* Contact Email Link — compact icon button (full email in tooltip; also in footer) */}
-            <a
-              href="mailto:namaste@nyayamitrawb.in"
-              className="hidden sm:flex px-2 py-1.5 rounded-lg border text-xs font-bold items-center bg-slate-800/80 text-slate-300 border-slate-700 hover:bg-slate-700 hover:text-white transition shadow-xs shrink-0"
-              title="Contact: namaste@nyayamitrawb.in"
-              aria-label="Email NyayaMitra Support: namaste@nyayamitrawb.in"
-            >
-              <Mail className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
-            </a>
-
-            {/* Admin Login / Public View Button */}
-            {isAdminView ? (
-              <button
-                onClick={handlePublicViewClick}
-                className="px-2.5 sm:px-3 py-1.5 rounded-lg border text-[11px] sm:text-xs font-bold flex items-center gap-1.5 bg-amber-500 text-slate-950 border-amber-400 hover:bg-amber-400 shadow-sm transition whitespace-nowrap shrink-0"
-              >
-                <Globe className="w-3.5 h-3.5 shrink-0" />
-                <span className="hidden sm:inline">{UI_TEXT.publicViewBtn[lang]}</span>
-              </button>
-            ) : (
-              <button
-                onClick={() => setShowLoginModal(true)}
-                className="px-2.5 sm:px-3 py-1.5 rounded-lg border text-[11px] sm:text-xs font-bold flex items-center gap-1.5 bg-slate-800/80 text-slate-300 border-slate-700 hover:bg-slate-700 hover:text-white transition whitespace-nowrap shrink-0"
-              >
-                <Lock className="w-3.5 h-3.5 text-amber-400 shrink-0" />
-                <span className="hidden sm:inline">{UI_TEXT.adminLoginBtn[lang]}</span>
-              </button>
-            )}
-
-            <div
-              className="flex items-center gap-1.5 sm:gap-2 pl-1.5 sm:pl-2 border-l border-slate-600/80 shrink-0"
-              aria-label="Parent company: LEXIPULSE TECHNOLOGIES"
-            >
-              <img
-                src="/brand/lexipulse-technologies-logo.png"
-                alt="LEXIPULSE TECHNOLOGIES"
-                className="w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-white object-contain border border-white/70 shadow-sm"
-                width="36"
-                height="36"
-              />
-              <span className="hidden 2xl:block text-[9px] leading-tight font-bold tracking-[0.08em] text-slate-300 whitespace-nowrap">
-                LEXIPULSE<br />TECHNOLOGIES
-              </span>
             </div>
           </div>
         </div>
       </header>
 
-      {/* HERO BANNER */}
-      {!isAdminView && !isLibraryView && (
-        <section 
-          className="relative text-white py-16 sm:py-20 md:py-26 px-4 overflow-hidden border-b-2 border-amber-500/50 bg-[#071626] bg-cover bg-center shadow-2xl z-10"
-          style={{ backgroundImage: `url('/assets/hero-banner.webp')` }}
-        >
-          <div className="absolute inset-0 bg-gradient-to-b from-black/15 via-black/30 to-[#071422]/75 pointer-events-none" />
+      {/* HERO BANNER — Compact Height, Full-Width Left-to-Right Stretch & 100% Picture Visible Across All Devices (Shared across /, /elibrarypro, and /app) */}
+      {!isAdminView && (
+        <section className="relative w-full text-white bg-[#071626] border-b-2 border-amber-500/50 shadow-2xl z-20">
+          <div className="relative w-full overflow-hidden bg-[#071626]">
+            <picture className="block w-full">
+              <source media="(max-width: 639px)" srcSet="/assets/hero-banner-mobile.webp" type="image/webp" />
+              <source media="(max-width: 1023px)" srcSet="/assets/hero-banner-tablet.webp" type="image/webp" />
+              <img
+                src="/assets/hero-banner.webp"
+                alt="High Court at Calcutta with antique brass Scales of Justice, warm desk lamp, and bound Indian legal codes"
+                className="block w-full h-auto md:h-[390px] lg:h-[430px] xl:h-[460px] md:object-fill select-none pointer-events-none"
+                fetchPriority="high"
+                decoding="async"
+              />
+            </picture>
 
-          <div className="relative max-w-5xl mx-auto text-center space-y-4 sm:space-y-5">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-[10.5px] sm:text-xs font-black tracking-widest uppercase bg-slate-950/60 text-amber-300 border border-amber-400/60 shadow-lg backdrop-blur-md">
-              <Sparkles className="w-3.5 h-3.5 text-amber-400" />
-              <span>{UI_TEXT.heroSuperTitle[lang]}</span>
-            </div>
+            {/* Subtle readability scrim */}
+            <div className="absolute inset-0 bg-gradient-to-b from-[#051120]/45 via-[#071626]/20 to-[#071626] md:to-[#071422]/45 pointer-events-none" />
+          </div>
 
-            <div className="w-full flex items-center justify-center overflow-hidden">
-              <h2 className="text-xs xs:text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl font-black tracking-tight text-white leading-tight whitespace-nowrap drop-shadow-[0_2px_12px_rgba(0,0,0,0.9)] select-none">
-                {UI_TEXT.heroMainTitle[lang]}
-              </h2>
-            </div>
+          {/* Overlay Controls: seamlessly below picture on mobile (<md), overlaid cleanly inside compact banner on tablet/desktop (>=md) */}
+          <div className="relative md:absolute md:inset-0 flex flex-col justify-center px-3 sm:px-4 pt-2.5 pb-5 md:py-4">
+            {isLibraryView ? (
+              <div className="max-w-4xl w-full mx-auto bg-[#051120]/70 backdrop-blur-sm border border-amber-400/40 rounded-2xl p-4 sm:p-6 shadow-2xl space-y-3 text-left">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-400/15 border border-amber-400/50 text-amber-300 text-[10.5px] font-black tracking-widest uppercase">
+                  <Library className="w-3.5 h-3.5 shrink-0" />
+                  <span>{ELIBRARY_HERO_UI.tagline[lang]}</span>
+                </div>
 
-            <p className="text-xs sm:text-sm text-slate-100 max-w-2xl mx-auto font-medium leading-relaxed drop-shadow-[0_1px_8px_rgba(0,0,0,0.8)]">
-              {UI_TEXT.tagline[lang]}
-            </p>
+                <div className="flex items-center justify-between gap-3 sm:gap-4 flex-wrap">
+                  <h1 className="text-xl sm:text-3xl font-black tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-white via-amber-100 to-amber-400">
+                    {ELIBRARY_HERO_UI.title[lang]}
+                  </h1>
+                  <button
+                    type="button"
+                    onClick={exitLibraryView}
+                    className="group flex items-center gap-2 px-3 sm:px-4 py-2 rounded-xl bg-white/15 hover:bg-white/25 border border-emerald-400/70 hover:border-emerald-300 text-white transition-all shrink-0 cursor-pointer shadow-[0_0_12px_rgba(16,185,129,0.3)]"
+                    title={ELIBRARY_HERO_UI.backToMain[lang]}
+                    aria-label={ELIBRARY_HERO_UI.backToMain[lang]}
+                  >
+                    <span className="w-6 h-6 rounded-lg bg-gradient-to-tr from-amber-400 to-emerald-400 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+                      <Home className="w-3.5 h-3.5 text-slate-950" />
+                    </span>
+                    <span className="text-[11px] sm:text-xs font-extrabold tracking-wide whitespace-nowrap">
+                      {ELIBRARY_HERO_UI.backToMain[lang]}
+                    </span>
+                  </button>
+                </div>
 
-            {/* SEARCH ROW: Search Bar + Pro Drafter Button + Quick Jump Button */}
-            <div className="relative max-w-4xl mx-auto pt-2 flex flex-col sm:flex-row items-center justify-center gap-2.5 sm:gap-3">
-              <div className="relative flex-1 w-full flex items-center shadow-[0_20px_50px_rgba(0,0,0,0.6)] rounded-2xl group">
-                <Search className="w-5 h-5 absolute left-4 text-slate-500 group-focus-within:text-amber-500 transition-colors" />
-                <input
-                  type="text"
-                  value={searchQuery}
-                  onChange={e => setSearchQuery(e.target.value)}
-                  placeholder={isListening ? UI_TEXT.voiceListeningPrompt[lang] : UI_TEXT.searchPlaceholder[lang]}
-                  className={`w-full pl-12 pr-14 py-3.5 rounded-2xl bg-white/95 backdrop-blur-md text-slate-900 text-xs sm:text-sm font-medium border-2 transition-all focus:outline-none ${
-                    isListening
-                      ? 'border-red-500 ring-4 ring-red-400/30 placeholder-red-600 font-semibold'
-                      : 'border-white/60 focus:border-amber-400 placeholder-slate-400 shadow-inner'
-                  }`}
-                />
+                <p className="text-xs sm:text-sm text-slate-100 font-medium leading-relaxed">
+                  {ELIBRARY_HERO_UI.subtitle[lang]}
+                </p>
 
+                <div className="flex flex-wrap gap-2 pt-0.5">
+                  <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/45 border border-white/20 text-[10.5px] font-bold text-white">
+                    <BookOpenText className="w-3 h-3 text-amber-300" />{ELIBRARY_HERO_UI.badges.acts[lang]}
+                  </span>
+                  <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/45 border border-white/20 text-[10.5px] font-bold text-white">
+                    <Landmark className="w-3 h-3 text-emerald-300" />{ELIBRARY_HERO_UI.badges.source[lang]}
+                  </span>
+                  <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/45 border border-white/20 text-[10.5px] font-bold text-white">
+                    <ShieldCheck className="w-3 h-3 text-emerald-300" />{ELIBRARY_HERO_UI.badges.genuine[lang]}
+                  </span>
+                  <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/45 border border-white/20 text-[10.5px] font-bold text-white">
+                    <Lock className="w-3 h-3 text-rose-300" />{ELIBRARY_HERO_UI.badges.secure[lang]}
+                  </span>
+                  <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/45 border border-white/20 text-[10.5px] font-bold text-white">
+                    <Gavel className="w-3 h-3 text-sky-300" />{ELIBRARY_HERO_UI.badges.trilingual[lang]}
+                  </span>
+                </div>
+              </div>
+            ) : isAppDownloadView ? (
+              <div className="max-w-3xl w-full mx-auto bg-[#051120]/70 backdrop-blur-sm border border-amber-400/40 rounded-2xl p-4 sm:p-6 shadow-2xl text-center space-y-3">
+                <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-[10px] sm:text-xs font-black tracking-widest uppercase bg-emerald-500/20 text-emerald-300 border border-emerald-400/50">
+                  <Smartphone className="w-3.5 h-3.5 text-emerald-300 shrink-0" />
+                  <span>ANDROID NATIVE APPLICATION &bull; v1.0.0</span>
+                </div>
+
+                <h1 className="text-xl sm:text-3xl lg:text-4xl font-black tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-white via-amber-100 to-amber-300 drop-shadow-[0_2px_12px_rgba(0,0,0,0.9)]">
+                  Download NyayaMitra App
+                </h1>
+
+                <p className="text-xs sm:text-sm md:text-base text-slate-100 max-w-xl mx-auto font-medium leading-relaxed">
+                  Free civil legal navigator for West Bengal — offline access, audio roadmaps, secure E-Library, and advocate connect.
+                </p>
+
+                <div className="pt-1 flex flex-wrap items-center justify-center gap-2 sm:gap-3 text-[10.5px] text-slate-100">
+                  <span className="inline-flex items-center gap-1 bg-black/50 border border-white/20 px-3 py-1 rounded-full">
+                    <Check className="w-3 h-3 text-emerald-400" />
+                    <span>BCI Rule 36 Compliant</span>
+                  </span>
+                  <span className="inline-flex items-center gap-1 bg-black/50 border border-white/20 px-3 py-1 rounded-full">
+                    <Lock className="w-3 h-3 text-amber-400" />
+                    <span>DPDP Act 2023 Ready</span>
+                  </span>
+                  <span className="inline-flex items-center gap-1 bg-black/50 border border-white/20 px-3 py-1 rounded-full">
+                    <ShieldCheck className="w-3 h-3 text-sky-400" />
+                    <span>Zero Ads &amp; Zero Trackers</span>
+                  </span>
+                </div>
+              </div>
+            ) : (
+            <div className="max-w-5xl w-full mx-auto text-center space-y-2 sm:space-y-2.5 lg:space-y-3">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-[10px] sm:text-xs font-black tracking-widest uppercase bg-slate-950/75 text-amber-300 border border-amber-400/60 shadow-lg backdrop-blur-md">
+                <Sparkles className="w-3.5 h-3.5 text-amber-400 shrink-0" />
+                <span>{UI_TEXT.heroSuperTitle[lang]}</span>
+              </div>
+
+              <div>
+                {hasExplicitTopic ? (
+                  <h2 className="text-base sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-black tracking-tight text-white leading-snug drop-shadow-[0_2px_14px_rgba(0,0,0,0.95)] select-none">
+                    {UI_TEXT.heroMainTitle[lang]}
+                  </h2>
+                ) : (
+                  <h1 className="text-base sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-black tracking-tight text-white leading-snug drop-shadow-[0_2px_14px_rgba(0,0,0,0.95)] select-none">
+                    {UI_TEXT.heroMainTitle[lang]}
+                  </h1>
+                )}
+              </div>
+
+              <p className="text-xs sm:text-sm md:text-base text-slate-100 max-w-2xl mx-auto font-medium leading-relaxed drop-shadow-[0_1px_10px_rgba(0,0,0,0.95)]">
+                {UI_TEXT.tagline[lang]}
+              </p>
+
+              {/* SEARCH ROW: Search Bar + Pro Drafter + Quick Jump + Advocate Connect */}
+              <div className="relative max-w-4xl mx-auto pt-1 flex flex-col sm:flex-row sm:flex-wrap lg:flex-nowrap items-center justify-center gap-2 sm:gap-2.5 lg:gap-3 z-30">
+                <div className="relative flex-1 w-full sm:min-w-[260px] flex items-center shadow-[0_20px_50px_rgba(0,0,0,0.6)] rounded-2xl group">
+                  <Search className="w-5 h-5 absolute left-4 text-slate-500 group-focus-within:text-amber-500 transition-colors" />
+                  <input
+                    type="text"
+                    value={searchQuery}
+                    onChange={e => setSearchQuery(e.target.value)}
+                    placeholder={isListening ? UI_TEXT.voiceListeningPrompt[lang] : UI_TEXT.searchPlaceholder[lang]}
+                    className={`w-full pl-12 pr-14 py-3 md:py-3.5 rounded-2xl bg-white/95 backdrop-blur-md text-slate-900 text-xs sm:text-sm font-medium border-2 transition-all focus:outline-none ${
+                      isListening
+                        ? 'border-red-500 ring-4 ring-red-400/30 placeholder-red-600 font-semibold'
+                        : 'border-white/60 focus:border-amber-400 placeholder-slate-400 shadow-inner'
+                    }`}
+                  />
+
+                  <button
+                    type="button"
+                    onClick={handleToggleVoiceSearch}
+                    className={`absolute right-2.5 p-2 rounded-xl transition-all flex items-center justify-center ${
+                      isListening ? 'bg-red-600 text-white animate-pulse shadow-md' : 'text-slate-500 hover:text-[#0f2b48] hover:bg-slate-100'
+                    }`}
+                    title={isListening ? 'Stop Listening' : 'Voice Search (Awaaz)'}
+                  >
+                    {isListening ? <MicOff className="w-4 h-4 text-white" /> : <Mic className="w-4 h-4 text-emerald-700" />}
+                  </button>
+                </div>
+
+                {/* ACTION BUTTON 1: NYAYAMITRA PRO DRAFTER (₹99) */}
                 <button
                   type="button"
-                  onClick={handleToggleVoiceSearch}
-                  className={`absolute right-2.5 p-2 rounded-xl transition-all flex items-center justify-center ${
-                    isListening ? 'bg-red-600 text-white animate-pulse shadow-md' : 'text-slate-500 hover:text-[#0f2b48] hover:bg-slate-100'
-                  }`}
-                  title={isListening ? 'Stop Listening' : 'Voice Search (Awaaz)'}
+                  onClick={() => setShowProModal(true)}
+                  className="shrink-0 flex items-center justify-center gap-2 px-4 py-3 md:py-3.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-extrabold text-xs sm:text-sm shadow-[0_0_20px_rgba(245,158,11,0.7)] animate-pulse-glow transition hover:scale-105 cursor-pointer border-2 border-amber-300 w-full sm:w-auto"
+                  title="Draft Statutory Notice (₹99)"
                 >
-                  {isListening ? <MicOff className="w-4 h-4 text-white" /> : <Mic className="w-4 h-4 text-emerald-700" />}
+                  <Zap className="w-4 h-4 fill-slate-950 text-slate-950" />
+                  <span>{UI_TEXT.proDrafterBtn[lang]}</span>
+                </button>
+
+                {/* ACTION BUTTON 2: Quick Jump (Ctrl+K) */}
+                <button
+                  type="button"
+                  onClick={() => setIsCommandPaletteOpen(true)}
+                  className="shrink-0 flex items-center justify-center gap-2 px-4 py-3 md:py-3.5 rounded-2xl bg-[#0a1e34]/90 hover:bg-[#0f2b48] border-2 border-amber-400/60 text-white text-xs sm:text-sm font-bold shadow-xl transition-all hover:scale-105 active:scale-95 group w-full sm:w-auto cursor-pointer"
+                  title="Quick Jump Command Palette (Ctrl+K)"
+                >
+                  <Command className="w-4 h-4 text-amber-400 group-hover:rotate-12 transition-transform" />
+                  <span>{UI_TEXT.quickJumpBtn[lang]}</span>
+                  <kbd className="font-mono text-[10px] bg-slate-900 px-1.5 py-0.5 rounded border border-slate-700 text-amber-300">
+                    Ctrl K
+                  </kbd>
+                </button>
+
+                {/* ACTION BUTTON 3: Advocate Connect (₹499) */}
+                <button
+                  type="button"
+                  onClick={() => setShowAdvocateModal(true)}
+                  className="shrink-0 flex items-center justify-center gap-2 px-4 py-3 md:py-3.5 rounded-2xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-extrabold text-xs sm:text-sm shadow-[0_0_20px_rgba(245,158,11,0.7)] animate-pulse-glow transition hover:scale-105 cursor-pointer border-2 border-amber-300 w-full sm:w-auto"
+                  title="Connect with Legal Advocate (₹499)"
+                >
+                  <Scale className="w-4 h-4" />
+                  <span>Connect Legal Advocate (₹499)</span>
                 </button>
               </div>
 
-{/* ACTION BUTTON 1: NYAYAMITRA PRO DRAFTER (₹99) - Always visible for easy access */}
-                  <button
-                    type="button"
-                    onClick={() => setShowProModal(true)}
-                    className="shrink-0 flex items-center justify-center gap-2 px-4 py-3.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-extrabold text-xs sm:text-sm shadow-[0_0_20px_rgba(245,158,11,0.7)] animate-pulse-glow transition hover:scale-105 cursor-pointer border-2 border-amber-300 w-full sm:w-auto"
-                    title="Draft Statutory Notice (₹99)"
-                  >
-                    <Zap className="w-4 h-4 fill-slate-950 text-slate-950" />
-                    <span>{UI_TEXT.proDrafterBtn[lang]}</span>
-                  </button>
-
-                  {/* ACTION BUTTON 2: Quick Jump (Ctrl+K) */}
-              <button
-                type="button"
-                onClick={() => setIsCommandPaletteOpen(true)}
-                className="shrink-0 flex items-center justify-center gap-2 px-4 py-3.5 rounded-2xl bg-[#0a1e34]/90 hover:bg-[#0f2b48] border-2 border-amber-400/60 text-white text-xs sm:text-sm font-bold shadow-xl transition-all hover:scale-105 active:scale-95 group w-full sm:w-auto cursor-pointer"
-                title="Quick Jump Command Palette (Ctrl+K)"
-              >
-                <Command className="w-4 h-4 text-amber-400 group-hover:rotate-12 transition-transform" />
-                <span>{UI_TEXT.quickJumpBtn[lang]}</span>
-                <kbd className="font-mono text-[10px] bg-slate-900 px-1.5 py-0.5 rounded border border-slate-700 text-amber-300">
-                  Ctrl K
-                </kbd>
-              </button>
-
-                  {/* ACTION BUTTON 3: Advocate Connect (₹499) - Global access beside Quick Jump */}
-                  <button
-                    type="button"
-                    onClick={() => setShowAdvocateModal(true)}
-                    className="shrink-0 flex items-center justify-center gap-2 px-4 py-3.5 rounded-2xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-extrabold text-xs sm:text-sm shadow-[0_0_20px_rgba(245,158,11,0.7)] animate-pulse-glow transition hover:scale-105 cursor-pointer border-2 border-amber-300 w-full sm:w-auto"
-                    title="Connect with Legal Advocate (₹499)"
-                  >
-                    <Scale className="w-4 h-4" />
-                    <span>Connect Legal Advocate (₹499)</span>
-                  </button>
-            </div>
-
-            {/* Search Dropdown */}
-            {searchQuery.trim() && (
-              <div className="relative max-w-2xl mx-auto">
-                <div className="absolute left-0 right-0 top-full mt-2 bg-white rounded-xl shadow-2xl border border-slate-200 max-h-72 overflow-y-auto z-50 text-left divide-y divide-slate-100 animate-in fade-in duration-100">
-                  {searchResults.length > 0 ? (
-                    searchResults.map(({ categoryId, subcategory }) => (
-                      <div
-                        key={subcategory.id}
-                        onClick={() => {
-                          const parentCat = CIVIL_CATEGORIES.find(c => c.id === categoryId);
-                          if (parentCat) {
-                            setSelectedCat(parentCat);
-                            setSelectedSubCat(subcategory);
-                          }
-                          setSearchQuery('');
-                        }}
-                        className="p-3 hover:bg-emerald-50 cursor-pointer transition flex items-center justify-between gap-2 text-slate-800"
-                      >
-                        <div>
-                          <div className="font-bold text-xs sm:text-sm text-slate-900">
-                            {subcategory?.title?.[lang]}
+              {/* Search Dropdown */}
+              {searchQuery.trim() && (
+                <div className="relative max-w-2xl mx-auto z-40">
+                  <div className="absolute left-0 right-0 top-full mt-2 bg-white rounded-xl shadow-2xl border border-slate-200 max-h-72 overflow-y-auto z-50 text-left divide-y divide-slate-100 animate-in fade-in duration-100">
+                    {searchResults.length > 0 ? (
+                      searchResults.map(({ categoryId, subcategory }) => (
+                        <div
+                          key={subcategory.id}
+                          onClick={() => {
+                            const parentCat = CIVIL_CATEGORIES.find(c => c.id === categoryId);
+                            if (parentCat) {
+                              setHasExplicitTopic(true);
+                              setSelectedCat(parentCat);
+                              setSelectedSubCat(subcategory);
+                              trackWorkflowSelect({
+                                categoryId: parentCat.id,
+                                topicId: subcategory.id,
+                                topicTitle: subcategory.title?.[lang] || subcategory.title?.en || '',
+                                lang,
+                                source: 'search_result'
+                              });
+                            }
+                            setSearchQuery('');
+                          }}
+                          className="p-3 hover:bg-emerald-50 cursor-pointer transition flex items-center justify-between gap-2 text-slate-800"
+                        >
+                          <div>
+                            <div className="font-bold text-xs sm:text-sm text-slate-900">
+                              {subcategory?.title?.[lang]}
+                            </div>
+                            <div className="text-[11px] text-slate-500 line-clamp-1">
+                              {subcategory?.relevant_act} &bull; {subcategory?.authority_forum?.[lang]}
+                            </div>
                           </div>
-                          <div className="text-[11px] text-slate-500 line-clamp-1">
-                            {subcategory?.relevant_act} &bull; {subcategory?.authority_forum?.[lang]}
-                          </div>
+                          <ArrowRight className="w-4 h-4 text-emerald-700 shrink-0" />
                         </div>
-                        <ArrowRight className="w-4 h-4 text-emerald-700 shrink-0" />
+                      ))
+                    ) : (
+                      <div className="p-4 text-center text-xs text-slate-500">
+                        {UI_TEXT.noResults[lang]}
                       </div>
-                    ))
-                  ) : (
-                    <div className="p-4 text-center text-xs text-slate-500">
-                      {UI_TEXT.noResults[lang]}
-                    </div>
-                  )}
+                    )}
+                  </div>
                 </div>
-              </div>
-            )}
+              )}
 
-            {/* Seals */}
-            <div className="pt-2 flex flex-wrap items-center justify-center gap-2 sm:gap-4 text-[10.5px] text-slate-200">
+              {/* Seals */}
+              <div className="pt-1 flex flex-wrap items-center justify-center gap-2 sm:gap-4 text-[10.5px] text-slate-200">
               <span className="inline-flex items-center gap-1 bg-black/50 border border-white/20 px-3 py-1 rounded-full backdrop-blur-xs">
                 <Check className="w-3 h-3 text-emerald-400" />
                 <span>BCI Rule 36 Verified Non-Commercial</span>
@@ -949,20 +1289,24 @@ export function App() {
                 <Compass className="w-3 h-3 text-sky-400" />
                 <span>Razorpay Live Verified Gateway</span>
               </span>
+              </div>
             </div>
+            )}
           </div>
         </section>
       )}
-
-      {/* Main Content Area */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 py-6 space-y-7 relative z-10">
-        {isAdminView ? (
-          <AdminAdvisorPanel lang={lang} />
-        ) : isLibraryView ? (
-          <ELibraryProPage lang={lang} onBackToMain={exitLibraryView} />
-        ) : (
-          <>
-            {/* 1. 12 HIGH-VALUE OFFICIAL GOVERNMENT PORTALS */}
+ 
+{/* MAIN CONTENT AREA */}
+        <main className="flex-1 max-w-7xl w-full mx-auto px-4 py-6 space-y-7 relative z-10">
+          {isAdminView ? (
+            <AdminAdvisorPanel lang={lang} />
+          ) : isLibraryView ? (
+            <ELibraryProPage lang={lang} onBackToMain={exitLibraryView} />
+          ) : isAppDownloadView ? (
+            <AppDownloadPage />
+          ) : (
+            <>
+             {/* 1. 12 HIGH-VALUE OFFICIAL GOVERNMENT PORTALS */}
             <section className="bg-white/95 backdrop-blur-xs rounded-2xl border border-[#f59e0b]/70 p-4 sm:p-6 shadow-[0_0_18px_rgba(245,158,11,0.16)] space-y-4">
               <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-200 pb-3">
                 <div className="flex items-center gap-2.5">
@@ -1022,6 +1366,7 @@ export function App() {
                           href={portal.url}
                           target="_blank"
                           rel="noopener noreferrer"
+                          onClick={() => trackPortalClick(portal.id, portalName, portal.url)}
                           className="inline-flex items-center gap-1 text-[10px] font-bold text-emerald-700 hover:text-emerald-900 group-hover:underline whitespace-nowrap"
                         >
                           <span>{UI_TEXT.visitPortalBtn[lang]}</span>
@@ -1048,15 +1393,26 @@ export function App() {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
                 {CIVIL_CATEGORIES.map(cat => (
-                  <div
+                  <a
                     key={cat.id}
-                    onClick={() => {
+                    href={getCategoryGuidePath(cat.id)}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setHasExplicitTopic(true);
                       setSelectedCat(cat);
                       if (cat.subcategories && cat.subcategories.length > 0) {
-                        setSelectedSubCat(cat.subcategories[0]);
+                        const firstSub = cat.subcategories[0];
+                        setSelectedSubCat(firstSub);
+                        trackWorkflowSelect({
+                          categoryId: cat.id,
+                          topicId: firstSub.id,
+                          topicTitle: firstSub.title?.[lang] || firstSub.title?.en || '',
+                          lang,
+                          source: 'category_grid'
+                        });
                       }
                     }}
-                    className={`p-4 rounded-xl border cursor-pointer transition-all ${
+                    className={`block p-4 rounded-xl border cursor-pointer transition-all ${
                       selectedCat?.id === cat.id
                         ? 'bg-white border-emerald-600 shadow-md ring-2 ring-emerald-600/30'
                         : 'bg-white/95 border-slate-200 hover:border-slate-300 hover:shadow-sm'
@@ -1069,7 +1425,7 @@ export function App() {
                       </span>
                     </div>
                     <p className="text-xs text-slate-500 mt-1 line-clamp-2">{cat?.description?.[lang]}</p>
-                  </div>
+                  </a>
                 ))}
               </div>
             </section>
@@ -1083,7 +1439,17 @@ export function App() {
                 {(selectedCat?.subcategories || []).map((sub, idx) => (
                   <button
                     key={sub.id}
-                    onClick={() => setSelectedSubCat(sub)}
+                    onClick={() => {
+                      setHasExplicitTopic(true);
+                      setSelectedSubCat(sub);
+                      trackWorkflowSelect({
+                        categoryId: selectedCat.id,
+                        topicId: sub.id,
+                        topicTitle: sub.title?.[lang] || sub.title?.en || '',
+                        lang,
+                        source: 'workflow_pill'
+                      });
+                    }}
                     className={`px-3.5 py-2 rounded-full text-xs font-semibold whitespace-nowrap transition-all flex items-center gap-1.5 shrink-0 cursor-pointer ${
                       selectedSubCat?.id === sub.id
                         ? 'bg-[#0f2b48] text-white shadow-sm ring-2 ring-amber-400/50'
@@ -1118,12 +1484,38 @@ export function App() {
                       
                       </div>
 
-                    <h3 className="text-lg sm:text-xl font-extrabold text-slate-900 mt-2">
-                      {selectedSubCat?.title?.[lang]}
-                    </h3>
+                    {hasExplicitTopic ? (
+                      <h1 className="text-lg sm:text-xl font-extrabold text-slate-900 mt-2">
+                        {selectedSubCat?.title?.[lang]}
+                      </h1>
+                    ) : (
+                      <h2 className="text-lg sm:text-xl font-extrabold text-slate-900 mt-2">
+                        {selectedSubCat?.title?.[lang]}
+                      </h2>
+                    )}
                     <p className="text-xs sm:text-sm text-slate-600 mt-1 leading-relaxed">
                       {selectedSubCat?.summary?.[lang]}
                     </p>
+
+                    {/* E-E-A-T / YMYL Legal Reviewer Byline & Statutory Currency */}
+                    <div className="mt-2.5 inline-flex flex-wrap items-center gap-x-2 gap-y-1 px-2.5 py-1 rounded-lg bg-slate-50 border border-slate-200/80 text-[11px] text-slate-600">
+                      <ShieldCheck className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                      <span>
+                        {lang === 'bn'
+                          ? `আইনি পর্যালোচক: ${ADVOCATE_PROFILE.name} (Bar Council ID: ${ADVOCATE_PROFILE.barCouncilId})`
+                          : lang === 'hi'
+                            ? `विधिक समीक्षक: ${ADVOCATE_PROFILE.name} (Bar Council ID: ${ADVOCATE_PROFILE.barCouncilId})`
+                            : `Reviewed by ${ADVOCATE_PROFILE.name} (Bar Council ID: ${ADVOCATE_PROFILE.barCouncilId})`}
+                      </span>
+                      <span className="text-slate-400">&bull;</span>
+                      <span className="font-semibold text-emerald-700">
+                        {lang === 'bn'
+                          ? 'হালনাগাদ: নভেম্বর ২০২৬'
+                          : lang === 'hi'
+                            ? 'अद्यतन: नवंबर 2026'
+                            : 'Last Verified: Nov 2026'}
+                      </span>
+                    </div>
                   </div>
 
                   {/* Dual-Track Jurisdictional Switcher */}
@@ -1141,7 +1533,10 @@ export function App() {
 
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                         <div
-                          onClick={() => setActiveTerritoryTrack('rural_district')}
+                          onClick={() => {
+                            setActiveTerritoryTrack('rural_district');
+                            trackTrackSwitch('rural_district', selectedSubCat?.id);
+                          }}
                           className={`p-3.5 rounded-xl border-2 cursor-pointer transition-all flex flex-col justify-between gap-2.5 relative group ${
                             activeTerritoryTrack === 'rural_district'
                               ? 'bg-gradient-to-br from-emerald-50 to-white border-emerald-600 ring-2 ring-emerald-500/20 shadow-md'
@@ -1177,7 +1572,10 @@ export function App() {
                         </div>
 
                         <div
-                          onClick={() => setActiveTerritoryTrack('kolkata_urban')}
+                          onClick={() => {
+                            setActiveTerritoryTrack('kolkata_urban');
+                            trackTrackSwitch('kolkata_urban', selectedSubCat?.id);
+                          }}
                           className={`p-3.5 rounded-xl border-2 cursor-pointer transition-all flex flex-col justify-between gap-2.5 relative group ${
                             activeTerritoryTrack === 'kolkata_urban'
                               ? 'bg-gradient-to-br from-blue-50 to-white border-[#0f2b48] ring-2 ring-blue-500/20 shadow-md'
@@ -1345,6 +1743,120 @@ export function App() {
                     </button>
 
                   </div>
+
+                  {/* Phase C: Statutory Authority Panel (Landmark Cases, WB Court Fees/Limitation & Appeal Remedies) */}
+                  {selectedSubCat?.id && PILLAR_ENRICHMENTS[selectedSubCat.id] && (
+                    <div className="mt-4 pt-4 border-t border-slate-200 space-y-4">
+                      {(() => {
+                        const enr = PILLAR_ENRICHMENTS[selectedSubCat.id];
+                        return (
+                          <>
+                            {enr.executiveSummary && (
+                              <div className="p-4 rounded-xl bg-amber-50/90 border border-amber-200/80 border-l-4 border-l-amber-500">
+                                <h4 className="text-xs font-extrabold text-[#0f2b48] uppercase tracking-wider flex items-center gap-1.5">
+                                  <Sparkles className="w-3.5 h-3.5 text-amber-600 shrink-0" />
+                                  <span>Quick Answer</span>
+                                </h4>
+                                <p className="text-xs text-slate-800 leading-relaxed mt-2 font-medium">{enr.executiveSummary}</p>
+                                <p className="text-[10px] text-slate-500 mt-1.5">Reviewed by Advocate Tanweer Ahmed Khan (WB/1863/2010)</p>
+                              </div>
+                            )}
+                            <div className="space-y-2">
+                              <h4 className="text-xs font-extrabold text-[#0f2b48] uppercase tracking-wider flex items-center gap-1.5">
+                                <Gavel className="w-3.5 h-3.5 text-amber-600 shrink-0" />
+                                <span>Landmark Supreme Court &amp; High Court Precedents</span>
+                              </h4>
+                              <div className="space-y-2">
+                                {enr.landmarkCases.map((c, idx) => (
+                                  <div
+                                    key={idx}
+                                    className="p-3 rounded-xl bg-amber-50/70 border border-amber-200/80 text-xs"
+                                  >
+                                    <div className="font-bold text-slate-900">
+                                      {c.citation}{' '}
+                                      <span className="font-semibold text-amber-800">({c.court})</span>
+                                    </div>
+                                    <p className="text-slate-700 mt-1 leading-relaxed">{c.holding}</p>
+                                  </div>
+                                ))}
+                              </div>
+                            </div>
+
+                            <div className="space-y-2">
+                              <h4 className="text-xs font-extrabold text-[#0f2b48] uppercase tracking-wider flex items-center gap-1.5">
+                                <Landmark className="w-3.5 h-3.5 text-emerald-700 shrink-0" />
+                                <span>Statutory Court Fees &amp; Limitation Timelines</span>
+                              </h4>
+                              <div className="overflow-x-auto rounded-xl border border-slate-200">
+                                <table className="w-full text-left border-collapse text-[11px]">
+                                  <thead>
+                                    <tr className="bg-slate-100 text-slate-800 font-bold">
+                                      <th className="p-2.5 border-b border-slate-200">Stage / Forum</th>
+                                      <th className="p-2.5 border-b border-slate-200">Fee (WB Court-fees / Rules)</th>
+                                      <th className="p-2.5 border-b border-slate-200">Limitation / Window</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody className="divide-y divide-slate-100 bg-white">
+                                    {enr.courtFeeAndLimitation.map((row, idx) => (
+                                      <tr key={idx}>
+                                        <td className="p-2.5 font-semibold text-slate-900">{row.stage}</td>
+                                        <td className="p-2.5 text-slate-700">{row.feeNote}</td>
+                                        <td className="p-2.5 text-emerald-800 font-medium">{row.limitation}</td>
+                                      </tr>
+                                    ))}
+                                  </tbody>
+                                </table>
+                              </div>
+                            </div>
+
+                            <div className="space-y-2">
+                              <h4 className="text-xs font-extrabold text-[#0f2b48] uppercase tracking-wider flex items-center gap-1.5">
+                                <ShieldCheck className="w-3.5 h-3.5 text-sky-700 shrink-0" />
+                                <span>Remedies Against Rejection &amp; Statutory Appeals</span>
+                              </h4>
+                              <div className="space-y-2">
+                                {enr.remediesAgainstRejection.map((rem, idx) => (
+                                  <div
+                                    key={idx}
+                                    className="p-3 rounded-xl bg-sky-50/70 border border-sky-200/80 text-xs"
+                                  >
+                                    <div className="font-bold text-slate-900">{rem.scenario}</div>
+                                    <div className="text-slate-700 mt-1">
+                                      <span className="font-semibold text-[#0f2b48]">{rem.forum}</span> &bull;{' '}
+                                      {rem.provision}{' '}
+                                      <span className="inline-block ml-1 px-2 py-0.5 rounded bg-sky-100 text-sky-900 font-bold text-[10px]">
+                                        {rem.timeLimit}
+                                      </span>
+                                    </div>
+                                  </div>
+                                ))}
+                              </div>
+                            </div>
+
+                            {enr.faqs?.length > 0 && (
+                              <div className="space-y-2">
+                                <h4 className="text-xs font-extrabold text-[#0f2b48] uppercase tracking-wider flex items-center gap-1.5">
+                                  <BookOpenText className="w-3.5 h-3.5 text-emerald-700 shrink-0" />
+                                  <span>Frequently Asked Questions</span>
+                                </h4>
+                                <div className="space-y-2">
+                                  {enr.faqs.map((f, idx) => (
+                                    <details
+                                      key={idx}
+                                      className="rounded-xl border border-slate-200 bg-white/90 p-3 text-xs"
+                                    >
+                                      <summary className="cursor-pointer font-bold text-slate-900">{f.question}</summary>
+                                      <p className="mt-2 text-slate-700 leading-relaxed">{f.answer}</p>
+                                    </details>
+                                  ))}
+                                </div>
+                              </div>
+                            )}
+                          </>
+                        );
+                      })()}
+                    </div>
+                  )}
                 </div>
               </div>
 
@@ -1396,6 +1908,59 @@ export function App() {
                 </div>
               </div>
             </div>
+
+            {/* 5. Expandable, Crawlable Alphabetical Directory of All 300 Civil Legal Workflows */}
+            <section className="rounded-2xl border border-slate-200 bg-white/90 shadow-xs overflow-hidden">
+              <details className="group">
+                <summary className="px-4 py-3 cursor-pointer select-none flex items-center justify-between gap-2 text-xs font-extrabold text-[#0f2b48] hover:bg-slate-50 transition list-none">
+                  <span className="flex items-center gap-2">
+                    <Compass className="w-4 h-4 text-emerald-600 shrink-0" />
+                    <span>
+                      {lang === 'bn'
+                        ? `সকল ${alphabeticalWorkflows.length}টি দেওয়ানি আইনি কর্মধারার বর্ণানুক্রমিক সূচি (A–Z)`
+                        : lang === 'hi'
+                          ? `सभी ${alphabeticalWorkflows.length} नागरिक कानूनी कार्यप्रवाहों की वर्णानुक्रमिक निर्देशिका (A–Z)`
+                          : `Alphabetical Directory of All ${alphabeticalWorkflows.length} Civil Legal Workflows (A–Z)`}
+                    </span>
+                  </span>
+                  <span className="text-[11px] font-semibold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2.5 py-0.5 rounded-full shrink-0 group-open:hidden">
+                    {lang === 'bn' ? 'তালিকা দেখুন' : lang === 'hi' ? 'सूची देखें' : 'Expand Index'}
+                  </span>
+                  <span className="text-[11px] font-semibold text-slate-600 bg-slate-100 border border-slate-200 px-2.5 py-0.5 rounded-full shrink-0 hidden group-open:inline">
+                    {lang === 'bn' ? 'সংকুচিত করুন' : lang === 'hi' ? 'संक्षिप्त करें' : 'Collapse'}
+                  </span>
+                </summary>
+                <nav
+                  aria-label="Alphabetical Directory of All 300 Civil Legal Workflows"
+                  className="px-4 pb-4 pt-2 border-t border-slate-100 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-4 gap-y-1.5 max-h-96 overflow-y-auto"
+                >
+                  {alphabeticalWorkflows.map(({ cat, sub }) => (
+                    <a
+                      key={sub.id}
+                      href={getWorkflowGuidePath(sub)}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setHasExplicitTopic(true);
+                        setSelectedCat(cat);
+                        setSelectedSubCat(sub);
+                        trackWorkflowSelect({
+                          categoryId: cat.id,
+                          topicId: sub.id,
+                          topicTitle: sub.title?.[lang] || sub.title?.en || '',
+                          lang,
+                          source: 'workflow_pill'
+                        });
+                        window.scrollTo({ top: 480, behavior: 'smooth' });
+                      }}
+                      className="text-[11px] text-slate-700 hover:text-emerald-700 hover:underline py-0.5 truncate block"
+                      title={`${sub.title?.[lang] || sub.title?.en} — ${sub.relevant_act}`}
+                    >
+                      {sub.title?.[lang] || sub.title?.en}
+                    </a>
+                  ))}
+                </nav>
+              </details>
+            </section>
           </>
         )}
       </main>
@@ -1468,8 +2033,16 @@ export function App() {
         onSelectWorkflow={(categoryId, subcategory) => {
           const parentCat = CIVIL_CATEGORIES.find(c => c.id === categoryId);
           if (parentCat) {
+            setHasExplicitTopic(true);
             setSelectedCat(parentCat);
             setSelectedSubCat(subcategory);
+            trackWorkflowSelect({
+              categoryId: parentCat.id,
+              topicId: subcategory.id,
+              topicTitle: subcategory.title?.[lang] || subcategory.title?.en || '',
+              lang,
+              source: 'command_palette'
+            });
             window.scrollTo({ top: 480, behavior: 'smooth' });
           }
         }}
@@ -1496,7 +2069,7 @@ export function App() {
         />
       )}
 
-      {/* Advocate Connect (₹499) Modal */}
+{/* Advocate Connect (₹499) Modal */}
       {showAdvocateModal && (
         <AdvocateConnectModal
           isOpen={showAdvocateModal}
@@ -1507,16 +2080,82 @@ export function App() {
         />
       )}
 
-      {/* Admin Login Modal */}
-      <AdminLoginModal
-        isOpen={showLoginModal}
-        lang={lang}
-        onClose={() => setShowLoginModal(false)}
-        onSuccess={() => {
-          setShowLoginModal(false);
-          setIsAdminView(true);
-        }}
-      />
+      {/* Admin Login Modal — WEB ONLY */}
+      {!Capacitor.isNativePlatform() && (
+        <AdminLoginModal
+          isOpen={showLoginModal}
+          lang={lang}
+          onClose={() => setShowLoginModal(false)}
+          onSuccess={() => {
+            setShowLoginModal(false);
+            setIsAdminView(true);
+          }}
+        />
+      )}
+
+      {/* Exit Confirmation Modal */}
+      {showExitConfirm && (
+        <div className="fixed inset-0 z-[200] flex items-center justify-center bg-slate-950/80 backdrop-blur-sm p-4">
+          <div className="w-full max-w-md bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+            <div className="p-5 sm:p-6 text-center space-y-4">
+              <div className="w-14 h-14 mx-auto rounded-full bg-red-100 flex items-center justify-center">
+                <LogOut className="w-7 h-7 text-red-600" />
+              </div>
+              <h3 className="font-extrabold text-lg text-slate-900">Exit Application?</h3>
+              <p className="text-sm text-slate-600 leading-relaxed">
+                Are you sure you want to exit NyayaMitra? Your current session will be closed.
+              </p>
+              <div className="flex gap-3 pt-2">
+                <button
+                  type="button"
+                  onClick={cancelExitApp}
+                  className="flex-1 px-4 py-2.5 rounded-xl border border-slate-300 text-slate-700 font-semibold text-sm hover:bg-slate-50 transition"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="button"
+                  onClick={confirmExitApp}
+                  className="flex-1 px-4 py-2.5 rounded-xl bg-red-600 text-white font-semibold text-sm hover:bg-red-700 transition shadow-sm"
+                >
+                  Yes, Exit
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Quick Jump FAB (Mobile) */}
+      <button
+        type="button"
+        onClick={() => setIsCommandPaletteOpen(true)}
+        className="fixed bottom-6 right-4 sm:hidden z-50 flex items-center justify-center w-14 h-14 rounded-full bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 font-extrabold shadow-[0_0_20px_rgba(245,158,11,0.7)] animate-pulse-glow transition hover:scale-105 active:scale-95 border-2 border-amber-300"
+        aria-label="Quick Jump (Ctrl+K)"
+        title="Quick Jump — Search workflows, categories, districts"
+      >
+        <Command className="w-6 h-6" />
+      </button>
+
+      {/* Share FAB (Mobile) - only visible when a workflow is selected */}
+      {!isAdminView && !isLibraryView && selectedSubCat && (
+        <button
+          type="button"
+          onClick={async () => {
+            const url = `${window.location.origin}${window.location.pathname}?cat=${selectedCat?.id}&topic=${selectedSubCat?.id}&lang=${lang}`;
+            await share({
+              title: selectedSubCat?.title?.[lang] ?? 'NyayaMitra Workflow',
+              text: `Check out this civil legal workflow on NyayaMitra`,
+              url
+            });
+          }}
+          className="fixed bottom-6 left-4 sm:hidden z-50 flex items-center justify-center w-12 h-12 rounded-full bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-bold shadow-lg transition hover:scale-105 active:scale-95 border-2 border-emerald-300"
+          aria-label="Share this workflow"
+          title="Share this workflow"
+        >
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="18" cy="5" r="3" /><circle cx="6" cy="12" r="3" /><circle cx="18" cy="19" r="3" /><path d="M8.59 13.51a5 5 0 0 1 7.41 0M8.59 19.51a5 5 0 0 1 7.41 0" /></svg>
+        </button>
+      )}
 
     </div>
   );

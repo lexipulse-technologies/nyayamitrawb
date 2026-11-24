@@ -1,4 +1,5 @@
 import type { Language } from '../types/legal';
+import { getApiUrl } from './apiBase';
 
 const LOCALE_MAP: Record<Language, string> = {
   bn: 'bn-IN',
@@ -159,7 +160,7 @@ export function playAudioRoadmap(
 
   try {
     const cleanText = scriptText.slice(0, 1000);
-    const ttsUrl = `/api/tts?lang=${encodeURIComponent(lang)}&text=${encodeURIComponent(cleanText)}`;
+    const ttsUrl = getApiUrl(`/api/tts?lang=${encodeURIComponent(lang)}&text=${encodeURIComponent(cleanText)}`);
 
     currentAudio = new Audio();
     currentAudio.src = ttsUrl;

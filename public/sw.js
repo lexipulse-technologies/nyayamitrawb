@@ -4,7 +4,7 @@
  * Safe against Dev Server HMR, missing assets, and navigation promise drops.
  */
 
-const CACHE_NAME = 'nyayamitra-v3.1-cache';
+const CACHE_NAME = 'nyayamitra-v3.3-cache';
 
 const STATIC_PRECACHE = [
   '/',
@@ -13,6 +13,8 @@ const STATIC_PRECACHE = [
   '/robots.txt',
   '/sitemap.xml',
   '/assets/hero-banner.webp',
+  '/assets/hero-banner-tablet.webp',
+  '/assets/hero-banner-mobile.webp',
   '/assets/footer-banner.webp'
 ];
 
@@ -96,6 +98,7 @@ self.addEventListener('fetch', (event) => {
   if (event.request.mode === 'navigate') {
     event.respondWith(
       (async () => {
+        let networkFailed = false;
         try {
           // Attempt network first to ensure fresh data
           const networkResponse = await fetch(event.request);
@@ -105,25 +108,41 @@ self.addEventListener('fetch', (event) => {
             cache.put(event.request, clone);
             return networkResponse;
           }
+          // Non-200 (e.g. 404 on a deep link without a server rewrite):
+          // fetch the CURRENT index.html from the network so the app always
+          // boots with fresh code (never a stale cached bundle).
+          const freshIndex = await fetch('/index.html', { cache: 'no-store' });
+          if (freshIndex && freshIndex.status === 200) {
+            const clone = freshIndex.clone();
+            const cache = await caches.open(CACHE_NAME);
+            cache.put('/index.html', clone);
+            return freshIndex;
+          }
         } catch {
           // Network failed or offline - fall through to cache
+          networkFailed = true;
         }
 
-        // Cache fallback: Try requested URL, then /index.html, then /
-        const cached =
-          (await caches.match(event.request)) ||
-          (await caches.match('/index.html')) ||
-          (await caches.match('/'));
+        // Cache fallback ONLY when truly offline: requested URL, then /index.html, then /
+        if (networkFailed) {
+          const cached =
+            (await caches.match(event.request)) ||
+            (await caches.match('/index.html')) ||
+            (await caches.match('/'));
 
-        if (cached) {
-          return cached;
+          if (cached) {
+            return cached;
+          }
+
+          // Ultimate guarantee: Returns synthesized HTML response (NEVER undefined)
+          return new Response(OFFLINE_FALLBACK_HTML, {
+            status: 200,
+            headers: { 'Content-Type': 'text/html; charset=utf-8' }
+          });
         }
 
-        // Ultimate guarantee: Returns synthesized HTML response (NEVER undefined)
-        return new Response(OFFLINE_FALLBACK_HTML, {
-          status: 200,
-          headers: { 'Content-Type': 'text/html; charset=utf-8' }
-        });
+        // Online but both navigation and index fetch were non-200: pass through
+        return new Response('', { status: 404, statusText: 'Not Found' });
       })()
     );
     return;

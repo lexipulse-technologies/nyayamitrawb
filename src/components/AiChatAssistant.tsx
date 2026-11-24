@@ -24,6 +24,7 @@ import {
   stopAudio
 } from '../utils/speechEngine';
 import { cleanPlainText } from '../utils/localLegalKB';
+import { getApiUrl } from '../utils/apiBase';
 
 interface ChatMessage {
   id: string;
@@ -207,7 +208,7 @@ export const AiChatAssistant: React.FC<{ lang: Language }> = () => {
     const timeoutId = setTimeout(() => controller.abort(), 75000);
 
     try {
-      const res = await fetch('/api/chat', {
+      const res = await fetch(getApiUrl('/api/chat'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

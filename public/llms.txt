@@ -1,0 +1,37 @@
+# NyayaMitra — Civil Legal Navigator for India & West Bengal
+
+> Free trilingual (English, Bengali, Hindi) civil legal procedural navigator by LEXIPULSE TECHNOLOGIES covering 300 civil legal workflows across 6 categories, all 23 districts of West Bengal (rural BL&LRO/District Courts and urban Kolkata Municipal/High Court tracks), 12 official government & judicial portals, and an E-Library Pro archive of 88 Central and West Bengal Bare Acts.
+
+- Canonical Website: https://nyayamitrawb.in/
+- E-Library Pro (88 Bare Acts): https://nyayamitrawb.in/elibrarypro
+- Android Mobile App: https://nyayamitrawb.in/app
+- Contact Email: namaste@nyayamitrawb.in
+- Jurisdiction Focus: India (Central Civil Statutes) & West Bengal (23 Districts + Kolkata)
+- Languages: English (`?lang=en`), Bengali / বাংলা (`?lang=bn`), Hindi / हिन्दी (`?lang=hi`)
+- Compliance: Bar Council of India (BCI) Rule 36 non-commercial public legal literacy; DPDP Act 2023 compliant
+
+## Core Civil Legal Categories (300 Workflows)
+
+- [Land, Records & Mutation (50 workflows)](https://nyayamitrawb.in/?cat=cat-land-mutation): Banglarbhumi online mutation (Form 13, Sec 50 WBLR Act 1955), KMC municipal assessment mutation, Warishan entry, Sec 4C Sali-to-Vastu conversion, Porcha/ROR correction, boundary demarcation, Bargadar & Thika tenancy.
+- [Tenancy & Premises Disputes (50 workflows)](https://nyayamitrawb.in/?cat=cat-tenancy-disputes): West Bengal Premises Tenancy Act 1997 (WBPT), Transfer of Property Act Sec 106 Notice to Quit, Rent Controller deposit (Kolkata & SDO Districts), emergency restoration of water/electricity, fair rent fixation, eviction suits.
+- [Consumer Rights & Real Estate (50 workflows)](https://nyayamitrawb.in/?cat=cat-consumer-rights): Consumer Protection Act 2019 e-Jagriti filing, WBRERA & RERA 2016 builder delay compensation (Form-M, SBI MCLR+2%), WBSEDCL vs CESC electricity disputes, medical negligence, apartment handover.
+- [Partition & Succession (50 workflows)](https://nyayamitrawb.in/?cat=cat-partition-succession): Ancestral property partition suits (Order XX Rule 18 CPC, Dayabhaga / Hindu Succession Act), Voluntary Probate (post-2025 Sec 213 ISA omission), Succession Certificate, Letters of Administration, Warishan vs Court succession.
+- [Money Recovery & Cheque Bounce (50 workflows)](https://nyayamitrawb.in/?cat=cat-money-recovery): Section 138 NI Act cheque dishonour notice & complaint (Bankshall Court / Judicial Magistrate), cyber UPI fraud freeze (1930), Order XXXVII CPC summary recovery suits, DLSA commercial mediation, 20% interim compensation.
+- [Family Disputes & Maintenance (50 workflows)](https://nyayamitrawb.in/?cat=cat-family-maintenance): Section 144 BNSS 2023 (replacing Sec 125 CrPC) monthly maintenance, Senior Citizens Act 2007 eviction of abusive children, Domestic Violence Act 2005 protection, Section 13B mutual divorce, child custody.
+
+## Optional Citizen Services (Real-World Advocate Services)
+
+- Civil Legal Roadmaps, Document Checklists, Portal Links & E-Library Pro (88 Bare Acts): Free (₹0)
+- Pro Statutory Legal Notice Drafting: ₹99
+- 60-Minute Legal Consultation with Enrolled Advocate: ₹499
+
+## Emergency & Statutory Helplines (West Bengal & India)
+
+- District Legal Services Authority (DLSA) Free Legal Aid: 15100
+- National Cyber Crime Helpline: 1930 (https://cybercrime.gov.in/)
+- Banglarbhumi Land Records Helpline: 1800-345-5555
+
+## Extended Reference
+
+- Full workflow directory, 23 WB districts, courts, portals & 88 Bare Acts overview: https://nyayamitrawb.in/llms-full.txt
+- XML Sitemap: https://nyayamitrawb.in/sitemap.xml

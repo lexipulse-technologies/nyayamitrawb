@@ -2,6 +2,22 @@ import { createHmac, timingSafeEqual } from 'crypto';
 import nodemailer from 'nodemailer';
 import { createClient } from '@supabase/supabase-js';
 
+const ALLOWED_ORIGINS = [
+  'https://nyayamitrawb.in',
+  'https://www.nyayamitrawb.in',
+  'https://localhost'
+];
+
+function setCors(req, res) {
+  const origin = req.headers.origin;
+  if (ALLOWED_ORIGINS.includes(origin)) {
+    res.setHeader('Access-Control-Allow-Origin', origin);
+    res.setHeader('Access-Control-Allow-Credentials', 'true');
+  }
+  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+}
+
 const supabase = createClient(
   process.env.SUPABASE_URL,
   process.env.SUPABASE_SERVICE_ROLE_KEY
@@ -21,6 +37,11 @@ function escapeHtml(value) {
 }
 
 export default async function handler(req, res) {
+  setCors(req, res);
+
+  if (req.method === 'OPTIONS') {
+    return res.status(204).end();
+  }
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
   const { razorpay_order_id, razorpay_payment_id, razorpay_signature,

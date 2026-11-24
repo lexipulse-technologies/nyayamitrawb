@@ -1,0 +1,106 @@
+# NyayaMitra — Complete Civil Legal Knowledge & Citation Reference (India & West Bengal)
+
+Organization: LEXIPULSE TECHNOLOGIES
+Website: https://nyayamitrawb.in/
+E-Library Pro: https://nyayamitrawb.in/elibrarypro
+Mobile App (Android): https://nyayamitrawb.in/app
+Contact: namaste@nyayamitrawb.in
+Languages: English (en), Bengali / বাংলা (bn), Hindi / हिन्दी (hi)
+Compliance: Bar Council of India (BCI) Rule 36 Non-Commercial Public Legal Literacy; Digital Personal Data Protection (DPDP) Act 2023.
+
+---
+
+## 1. Geographic & Judicial Jurisdiction Coverage
+
+### All 23 Districts of West Bengal
+Alipurduar, Bankura, Birbhum, Cooch Behar, Dakshin Dinajpur, Darjeeling, Hooghly, Howrah, Jalpaiguri, Jhargram, Kalimpong, Kolkata, Malda, Murshidabad, Nadia, North 24 Parganas, Paschim Bardhaman, Paschim Medinipur, Purba Bardhaman, Purba Medinipur, Purulia, South 24 Parganas, Uttar Dinajpur.
+
+### Dual Territory Tracks
+1. Rural & 22 Districts Track (`?track=rural_district`): Panchayat, BL&LRO, SDO, BMC (Bidhannagar), HMC (Howrah), Banglarbhumi, District Civil & Judicial Courts.
+2. Kolkata Urban & Metro Track (`?track=kolkata_urban`): KMC Area, City Civil Court Calcutta, Presidency Small Causes Court, Bankshall Court (CMM), Kolkata Rent Controller (Kiran Shankar Roy Rd), High Court at Calcutta.
+
+### Courts & Tribunals Covered
+- High Court at Calcutta (Original & Appellate Side) and Jalpaiguri / Port Blair Circuit coverage
+- City Civil Court, Calcutta & Presidency Small Causes Court
+- Bankshall Court (Chief Metropolitan Magistrate, Kolkata)
+- District & Sessions Courts: Alipore (South 24 Parganas), Barasat (North 24 Parganas), Howrah, Chinsurah (Hooghly), Asansol & Durgapur (Paschim Bardhaman), Purba Bardhaman, Krishnanagar (Nadia), Berhampore (Murshidabad), Suri (Birbhum), Bankura, Purulia, Medinipur, Tamluk, Jhargram, Malda, Raiganj, Balurghat, Darjeeling, Kalimpong, Jalpaiguri, Alipurduar, Cooch Behar
+- West Bengal Land Reforms & Tenancy Tribunal (WBLRTT)
+- West Bengal Real Estate Regulatory Authority (WBRERA)
+- District, State (WBCDRC), & National Consumer Disputes Redressal Commissions (e-Jagriti)
+
+---
+
+## 2. 12 Official Government & Judicial Portals Directory
+
+1. Kolkata Municipal Corporation (KMC): https://www.kmcgov.in/
+2. Banglarbhumi (Govt. of West Bengal Land & Land Reforms): https://banglarbhumi.gov.in/
+3. WB Land Reforms & Tenancy Tribunal (WBLRTT): https://wblrtt.wb.gov.in/
+4. WB Pollution Control Board (WBPCB): https://www.wbpcb.gov.in/
+5. Bidhannagar Municipal Corporation (BMC): https://www.bmcwbgov.in/
+6. Howrah Municipal Corporation (HMC): https://myhmc.in/
+7. High Court at Calcutta: https://calcuttahighcourt.gov.in/
+8. West Bengal Real Estate Regulatory Authority (WBRERA): https://rera.wb.gov.in/
+9. National Consumer e-Filing (e-Jagriti): https://e-jagriti.gov.in/
+10. e-Courts Services (WB District Courts): https://ecourts.gov.in/
+11. National Cyber Crime Reporting Portal (1930): https://cybercrime.gov.in/
+12. State Water Investigation Directorate (SWID / WRIDD): https://wbwridd.gov.in/
+
+---
+
+## 3. High-Demand Civil Legal Workflows (300 Total Across 6 Categories)
+
+### Category 1: Land, Records & Mutation (`cat-land-mutation` — 50 workflows)
+- Land Mutation & Title Entry (Banglarbhumi Form 13 Sec 50 WBLR Act vs KMC Sec 183): https://nyayamitrawb.in/?cat=cat-land-mutation&topic=sub-land-01
+- Warishan Mutation & Inherited Share Entry: https://nyayamitrawb.in/?cat=cat-land-mutation&topic=sub-land-02
+- Land Conversion: Sali to Vastu (Sec 4C WBLR Act): https://nyayamitrawb.in/?cat=cat-land-mutation&topic=sub-land-03
+- Boundary Dispute & Demarcation Amin: https://nyayamitrawb.in/?cat=cat-land-mutation&topic=sub-land-04
+- Bargadar Recording & Eviction Protection: https://nyayamitrawb.in/?cat=cat-land-mutation&topic=sub-land-05
+- Correction of Porcha / ROR Recording Errors: https://nyayamitrawb.in/?cat=cat-land-mutation&topic=sub-land-06
+
+### Category 2: Tenancy & Premises Disputes (`cat-tenancy-disputes` — 50 workflows)
+- Deposit of Rent with Rent Controller (Districts SDO vs Kolkata): https://nyayamitrawb.in/?cat=cat-tenancy-disputes&topic=sub-tenancy-01
+- Tenancy Eviction Suit on Statutory Grounds (Sec 6 WBPT Act 1997 / Sec 106 TP Act): https://nyayamitrawb.in/?cat=cat-tenancy-disputes&topic=sub-tenancy-02
+- Emergency Restoration of Cut-off Water/Power: https://nyayamitrawb.in/?cat=cat-tenancy-disputes&topic=sub-tenancy-03
+- Fixation & Revision of Fair/Standard Rent: https://nyayamitrawb.in/?cat=cat-tenancy-disputes&topic=sub-tenancy-04
+- Essential Structural Repairs & Rent Deduction: https://nyayamitrawb.in/?cat=cat-tenancy-disputes&topic=sub-tenancy-05
+- Commercial vs Residential Exemption Ceilings: https://nyayamitrawb.in/?cat=cat-tenancy-disputes&topic=sub-tenancy-06
+
+### Category 3: Consumer Rights & Real Estate (`cat-consumer-rights` — 50 workflows)
+- Consumer Claims on e-Jagriti Portal (CPA 2019): https://nyayamitrawb.in/?cat=cat-consumer-rights&topic=sub-consumer-01
+- WBRERA Builder Delay, Interest & Refund (Form-M): https://nyayamitrawb.in/?cat=cat-consumer-rights&topic=sub-consumer-02
+- Electricity Bills & Meter Disputes (WBSEDCL vs CESC): https://nyayamitrawb.in/?cat=cat-consumer-rights&topic=sub-consumer-03
+- Hospital Billing Fraud & Medical Negligence: https://nyayamitrawb.in/?cat=cat-consumer-rights&topic=sub-consumer-04
+- Apartment Owners Association Handover & Parking: https://nyayamitrawb.in/?cat=cat-consumer-rights&topic=sub-consumer-05
+- WBRERA Recovery Warrant Execution via DM (Sec 40): https://nyayamitrawb.in/?cat=cat-consumer-rights&topic=sub-consumer-06
+
+### Category 4: Partition & Succession (`cat-partition-succession` — 50 workflows)
+- Ancestral Property Partition Suit (Order XX Rule 18 CPC): https://nyayamitrawb.in/?cat=cat-partition-succession&topic=sub-partition-01
+- Voluntary Probate (Post-2025 Sec 213 ISA Omission): https://nyayamitrawb.in/?cat=cat-partition-succession&topic=sub-partition-02
+- Succession Certificate for Bank Accounts & Shares: https://nyayamitrawb.in/?cat=cat-partition-succession&topic=sub-partition-03
+- Letters of Administration for Intestate Estates: https://nyayamitrawb.in/?cat=cat-partition-succession&topic=sub-partition-04
+- Warishan Certificate vs Court Succession Certificate: https://nyayamitrawb.in/?cat=cat-partition-succession&topic=sub-partition-05
+- Injunction against Co-sharer Selling Joint Land: https://nyayamitrawb.in/?cat=cat-partition-succession&topic=sub-partition-06
+
+### Category 5: Money Recovery & Cheque Bounce (`cat-money-recovery` — 50 workflows)
+- Cheque Dishonour Criminal Complaint (Sec 138 NI Act, Bankshall vs District Courts): https://nyayamitrawb.in/?cat=cat-money-recovery&topic=sub-money-01
+- Cyber UPI / Net-Banking Fraud Account Freezing (1930 / Sec 503 BNSS): https://nyayamitrawb.in/?cat=cat-money-recovery&topic=sub-money-02
+- Order XXXVII Fast-Track Summary Debt Suit: https://nyayamitrawb.in/?cat=cat-money-recovery&topic=sub-money-03
+- Protection Against Unlicensed Private Moneylenders: https://nyayamitrawb.in/?cat=cat-money-recovery&topic=sub-money-04
+- Pre-Institution Commercial Mediation via DLSA: https://nyayamitrawb.in/?cat=cat-money-recovery&topic=sub-money-05
+- Interim Compensation Deposit of 20% in Cheque Trials (Sec 143A NI Act): https://nyayamitrawb.in/?cat=cat-money-recovery&topic=sub-money-06
+
+### Category 6: Family Disputes & Maintenance (`cat-family-maintenance` — 50 workflows)
+- Monthly Maintenance for Wife & Children (Sec 144 BNSS 2023): https://nyayamitrawb.in/?cat=cat-family-maintenance&topic=sub-family-01
+- Senior Citizen Maintenance & Abusive Child Eviction (MWPSC Act 2007): https://nyayamitrawb.in/?cat=cat-family-maintenance&topic=sub-family-02
+- Domestic Violence Protection & Shared Residence (PWDVA 2005): https://nyayamitrawb.in/?cat=cat-family-maintenance&topic=sub-family-03
+- Mutual Consent Divorce & Settlement (Sec 13B HMA): https://nyayamitrawb.in/?cat=cat-family-maintenance&topic=sub-family-04
+- Child Custody & Interim Visitation Rights: https://nyayamitrawb.in/?cat=cat-family-maintenance&topic=sub-family-05
+- Contested Divorce on Mental Cruelty & Desertion: https://nyayamitrawb.in/?cat=cat-family-maintenance&topic=sub-family-06
+
+---
+
+## 4. E-Library Pro — 88 Official Bare Acts (`https://nyayamitrawb.in/elibrarypro`)
+
+- **70 Central Acts**: Constitution of India, Code of Civil Procedure 1908, Bharatiya Nyaya Sanhita (BNS) 2023, Bharatiya Nagarik Suraksha Sanhita (BNSS) 2023, Bharatiya Sakshya Adhiniyam (BSA) 2023, Indian Contract Act 1872, Transfer of Property Act 1882, Specific Relief Act 1963, Limitation Act 1963, Registration Act 1908, Indian Stamp Act 1899, Negotiable Instruments Act 1881, Consumer Protection Act 2019, RERA 2016, Arbitration and Conciliation Act 1996, Hindu Succession Act 1956, Hindu Marriage Act 1955, Indian Succession Act 1925, Protection of Women from Domestic Violence Act 2005, Maintenance and Welfare of Parents and Senior Citizens Act 2007, Digital Personal Data Protection (DPDP) Act 2023, and more.
+- **14 West Bengal State Acts**: West Bengal Land Reforms Act 1955, West Bengal Premises Tenancy Act 1997, Kolkata Municipal Corporation Act 1980, West Bengal Municipal Act 1993, West Bengal Panchayat Act 1973, West Bengal Thika Tenancy (Acquisition and Regulation) Act 2001, West Bengal Land Reforms and Tenancy Tribunal Act 1997, and more.
+- **4 Regulations & Rules**: BCI Rules, Civil Court & Statutory Rules.

@@ -24,13 +24,14 @@ import {
   downloadNoticePdf
 } from '../utils/proDocumentTemplates';
 import { WEST_BENGAL_DISTRICTS, saveProTransaction } from '../utils/triageEngine';
+import { getApiUrl } from '../utils/apiBase';
+import { trackBeginCheckout, trackPurchase } from '../utils/analytics';
 
 declare global {
   interface Window {
     Razorpay: any;
   }
 }
-
 // Helper to ensure Razorpay script is loaded - defined as IIFE to avoid top-level function declaration issues
 export const ensureRazorpayLoaded = (() => {
   let loadPromise: Promise<void> | null = null;
@@ -40,6 +41,7 @@ export const ensureRazorpayLoaded = (() => {
     
     loadPromise = new Promise((resolve, reject) => {
       if (typeof window !== 'undefined' && window.Razorpay) {
+        console.log('[Razorpay] Already loaded');
         resolve();
         return;
       }
@@ -50,27 +52,52 @@ export const ensureRazorpayLoaded = (() => {
       // Check if script is already loading or loaded
       const existingScript = document.querySelector('script[src*="checkout.razorpay.com"]');
       if (existingScript) {
+        console.log('[Razorpay] Script already in DOM, waiting for load...');
         // Wait for it to load
         const checkRazorpay = setInterval(() => {
           if (window.Razorpay) {
             clearInterval(checkRazorpay);
+            console.log('[Razorpay] Loaded from existing script');
             resolve();
           }
         }, 100);
         setTimeout(() => {
           clearInterval(checkRazorpay);
-          if (!window.Razorpay) reject(new Error('Razorpay script load timeout'));
-          else resolve();
-        }, 10000);
+          if (!window.Razorpay) {
+            console.error('[Razorpay] Load timeout - removing stale script');
+            existingScript.remove();
+            reject(new Error('Razorpay script load timeout - script removed'));
+          } else {
+            console.log('[Razorpay] Loaded after timeout check');
+            resolve();
+          }
+        }, 15000);
         return;
       }
-      // Load the script
-      const script = document.createElement('script');
-      script.src = 'https://checkout.razorpay.com/v1/checkout.js';
-      script.async = true;
-      script.onload = () => resolve();
-      script.onerror = () => reject(new Error('Failed to load Razorpay script'));
-      document.head.appendChild(script);
+      // Load the script with retry logic
+      const loadScript = (retries = 3) => {
+        console.log(`[Razorpay] Loading script (attempt ${4 - retries}/3)...`);
+        const script = document.createElement('script');
+        script.src = 'https://checkout.razorpay.com/v1/checkout.js';
+        script.async = true;
+        script.crossOrigin = 'anonymous';
+        script.onload = () => {
+          console.log('[Razorpay] Script loaded successfully');
+          resolve();
+        };
+        script.onerror = () => {
+          console.error('[Razorpay] Script load failed');
+          script.remove();
+          if (retries > 1) {
+            console.log('[Razorpay] Retrying...');
+            setTimeout(() => loadScript(retries - 1), 500);
+          } else {
+            reject(new Error('Failed to load Razorpay script after 3 attempts'));
+          }
+        };
+        document.head.appendChild(script);
+      };
+      loadScript();
     });
     
     return loadPromise;
@@ -335,8 +362,8 @@ export const DocumentDrafterModal: React.FC<Props> = ({
       return;
     }
 
-    try {
-      const orderRes = await fetch('/api/create-order', {
+try {
+      const orderRes = await fetch(getApiUrl('/api/create-order'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -351,6 +378,11 @@ export const DocumentDrafterModal: React.FC<Props> = ({
       }
 
       const orderData = await orderRes.json();
+      trackBeginCheckout(
+        'notice_draft_99',
+        99,
+        activeTemplate.title[docLang] || activeTemplate.title.en
+      );
 
       const options = {
         key: orderData.keyId || (import.meta as any).env?.VITE_RAZORPAY_KEY_ID || 'rzp_live_TkN8MUwR01Npxf',
@@ -370,7 +402,7 @@ export const DocumentDrafterModal: React.FC<Props> = ({
         },
         handler: async function (response: any) {
           try {
-            const verifyRes = await fetch('/api/verify-payment', {
+            const verifyRes = await fetch(getApiUrl('/api/verify-payment'), {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify({
@@ -388,6 +420,12 @@ export const DocumentDrafterModal: React.FC<Props> = ({
             const verifyData = await verifyRes.json();
 
             if (verifyData.verified) {
+              trackPurchase(
+                response.razorpay_payment_id,
+                'notice_draft_99',
+                99,
+                activeTemplate.title[docLang] || activeTemplate.title.en
+              );
               setVerifiedPaymentId(response.razorpay_payment_id);
               setShowFullContent(true);
 
@@ -429,7 +467,8 @@ export const DocumentDrafterModal: React.FC<Props> = ({
 
       razorpayInstance.open();
     } catch (err: any) {
-      setPaymentError(err.message || 'Payment initiation failed.');
+      console.error('[ProDrafter] Razorpay error:', err);
+      setPaymentError(err?.message?.includes('load') ? 'Payment gateway failed to load. Please check internet and refresh.' : 'Payment initiation failed. Please retry.');
       setIsProcessingPayment(false);
     }
   };

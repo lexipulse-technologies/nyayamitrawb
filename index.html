@@ -1,102 +1,119 @@
 <!doctype html>
-<html lang="bn">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <script>
+    /* APK startup error trap — displays JS errors on-screen when running inside
+       the Capacitor WebView (origin https://localhost). Inert on the website. */
+    (function () {
+      try {
+        if (location.hostname !== 'localhost') return;
+        var box = null, count = 0;
+        function show(msg) {
+          count++;
+          if (!box) {
+            box = document.createElement('div');
+            box.id = 'nm-err-trap';
+            box.style.cssText = 'position:fixed;top:0;left:0;right:0;z-index:2147483647;background:#7f1d1d;color:#fff;font:11px/1.4 monospace;padding:8px;max-height:45vh;overflow:auto;white-space:pre-wrap;word-break:break-all;';
+            box.textContent = '[NyayaMitra startup diagnostics]\n';
+            document.documentElement.appendChild(box);
+          }
+          box.textContent += '\n[' + count + '] ' + msg;
+        }
+        window.onerror = function (m, s, l, c) {
+          show('ERROR: ' + m + ' @ ' + (s || '?') + ':' + l + ':' + c);
+        };
+        window.addEventListener('unhandledrejection', function (e) {
+          show('PROMISE: ' + (e && e.reason && (e.reason.stack || e.reason.message) || e.reason));
+        });
+        window.addEventListener('load', function () {
+          setTimeout(function () {
+            var root = document.getElementById('root');
+            var mounted = root && root.childElementCount > 0;
+            if (!mounted) {
+              show('App root EMPTY after 4s. Capacitor=' + (window.Capacitor ? window.Capacitor.getPlatform() : 'undefined') + ' UA=' + navigator.userAgent.slice(0, 80));
+            }
+          }, 4000);
+        });
+      } catch (e) { /* never break the page */ }
+    })();
+    </script>
     <meta name="yandex-verification" content="16dd59b7a33baaf4" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="msvalidate.01" content="198E8208848899A292E1607BCD915241" />
     <meta name="google-site-verification" content="EcLR7dkR6l9Q4tyP-xaPnc6AyqtocjIyQYsByZXDCUM" />
     <script src="https://analytics.ahrefs.com/analytics.js" data-key="998RnN/1fB0UersEDbPScw" async></script>
     
-    <!-- Primary Search Engine Meta Tags (Title: 46 chars | Description: 152 chars - 100% Bing & Google Compliant) -->
-    <title>NyayaMitra: West Bengal Civil Legal Navigator</title>
-    <meta name="title" content="NyayaMitra: West Bengal Civil Legal Navigator" />
-    <meta name="description" content="Free civil legal navigator for West Bengal. Verified procedural roadmaps for land mutation, tenancy eviction, cheque bounce, BNSS and consumer disputes." />
+    <!-- Primary Search Engine Meta Tags (Title: 56 chars | Description: 151 chars - Google & Bing Compliant) -->
+    <title>NyayaMitra: Civil Legal Navigator India &amp; West Bengal</title>
+    <meta name="title" content="NyayaMitra: Civil Legal Navigator India &amp; West Bengal" />
+    <meta name="description" content="Free trilingual civil legal navigator for India &amp; West Bengal. 300 roadmaps for land mutation, tenancy, cheque bounce, RERA, partition &amp; 88 bare acts." />
     
-    <!-- Comprehensive Geo & High-Intent Regional Keywords -->
-    <meta name="keywords" content="NyayaMitra, West Bengal legal aid, Banglarbhumi land mutation Form 13, WBPT Act tenant eviction notice to quit, cheque bounce Section 138 NI Act notice, BNSS 144 maintenance petition Kolkata, WBRERA builder delay compensation, Order XX Rule 18 partition suit Alipore court, DLSA free legal helpline 15100, High Court at Calcutta, Alipore District Court, Barasat District Court, Howrah District Court, City Civil Court Calcutta, Bankshall Court, Presidency Small Causes Court, Sealdah Court, Asansol Court, Siliguri Court, Paschim Medinipur, Purba Bardhaman, North 24 Parganas, South 24 Parganas" />
+    <!-- Comprehensive India & West Bengal Civil Law + Multilingual Keywords -->
+    <meta name="keywords" content="NyayaMitra, civil legal aid India, West Bengal legal guide, Banglarbhumi land mutation Form 13, Sec 50 WBLR Act 1955, Porcha ROR correction, KMC property mutation Kolkata, WBPT Act 1997 tenant eviction notice to quit, cheque bounce Section 138 NI Act notice, BNSS 2023 Section 144 maintenance petition, Section 125 CrPC maintenance, WBRERA builder delay compensation Form M, RERA India homebuyer rights, e-Jagriti consumer complaint India, Consumer Protection Act 2019, Order XX Rule 18 partition suit, Hindu Succession Act ancestral property rights, Transfer of Property Act 1882, Specific Relief Act 1963, Code of Civil Procedure 1908, Limitation Act 1963, Indian Contract Act 1872, Bharatiya Nyaya Sanhita BNS 2023, Bharatiya Sakshya Adhiniyam BSA 2023, Registration Act 1908, Indian Stamp Act, High Court at Calcutta, City Civil Court Calcutta, Presidency Small Causes Court, Bankshall Court, Alipore Court, Barasat Court, Howrah Court, Hooghly Chinsurah Court, Asansol Durgapur Court, Siliguri Court, Medinipur Court, Nadia Krishnanagar Court, Murshidabad Berhampore Court, Malda Court, Bankura Court, Purulia Court, Birbhum Court, Cooch Behar Court, Jalpaiguri Circuit Bench, DLSA 15100 free legal aid, WBLRTT land tribunal, 88 Indian bare acts E-Library, statutory legal notice draft, advocate consultation Kolkata, জমি মিউটেশন বাংলারভূমি, ভাড়াটে উচ্ছেদ নোটিশ, দেওয়ানি মামলা পশ্চিমবঙ্গ, जमीन म्यूटेशन, चेक बाउंस नोटिस" />
     <meta name="author" content="LEXIPULSE TECHNOLOGIES" />
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+    <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+    <meta name="bingbot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
     <link rel="canonical" href="https://nyayamitrawb.in/" />
+    <link rel="alternate" type="text/plain" title="LLM Context Guide" href="https://nyayamitrawb.in/llms.txt" />
 
     <!-- Hreflang Alternate Links for Multi-language Support -->
     <link rel="alternate" hreflang="x-default" href="https://nyayamitrawb.in/" />
+    <link rel="alternate" hreflang="en" href="https://nyayamitrawb.in/?lang=en" />
     <link rel="alternate" hreflang="bn" href="https://nyayamitrawb.in/?lang=bn" />
     <link rel="alternate" hreflang="hi" href="https://nyayamitrawb.in/?lang=hi" />
-    <link rel="alternate" hreflang="en" href="https://nyayamitrawb.in/?lang=en" />
-    <link rel="alternate" hreflang="bn" href="https://nyayamitrawb.in/?cat=cat-land-mutation&lang=bn" />
-    <link rel="alternate" hreflang="hi" href="https://nyayamitrawb.in/?cat=cat-land-mutation&lang=hi" />
-    <link rel="alternate" hreflang="en" href="https://nyayamitrawb.in/?cat=cat-land-mutation&lang=en" />
-    <link rel="alternate" hreflang="bn" href="https://nyayamitrawb.in/?cat=cat-tenancy-disputes&lang=bn" />
-    <link rel="alternate" hreflang="hi" href="https://nyayamitrawb.in/?cat=cat-tenancy-disputes&lang=hi" />
-    <link rel="alternate" hreflang="en" href="https://nyayamitrawb.in/?cat=cat-tenancy-disputes&lang=en" />
-    <link rel="alternate" hreflang="bn" href="https://nyayamitrawb.in/?cat=cat-consumer-rights&lang=bn" />
-    <link rel="alternate" hreflang="hi" href="https://nyayamitrawb.in/?cat=cat-consumer-rights&lang=hi" />
-    <link rel="alternate" hreflang="en" href="https://nyayamitrawb.in/?cat=cat-consumer-rights&lang=en" />
-    <link rel="alternate" hreflang="bn" href="https://nyayamitrawb.in/?cat=cat-partition-succession&lang=bn" />
-    <link rel="alternate" hreflang="hi" href="https://nyayamitrawb.in/?cat=cat-partition-succession&lang=hi" />
-    <link rel="alternate" hreflang="en" href="https://nyayamitrawb.in/?cat=cat-partition-succession&lang=en" />
-    <link rel="alternate" hreflang="bn" href="https://nyayamitrawb.in/?cat=cat-money-recovery&lang=bn" />
-    <link rel="alternate" hreflang="hi" href="https://nyayamitrawb.in/?cat=cat-money-recovery&lang=hi" />
-    <link rel="alternate" hreflang="en" href="https://nyayamitrawb.in/?cat=cat-money-recovery&lang=en" />
-    <link rel="alternate" hreflang="bn" href="https://nyayamitrawb.in/?cat=cat-family-maintenance&lang=bn" />
-    <link rel="alternate" hreflang="hi" href="https://nyayamitrawb.in/?cat=cat-family-maintenance&lang=hi" />
-    <link rel="alternate" hreflang="en" href="https://nyayamitrawb.in/?cat=cat-family-maintenance&lang=en" />
+    <link rel="alternate" hreflang="en-IN" href="https://nyayamitrawb.in/?lang=en" />
+    <link rel="alternate" hreflang="bn-IN" href="https://nyayamitrawb.in/?lang=bn" />
+    <link rel="alternate" hreflang="hi-IN" href="https://nyayamitrawb.in/?lang=hi" />
 
     <!-- Progressive Web App (PWA) Standard Manifest & Mobile Headers -->
     <link rel="manifest" href="/manifest.webmanifest" />
+    <link rel="apple-touch-icon" href="/brand/lexipulse-technologies-logo.png" />
     <meta name="theme-color" content="#0f2b48" />
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="apple-mobile-web-app-title" content="NyayaMitra" />
 
-    <!-- Geo-Targeting for West Bengal & Kolkata -->
+    <!-- Geo-Targeting for India, West Bengal & Kolkata -->
     <meta name="geo.region" content="IN-WB" />
     <meta name="geo.placename" content="Kolkata, West Bengal, India" />
     <meta name="geo.position" content="22.5726;88.3639" />
     <meta name="ICBM" content="22.5726, 88.3639" />
 
     <!-- Dublin Core Metadata -->
-    <meta name="DC.title" content="NyayaMitra: West Bengal Civil Legal Navigator" />
-    <meta name="DC.description" content="Free civil legal navigator for West Bengal. Verified procedural roadmaps for land mutation, tenancy eviction, cheque bounce, BNSS and consumer disputes." />
+    <meta name="DC.title" content="NyayaMitra: Civil Legal Navigator India &amp; West Bengal" />
+    <meta name="DC.description" content="Free trilingual civil legal navigator for India &amp; West Bengal. 300 roadmaps for land mutation, tenancy, cheque bounce, RERA, partition &amp; 88 bare acts." />
     <meta name="DC.creator" content="LEXIPULSE TECHNOLOGIES" />
     <meta name="DC.publisher" content="LEXIPULSE TECHNOLOGIES" />
-    <meta name="DC.date" content="2026-10-21" />
+    <meta name="DC.date" content="2026-11-17" />
     <meta name="DC.type" content="Service" />
     <meta name="DC.format" content="text/html" />
-    <meta name="DC.language" content="bn-IN, hi-IN, en-IN" />
-    <meta name="DC.coverage" content="West Bengal, India" />
+    <meta name="DC.language" content="en-IN, bn-IN, hi-IN" />
+    <meta name="DC.coverage" content="India, West Bengal" />
     <meta name="DC.rights" content="© 2026 LEXIPULSE TECHNOLOGIES. All rights reserved." />
     <meta name="DC.identifier" content="https://nyayamitrawb.in/" />
 
-    <!-- Geo-Targeting for West Bengal & Kolkata -->
-    <meta name="geo.region" content="IN-WB" />
-    <meta name="geo.placename" content="Kolkata, West Bengal, India" />
-    <meta name="geo.position" content="22.5726;88.3639" />
-    <meta name="ICBM" content="22.5726, 88.3639" />
-
-    <!-- Open Graph Metadata (Title: 46 chars | Description: 152 chars) -->
+    <!-- Open Graph Metadata (Fixed Root-Relative Asset Paths) -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://nyayamitrawb.in/" />
-    <meta property="og:title" content="NyayaMitra: West Bengal Civil Legal Navigator" />
-    <meta property="og:description" content="Free civil legal navigator for West Bengal. Verified procedural roadmaps for land mutation, tenancy eviction, cheque bounce, BNSS and consumer disputes." />
-    <meta property="og:image" content="https://nyayamitrawb.in/public/assets/hero-banner.webp" />
+    <meta property="og:title" content="NyayaMitra: Civil Legal Navigator India &amp; West Bengal" />
+    <meta property="og:description" content="Free trilingual civil legal navigator for India &amp; West Bengal. 300 roadmaps for land mutation, tenancy, cheque bounce, RERA, partition &amp; 88 bare acts." />
+    <meta property="og:image" content="https://nyayamitrawb.in/assets/hero-banner.webp" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="NyayaMitra: West Bengal Civil Legal Navigator - 23 Districts, 300+ Legal Workflows" />
+    <meta property="og:image:alt" content="NyayaMitra: Civil Legal Navigator for India &amp; West Bengal - 23 Districts, 300 Legal Workflows, 88 Bare Acts" />
     <meta property="og:locale" content="en_IN" />
     <meta property="og:locale:alternate" content="bn_IN" />
     <meta property="og:locale:alternate" content="hi_IN" />
-    <meta property="og:site_name" content="NyayaMitraWB" />
+    <meta property="og:site_name" content="NyayaMitra" />
 
-    <!-- Twitter Card Metadata -->
+    <!-- Twitter Card Metadata (Fixed Root-Relative Asset Path) -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="NyayaMitra: West Bengal Civil Legal Navigator" />
-    <meta name="twitter:description" content="Free civil legal navigator for West Bengal. Verified procedural roadmaps for land mutation, tenancy eviction, cheque bounce, BNSS and consumer disputes." />
-    <meta name="twitter:image" content="https://nyayamitrawb.in/public/assets/hero-banner.webp" />
-    <meta name="twitter:image:alt" content="NyayaMitra: West Bengal Civil Legal Navigator" />
-    <meta name="twitter:site" content="@nyayamitrawb" />
-    <meta name="twitter:creator" content="@nyayamitrawb" />
+    <meta name="twitter:title" content="NyayaMitra: Civil Legal Navigator India &amp; West Bengal" />
+    <meta name="twitter:description" content="Free trilingual civil legal navigator for India &amp; West Bengal. 300 roadmaps for land mutation, tenancy, cheque bounce, RERA, partition &amp; 88 bare acts." />
+    <meta name="twitter:image" content="https://nyayamitrawb.in/assets/hero-banner.webp" />
+    <meta name="twitter:image:alt" content="NyayaMitra: Civil Legal Navigator for India &amp; West Bengal" />
 
     <!-- Safe URL-Encoded SVG Favicon -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230f2b48' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z'/%3E%3Cpath d='m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z'/%3E%3Cpath d='M7 21h10'/%3E%3Cpath d='M12 3v18'/%3E%3Cpath d='M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2'/%3E%3C/svg%3E" />
@@ -149,62 +166,208 @@
     })(window, document, "clarity", "script", "z1anca6csw");
     </script>
 
-    <!-- Schema.org JSON-LD Structured Data Graph -->
+    <!-- Schema.org JSON-LD Structured Data Graph (Zero Duplicate @id, Rich Results & GEO Validated) -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@graph": [
         {
+          "@type": "Organization",
+          "@id": "https://nyayamitrawb.in/#organization",
+          "name": "LEXIPULSE TECHNOLOGIES",
+          "alternateName": "NyayaMitra",
+          "url": "https://nyayamitrawb.in/",
+          "logo": {
+            "@type": "ImageObject",
+            "@id": "https://nyayamitrawb.in/#logo",
+            "url": "https://nyayamitrawb.in/brand/lexipulse-technologies-logo.png",
+            "width": 512,
+            "height": 512,
+            "caption": "LEXIPULSE TECHNOLOGIES Logo"
+          },
+          "email": "namaste@nyayamitrawb.in",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Kolkata",
+            "addressRegion": "West Bengal",
+            "postalCode": "700001",
+            "addressCountry": "IN"
+          },
+          "sameAs": [
+            "https://github.com/lexipulse-technologies",
+            "https://github.com/lexipulse-technologies/nyayamitrawb"
+          ],
+          "contactPoint": {
+            "@type": "ContactPoint",
+            "contactType": "customer support",
+            "email": "namaste@nyayamitrawb.in",
+            "availableLanguage": ["English", "Bengali", "Hindi"],
+            "areaServed": "IN"
+          }
+        },
+        {
           "@type": "WebSite",
           "@id": "https://nyayamitrawb.in/#website",
           "url": "https://nyayamitrawb.in/",
-          "name": "NyayaMitra West Bengal",
-          "description": "Open Civil Legal Navigator across 23 Districts of West Bengal",
-          "inLanguage": ["bn", "hi", "en"]
+          "name": "NyayaMitra: Civil Legal Navigator India & West Bengal",
+          "alternateName": ["NyayaMitra", "NyayaMitra WB", "ন্যায়মित्र", "न्यायमित्र"],
+          "description": "Free trilingual civil legal navigator for India and West Bengal featuring 300 procedural workflows, 88 official bare acts, and advocate consultation.",
+          "publisher": { "@id": "https://nyayamitrawb.in/#organization" },
+          "inLanguage": ["en-IN", "bn-IN", "hi-IN"],
+          "potentialAction": {
+            "@type": "SearchAction",
+            "target": {
+              "@type": "EntryPoint",
+              "urlTemplate": "https://nyayamitrawb.in/?search={search_term_string}"
+            },
+            "query-input": "required name=search_term_string"
+          }
+        },
+        {
+          "@type": "WebPage",
+          "@id": "https://nyayamitrawb.in/#webpage",
+          "url": "https://nyayamitrawb.in/",
+          "name": "NyayaMitra: Civil Legal Navigator India & West Bengal",
+          "description": "Free trilingual civil legal navigator for India and West Bengal covering 300 civil legal workflows across 23 districts and 88 Indian bare acts.",
+          "isPartOf": { "@id": "https://nyayamitrawb.in/#website" },
+          "about": { "@id": "https://nyayamitrawb.in/#service" },
+          "primaryImageOfPage": {
+            "@type": "ImageObject",
+            "url": "https://nyayamitrawb.in/assets/hero-banner.webp"
+          },
+          "inLanguage": "en-IN",
+          "breadcrumb": { "@id": "https://nyayamitrawb.in/#breadcrumb" }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "@id": "https://nyayamitrawb.in/#breadcrumb",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Home",
+              "item": "https://nyayamitrawb.in/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "E-Library Pro (88 Bare Acts)",
+              "item": "https://nyayamitrawb.in/elibrarypro"
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "name": "Android Mobile App",
+              "item": "https://nyayamitrawb.in/app"
+            }
+          ]
         },
         {
           "@type": "LegalService",
           "@id": "https://nyayamitrawb.in/#service",
           "name": "NyayaMitra Civil Legal Navigator",
-          "serviceType": "Public Legal Literacy & Self-Service Procedural Guidance",
-          "description": "Open-access procedural guidance across all 23 districts of West Bengal covering 300 civil legal workflows: Banglarbhumi land mutation, WBPT Act tenancy eviction, Section 138 cheque bounce, WBRERA real estate claims, ancestral partition by metes and bounds, and Section 144 BNSS maintenance.",
-          "provider": {
-            "@type": "Organization",
-            "@id": "https://nyayamitrawb.in/#organization",
-            "name": "LEXIPULSE TECHNOLOGIES",
-            "url": "https://nyayamitrawb.in/",
-            "logo": {
-              "@type": "ImageObject",
-              "@id": "https://nyayamitrawb.in/#logo",
-              "url": "https://nyayamitrawb.in/public/brand/lexipulse-technologies-logo.png",
-              "width": 512,
-              "height": 512,
-              "caption": "LEXIPULSE TECHNOLOGIES Logo"
-            },
-            "email": "namaste@nyayamitrawb.in",
-            "telephone": "+91-15100",
-            "address": {
-              "@type": "PostalAddress",
-              "addressLocality": "Kolkata",
-              "addressRegion": "West Bengal",
-              "addressCountry": "IN"
-            },
-            "sameAs": [
-              "https://twitter.com/nyayamitrawb",
-              "https://linkedin.com/company/lexipulse-technologies",
-              "https://github.com/lexipulse-technologies"
-            ]
+          "url": "https://nyayamitrawb.in/",
+          "image": "https://nyayamitrawb.in/assets/hero-banner.webp",
+          "serviceType": "Civil Legal Literacy, Procedural Roadmaps, Statutory Notice Drafting & Advocate Consultation",
+          "description": "Open-access civil legal navigator for India and all 23 districts of West Bengal covering 300 civil workflows: Banglarbhumi & KMC land mutation, WBPT Act tenancy eviction, Section 138 NI Act cheque bounce, WBRERA & e-Jagriti consumer claims, ancestral partition & probate, and Section 144 BNSS maintenance.",
+          "provider": { "@id": "https://nyayamitrawb.in/#organization" },
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Kolkata",
+            "addressRegion": "West Bengal",
+            "postalCode": "700001",
+            "addressCountry": "IN"
           },
+          "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": 22.5726,
+            "longitude": 88.3639
+          },
+          "priceRange": "₹0 - ₹499",
+          "currenciesAccepted": "INR",
+          "paymentAccepted": "UPI, Credit Card, Debit Card, Net Banking",
           "areaServed": [
-            { "@type": "AdministrativeArea", "name": "Kolkata" },
-            { "@type": "AdministrativeArea", "name": "North 24 Parganas" },
-            { "@type": "AdministrativeArea", "name": "South 24 Parganas" },
-            { "@type": "AdministrativeArea", "name": "Howrah" },
+            { "@type": "Country", "name": "India" },
+            { "@type": "State", "name": "West Bengal" },
+            { "@type": "AdministrativeArea", "name": "Alipurduar" },
+            { "@type": "AdministrativeArea", "name": "Bankura" },
+            { "@type": "AdministrativeArea", "name": "Birbhum" },
+            { "@type": "AdministrativeArea", "name": "Cooch Behar" },
+            { "@type": "AdministrativeArea", "name": "Dakshin Dinajpur" },
+            { "@type": "AdministrativeArea", "name": "Darjeeling" },
             { "@type": "AdministrativeArea", "name": "Hooghly" },
+            { "@type": "AdministrativeArea", "name": "Howrah" },
+            { "@type": "AdministrativeArea", "name": "Jalpaiguri" },
+            { "@type": "AdministrativeArea", "name": "Jhargram" },
+            { "@type": "AdministrativeArea", "name": "Kalimpong" },
+            { "@type": "AdministrativeArea", "name": "Kolkata" },
+            { "@type": "AdministrativeArea", "name": "Malda" },
+            { "@type": "AdministrativeArea", "name": "Murshidabad" },
+            { "@type": "AdministrativeArea", "name": "Nadia" },
+            { "@type": "AdministrativeArea", "name": "North 24 Parganas" },
             { "@type": "AdministrativeArea", "name": "Paschim Bardhaman" },
+            { "@type": "AdministrativeArea", "name": "Paschim Medinipur" },
             { "@type": "AdministrativeArea", "name": "Purba Bardhaman" },
-            { "@type": "AdministrativeArea", "name": "West Bengal" }
-          ]
+            { "@type": "AdministrativeArea", "name": "Purba Medinipur" },
+            { "@type": "AdministrativeArea", "name": "Purulia" },
+            { "@type": "AdministrativeArea", "name": "South 24 Parganas" },
+            { "@type": "AdministrativeArea", "name": "Uttar Dinajpur" }
+          ],
+          "hasOfferCatalog": {
+            "@type": "OfferCatalog",
+            "name": "NyayaMitra Civil Legal Services",
+            "itemListElement": [
+              {
+                "@type": "Offer",
+                "name": "300 Civil Legal Roadmaps & 88 Bare Acts E-Library",
+                "description": "Free trilingual civil legal workflows, document checklists, and official portal links",
+                "price": "0",
+                "priceCurrency": "INR",
+                "availability": "https://schema.org/InStock"
+              },
+              {
+                "@type": "Offer",
+                "name": "Pro Statutory Notice Drafting",
+                "description": "Court-ready statutory legal notice drafting for land, tenancy, cheque bounce, consumer, money recovery, and family disputes",
+                "price": "99",
+                "priceCurrency": "INR",
+                "availability": "https://schema.org/InStock"
+              },
+              {
+                "@type": "Offer",
+                "name": "Advocate Consultation (60 Minutes)",
+                "description": "Direct 60-minute legal consultation with enrolled Bar Council advocate via scheduled session",
+                "price": "499",
+                "priceCurrency": "INR",
+                "availability": "https://schema.org/InStock"
+              }
+            ]
+          }
+        },
+        {
+          "@type": "CollectionPage",
+          "@id": "https://nyayamitrawb.in/elibrarypro#collection",
+          "url": "https://nyayamitrawb.in/elibrarypro",
+          "name": "NyayaMitra E-Library Pro — 88 Indian & West Bengal Bare Acts",
+          "description": "Trilingual searchable archive of 88 official Central Acts, West Bengal State Acts, and statutory regulations including CPC 1908, BNS 2023, BNSS 2023, BSA 2023, Transfer of Property Act, Hindu Succession Act, Consumer Protection Act 2019, RERA 2016, WBLR Act 1955, and WBPT Act 1997.",
+          "isPartOf": { "@id": "https://nyayamitrawb.in/#website" },
+          "inLanguage": ["en-IN", "bn-IN", "hi-IN"]
+        },
+        {
+          "@type": "SoftwareApplication",
+          "@id": "https://nyayamitrawb.in/app#software",
+          "name": "NyayaMitra — Civil Legal Navigator",
+          "operatingSystem": "Android 7.0+",
+          "applicationCategory": "ReferenceApplication",
+          "url": "https://nyayamitrawb.in/app",
+          "downloadUrl": "https://github.com/lexipulse-technologies/nyayamitrawb/releases/download/v1.0.0/NyayaMitra-v1.0.0.apk",
+          "softwareVersion": "1.0.0",
+          "publisher": { "@id": "https://nyayamitrawb.in/#organization" },
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "INR"
+          }
         },
         {
           "@type": "FAQPage",
@@ -215,7 +378,7 @@
               "name": "How is online land mutation applied in West Bengal through Banglarbhumi?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "Under Section 50 of the WBLR Act 1955, land mutation is processed online via the Banglarbhumi portal. The citizen submits Form 13 with the registered sale deed, up-to-date Khajna rent receipt, and attends the Revenue Officer hearing."
+                "text": "Under Section 50 of the West Bengal Land Reforms Act, 1955, rural and district land mutation is applied online via the Banglarbhumi portal using Form 13 with the registered Sale Deed, up-to-date Khajna receipt, and BL&LRO hearing. In Kolkata municipal wards, property assessment mutation is handled by the Kolkata Municipal Corporation (KMC) under the KMC Act, 1980."
               }
             },
             {
@@ -223,201 +386,50 @@
               "name": "What is the procedure to evict a tenant in West Bengal under WBPT Act 1997?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "Eviction is governed by Section 6 of the West Bengal Premises Tenancy Act, 1997. The landlord must serve a formal statutory 1-month Notice to Quit expiring with the end of the tenancy month, followed by a Title Eviction Suit before the Civil Judge or Presidency Small Causes Court."
+                "text": "Residential and commercial premises eviction in West Bengal is governed by Section 6 of the West Bengal Premises Tenancy Act, 1997 (or Section 106 of the Transfer of Property Act, 1882 where applicable). The landlord must serve a valid statutory Notice to Quit expiring with the end of the tenancy month, followed by an eviction suit before the Civil Judge or Presidency Small Causes Court in Kolkata."
               }
             },
             {
               "@type": "Question",
-              "name": "What are the rules for cheque bounce under Section 138 NI Act in Kolkata?",
+              "name": "What are the rules for cheque bounce under Section 138 NI Act in India and Kolkata?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "Under Section 138 of the Negotiable Instruments Act, the payee must issue a statutory 15-day demand notice within 30 days of bank return memo. If unpaid after 15 days, a criminal complaint is filed before the Metropolitan Magistrate (Bankshall Court in Kolkata) or Judicial Magistrate in districts within 30 days."
+                "text": "Under Section 138 of the Negotiable Instruments Act, 1881, the payee must send a statutory 15-day written demand notice within 30 days of receiving the bank cheque return memo. If the drawer fails to pay within 15 days of receipt, a complaint may be filed within 30 days before the Chief Metropolitan Magistrate (Bankshall Court in Kolkata) or Judicial Magistrate."
               }
             },
             {
               "@type": "Question",
-              "name": "How to claim maintenance under Section 144 BNSS 2023 in West Bengal?",
+              "name": "How to claim maintenance under Section 144 BNSS 2023 in West Bengal and India?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "Section 144 of the Bharatiya Nagarik Suraksha Sanhita, 2023 (replacing Section 125 CrPC) grants wives, children, and parents the right to claim monthly maintenance. Petitions are filed before the Family Court or Chief Judicial Magistrate with a mandatory 60-day interim disposal requisition per Supreme Court guidelines in Rajnesh v. Neha."
+                "text": "Section 144 of the Bharatiya Nagarik Suraksha Sanhita (BNSS), 2023 (replacing Section 125 CrPC) entitles spouses, dependent children, and elderly parents to monthly maintenance. Applications with an Affidavit of Disclosure of Assets and Liabilities (per Rajnesh v. Neha) are filed before the Family Court or Magistrate."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How can homebuyers file a builder delay complaint under WBRERA or RERA India?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Under the Real Estate (Regulation and Development) Act, 2016 (WBRERA in West Bengal), homebuyers can file Form M for delay compensation or refund with SBI MCLR + 2% interest, and seek execution under Section 40 before the District Magistrate."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How does ancestral property partition and succession work in India and West Bengal?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Ancestral and joint property partition in West Bengal follows the Dayabhaga / Hindu Succession Act framework and Order XX Rule 18 of the Code of Civil Procedure, 1908, seeking preliminary decree of shares and final decree by metes and bounds. Non-testamentary inheritance uses Legal Heir / Warishan certificates, while wills require Probate or Letters of Administration under the Indian Succession Act, 1925."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What bare acts are available in NyayaMitra E-Library Pro?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "NyayaMitra E-Library Pro provides 88 official Central Acts, West Bengal State Acts, and Rules in a read-only viewer, including the Code of Civil Procedure 1908, Bharatiya Nyaya Sanhita 2023, Bharatiya Nagarik Suraksha Sanhita 2023, Bharatiya Sakshya Adhiniyam 2023, Indian Contract Act 1872, Transfer of Property Act 1882, Specific Relief Act 1963, Consumer Protection Act 2019, RERA 2016, WBLR Act 1955, and WBPT Act 1997."
               }
             }
           ]
-        },
-        {
-          "@type": "WebPage",
-          "@id": "https://nyayamitrawb.in/#webpage",
-          "name": "NyayaMitra West Bengal Civil Legal Navigator",
-          "description": "Open-access procedural guidance across all 23 districts of West Bengal covering 300 civil legal workflows",
-          "breadcrumb": {
-            "@type": "BreadcrumbList",
-            "@id": "https://nyayamitrawb.in/#breadcrumb",
-            "itemListElement": [
-              {
-                "@type": "ListItem",
-                "position": 1,
-                "name": "Home",
-                "item": "https://nyayamitrawb.in/"
-              },
-              {
-                "@type": "ListItem",
-                "position": 2,
-                "name": "Legal Categories",
-                "item": "https://nyayamitrawb.in/#categories"
-              }
-            ]
-          },
-          "potentialAction": {
-            "@type": "SearchAction",
-            "@id": "https://nyayamitrawb.in/#search",
-            "target": {
-              "@type": "EntryPoint",
-              "urlTemplate": "https://nyayamitrawb.in/?search={search_term_string}",
-              "actionPlatform": [
-                "http://schema.org/DesktopWebPlatform",
-                "http://schema.org/MobileWebPlatform"
-              ]
-            },
-            "query-input": "required name=search_term_string"
-          }
-        },
-        {
-          "@type": "Organization",
-          "@id": "https://nyayamitrawb.in/#organization",
-          "name": "LEXIPULSE TECHNOLOGIES",
-          "url": "https://nyayamitrawb.in/",
-          "logo": {
-            "@type": "ImageObject",
-            "@id": "https://nyayamitrawb.in/#logo",
-            "url": "https://nyayamitrawb.in/public/brand/lexipulse-technologies-logo.png",
-            "width": 512,
-            "height": 512
-          },
-          "email": "namaste@nyayamitrawb.in",
-          "telephone": "+91-15100",
-          "address": {
-            "@type": "PostalAddress",
-            "addressLocality": "Kolkata",
-            "addressRegion": "West Bengal",
-            "addressCountry": "IN"
-          },
-          "sameAs": [
-            "https://twitter.com/nyayamitrawb",
-            "https://linkedin.com/company/lexipulse-technologies",
-            "https://github.com/lexipulse-technologies"
-          ],
-          "contactPoint": {
-            "@type": "ContactPoint",
-            "telephone": "+91-15100",
-            "contactType": "customer service",
-            "availableLanguage": ["Bengali", "Hindi", "English"],
-            "hoursAvailable": "Mo-Su 09:00-18:00"
-          }
-        },
-        {
-          "@type": "LegalService",
-          "@id": "https://nyayamitrawb.in/#service",
-          "name": "NyayaMitra Civil Legal Navigator",
-          "serviceType": "Public Legal Literacy & Self-Service Procedural Guidance",
-          "description": "Open-access procedural guidance across all 23 districts of West Bengal covering 300 civil legal workflows: Banglarbhumi land mutation, WBPT Act tenancy eviction, Section 138 cheque bounce, WBRERA real estate claims, ancestral partition by metes and bounds, and Section 144 BNSS maintenance.",
-          "provider": {
-            "@type": "Organization",
-            "@id": "https://nyayamitrawb.in/#organization",
-            "name": "LEXIPULSE TECHNOLOGIES"
-          },
-          "areaServed": [
-            { "@type": "AdministrativeArea", "name": "Kolkata" },
-            { "@type": "AdministrativeArea", "name": "North 24 Parganas" },
-            { "@type": "AdministrativeArea", "name": "South 24 Parganas" },
-            { "@type": "AdministrativeArea", "name": "Howrah" },
-            { "@type": "AdministrativeArea", "name": "Hooghly" },
-            { "@type": "AdministrativeArea", "name": "Paschim Bardhaman" },
-            { "@type": "AdministrativeArea", "name": "Purba Bardhaman" },
-            { "@type": "AdministrativeArea", "name": "West Bengal" }
-          ],
-          "offers": {
-            "@type": "Offer",
-            "@id": "https://nyayamitrawb.in/#offer",
-            "name": "Statutory Notice Drafting",
-            "description": "AI-assisted statutory notice drafting for civil legal matters",
-            "price": "99",
-            "priceCurrency": "INR",
-            "priceSpecification": {
-              "@type": "PriceSpecification",
-              "price": 99,
-              "priceCurrency": "INR",
-              "minPrice": 99,
-              "maxPrice": 99,
-              "eligibleQuantity": {
-                "@type": "QuantitativeValue",
-                "value": 1,
-                "unitCode": "C62"
-              }
-            },
-            "paymentMethod": [
-              "https://schema.org/CreditCard",
-              "https://schema.org/DigitalWallet",
-              "https://schema.org/BankTransfer",
-              "https://schema.org/UPI"
-            ],
-            "paymentAccepted": "Credit Card, UPI, Net Banking, Wallet",
-            "currenciesAccepted": "INR",
-            "availability": "https://schema.org/InStock",
-            "validFrom": "2026-01-01",
-            "category": "Legal Services"
-          },
-          "serviceChannel": {
-            "@type": "ServiceChannel",
-            "serviceUrl": "https://nyayamitrawb.in/",
-            "servicePhone": "+91-15100",
-            "serviceEmail": "namaste@nyayamitrawb.in",
-            "hoursAvailable": "Mo-Su 09:00-18:00",
-            "servicePostalAddress": {
-              "@type": "PostalAddress",
-              "addressLocality": "Kolkata",
-              "addressRegion": "West Bengal",
-              "addressCountry": "IN"
-            }
-          }
-        },
-        {
-          "@type": "LocalBusiness",
-          "@id": "https://nyayamitrawb.in/#localbusiness",
-          "name": "NyayaMitra Legal Services",
-          "description": "Free civil legal navigator for West Bengal. 300+ verified procedural roadmaps across 23 districts.",
-          "url": "https://nyayamitrawb.in/",
-          "logo": {
-            "@type": "ImageObject",
-            "url": "https://nyayamitrawb.in/public/brand/lexipulse-technologies-logo.png"
-          },
-          "telephone": "+91-15100",
-          "address": {
-            "@type": "PostalAddress",
-            "addressLocality": "Kolkata",
-            "addressRegion": "West Bengal",
-            "addressCountry": "IN",
-            "postalCode": "700001"
-          },
-          "geo": {
-            "@type": "GeoCoordinates",
-            "latitude": 22.5726,
-            "longitude": 88.3639
-          },
-          "openingHoursSpecification": [
-            {
-              "@type": "OpeningHoursSpecification",
-              "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
-              "opens": "09:00",
-              "closes": "18:00"
-            }
-          ],
-          "priceRange": "₹0 - ₹99",
-          "currenciesAccepted": "INR",
-          "paymentAccepted": "Cash, Credit Card, UPI, Net Banking, Wallet",
-          "areaServed": {
-            "@type": "AdministrativeArea",
-            "name": "West Bengal"
-          }
         }
       ]
     }
@@ -425,24 +437,65 @@
   </head>
   <body class="bg-slate-50 text-slate-900 font-sans antialiased selection:bg-amber-400 selection:text-slate-950">
     <div id="root">
-      <!-- Pre-Rendered Semantic SEO Content for Search Crawlers (Bingbot, Googlebot) -->
-      <header style="padding: 24px 16px; text-align: center; background-color: #0f2b48; color: #ffffff;">
-        <h1 style="font-size: 22px; font-weight: 800; margin: 0; letter-spacing: -0.02em;">NyayaMitra: West Bengal Civil Legal Navigator</h1>
-        <p style="font-size: 13px; color: #cbd5e1; margin: 8px auto 0; max-width: 800px;">
-          Open-access procedural guidance across all 23 districts of West Bengal covering 300 civil legal workflows: Banglarbhumi land mutation, WBPT Act tenancy eviction, Section 138 cheque bounce, WBRERA real estate claims, ancestral partition by metes and bounds, and Section 144 BNSS maintenance.
+      <!-- Pre-Rendered Semantic HTML for Search Engines (Googlebot, Bingbot) & AI Crawlers (GEO) -->
+      <header style="padding: 24px 16px; text-align: center; background-color: #0a1e34; color: #ffffff;">
+        <h1 style="font-size: 22px; font-weight: 800; margin: 0; letter-spacing: -0.02em;">NyayaMitra: Civil Legal Navigator for India &amp; West Bengal</h1>
+        <p style="font-size: 13px; color: #cbd5e1; margin: 8px auto 0; max-width: 840px;">
+          Free trilingual (English, বাংলা, हिन्दी) civil legal guidance covering 300 procedural workflows across 6 core categories, all 23 districts of West Bengal, 12 verified government &amp; court portals, and 88 official Indian &amp; State Bare Acts.
         </p>
-        <div style="margin-top: 14px; font-size: 11px; color: #f59e0b;">
-          <span>DLSA Legal Aid Helpline: 15100 (Toll-Free)</span> &bull;
-          <span>National Cyber Crime: 1930</span> &bull;
-          <span>Banglarbhumi: 1800-345-5555</span>
+        <div style="margin-top: 12px; font-size: 11px; color: #f59e0b;">
+          <span>DLSA Free Legal Aid Helpline: 15100</span> &bull;
+          <span>National Cyber Fraud Helpline: 1930</span> &bull;
+          <span>Banglarbhumi Helpline: 1800-345-5555</span>
         </div>
+        <nav aria-label="Primary Legal Categories" style="margin-top: 14px; font-size: 12px;">
+          <a href="/guides/land-records-mutation-west-bengal" style="color: #93c5fd; margin: 0 8px;">Land, Records &amp; Mutation</a>
+          <a href="/guides/tenancy-premises-disputes-west-bengal" style="color: #93c5fd; margin: 0 8px;">Tenancy &amp; Premises Disputes</a>
+          <a href="/guides/consumer-rights-wbrera-west-bengal" style="color: #93c5fd; margin: 0 8px;">Consumer Rights &amp; Real Estate</a>
+          <a href="/guides/partition-succession-probate-west-bengal" style="color: #93c5fd; margin: 0 8px;">Partition &amp; Succession</a>
+          <a href="/guides/money-recovery-cheque-bounce-india" style="color: #93c5fd; margin: 0 8px;">Money Recovery &amp; Cheque Bounce</a>
+          <a href="/guides/family-maintenance-divorce-india" style="color: #93c5fd; margin: 0 8px;">Family Disputes &amp; Maintenance</a>
+          <a href="/elibrarypro" style="color: #fcd34d; margin: 0 8px;">E-Library Pro (88 Bare Acts)</a>
+          <a href="/app" style="color: #6ee7b7; margin: 0 8px;">Download Android App</a>
+        </nav>
       </header>
 
-      <main style="max-width: 1000px; margin: 20px auto; padding: 0 16px; font-family: sans-serif; font-size: 12px; color: #334155; line-height: 1.6;">
-        <h2 style="font-size: 16px; color: #0f2b48; font-weight: bold;">Comprehensive Civil &amp; Judicial Court Jurisdiction Coverage in West Bengal</h2>
-        <p>
-          NyayaMitra serves citizens across all judicial forums: High Court at Calcutta (Original and Appellate Side), City Civil Court Calcutta, Presidency Small Causes Court, Bankshall Court (Chief Metropolitan Magistrate), Alipore District &amp; Sessions Court (South 24 Parganas), Barasat District Court (North 24 Parganas), Howrah District Court, Hooghly District Court (Chinsurah), Paschim Bardhaman (Asansol/Durgapur), Purba Bardhaman, Nadia (Krishnanagar), Murshidabad (Berhampore), Siliguri, and all 23 District Legal Services Authorities (DLSA).
-        </p>
+      <main style="max-width: 1000px; margin: 20px auto; padding: 0 16px; font-family: sans-serif; font-size: 13px; color: #334155; line-height: 1.65;">
+        <section>
+          <h2 style="font-size: 17px; color: #0f2b48; font-weight: bold;">Indian Civil Statutes, West Bengal Courts &amp; 23 District Coverage</h2>
+          <p>
+            NyayaMitra covers pan-India civil statutes and West Bengal regional laws: Code of Civil Procedure (CPC 1908), Bharatiya Nyaya Sanhita (BNS 2023), Bharatiya Nagarik Suraksha Sanhita (BNSS 2023), Bharatiya Sakshya Adhiniyam (BSA 2023), Negotiable Instruments Act 1881 (Section 138 cheque bounce), Consumer Protection Act 2019 (e-Jagriti), RERA 2016 (WBRERA), Transfer of Property Act 1882, Specific Relief Act 1963, Hindu Succession Act 1956, Indian Contract Act 1872, Limitation Act 1963, West Bengal Land Reforms Act 1955 (WBLR), West Bengal Premises Tenancy Act 1997 (WBPT), and Kolkata Municipal Corporation Act 1980.
+          </p>
+          <p>
+            Judicial &amp; administrative coverage across Kolkata, North 24 Parganas (Barasat), South 24 Parganas (Alipore), Howrah, Hooghly (Chinsurah), Paschim Bardhaman (Asansol, Durgapur), Purba Bardhaman, Nadia (Krishnanagar), Murshidabad (Berhampore), Birbhum (Suri), Bankura, Purulia, Paschim Medinipur, Purba Medinipur (Tamluk), Jhargram, Malda, Uttar Dinajpur (Raiganj), Dakshin Dinajpur (Balurghat), Darjeeling, Kalimpong, Jalpaiguri, Alipurduar, Cooch Behar, High Court at Calcutta, City Civil Court, Presidency Small Causes Court, Bankshall Court, and WBLRTT.
+          </p>
+        </section>
+
+        <section>
+          <h2 style="font-size: 17px; color: #0f2b48; font-weight: bold;">Frequently Asked Civil Legal Questions (India &amp; West Bengal)</h2>
+          <dl>
+            <dt style="font-weight: bold; margin-top: 10px;">How is online land mutation applied in West Bengal through Banglarbhumi?</dt>
+            <dd style="margin-left: 0;">Under Section 50 of the West Bengal Land Reforms Act, 1955, rural and district land mutation is applied online via the Banglarbhumi portal using Form 13 with the registered Sale Deed, up-to-date Khajna receipt, and BL&amp;LRO hearing. In Kolkata municipal wards, property assessment mutation is handled by the Kolkata Municipal Corporation (KMC) under the KMC Act, 1980.</dd>
+
+            <dt style="font-weight: bold; margin-top: 10px;">What is the procedure to evict a tenant in West Bengal under WBPT Act 1997?</dt>
+            <dd style="margin-left: 0;">Residential and commercial premises eviction in West Bengal is governed by Section 6 of the West Bengal Premises Tenancy Act, 1997 (or Section 106 of the Transfer of Property Act, 1882 where applicable). The landlord must serve a valid statutory Notice to Quit expiring with the end of the tenancy month, followed by an eviction suit before the Civil Judge or Presidency Small Causes Court in Kolkata.</dd>
+
+            <dt style="font-weight: bold; margin-top: 10px;">What are the rules for cheque bounce under Section 138 NI Act in India and Kolkata?</dt>
+            <dd style="margin-left: 0;">Under Section 138 of the Negotiable Instruments Act, 1881, the payee must send a statutory 15-day written demand notice within 30 days of receiving the bank cheque return memo. If the drawer fails to pay within 15 days of receipt, a complaint may be filed within 30 days before the Chief Metropolitan Magistrate (Bankshall Court in Kolkata) or Judicial Magistrate.</dd>
+
+            <dt style="font-weight: bold; margin-top: 10px;">How to claim maintenance under Section 144 BNSS 2023 in West Bengal and India?</dt>
+            <dd style="margin-left: 0;">Section 144 of the Bharatiya Nagarik Suraksha Sanhita (BNSS), 2023 (replacing Section 125 CrPC) entitles spouses, dependent children, and elderly parents to monthly maintenance. Applications with an Affidavit of Disclosure of Assets and Liabilities (per Rajnesh v. Neha) are filed before the Family Court or Magistrate.</dd>
+
+            <dt style="font-weight: bold; margin-top: 10px;">How can homebuyers file a builder delay complaint under WBRERA or RERA India?</dt>
+            <dd style="margin-left: 0;">Under the Real Estate (Regulation and Development) Act, 2016 (WBRERA in West Bengal), homebuyers can file Form M for delay compensation or refund with SBI MCLR + 2% interest, and seek execution under Section 40 before the District Magistrate.</dd>
+
+            <dt style="font-weight: bold; margin-top: 10px;">How does ancestral property partition and succession work in India and West Bengal?</dt>
+            <dd style="margin-left: 0;">Ancestral and joint property partition in West Bengal follows the Dayabhaga / Hindu Succession Act framework and Order XX Rule 18 of the Code of Civil Procedure, 1908, seeking preliminary decree of shares and final decree by metes and bounds. Non-testamentary inheritance uses Legal Heir / Warishan certificates, while wills require Probate or Letters of Administration under the Indian Succession Act, 1925.</dd>
+
+            <dt style="font-weight: bold; margin-top: 10px;">What bare acts are available in NyayaMitra E-Library Pro?</dt>
+            <dd style="margin-left: 0;">NyayaMitra E-Library Pro provides 88 official Central Acts, West Bengal State Acts, and Rules in a read-only viewer, including the Code of Civil Procedure 1908, Bharatiya Nyaya Sanhita 2023, Bharatiya Nagarik Suraksha Sanhita 2023, Bharatiya Sakshya Adhiniyam 2023, Indian Contract Act 1872, Transfer of Property Act 1882, Specific Relief Act 1963, Consumer Protection Act 2019, RERA 2016, WBLR Act 1955, and WBPT Act 1997.</dd>
+          </dl>
+        </section>
       </main>
     </div>
 

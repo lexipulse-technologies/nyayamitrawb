@@ -8,6 +8,7 @@ import {
   resumeAudio,
   stopAudio
 } from '../utils/speechEngine';
+import { trackTtsPlay } from '../utils/analytics';
 
 const AUDIO_TEXT = {
   header: {
@@ -104,6 +105,7 @@ export const AudioRoadmapPlayer: React.FC<Props> = ({ subcategory, lang, activeT
       spokenScript,
       lang,
       () => {
+        trackTtsPlay(subcategory?.id || '', lang);
         setIsPlaying(true);
         setIsPaused(false);
       },

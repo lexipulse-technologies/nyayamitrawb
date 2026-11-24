@@ -17,6 +17,9 @@ import {
 import type { Language } from '../types/legal';
 import { ADVOCATE_PROFILE } from '../data/advocateProfile';
 import { ensureRazorpayLoaded } from './DocumentDrafterModal';
+import { getApiUrl } from '../utils/apiBase';
+import { Capacitor } from '@capacitor/core';
+import { trackBeginCheckout, trackPurchase } from '../utils/analytics';
 
 declare global {
   interface Window {
@@ -174,13 +177,14 @@ export const AdvocateConnectModal: React.FC<Props> = ({
     setProcessing(true);
     try {
       await ensureRazorpayLoaded();
-      const orderRes = await fetch('/api/create-order', {
+      const orderRes = await fetch(getApiUrl('/api/create-order'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ amount: 49900, purpose: 'advocate_connect' })
       });
       if (!orderRes.ok) throw new Error('Order creation failed');
       const orderData = await orderRes.json();
+      trackBeginCheckout('advocate_connect_499', 499, workflowTitle);
 
       const rzp = new window.Razorpay({
         key: orderData.keyId,
@@ -192,7 +196,7 @@ export const AdvocateConnectModal: React.FC<Props> = ({
         prefill: { name: citizenName, contact: mobile, email: citizenEmail },
         theme: { color: '#0f2b48' },
         handler: async (response: any) => {
-          const res = await fetch('/api/advocate-connect', {
+          const res = await fetch(getApiUrl('/api/advocate-connect'), {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -206,6 +210,7 @@ export const AdvocateConnectModal: React.FC<Props> = ({
             })
           });
           if (res.ok) {
+            trackPurchase(response.razorpay_payment_id, 'advocate_connect_499', 499, workflowTitle);
             setPaymentId(response.razorpay_payment_id);
             setStep('success');
             setProcessing(false);
@@ -217,8 +222,9 @@ export const AdvocateConnectModal: React.FC<Props> = ({
         modal: { ondismiss: () => setProcessing(false) }
       });
       rzp.open();
-    } catch {
-      setError('Could not start payment. Please retry.');
+    } catch (err: any) {
+      console.error('[AdvocateConnect] Razorpay error:', err);
+      setError(err?.message?.includes('load') ? 'Payment gateway failed to load. Please check internet and refresh.' : 'Could not start payment. Please retry.');
       setProcessing(false);
     }
   };
@@ -367,19 +373,21 @@ export const AdvocateConnectModal: React.FC<Props> = ({
                       </span>
                     </div>
                   </div>
-                  {/* Dual Logos: Advocate Logo (left) + Bar Council Logo (right) */}
-                  <div className="absolute top-3 right-3 flex items-center gap-2">
-                    <img
-                      src="/assets/advocate_logo.jpg"
-                      alt="Advocate Logo"
-                      className="w-16 h-16 rounded-lg object-contain shadow-md opacity-95"
-                    />
-                    <img
-                      src="/assets/barcouncilofindialogo.png"
-                      alt="Bar Council of India"
-                      className="w-20 h-20 object-contain opacity-95 drop-shadow-lg"
-                    />
-                  </div>
+                  {/* Dual Logos: Advocate Logo (left) + Bar Council Logo (right) — WEB ONLY */}
+                  {!Capacitor.isNativePlatform() && (
+                    <div className="absolute top-3 right-3 flex items-center gap-2">
+                      <img
+                        src="/assets/advocate_logo.jpg"
+                        alt="Advocate Logo"
+                        className="w-16 h-16 rounded-lg object-contain shadow-md opacity-95"
+                      />
+                      <img
+                        src="/assets/barcouncilofindialogo.png"
+                        alt="Bar Council of India"
+                        className="w-20 h-20 object-contain opacity-95 drop-shadow-lg"
+                      />
+                    </div>
+                  )}
                 </div>
 
                 <div className="space-y-1">

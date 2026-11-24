@@ -1,4 +1,5 @@
 // Disable Rolldown strict schema validator to permanently eliminate legacy "jsx" warnings
+// Must be set BEFORE any Vite/Rolldown imports
 process.env.ROLLDOWN_OPTIONS_VALIDATION = 'off';
 
 import { defineConfig, loadEnv } from 'vite';
@@ -157,10 +158,17 @@ function callCheaperInferenceHttp1(apiKey: string, payload: any): Promise<{ ok: 
 
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '');
+  const isCapacitor = env.CAPACITOR_BUILD === 'true';
 
   return {
+    base: '/',
+    optimizeDeps: {
+      include: ['react', 'react-dom', 'react-dom/client'],
+    },
     plugins: [
-      react(),
+      react({
+        jsxRuntime: 'automatic',
+      }),
       {
         name: 'local-api-dev-server',
         configureServer(server) {
@@ -973,37 +981,7 @@ export default defineConfig(({ mode }) => {
       target: 'es2020',
       modulePreload: { polyfill: false },
       cssCodeSplit: true,
-      chunkSizeWarningLimit: 2500,
-      rollupOptions: {
-        output: {
-          manualChunks(id: string) {
-            if (id.includes('node_modules')) {
-              if (id.includes('react') || id.includes('react-dom')) return 'vendor';
-              if (id.includes('@supabase')) return 'supabase';
-              if (id.includes('lucide-react')) return 'icons';
-              if (id.includes('jspdf') || id.includes('qrcode')) return 'pro-engine';
-            }
-            if (id.includes('src/data/categories/landParts') || id.includes('src/data/categories/landData')) {
-              return 'legal-land';
-            }
-            if (id.includes('src/data/categories/partitionParts') || id.includes('src/data/categories/partitionData')) {
-              return 'legal-partition';
-            }
-            if (id.includes('src/data/categories/moneyParts') || id.includes('src/data/categories/moneyData')) {
-              return 'legal-money';
-            }
-            if (id.includes('src/data/categories/consumerParts') || id.includes('src/data/categories/consumerData')) {
-              return 'legal-consumer';
-            }
-            if (id.includes('src/data/categories/familyParts') || id.includes('src/data/categories/familyData')) {
-              return 'legal-family';
-            }
-            if (id.includes('src/data/categories/tenancyParts') || id.includes('src/data/categories/tenancyData')) {
-              return 'legal-tenancy';
-            }
-          }
-        }
-      }
+      chunkSizeWarningLimit: 2500
     }
   };
 });
