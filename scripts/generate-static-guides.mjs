@@ -130,6 +130,7 @@ function renderPage({
   return `${shell.preTitleHead}<title>${safeTitle}</title>
     <meta name="title" content="${safeTitle}" />
     <meta name="description" content="${safeDesc}" />
+    <meta http-equiv="content-language" content="en-in" />
     <meta name="keywords" content="${safeKeywords}" />
     <meta name="author" content="LEXIPULSE TECHNOLOGIES" />
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
